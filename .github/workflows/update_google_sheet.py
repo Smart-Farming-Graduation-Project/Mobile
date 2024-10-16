@@ -75,7 +75,7 @@ def update_google_sheet(ID, Task_Name, Assigned_Member, Assigned_Date, Date_Comp
 
     if task_row:
      
-        range_to_update = f"Web!A{task_row}:I{task_row}"
+        range_to_update = f"Mobile!A{task_row}:I{task_row}"
         body = {
             'values': [row_data]
         }
@@ -84,7 +84,7 @@ def update_google_sheet(ID, Task_Name, Assigned_Member, Assigned_Date, Date_Comp
             valueInputOption="RAW", body=body).execute()
         print(f"Task {ID} updated in row {task_row}.")
     else:
-        append_range = f"Web!A{len(values) + 1}:I{len(values) + 1}"  # Get the next available row
+        append_range = f"Mobile!A{len(values) + 1}:I{len(values) + 1}"  # Get the next available row
         body = {
             'values': [row_data]
         }
