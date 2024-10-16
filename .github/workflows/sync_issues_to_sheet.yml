@@ -1,0 +1,44 @@
+name: Update Google Sheets on Issue Update
+
+on:
+  issues:
+      types:
+      - opened
+      - edited
+      - closed
+      - assigned    # Trigger when someone is assigned to an issue
+      - unassigned  # Trigger when someone is unassigned from an issue
+
+jobs:
+  update-sheet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+
+      - name: Update Google Sheet
+        run: |
+           python .github/workflows/update_google_sheet.py \
+              "${{ github.event.issue.number }}" \
+              "${{ github.event.issue.title }}" \
+              "${{ github.event.issue.body }}" \
+              "${{ github.event.issue.state }}" \
+              "${{ github.event.issue.assignee.login }}" \
+              "${{ github.event.issue.created_at }}" \
+              "${{ github.event.issue.closed_at }}" \
+              "${{ github.repository_owner }}" \
+              "${{ github.event.repository.name }}"
+
+        env:
+          GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEET_CREDENTIALS }}
