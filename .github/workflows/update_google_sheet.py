@@ -21,7 +21,7 @@ def format_date(iso_date):
 
 def custom_assignee(assignee):
     assignee_mapping = {
-        'Mohamedzonkol': 'Mohamed Elsayed',
+        'AliGad17611': 'Ali Gad',
         'NohaAhmedk': 'Noha',
         '00menna00': 'Menna'
     }
