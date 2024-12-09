@@ -1,12 +1,14 @@
 
+import 'package:Crop_Guard/core/utils/Routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../../core/utils/Routing/app_router.dart';
 import '../../../../../../core/utils/theme/app_colors.dart';
 import '../../../../../../core/utils/theme/assets_data.dart';
 import '../models/splash_screen_controller.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -52,7 +54,6 @@ class _SplashScreenState extends State<SplashScreen>
                     offset: Offset(_controller.imageAnimation.value, 10,),
                     child: Image.asset(AseetsData.logo, scale: 1.7,),
                   ),
-
                 ],
               ),
             ),

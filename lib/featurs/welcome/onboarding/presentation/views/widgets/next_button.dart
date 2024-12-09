@@ -1,9 +1,8 @@
 
-import 'package:crop_Guard/core/utils/responsive/widget_height.dart';
-import 'package:crop_Guard/core/utils/responsive/widget_width.dart';
-import 'package:crop_Guard/core/utils/theme/app_colors.dart';
+import 'package:Crop_Guard/core/utils/responsive/widget_height.dart';
+import 'package:Crop_Guard/core/utils/responsive/widget_width.dart';
+import 'package:Crop_Guard/core/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../../core/utils/theme/app_text_styles.dart';
 
 class NextButton extends StatelessWidget {

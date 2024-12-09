@@ -1,4 +1,4 @@
-name: crop_Guard
+name: Crop_Guard
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^6.2.1
   go_router: ^14.6.1
   onboarding_animation: ^0.0.3
+  flutter_native_splash: ^2.4.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,12 +80,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Regular
-      fonts:
-        - asset: assets/fonts/Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
