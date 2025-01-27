@@ -1,3 +1,5 @@
+import 'package:crop_pilot/core/utils/responsive/widget_height.dart';
+import 'package:crop_pilot/core/utils/responsive/widget_width.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatelessWidget {
@@ -5,10 +7,12 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Splash'),
-      ),
+    return  Scaffold(
+      body: SizedBox(
+        width: widgetWidth(context: context, width: 280),
+        height: widgetHeight(context: context, height: 280),
+      )
+      
 
     );
   }
