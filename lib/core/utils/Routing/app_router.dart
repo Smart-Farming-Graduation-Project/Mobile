@@ -1,6 +1,7 @@
-import 'package:crop_pilot/featurs/welcome/auth/presentation/views/login_view.dart';
-import 'package:crop_pilot/featurs/welcome/splash/presentation/views/splash_view.dart';
 import 'package:go_router/go_router.dart';
+import '../../../featurs/welcome/auth/presentation/views/login_view.dart';
+import '../../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
+import '../../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
   static const String splash = '/';
@@ -9,14 +10,15 @@ abstract class AppRouter {
   static const String register = '/register';
   static const String home = '/home';
   static const String selectRole = '/selectRole';
+
   static final router = GoRouter(routes: [
     GoRoute(
       path: splash,
-      builder: (context, state) => const SplashView(),
+      builder: (context, state) =>  const SplashView(),
     ),
     GoRoute(
       path: onboarding,
-      builder: (context, state) => const LoginView(),
+      builder: (context, state) =>  const OnboardingView(),
     ),
     GoRoute(
       path: login,
