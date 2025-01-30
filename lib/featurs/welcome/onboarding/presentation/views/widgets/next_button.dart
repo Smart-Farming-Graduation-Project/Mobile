@@ -1,7 +1,7 @@
 
-import 'package:Crop_Guard/core/utils/responsive/widget_height.dart';
-import 'package:Crop_Guard/core/utils/responsive/widget_width.dart';
-import 'package:Crop_Guard/core/utils/theme/app_colors.dart';
+import 'package:crop_guard/core/utils/responsive/widget_height.dart';
+import 'package:crop_guard/core/utils/responsive/widget_width.dart';
+import 'package:crop_guard/core/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../core/utils/theme/app_text_styles.dart';
 
@@ -10,10 +10,10 @@ class NextButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const NextButton({
-    Key? key,
+    super.key,
     required this.isLastPage,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -46,7 +46,7 @@ class OnboardingController {
     }
   }
 
-  @override
+  
   void dispose() {
     if (pageController.hasClients) {
       pageController.dispose();

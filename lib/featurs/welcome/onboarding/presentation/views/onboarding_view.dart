@@ -11,8 +11,7 @@ import 'widgets/get_card_content.dart';
 import 'widgets/next_button.dart';
 
 class OnboardingView extends StatefulWidget {
-  const OnboardingView({Key? key}) : super(key: key);
-
+  const OnboardingView({super.key});
   @override
   State<OnboardingView> createState() => _OnboardingViewState();
 }
@@ -39,7 +38,7 @@ class _OnboardingViewState extends State<OnboardingView> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(.9),
+      backgroundColor: Colors.white.withAlpha(230),
       body: Stack(
         children: [
           Column(

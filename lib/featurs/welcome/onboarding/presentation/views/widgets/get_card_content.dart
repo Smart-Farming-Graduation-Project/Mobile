@@ -8,11 +8,11 @@ class GetCardsContent extends StatelessWidget {
   final String subtitle;
 
   const GetCardsContent({
-    Key? key,
+    super.key,
     required this.image,
     required this.cardContent,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +21,22 @@ class GetCardsContent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image, scale: 0.4,),
+          Image.asset(
+            image,
+            scale: 0.4,
+          ),
           const SizedBox(height: 30),
           Text(
             cardContent,
-            style: AppTextStyles.textStyle24
-                .copyWith( fontWeight: FontWeight.bold),
+            style:
+                AppTextStyles.textStyle24.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 15),
           Text(
             subtitle,
-            style: AppTextStyles.textStyle24
-                .copyWith(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.bold),
+            style: AppTextStyles.textStyle24.copyWith(
+                fontSize: 16, color: Colors.grey, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 70),

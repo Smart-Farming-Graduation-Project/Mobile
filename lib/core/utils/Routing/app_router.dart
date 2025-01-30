@@ -14,11 +14,11 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: splash,
-      builder: (context, state) =>  SplashView(),
+      builder: (context, state) =>  const SplashView(),
     ),
     GoRoute(
       path: onboarding,
-      builder: (context, state) =>  OnboardingView(),
+      builder: (context, state) =>  const OnboardingView(),
     ),
     GoRoute(
       path: login,

@@ -1,5 +1,5 @@
 
-import 'package:Crop_Guard/core/utils/Routing/app_router.dart';
+import 'package:crop_guard/core/utils/Routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/utils/theme/app_colors.dart';
@@ -10,10 +10,10 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final SplashScreenController _controller;
 
