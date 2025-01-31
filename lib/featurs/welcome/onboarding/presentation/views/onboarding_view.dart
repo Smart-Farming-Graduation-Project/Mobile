@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:onboarding_animation/onboarding_animation.dart';
 
-import '../../../../../core/utils/Routing/app_router.dart';
+import '../../../../../core/utils/routing/app_router.dart';
 
 import '../../../../../core/utils/theme/app_text_styles.dart';
 import 'widgets/controller_page.dart';

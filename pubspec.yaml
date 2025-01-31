@@ -41,6 +41,8 @@ dependencies:
   go_router: ^14.6.1
   onboarding_animation: ^0.0.3
   flutter_native_splash: ^2.4.3
+  flutter_slidable: ^4.0.0
+  flutter_bloc: ^9.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,6 +69,7 @@ flutter:
   assets:
       - assets/images/splash/white_logo.png
       - assets/images/onboarding/
+      - assets/images/cart/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,4 @@
-
-import 'package:crop_guard/core/utils/Routing/app_router.dart';
+import 'package:crop_guard/core/utils/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/utils/theme/app_colors.dart';
@@ -38,7 +37,7 @@ class SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:AppColors.primary,
+      backgroundColor: AppColors.kPrimaryColor,
       body: AnimatedBuilder(
         animation: _controller.animationController,
         builder: (context, _) {
@@ -49,10 +48,15 @@ class SplashScreenState extends State<SplashScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
                   Transform.translate(
-                    offset: Offset(_controller.imageAnimation.value, 10,),
-                    child: Image.asset(AseetsData.logo, scale: 1.7,),
+                    offset: Offset(
+                      _controller.imageAnimation.value,
+                      10,
+                    ),
+                    child: Image.asset(
+                      AseetsData.logo,
+                      scale: 1.7,
+                    ),
                   ),
                 ],
               ),

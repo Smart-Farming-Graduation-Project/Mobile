@@ -28,7 +28,7 @@ class NextButton extends StatelessWidget {
             widgetWidth(context: context, width: 150),
             widgetHeight(context: context, height: 50),
           ),
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.kPrimaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
               widgetHeight(context: context, height: 10),
