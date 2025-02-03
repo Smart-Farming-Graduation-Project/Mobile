@@ -22,9 +22,9 @@ class CropGaurd extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-          title: 'CropPilot',
+          title: 'CropGaurd',
           theme: ThemeData(
-            textTheme: GoogleFonts.interTextTheme(),
+            textTheme: GoogleFonts.robotoTextTheme(),
           ),
         );
       },
