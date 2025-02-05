@@ -6,17 +6,15 @@ import '../../../featurs/welcome/onboarding/presentation/views/onboarding_view.d
 import '../../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
-  static const String splash = '/splash';
+  static const String splash = '/';
   static const String onboarding = '/onboarding';
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
   static const String selectRole = '/selectRole';
-  static const String cart = '/';
+  static const String cart = '/cart';
 
-  static final router = GoRouter(
-      initialLocation: splash,
-      routes: [
+  static final router = GoRouter(initialLocation: splash, routes: [
     GoRoute(
       path: splash,
       builder: (context, state) => const SplashView(),
@@ -37,10 +35,9 @@ abstract class AppRouter {
       path: cart,
       builder: (context, state) => const CartView(),
     ),
-        GoRoute(
-          path: home,
-          builder: (context, state) => const HomePage(),
-        )
-
+    GoRoute(
+      path: home,
+      builder: (context, state) => const HomePage(),
+    )
   ]);
 }
