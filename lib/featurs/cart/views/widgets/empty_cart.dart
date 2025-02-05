@@ -14,6 +14,7 @@ class EmptyCart extends StatelessWidget {
           "My Cart",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

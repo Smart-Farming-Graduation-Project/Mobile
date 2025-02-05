@@ -1,4 +1,4 @@
-
+import 'package:crop_guard/featurs/cart/views/cart_view.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/home_content.dart';
@@ -15,10 +15,10 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     HomeContent(), // The existing home screen content
-    Center(child: Text("Favorites")),
-    Center(child: Text("Cart")),
-    Center(child: Text("Orders")),
-    Center(child: Text("Profile")),
+    const Center(child: Text("Favorites")),
+    const CartView(),
+    const Center(child: Text("Orders")),
+    const Center(child: Text("Profile")),
   ];
 
   @override
@@ -40,14 +40,17 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         elevation: 5,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: "Orders"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: "Favorites"),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: "Cart"),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt), label: "Orders"),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );
   }
 }
-
