@@ -45,7 +45,15 @@ class CartCubit extends Cubit<CartState> {
     if (cartProducts.isEmpty) {
       emit(CartEmptyState());
     } else {
-      emit(CartLoadedState(cartProducts));
+      emit(CartLoadedState(cartProducts, calculateSubTotalPrice(cartProducts)));
     }
+  }
+
+  double calculateSubTotalPrice(List<CartProduct> cartProducts) {
+    double subTotalPrice = 0;
+    for (var product in cartProducts) {
+      subTotalPrice += product.currentPrice * product.quantity;
+    }
+    return subTotalPrice;
   }
 }

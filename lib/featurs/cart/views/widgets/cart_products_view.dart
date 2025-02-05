@@ -1,6 +1,7 @@
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/cart_item_widget.dart';
+import 'package:crop_guard/featurs/cart/views/widgets/checkout_summary.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,7 @@ class CartProductsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                // CheckoutSummary(),
+                const CheckoutSummary(),
               ],
             );
           }
@@ -38,3 +39,4 @@ class CartProductsView extends StatelessWidget {
     );
   }
 }
+

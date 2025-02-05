@@ -5,7 +5,8 @@ class CartInitialState extends CartState {}
 class CartLoadingState extends CartState {}
 class CartLoadedState extends CartState {
   final List<CartProduct> items;
-  CartLoadedState(this.items);
+  final double subTotalPrice;
+  CartLoadedState(this.items, this.subTotalPrice);
 }
 class CartErrorState extends CartState {
   final String message;
