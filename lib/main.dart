@@ -1,14 +1,14 @@
-import 'package:crop_pilot/core/utils/Routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'core/utils/routing/app_router.dart';
 
 void main() {
-  runApp(const CropPilot());
+  runApp(const CropGaurd());
 }
 
-class CropPilot extends StatelessWidget {
-  const CropPilot({super.key});
+class CropGaurd extends StatelessWidget {
+  const CropGaurd({super.key});
 
   // This widget is the root of your application.
   @override
@@ -22,9 +22,9 @@ class CropPilot extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-          title: 'CropPilot',
+          title: 'CropGaurd',
           theme: ThemeData(
-            textTheme: GoogleFonts.interTextTheme(),
+            textTheme: GoogleFonts.robotoTextTheme(),
           ),
         );
       },
