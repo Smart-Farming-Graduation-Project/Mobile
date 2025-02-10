@@ -1,7 +1,9 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/create_account.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in.dart';
 import 'package:go_router/go_router.dart';
 import '../../../featurs/home/presentation/views/home_page.dart';
-import '../../../featurs/welcome/auth/presentation/views/login_view.dart';
 import '../../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
 import '../../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
@@ -15,6 +17,7 @@ abstract class AppRouter {
   static const String cart = '/cart';
 
   static final router = GoRouter(initialLocation: splash, routes: [
+    // welcome routes
     GoRoute(
       path: splash,
       builder: (context, state) => const SplashView(),
@@ -24,12 +27,16 @@ abstract class AppRouter {
       builder: (context, state) => const OnboardingView(),
     ),
     GoRoute(
+      path: selectRole,
+      builder: (context, state) => const AccountType(),
+    ),
+    GoRoute(
       path: login,
-      builder: (context, state) => const LoginView(),
+      builder: (context, state) => const SignIn(),
     ),
     GoRoute(
       path: register,
-      builder: (context, state) => const LoginView(),
+      builder: (context, state) => const CreateAccount(),
     ),
     GoRoute(
       path: cart,

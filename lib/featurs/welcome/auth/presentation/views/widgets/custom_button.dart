@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+
+
+class CustomButton extends StatelessWidget {
+
+  const CustomButton({super.key, required this.buttoncolor,
+    required this.buttonwidth, required this.buttonheight,
+    required this.buttontext, required this.textcolor,this.radius=20});
+ final Color buttoncolor;
+ final double buttonwidth ;
+ final double buttonheight ;
+ final String buttontext ;
+  final Color textcolor ;
+  final double radius ;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+            color:buttoncolor ,
+            borderRadius: BorderRadius.circular(radius)
+        ),
+        width: buttonwidth,
+        height: buttonheight,
+        child: Center(
+            child: Text( buttontext ,
+            style:TextStyle(
+              color: textcolor
+            ),
+            )
+        )
+    );
+  }
+}

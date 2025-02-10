@@ -75,7 +75,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               style: AppTextStyles.textStyle24.copyWith(fontSize: 20,fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                GoRouter.of(context).go(AppRouter.home);
+                GoRouter.of(context).go(AppRouter.selectRole);
               },
             ),
           ),

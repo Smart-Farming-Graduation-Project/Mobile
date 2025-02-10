@@ -37,7 +37,7 @@ class OnboardingController {
 
   void handleNext(BuildContext context) {
     if (isLastPage) {
-      GoRouter.of(context).go(AppRouter.home);
+      GoRouter.of(context).go(AppRouter.selectRole);
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 400),
