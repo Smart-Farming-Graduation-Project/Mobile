@@ -16,9 +16,9 @@ class ItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
+            const Align(
               alignment: Alignment.topRight,
-              child: const Icon(Icons.favorite_border, color: Colors.red),
+              child: Icon(Icons.favorite_border, color: Colors.red),
             ),
             Center(
               child: Image.asset(item.imageUrlrecommended, height: 80, fit: BoxFit.cover),

@@ -9,10 +9,11 @@ import 'search_filter_bar.dart';
 import 'text_section.dart';
 
 class HomeContent extends StatelessWidget {
+  const HomeContent({super.key});
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
+    return const Padding(
+      padding: EdgeInsets.all(20),
       child: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
@@ -39,7 +40,7 @@ class HomeContent extends StatelessWidget {
           ),
           OfferCard(),
           SliverToBoxAdapter(
-            child: TextSection(text1: 'Recommended for you', text2: ''),
+            child:  TextSection(text1: 'Recommended for you', text2: ''),
           ),
           SliverToBoxAdapter(
             child: CategorySelection(),

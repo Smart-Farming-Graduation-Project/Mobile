@@ -29,7 +29,7 @@ class SearchBarf extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Symbols.instant_mix, size: 40, color: Colors.green),
+            icon: const Icon(Symbols.instant_mix, size: 40, color: Colors.green),
           ),
         ],
       );

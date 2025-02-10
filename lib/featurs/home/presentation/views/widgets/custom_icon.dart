@@ -25,7 +25,7 @@ class CustomNotificationIcon extends StatelessWidget {
 
         IconButton(
           onPressed: () {},
-          icon: Icon(FontAwesomeIcons.ellipsis, size: 25),
+          icon: const Icon(FontAwesomeIcons.ellipsis, size: 25),
         ),
       ],
     );

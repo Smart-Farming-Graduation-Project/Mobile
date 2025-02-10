@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/category_model.dart';
 
 class CategorySelection extends StatefulWidget {
+  const CategorySelection({super.key});
   @override
   State<CategorySelection> createState() => _CategorySelectionState();
 }

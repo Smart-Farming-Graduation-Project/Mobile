@@ -7,14 +7,14 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomeContent(), // The existing home screen content
+    const HomeContent(), // The existing home screen content
     const Center(child: Text("Favorites")),
     const CartView(),
     const Center(child: Text("Orders")),
@@ -39,15 +39,15 @@ class _HomePageState extends State<HomePage> {
         showUnselectedLabels: false,
         backgroundColor: Colors.white,
         elevation: 5,
-        items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
               icon: Icon(Icons.favorite), label: "Favorites"),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart), label: "Cart"),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(Icons.list_alt), label: "Orders"),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(Icons.person), label: "Profile"),
         ],
       ),

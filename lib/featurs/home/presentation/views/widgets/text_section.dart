@@ -21,7 +21,7 @@ final String text1;
             onPressed: () {},
             child:  Text(
               text2 ,
-              style: TextStyle(color: Colors.green, fontSize: 20,fontWeight: FontWeight.bold),))
+              style: const TextStyle(color: Colors.green, fontSize: 20,fontWeight: FontWeight.bold),))
       ]
       ),
     );

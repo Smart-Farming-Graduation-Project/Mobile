@@ -4,7 +4,7 @@ import '../../../../../core/utils/responsive/widget_height.dart';
 import 'custom_icon.dart';
 
 class AppbarSection extends StatefulWidget {
-  AppbarSection({
+  const AppbarSection({
     super.key,
     required this.text1,
     required this.text2,
@@ -22,22 +22,22 @@ class _AppbarSectionState extends State<AppbarSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
 
         Row(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 radius: 35,
                 backgroundImage: AssetImage(
                   'assets/images/home/profile.png',
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Column(
@@ -45,18 +45,18 @@ class _AppbarSectionState extends State<AppbarSection> {
               children: [
                 Text(
                   widget.text1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 15,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
                   widget.text2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -64,12 +64,12 @@ class _AppbarSectionState extends State<AppbarSection> {
                 ),
               ],
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
             Column(
               children: [
-                CustomNotificationIcon(),
+                const CustomNotificationIcon(),
                 SizedBox(
                   height: widgetHeight(context: context, height: 30),
                 )
