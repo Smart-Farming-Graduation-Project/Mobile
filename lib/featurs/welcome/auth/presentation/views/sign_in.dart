@@ -25,8 +25,7 @@ class _SignInState extends State<SignIn> {
       backgroundColor: AppColors.kWhiteColor,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             const SizedBox(
               height: 100,
