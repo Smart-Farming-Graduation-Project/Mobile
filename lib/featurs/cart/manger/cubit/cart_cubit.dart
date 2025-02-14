@@ -10,6 +10,7 @@ class CartCubit extends Cubit<CartState> {
   void loadCart() async {
     emit(CartLoadingState());
     await Future.delayed(const Duration(seconds: 2));
+
     checkEmpty(cartProducts);
   }
 
