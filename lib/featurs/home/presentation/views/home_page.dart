@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: _pages[_selectedIndex], // Display selected page
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -37,8 +38,6 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        backgroundColor: Colors.white,
-        elevation: 5,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
