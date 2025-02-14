@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/utils/theme/app_colors.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/models/cart_product.dart';
 import 'package:flutter/material.dart';
@@ -12,31 +13,42 @@ class CartItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       endActionPane: ActionPane(
-          motion: const StretchMotion(),
-          extentRatio: 0.18,
-          children: [
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  splashRadius: 1,
-                  icon: const Icon(
-                    Icons.delete,
-                    size: 40,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    context.read<CartCubit>().removeItem(cartItem.id);
-                  },
+        motion: const ScrollMotion(),
+        extentRatio: 0.18,
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                splashRadius: 1,
+                icon: const Icon(
+                  Icons.delete,
+                  size: 40,
+                  color: Colors.red,
                 ),
+                onPressed: () {
+                  Slidable.of(context)?.close();
+                  context.read<CartCubit>().removeItem(cartItem.id);
+                },
               ),
-            )
-          ]),
-      child: Card(
+            ),
+          )
+        ],
+      ),
+      child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        elevation: 0,
-        color: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withAlpha(128),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
         child: ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -47,14 +59,14 @@ class CartItemWidget extends StatelessWidget {
           ),
           title: Text(cartItem.title,
               style:
-                  const TextStyle(fontWeight: FontWeight.w900, fontSize: 18)),
+                  const TextStyle(fontWeight: FontWeight.w900, fontSize: 19)),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(cartItem.category,
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 245, 204, 143),
-                      fontWeight: FontWeight.w600)),
+                      color: AppColors.kGrayColor,
+                      fontWeight: FontWeight.w400)),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -75,7 +87,8 @@ class CartItemWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                  icon: const Icon(Icons.remove_circle_outline),
+                  icon: const Icon(Icons.remove_circle_outline,
+                      color: Colors.red),
                   onPressed: () {
                     context.read<CartCubit>().updateQuantity(
                           cartItem.id,
@@ -87,7 +100,8 @@ class CartItemWidget extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold)),
               IconButton(
-                  icon: const Icon(Icons.add_circle_outline),
+                  icon:
+                      const Icon(Icons.add_circle_outline, color: Colors.green),
                   onPressed: () {
                     context.read<CartCubit>().updateQuantity(
                           cartItem.id,

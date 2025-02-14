@@ -4,7 +4,7 @@ class ProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback onFavoriteToggle;
 
-  const ProductCard({required this.product, required this.onFavoriteToggle});
+  const ProductCard({super.key, required this.product, required this.onFavoriteToggle});
 
   @override
   Widget build(BuildContext context) {

@@ -10,19 +10,26 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartState>(
-      builder: (context, state) {
-        if (state is CartLoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is CartLoadedState) {
-          return const CartProductsView();
-        } else if (state is CartEmptyState) {
-          return const EmptyCart();
-        } else if (state is CartErrorState) {
-          return Center(child: Text(state.message));
-        }
-        return const Center(child: Text('Something went wrong'));
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "My Cart",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
+      body: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          if (state is CartLoadedState || state is CartLoadingState) {
+            return const CartProductsView();
+          } else if (state is CartEmptyState) {
+            return const EmptyCart();
+          } else if (state is CartErrorState) {
+            return Center(child: Text(state.message));
+          }
+          return const Center(child: Text('Something went wrong'));
+        },
+      ),
     );
   }
 }

@@ -8,15 +8,7 @@ class EmptyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "My Cart",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: 20,
         children: [
@@ -48,7 +40,7 @@ class EmptyCart extends StatelessWidget {
             flex: 5,
           ),
         ],
-      ),
+      
     );
   }
 }

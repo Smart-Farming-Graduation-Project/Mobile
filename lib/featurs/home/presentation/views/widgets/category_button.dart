@@ -1,5 +1,6 @@
+import 'package:crop_guard/featurs/categories/presentation/models/category_model.dart';
 import 'package:flutter/material.dart';
-import '../../models/category_model.dart';
+
 
 class CategorySelection extends StatefulWidget {
   const CategorySelection({super.key});
@@ -8,7 +9,7 @@ class CategorySelection extends StatefulWidget {
 }
 
 class _CategorySelectionState extends State<CategorySelection> {
-  int selectedIndex = -1;
+  int selectedIndex = 0; // Default selection index
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,9 @@ class _CategorySelectionState extends State<CategorySelection> {
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final category = categories[index];
+
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: ActionChip(
                 label: Text(
                   category.categoryName,
@@ -31,11 +33,10 @@ class _CategorySelectionState extends State<CategorySelection> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                backgroundColor:
-                selectedIndex == index ? Colors.green : Colors.white,
+                backgroundColor: selectedIndex == index ? Colors.green : Colors.grey[200],
                 onPressed: () {
                   setState(() {
-                    selectedIndex = index;
+                    selectedIndex = selectedIndex == index ? -1 : index;
                   });
                 },
               ),
@@ -46,3 +47,4 @@ class _CategorySelectionState extends State<CategorySelection> {
     );
   }
 }
+

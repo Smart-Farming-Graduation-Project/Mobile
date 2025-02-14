@@ -1,13 +1,10 @@
 class CategoryModel{
   final String categoryName;
-
-
-
-  CategoryModel({required this.categoryName});
+  CategoryModel({required this.categoryName,});
 }
 
 List<CategoryModel> categories = [
-  CategoryModel(categoryName: "All",),
+ CategoryModel(categoryName: "All",),
   CategoryModel(categoryName: "Meat",),
   CategoryModel(categoryName: "Vegetable",),
   CategoryModel(categoryName: "Fruits", ),
@@ -16,5 +13,4 @@ List<CategoryModel> categories = [
   CategoryModel(categoryName: "Medeical Plants", ),
   CategoryModel(categoryName: "Fertilizers",),
   CategoryModel(categoryName: "Rental Services", ),
-
 ];
