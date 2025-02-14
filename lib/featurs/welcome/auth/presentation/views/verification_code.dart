@@ -54,8 +54,7 @@ class _VerificationCodeState extends State<VerificationCode> {
               children: [
                 Text('Send A New Code',
                   style:TextStyle(
-                      color: Colors.black,
-                      decoration: TextDecoration.underline
+                      color: AppColors.kPrimaryColor,
                   ),
                 )
 

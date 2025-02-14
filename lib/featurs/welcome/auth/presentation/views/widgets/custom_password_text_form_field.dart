@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/utils/theme/app_colors.dart';
 class CustomPasswordTextFormField extends StatefulWidget {
   const CustomPasswordTextFormField({
-    super.key,
+    super.key, required this.text,
   });
+  final String text ;
 
   @override
   State<CustomPasswordTextFormField> createState() => _CustomPasswordTextFormFieldState();
@@ -18,7 +21,7 @@ class _CustomPasswordTextFormFieldState extends State<CustomPasswordTextFormFiel
       controller: password,
         obscureText:!visibility ,
         decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.lock),
+          prefixIcon: const Icon(Icons.lock,color: AppColors.kPrimaryColor,),
           suffixIcon: InkWell(
             onTap: () =>
                 setState( () => visibility = !visibility,
@@ -26,14 +29,19 @@ class _CustomPasswordTextFormFieldState extends State<CustomPasswordTextFormFiel
 
             ),
             child: Icon( visibility ?
-                Icons.visibility_outlined : Icons.visibility_off_outlined ),
+                Icons.visibility_outlined : Icons.visibility_off_outlined ,
+            color: AppColors.kPrimaryColor,),
           ),
 
-          hintText: 'password',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+          hintText: widget.text,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.kPrimaryColor)
           ),
-          fillColor: const Color(0xffD6D6D6),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          fillColor: AppColors.kWhiteColor ,
           filled: true,
 
         )

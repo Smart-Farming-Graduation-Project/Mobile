@@ -1,14 +1,18 @@
+import 'dart:ui';
+
 import 'package:crop_guard/core/utils/routing/app_router.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/forgot_password.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_password_text_form_field.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/theme/app_colors.dart';
 import '../../../../../core/utils/theme/app_text_styles.dart';
+import '../../../../../core/utils/theme/assets_data.dart';
 import 'create_account.dart';
 
 class SignIn extends StatefulWidget {
@@ -19,24 +23,30 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  TextEditingController textEditingController = TextEditingController();
+  String displayText ='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kWhiteColor,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             const SizedBox(
-              height: 100,
+              height: 15,
             ),
-            const Text('Let\'s Get \nYou Sign In !',
-                textAlign: TextAlign.left, style: AppTextStyles.textStyle32),
+            Image.asset(AseetsData.greenlogo2,height: 90,scale: 0.8,),
+
+            const SizedBox(
+              height: 35,
+            ),
+             Text('Welcome Back',
+                textAlign: TextAlign.center, style: AppTextStyles.textStyle32.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(
               height: 55,
             ),
-            const CustomTextFormField(
+            CustomTextFormField(
               obsscureText: false,
               name: 'Email',
               iconName: Icons.mail,
@@ -44,38 +54,24 @@ class _SignInState extends State<SignIn> {
             const SizedBox(
               height: 15,
             ),
-            const CustomPasswordTextFormField(),
+            const CustomPasswordTextFormField(text: 'Password',),
             const SizedBox(
-              height: 15,
+              height: 2,
             ),
+
+             TextButton(onPressed: (){
+               _showAlertDialog(context);
+             },
+                 child: Align(
+                   alignment: Alignment.topRight,
+                   child: Text(
+                     'Forgot Password ?',
+                     style: TextStyle(
+                       color: AppColors.kPrimaryColor,),
+                   ),
+                 ),),
             const SizedBox(
-              height: 15,
-            ),
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const ForgotPassword();
-                        },
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Forgot Password',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        color: Colors.black,
-                        decoration: TextDecoration.underline),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 30,
+              height: 20,
             ),
             GestureDetector(
               onTap: () {
@@ -90,7 +86,7 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             const SizedBox(
-              height: 15,
+              height: 35,
             ),
             const Row(
               children: [
@@ -110,7 +106,7 @@ class _SignInState extends State<SignIn> {
               ],
             ),
             const SizedBox(
-              height: 35,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -147,7 +143,7 @@ class _SignInState extends State<SignIn> {
               ],
             ),
             const SizedBox(
-              height: 100,
+              height: 25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -167,8 +163,7 @@ class _SignInState extends State<SignIn> {
                   child: const Text(
                     'Sign Up',
                     style: TextStyle(
-                        color: AppColors.kPrimaryColor,
-                        decoration: TextDecoration.underline),
+                        color: AppColors.kPrimaryColor,),
                   ),
                 ),
               ],
@@ -181,4 +176,47 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5,sigmaY: 5),
+            child: AlertDialog(
+              content: Text("         Verify Your Email Address\n\n\nwe will send the authentication code\n    to the email address you entered.\n                 Do you want continue?\n",
+              style: AppTextStyles.textStyle16.copyWith(fontWeight: FontWeight.bold),),
+              actions: <Widget>[
+                 ElevatedButton(onPressed: (){
+                   Navigator.of(context).pop();
+                 },
+                     child: Text('cancel'),
+                 style: ElevatedButton.styleFrom(
+                   backgroundColor: AppColors.kPrimaryColor,
+                   foregroundColor: AppColors.kWhiteColor,
+                   padding: EdgeInsets.symmetric(horizontal: 50,vertical: 16),
+                   shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(8)
+                   )
+                 ),),
+
+                ElevatedButton(onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                  child: Text('Next'),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.kPrimaryColor,
+                      foregroundColor: AppColors.kWhiteColor,
+                      padding: EdgeInsets.symmetric(horizontal: 50,vertical: 16),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)
+                      )
+                  ),),
+              ],
+            ),
+          );
+          },
+        );
+    }
+
+
 }
