@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import '../../../../core/utils/theme/app_colors.dart';
+import '../../../categories/presentation/views/category_screen.dart';
 import 'widgets/home_content.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +15,9 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomeContent(), // The existing home screen content
+    const HomeContent(),
+    CategoryScreen(),
+// The existing home screen content
     const Center(child: Text("Favorites")),
     const Center(child: Text("Orders")),
     const Center(child: Text("Profile")),
@@ -41,11 +44,14 @@ class _HomePageState extends State<HomePage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
+              icon: Icon(Icons.category), label: "Category"),
+          BottomNavigationBarItem(
               icon: Icon(Icons.favorite), label: "Favorites"),
           BottomNavigationBarItem(
               icon: Icon(Icons.list_alt), label: "Orders"),
           BottomNavigationBarItem(
               icon: Icon(Icons.person), label: "Profile"),
+
         ],
       ),
     );
