@@ -5,11 +5,6 @@ import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// Builds the widget tree for the checkout summary view.
-///
-/// This method returns a widget that represents the summary
-/// of items in the cart, including their total cost and any
-/// additional checkout information.
 class CheckoutSummary extends StatelessWidget {
   const CheckoutSummary({super.key});
 
@@ -26,8 +21,8 @@ class CheckoutSummary extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade200,
-              offset: const Offset(0, -10),
+              color: Colors.grey.withAlpha(128),
+              offset: const Offset(0, 5),
               blurRadius: 20,
             ),
           ],
