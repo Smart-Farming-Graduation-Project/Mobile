@@ -46,6 +46,7 @@ dependencies:
   badges: ^3.1.2
   font_awesome_flutter: ^10.8.0
   material_symbols_icons: ^4.2805.1
+  skeletonizer: ^1.4.3
 
 dev_dependencies:
   flutter_test:
