@@ -1,4 +1,4 @@
-
+import 'package:crop_guard/featurs/categories/presentation/views/category_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/theme/app_colors.dart';
 import 'widgets/home_content.dart';
@@ -14,7 +14,8 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomeContent(), // The existing home screen content
+    const HomeContent(),
+    const CategoryScreen(),
     const Center(child: Text("Favorites")),
     const Center(child: Text("Orders")),
     const Center(child: Text("Profile")),
@@ -39,13 +40,16 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         elevation: 5,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category), label: "Category"),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite), label: "Favorites"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt), label: "Orders"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: "Orders"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );

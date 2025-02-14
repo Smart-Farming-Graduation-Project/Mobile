@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'appbar_section.dart';
-import 'category_section.dart';
 import 'filter_button.dart';
 import 'offer_card.dart';
 import 'recommended_section.dart';
@@ -24,14 +23,6 @@ class HomeContent extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: SearchBarf(),
-          ),
-          SliverToBoxAdapter(
-            child: TextSection(text1: 'Categories', text2: 'See all'),
-          ),
-          SliverToBoxAdapter(
-            child: CategoriesSection(
-              axis: 'horizontal',
-            ),
           ),
           SliverToBoxAdapter(
             child: TextSection(text1: 'Today\'s Offer', text2: ''),
