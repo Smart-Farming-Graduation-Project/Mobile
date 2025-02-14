@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
-
 class SearchBarf extends StatelessWidget {
   const SearchBarf({super.key});
 

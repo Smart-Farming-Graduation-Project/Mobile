@@ -1,7 +1,6 @@
-import 'package:crop_guard/featurs/cart/views/cart_view.dart';
+
 import 'package:flutter/material.dart';
 import '../../../../core/utils/theme/app_colors.dart';
-import 'widgets/appbar_section.dart';
 import 'widgets/home_content.dart';
 
 class HomePage extends StatefulWidget {
