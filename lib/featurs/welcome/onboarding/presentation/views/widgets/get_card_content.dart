@@ -23,7 +23,7 @@ class GetCardsContent extends StatelessWidget {
         children: [
           Image.asset(
             image,
-            scale: 0.5,
+            scale: 0.8,
           ),
           const SizedBox(height: 30),
           Text(

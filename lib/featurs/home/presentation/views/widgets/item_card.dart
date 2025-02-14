@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../../models/recommended_model.dart';
 
@@ -41,7 +42,7 @@ class ItemCard extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const CircleAvatar(
-                  backgroundColor: Colors.green,
+                  backgroundColor: AppColors.kPrimaryColor,
                   radius: 16,
                   child: Icon(Icons.add, color: Colors.white, size: 20),
                 )

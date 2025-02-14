@@ -2,17 +2,17 @@ import 'package:crop_guard/core/utils/responsive/widget_height.dart';
 import 'package:crop_guard/core/utils/responsive/widget_width.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/category_model.dart';
+import '../../../../categories/presentation/models/category_model.dart';
 
 class CategoriesSection extends StatelessWidget {
-  const CategoriesSection({super.key});
-
+  const CategoriesSection({super.key, required this.axis});
+final String axis;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 180,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+        scrollDirection:axis == 'horizontal' ? Axis.horizontal : Axis.vertical,
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];

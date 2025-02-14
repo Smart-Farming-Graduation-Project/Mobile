@@ -1,6 +1,7 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
 import 'package:flutter/material.dart';
-
+import '../../../../core/utils/theme/app_colors.dart';
+import 'widgets/appbar_section.dart';
 import 'widgets/home_content.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +17,6 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     const HomeContent(), // The existing home screen content
     const Center(child: Text("Favorites")),
-    const CartView(),
     const Center(child: Text("Orders")),
     const Center(child: Text("Profile")),
   ];
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.green,
+        selectedItemColor: AppColors.kPrimaryColor,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -43,8 +43,6 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite), label: "Favorites"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: "Cart"),
           BottomNavigationBarItem(
               icon: Icon(Icons.list_alt), label: "Orders"),
           BottomNavigationBarItem(

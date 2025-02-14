@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'appbar_section.dart';
-import 'category_button.dart';
 import 'category_section.dart';
+import 'filter_button.dart';
 import 'offer_card.dart';
 import 'recommended_section.dart';
 import 'search_filter_bar.dart';
@@ -12,40 +11,39 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(20),
+    return Padding(
+      padding: const EdgeInsets.all(20),
       child: CustomScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: AppbarSection(
               text1: 'Delivered to',
               text2: 'Noha Ahmed',
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SearchBarf(),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: TextSection(text1: 'Categories', text2: 'See all'),
           ),
-          SliverToBoxAdapter(
-            child: CategoriesSection(),
+          const SliverToBoxAdapter(
+            child: CategoriesSection(axis:'horizontal',),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: TextSection(text1: 'Today\'s Offer', text2: ''),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          OfferCard(),
+          const OfferCard(),
+
           SliverToBoxAdapter(
-            child:  TextSection(text1: 'Recommended for you', text2: ''),
+            child: FilterButton(text1: 'Popular',),
           ),
-          SliverToBoxAdapter(
-            child: CategorySelection(),
-          ),
-          SliverToBoxAdapter(
+
+          const SliverToBoxAdapter(
             child: RecommendedSection(),
           ),
         ],

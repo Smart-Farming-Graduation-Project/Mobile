@@ -49,6 +49,7 @@ class _AppbarSectionState extends State<AppbarSection> {
                     color: Colors.grey,
                     fontSize: 15,
                     fontWeight: FontWeight.w900,
+                    fontFamily: 'Poppins',
                   ),
                 ),
                 const SizedBox(
@@ -60,8 +61,10 @@ class _AppbarSectionState extends State<AppbarSection> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
+                    fontFamily: 'Poppins',
                   ),
                 ),
+
               ],
             ),
             const Spacer(
@@ -74,10 +77,12 @@ class _AppbarSectionState extends State<AppbarSection> {
                   height: widgetHeight(context: context, height: 30),
                 )
               ],
-            )
+            ),
           ],
         ),
-
+        const SizedBox(
+          height: 10,
+        ),
 
       ],
     );
