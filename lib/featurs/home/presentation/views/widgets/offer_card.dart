@@ -31,7 +31,7 @@ class OfferCard extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: AppColors.kPrimaryColor.withOpacity(0.7),
+                            color: AppColors.kPrimaryColor.withAlpha(200),
                           ),
                           width: widgetWidth(context: context, width: 90),
                           height: widgetHeight(context: context, height: 30),
