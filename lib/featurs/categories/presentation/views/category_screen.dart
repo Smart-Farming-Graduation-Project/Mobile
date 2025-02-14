@@ -1,8 +1,6 @@
-import 'package:crop_guard/core/utils/routing/app_router.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/category_button.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/item_card.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../../../home/presentation/models/recommended_model.dart';
 
 class CategoryScreen extends StatelessWidget {
