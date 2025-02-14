@@ -52,7 +52,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: categoryscreen,
-      builder: (context, state) => CategoryScreen(),
+      builder: (context, state) => const CategoryScreen(),
     ),
   
   ]);

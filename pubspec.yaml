@@ -46,13 +46,10 @@ dependencies:
   badges: ^3.1.2
   font_awesome_flutter: ^10.8.0
   material_symbols_icons: ^4.2805.1
-<<<<<<< HEAD
   local_hero_transform: ^0.0.5
   local_hero: ^0.3.0
-=======
   skeletonizer: ^1.4.3
 
->>>>>>> Ali-Cart-Task2
 dev_dependencies:
   flutter_test:
     sdk: flutter

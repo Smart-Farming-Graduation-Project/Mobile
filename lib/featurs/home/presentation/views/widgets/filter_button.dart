@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import '../../../../../core/utils/theme/app_colors.dart';
 class FilterButton extends StatelessWidget {
-   FilterButton({super.key, required this.text1});
+   const FilterButton({super.key, required this.text1});
   final String text1;
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class FilterButton extends StatelessWidget {
               text1,
               style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold,fontFamily: 'Poppins'),
             ),
-            IconButton(onPressed: (){}, icon: Icon( Symbols.instant_mix,color:AppColors.kPrimaryColor,
+            IconButton(onPressed: (){}, icon: const Icon( Symbols.instant_mix,color:AppColors.kPrimaryColor,
               size: 34,))
           ]
       ),

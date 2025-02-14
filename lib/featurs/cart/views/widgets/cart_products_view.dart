@@ -5,7 +5,7 @@ import 'package:crop_guard/featurs/cart/views/widgets/cart_item_widget.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/checkout_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart'; // Ensure you have the skeletonizer package
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CartProductsView extends StatelessWidget {
   const CartProductsView({super.key});

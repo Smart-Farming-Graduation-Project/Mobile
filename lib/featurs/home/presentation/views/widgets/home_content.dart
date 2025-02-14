@@ -11,39 +11,41 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
+    return const Padding(
+      padding: EdgeInsets.all(15),
       child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         slivers: [
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: AppbarSection(
               text1: 'Delivered to',
               text2: 'Noha Ahmed',
             ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: SearchBarf(),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: TextSection(text1: 'Categories', text2: 'See all'),
           ),
-          const SliverToBoxAdapter(
-            child: CategoriesSection(axis:'horizontal',),
+          SliverToBoxAdapter(
+            child: CategoriesSection(
+              axis: 'horizontal',
+            ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: TextSection(text1: 'Today\'s Offer', text2: ''),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          const OfferCard(),
-
+          OfferCard(),
           SliverToBoxAdapter(
-            child: FilterButton(text1: 'Popular',),
+            child: FilterButton(
+              text1: 'Popular',
+            ),
           ),
-
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: RecommendedSection(),
           ),
         ],
@@ -51,4 +53,3 @@ class HomeContent extends StatelessWidget {
     );
   }
 }
-
