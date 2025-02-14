@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../core/utils/theme/app_colors.dart';
 import '../../../../../core/utils/theme/app_text_styles.dart';
+import '../../../../../core/utils/theme/assets_data.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -25,12 +26,18 @@ class _CreateAccountState extends State<CreateAccount> {
         child: ListView(
           children: [
             const SizedBox(
-              height: 45,
+              height: 15,
             ),
-            const Text('Create \nAn Acount',
-                textAlign: TextAlign.left, style: AppTextStyles.textStyle32),
+            Image.asset(AseetsData.greenlogo2,height: 90,scale: 0.8,),
             const SizedBox(
-              height: 45,
+              height: 25,
+            ),
+             Text('Create New Account',
+                textAlign: TextAlign.center,
+                style: AppTextStyles.textStyle32.copyWith(fontWeight: FontWeight.bold)),
+
+            const SizedBox(
+              height: 35,
             ),
             const CustomTextFormField(
               obsscureText: false,
@@ -48,11 +55,11 @@ class _CreateAccountState extends State<CreateAccount> {
             const SizedBox(
               height: 15,
             ),
-            const CustomPasswordTextFormField(),
+             CustomPasswordTextFormField(text: 'Password',),
             const SizedBox(
               height: 15,
             ),
-            const CustomPasswordTextFormField(),
+             CustomPasswordTextFormField(text: 'Confirm Password',),
             const SizedBox(
               height: 15,
             ),
@@ -110,7 +117,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   splashColor: AppColors.kGrayColor,
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    child: const Icon(
+                    child:  Icon(
                       FontAwesomeIcons.facebook,
                       color: Colors.blue,
                       size: 50,
@@ -126,9 +133,9 @@ class _CreateAccountState extends State<CreateAccount> {
                   splashColor: AppColors.kGrayColor,
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    child: const Icon(
+                    child: Icon(
                       FontAwesomeIcons.google,
-                      color: Colors.blue,
+                      color: AppColors.kGrayColor,
                       size: 50,
                     ),
                   ),
@@ -156,8 +163,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   child: const Text(
                     'Sign In',
                     style: TextStyle(
-                        color: AppColors.kPrimaryColor,
-                        decoration: TextDecoration.underline),
+                        color: AppColors.kPrimaryColor,),
                   ),
                 )
               ],
