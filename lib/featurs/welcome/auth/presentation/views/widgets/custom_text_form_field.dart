@@ -28,7 +28,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         hintText: widget.name,
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: AppColors.kPrimaryColor)
+            borderSide: const BorderSide(color: AppColors.kPrimaryColor)
         ),
         border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),

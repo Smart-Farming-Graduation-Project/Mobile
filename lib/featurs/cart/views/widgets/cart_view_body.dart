@@ -5,6 +5,7 @@ import 'package:crop_guard/featurs/cart/views/widgets/cart_products_view.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/empty_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -18,6 +19,14 @@ class CartViewBody extends StatelessWidget {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+        ),
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {

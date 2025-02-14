@@ -8,15 +8,19 @@ class CategoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '\n Category',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontFamily: 'Poppins'),
-        ),        centerTitle: true,
+          'Category',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontFamily: 'Poppins'),
+        ),
+        centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
       ),
       body: const Padding(
         padding: EdgeInsets.all(8.0),
-        child:  Column(
+        child: Column(
           children: [
             CategorySelection(),
             SizedBox(height: 10),

@@ -36,7 +36,7 @@ class _CustomPasswordTextFormFieldState extends State<CustomPasswordTextFormFiel
           hintText: widget.text,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.kPrimaryColor)
+              borderSide: const BorderSide(color: AppColors.kPrimaryColor)
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

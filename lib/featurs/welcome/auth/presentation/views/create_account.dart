@@ -55,11 +55,11 @@ class _CreateAccountState extends State<CreateAccount> {
             const SizedBox(
               height: 15,
             ),
-             CustomPasswordTextFormField(text: 'Password',),
+             const CustomPasswordTextFormField(text: 'Password',),
             const SizedBox(
               height: 15,
             ),
-             CustomPasswordTextFormField(text: 'Confirm Password',),
+             const CustomPasswordTextFormField(text: 'Confirm Password',),
             const SizedBox(
               height: 15,
             ),
@@ -117,7 +117,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   splashColor: AppColors.kGrayColor,
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    child:  Icon(
+                    child:  const Icon(
                       FontAwesomeIcons.facebook,
                       color: Colors.blue,
                       size: 50,
@@ -133,7 +133,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   splashColor: AppColors.kGrayColor,
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    child: Icon(
+                    child: const Icon(
                       FontAwesomeIcons.google,
                       color: AppColors.kGrayColor,
                       size: 50,

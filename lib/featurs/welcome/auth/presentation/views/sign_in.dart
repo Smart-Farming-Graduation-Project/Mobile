@@ -1,11 +1,9 @@
 import 'dart:ui';
 
 import 'package:crop_guard/core/utils/routing/app_router.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/forgot_password.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_password_text_form_field.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_text_form_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -46,7 +44,7 @@ class _SignInState extends State<SignIn> {
             const SizedBox(
               height: 55,
             ),
-            CustomTextFormField(
+            const CustomTextFormField(
               obsscureText: false,
               name: 'Email',
               iconName: Icons.mail,
@@ -62,7 +60,7 @@ class _SignInState extends State<SignIn> {
              TextButton(onPressed: (){
                _showAlertDialog(context);
              },
-                 child: Align(
+                 child: const Align(
                    alignment: Alignment.topRight,
                    child: Text(
                      'Forgot Password ?',
@@ -189,28 +187,28 @@ class _SignInState extends State<SignIn> {
                  ElevatedButton(onPressed: (){
                    Navigator.of(context).pop();
                  },
-                     child: Text('cancel'),
                  style: ElevatedButton.styleFrom(
                    backgroundColor: AppColors.kPrimaryColor,
                    foregroundColor: AppColors.kWhiteColor,
-                   padding: EdgeInsets.symmetric(horizontal: 50,vertical: 16),
+                   padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 16),
                    shape: RoundedRectangleBorder(
                      borderRadius: BorderRadius.circular(8)
                    )
-                 ),),
+                 ),
+                     child:  const Text('cancel'),),
 
                 ElevatedButton(onPressed: (){
                   Navigator.of(context).pop();
                 },
-                  child: Text('Next'),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.kPrimaryColor,
                       foregroundColor: AppColors.kWhiteColor,
-                      padding: EdgeInsets.symmetric(horizontal: 50,vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 16),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)
                       )
-                  ),),
+                  ),
+                  child: const Text('Next'),),
               ],
             ),
           );

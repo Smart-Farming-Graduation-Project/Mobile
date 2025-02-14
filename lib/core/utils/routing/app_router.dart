@@ -1,4 +1,5 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
+import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/create_account.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in.dart';
@@ -14,6 +15,7 @@ abstract class AppRouter {
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
+  static const String homeContent = '/homeContent';
   static const String selectRole = '/selectRole';
   static const String cart = '/cart';
   static const String categoryscreen = '/categoryscreen';
@@ -51,9 +53,12 @@ abstract class AppRouter {
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
+      path: homeContent,
+      builder: (context, state) => const HomeContent(),
+    ),
+    GoRoute(
       path: categoryscreen,
       builder: (context, state) => const CategoryScreen(),
     ),
-  
   ]);
 }
