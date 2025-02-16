@@ -33,4 +33,24 @@ List<RecommendedModel> items = [
       namerecommended: 'Avocado',
       pricerecommended: '\$18.00',
       categoryrecommended: 'Fruit'),
+  RecommendedModel(
+      imageUrlrecommended: 'assets/images/home/Avocado.png',
+      namerecommended: 'Avocado',
+      pricerecommended: '\$18.00',
+      categoryrecommended: 'Fruit'),
+  RecommendedModel(
+      imageUrlrecommended: 'assets/images/home/Avocado.png',
+      namerecommended: 'Avocado',
+      pricerecommended: '\$18.00',
+      categoryrecommended: 'Fruit'),
+  RecommendedModel(
+      imageUrlrecommended: 'assets/images/home/Avocado.png',
+      namerecommended: 'Avocado',
+      pricerecommended: '\$18.00',
+      categoryrecommended: 'Fruit'),
+  RecommendedModel(
+      imageUrlrecommended: 'assets/images/home/Avocado.png',
+      namerecommended: 'Avocado',
+      pricerecommended: '\$18.00',
+      categoryrecommended: 'Fruit'),
 ];

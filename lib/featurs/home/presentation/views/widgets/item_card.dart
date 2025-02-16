@@ -11,7 +11,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      elevation: 3,
+      elevation: 5,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
