@@ -1,0 +1,2 @@
+D:/Gradution Project/Mobile/android/app/.cxx/Debug/5s1w411k/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Gradution Project/Mobile/android/app/.cxx/Debug/5s1w411k/arm64-v8a/CMakeFiles/rebuild_cache.dir
