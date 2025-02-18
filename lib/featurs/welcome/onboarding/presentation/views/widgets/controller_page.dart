@@ -7,17 +7,17 @@ class OnboardingController {
   final PageController pageController = PageController();
   final List<Map<String, String>> onboardingData = [
     {
-      "image": 'assets/images/onboarding/Animation - 1733267720718.gif',
+      "image": 'assets/images/onboarding/onboarding_page1_image.gif',
       "cardContent": "Seamless Shopping, Fresh Finds, Anytime, Anywhere!",
       "subtitle": "Explore a world of fresh products and effortless shopping at your convenience.",
     },
     {
-      "image": 'assets/images/onboarding/Animation - 1733268226361.gif',
+      "image": 'assets/images/onboarding/onboarding_page2_image.gif',
       "cardContent": "Stay in Control, Wherever You Are!",
       "subtitle": "Monitor and control your rovers remotely through our app, ensuring your farm operates seamlessly 24/7.",
     },
     {
-      "image": 'assets/images/onboarding/Animation - 1733271558252.gif',
+      "image": 'assets/images/onboarding/onboarding_page3_image.gif',
       "cardContent": "Seamless Shopping, Fresh Finds, Anytime, Anywhere!",
       "subtitle": "Explore a world of fresh products and effortless shopping at your convenience.",
     },

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/responsive/widget_height.dart';
 import 'custom_icon.dart';
+import 'search_filter_bar.dart';
 
 class AppbarSection extends StatefulWidget {
   const AppbarSection({
@@ -22,10 +23,13 @@ class _AppbarSectionState extends State<AppbarSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 50),
+         SizedBox(height: widgetHeight(context: context, height: 34),),
 
         Row(
           children: [
+            const SizedBox(
+              width: 10,
+            ),
             Container(
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
@@ -80,9 +84,12 @@ class _AppbarSectionState extends State<AppbarSection> {
             ),
           ],
         ),
+
         const SizedBox(
           height: 10,
         ),
+        const SearchBarf(),
+
 
       ],
     );

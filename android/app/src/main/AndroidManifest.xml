@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="CropGaurd"
+        android:label="Crop Guard"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCYlF4N0kE6gv43JMguXyAlTHlwySup0Yw"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
