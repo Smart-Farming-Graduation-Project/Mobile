@@ -26,6 +26,7 @@ class CropGaurd extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'CropGaurd',
           theme: ThemeData(
+            primarySwatch: Colors.green,
             textTheme: GoogleFonts.robotoTextTheme(),
           ),
         );
