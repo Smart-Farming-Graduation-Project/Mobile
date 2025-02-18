@@ -5,6 +5,8 @@ import 'core/utils/routing/app_router.dart';
 
 void main() {
   runApp(const CropGaurd());
+
+
 }
 
 class CropGaurd extends StatelessWidget {
