@@ -32,8 +32,7 @@ class CartViewBody extends StatelessWidget {
         builder: (context, state) {
           if (state is CartLoadingState) {
             return const CartLoading();
-          }
-          if (state is CartLoadedState) {
+          } else if (state is CartLoadedState) {
             return const CartProductsView();
           } else if (state is CartEmptyState) {
             return const EmptyCart();
