@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 
@@ -23,9 +24,7 @@ class CustomButton extends StatelessWidget {
         height: buttonheight,
         child: Center(
             child: Text( buttontext ,
-            style:TextStyle(
-              color: textcolor
-            ),
+            style:AppTextStyles.textStyle24.copyWith(color: textcolor)
             )
         )
     );

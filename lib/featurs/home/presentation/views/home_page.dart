@@ -1,4 +1,5 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
+import 'package:crop_guard/featurs/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/home_content.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     const Center(child: Text("Favorites")),
     const CartView(),
     const Center(child: Text("Orders")),
-    const Center(child: Text("Profile")),
+    const ProfileView(),
   ];
 
   @override
