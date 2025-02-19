@@ -1,3 +1,4 @@
+import 'package:crop_guard/featurs/home/presentation/views/widgets/search_filter_bar.dart';
 import 'package:flutter/material.dart';
 import 'appbar_section.dart';
 import 'filter_button.dart';
@@ -10,36 +11,39 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      const Scaffold(
-        appBar:  PreferredSize(
-          preferredSize: Size.fromHeight(150),
-          child:AppbarSection(
-            text1: 'Delivered to',
-            text2: 'Noha Ahmed',
-          ),
-        ),
-        body: Padding(
-        padding: EdgeInsets.all(20),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: TextSection(text1: 'Today\'s Offer', text2: ''),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(height: 10),
-            ),
-            OfferCard(),
-            SliverToBoxAdapter(
-              child: FilterButton(
-                text1: 'Popular',
+      const SafeArea(
+        child:  Scaffold(
+          body: Padding(
+          padding: EdgeInsets.symmetric( horizontal: 20),
+          child: Column(
+            children: [
+             AppbarSection( userName: 'Noha Ahmed',),
+              SearchBarFilter(),
+              Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: TextSection(text1: 'Today\'s Offer', text2: ''),
+                    ),
+                    SliverToBoxAdapter(
+                      child: SizedBox(height: 10),
+                    ),
+                    OfferCard(),
+                    SliverToBoxAdapter(
+                      child: FilterButton(
+                        text1: 'Popular',
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: RecommendedSection(),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: RecommendedSection(),
-            ),
-          ],
+            ],
+          ),
+              ),
         ),
-            ),
       );
   }
 }

@@ -1,97 +1,73 @@
 
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/responsive/widget_height.dart';
 import 'custom_icon.dart';
-import 'search_filter_bar.dart';
 
-class AppbarSection extends StatefulWidget {
+class AppbarSection extends StatelessWidget {
   const AppbarSection({
     super.key,
-    required this.text1,
-    required this.text2,
+    required this.userName,
   });
-  final String text1;
-  final String text2;
+  final String userName;
 
-  @override
-  State<AppbarSection> createState() => _AppbarSectionState();
-}
-
-class _AppbarSectionState extends State<AppbarSection> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-         SizedBox(height: widgetHeight(context: context, height: 34),),
-
-        Row(
-          children: [
-            const SizedBox(
-              width: 10,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 14),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
             ),
-            Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: const CircleAvatar(
-                radius: 35,
-                backgroundImage: AssetImage(
-                  'assets/images/home/profile.png',
-                ),
+            child: const CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage(
+                'assets/images/home/profile.png',
               ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.text1,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: 'Poppins',
-                  ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize:  MainAxisSize.min,
+            children: [
+              const Text(
+                'Deliverd to',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Poppins',
                 ),
-                const SizedBox(
-                  height: 5,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                userName,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: 'Poppins',
                 ),
-                Text(
-                  widget.text2,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
+              ),
 
-              ],
-            ),
-            const Spacer(
-              flex: 1,
-            ),
-            Column(
-              children: [
-                const CustomNotificationIcon(),
-                SizedBox(
-                  height: widgetHeight(context: context, height: 30),
-                )
-              ],
-            ),
-          ],
-        ),
-
-        const SizedBox(
-          height: 10,
-        ),
-        const SearchBarf(),
-
-
-      ],
+            ],
+          ),
+          const Spacer(
+            flex: 1,
+          ),
+          const CustomNotificationIcon(),
+        ],
+      ),
     );
   }
 }

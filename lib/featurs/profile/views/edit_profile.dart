@@ -17,7 +17,8 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  const Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold),),
+        title:  Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold),),
+
         centerTitle: true,
       ),
       body: Padding(
@@ -27,7 +28,8 @@ class _EditProfileState extends State<EditProfile> {
           children: [
 
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
+
               child: Center(
                 child: Column(
                   children: [
@@ -38,7 +40,9 @@ class _EditProfileState extends State<EditProfile> {
                             width: 120,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(80),
-                              child: const Image(image: AssetImage('assets/images/home/profile.png')),
+
+                              child: Image(image: AssetImage('assets/images/home/profile.png')),
+
                             ),
                           ),
 
@@ -63,7 +67,8 @@ class _EditProfileState extends State<EditProfile> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(80),
                                   color: AppColors.kPrimaryColor),
-                              child: const Icon(FontAwesomeIcons.pen,
+                              child: Icon(FontAwesomeIcons.pen,
+
                                 color: AppColors.kWhiteColor,
                                 size: 20,),
                             ),
@@ -75,15 +80,16 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
             ),
-            const TextBox1(name: 'Name'),
-            const SizedBox(height: 15,),
-            const TextBox1(name: 'Email Address'),
-            const SizedBox(height: 15,),
-            const TextBox1(name: 'Mobile Number'),
-            const SizedBox(height: 15,),
-            const TextBox1(name: 'Enter Address'),
-            const SizedBox(height: 230,),
-            const CustomButton(buttoncolor: AppColors.kPrimaryColor,
+            TextBox1(name: 'Name'),
+            SizedBox(height: 15,),
+            TextBox1(name: 'Email Address'),
+            SizedBox(height: 15,),
+            TextBox1(name: 'Mobile Number'),
+            SizedBox(height: 15,),
+            TextBox1(name: 'Enter Address'),
+            SizedBox(height: 230,),
+            CustomButton(buttoncolor: AppColors.kPrimaryColor,
+
                 buttonwidth: 50,
                 buttonheight: 60,
                 buttontext: 'Update', textcolor:AppColors.kWhiteColor)

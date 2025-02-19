@@ -1,4 +1,5 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
+import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/create_account.dart';
@@ -20,6 +21,8 @@ abstract class AppRouter {
   static const String cart = '/cart';
   static const String categoryscreen = '/categoryscreen';
   static const details = '/category-details';
+  static const String favorites = '/favorites';
+
 
 
   static final router = GoRouter(initialLocation: splash, routes: [
@@ -55,6 +58,10 @@ abstract class AppRouter {
     GoRoute(
       path: homeContent,
       builder: (context, state) => const HomeContent(),
+    ),
+    GoRoute(
+      path: favorites,
+      builder: (context, state) => const FavScreen(),
     ),
     GoRoute(
       path: categoryscreen,

@@ -1,56 +1,58 @@
-import 'package:crop_guard/featurs/categories/presentation/views/category_screen.dart';
+import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
+import '../../../categories/presentation/views/category_screen.dart';
+import '../../manger/cubit/home_cubit.dart';
 import 'widgets/home_content.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    const HomeContent(),
-    const CategoryScreen(),
-    const Center(child: Text("Favorites")),
-    const Center(child: Text("Orders")),
-    const ProfileView(),
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: BlocBuilder<HomeCubit, int>(
+        builder: (context, selectedIndex) {
+          final List<Widget> pages = [
+            const HomeContent(),
+            const CategoryScreen(),
+            const FavScreen(),
+            const Center(child: Text("Orders")),
+            const ProfileView(),
+          ];
 
-      body: _pages[_selectedIndex], // Display selected page
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          return Scaffold(
+            body: pages[selectedIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: selectedIndex,
+              onTap: (index) {
+                context.read<HomeCubit>().changePage(index);
+              },
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: AppColors.kPrimaryColor,
+              unselectedItemColor: Colors.grey,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.category), label: "Category"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite), label: "Favorites"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.list_alt), label: "Orders"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person), label: "Profile"),
+              ],
+            ),
+          );
         },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.kPrimaryColor,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category), label: "Category"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: "Favorites"),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: "Orders"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
       ),
     );
   }
