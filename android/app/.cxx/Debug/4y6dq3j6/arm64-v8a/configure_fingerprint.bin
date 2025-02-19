@@ -2,6 +2,7 @@ C/C++ Structured LogK
 I
 GC:\flutter\packages\flutter_tools\gradle\src\main\groovy\CMakeLists.txtC
 A
+<<<<<<< HEAD
 ?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	Õ¹„¾Ñ2§ ”ÿºÑ2f
 d
 bD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\additional_project_files.txt	Õ¹„¾Ñ2 À¹„¾Ñ2c
@@ -26,3 +27,29 @@ Z
 XD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\prefab_config.json	Õ¹„¾Ñ2( Í¹„¾Ñ2a
 _
 ]D:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\symbol_folder_index.txt	Õ¹„¾Ñ2T Í¹„¾Ñ2
+=======
+?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	ëïÞÛÑ2§ ”ÿºÑ2f
+d
+bD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\additional_project_files.txt	ëïÞÛÑ2 ØêÞÛÑ2c
+a
+_D:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\android_gradle_build.json	ëïÞÛÑ2¦ ÛêÞÛÑ2h
+f
+dD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\android_gradle_build_mini.json	ëïÞÛÑ2ý áêÞÛÑ2U
+S
+QD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\build.ninja	ëïÞÛÑ2ÞØ “êÞÛÑ2Y
+W
+UD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\build.ninja.txt	ëïÞÛÑ2^
+\
+ZD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\build_file_index.txt	ëïÞÛÑ2G âïÞÛÑ2_
+]
+[D:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\compile_commands.json	ëïÞÛÑ2	c
+a
+_D:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\compile_commands.json.bin	ëïÞÛÑ2
+i
+g
+eD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\metadata_generation_command.txt	ëïÞÛÑ2¸ áïÞÛÑ2\
+Z
+XD:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\prefab_config.json	ëïÞÛÑ2( áïÞÛÑ2a
+_
+]D:\Gradution Project\Mobile\android\app\.cxx\Debug\4y6dq3j6\arm64-v8a\symbol_folder_index.txt	ëïÞÛÑ2T âïÞÛÑ2
+>>>>>>> main
