@@ -36,7 +36,7 @@ class _InformationWidgetState extends State<InformationWidget> {
                   width: 120,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(80),
-                    child: Image(image: AssetImage('assets/images/home/profile.png')),
+                    child: const Image(image: AssetImage('assets/images/home/profile.png')),
 
                   ),
                 ),
@@ -62,7 +62,7 @@ class _InformationWidgetState extends State<InformationWidget> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(80),
                         color: AppColors.kPrimaryColor),
-                    child: Icon(FontAwesomeIcons.pen,
+                    child: const Icon(FontAwesomeIcons.pen,
 
                       color: AppColors.kWhiteColor,
                       size: 20,),
@@ -71,7 +71,7 @@ class _InformationWidgetState extends State<InformationWidget> {
               ]
 
           ),
-          SizedBox(width: 20,),
+          const SizedBox(width: 20,),
 
           Column(
             children: [

@@ -24,10 +24,10 @@ class _ProfileViewState extends State<ProfileView> {
           backgroundColor: AppColors.kPrimaryColor,
         ),
 
-        body: Column(
+        body: const Column(
           children: [
-           const InformationWidget(),
-            const SizedBox(height: 35),
+           InformationWidget(),
+            SizedBox(height: 35),
 
             SettingOptionsWidget(name: 'Edit Profile', iconName: Icons.edit),
             Divider(
