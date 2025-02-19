@@ -2,6 +2,7 @@ import 'package:crop_guard/core/utils/theme/app_colors.dart';
 import 'package:crop_guard/core/utils/theme/app_text_styles.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
+import 'package:crop_guard/featurs/cart/views/widgets/select_address_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,7 +52,15 @@ class CheckoutSummary extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(context: context, 
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),),
+                builder: (context) => const SelectAddressSheet(),
+
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.kPrimaryColor,
                 shape: RoundedRectangleBorder(
