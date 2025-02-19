@@ -1,4 +1,5 @@
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
+import 'package:crop_guard/featurs/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
             const CategoryScreen(),
             const FavScreen(),
             const Center(child: Text("Orders")),
-            const Center(child: Text("Profile")),
+            const ProfileView(),
           ];
 
           return Scaffold(

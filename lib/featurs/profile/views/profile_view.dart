@@ -2,10 +2,15 @@ import 'package:crop_guard/featurs/profile/views/widgets/information_widget.dart
 import 'package:crop_guard/featurs/profile/views/widgets/setting_options_widget.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../core/utils/theme/app_colors.dart';
 import '../../../core/utils/theme/app_text_styles.dart';
+=======
+
+import '../../../core/utils/theme/app_colors.dart';
+>>>>>>> main
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
@@ -25,10 +30,17 @@ class _ProfileViewState extends State<ProfileView> {
           centerTitle: true,
           backgroundColor: AppColors.kPrimaryColor,
         ),
+<<<<<<< HEAD
         body: Column(
           children: [
            const InformationWidget(),
             const SizedBox(height: 35),
+=======
+        body: const Column(
+          children: [
+           InformationWidget(),
+            SizedBox(height: 35),
+>>>>>>> main
             SettingOptionsWidget(name: 'Edit Profile', iconName: Icons.edit),
             Divider(
               thickness: .3,

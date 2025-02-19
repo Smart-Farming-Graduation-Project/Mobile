@@ -36,7 +36,11 @@ class _InformationWidgetState extends State<InformationWidget> {
                   width: 120,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(80),
+<<<<<<< HEAD
                     child: Image(image: AssetImage('assets/images/home/profile.png')),
+=======
+                    child: const Image(image: AssetImage('assets/images/home/profile.png')),
+>>>>>>> main
                   ),
                 ),
 
@@ -61,7 +65,11 @@ class _InformationWidgetState extends State<InformationWidget> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(80),
                         color: AppColors.kPrimaryColor),
+<<<<<<< HEAD
                     child: Icon(FontAwesomeIcons.pen,
+=======
+                    child: const Icon(FontAwesomeIcons.pen,
+>>>>>>> main
                       color: AppColors.kWhiteColor,
                       size: 20,),
                   ),
@@ -69,7 +77,11 @@ class _InformationWidgetState extends State<InformationWidget> {
               ]
 
           ),
+<<<<<<< HEAD
           SizedBox(width: 20,),
+=======
+          const SizedBox(width: 20,),
+>>>>>>> main
           Column(
             children: [
               Text('Menna Fouda',style: AppTextStyles.textStyle24.copyWith(
