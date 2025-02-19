@@ -22,20 +22,24 @@ class _CreateAccountState extends State<CreateAccount> {
     return Scaffold(
       backgroundColor: AppColors.kWhiteColor,
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
           children: [
             const SizedBox(
               height: 15,
             ),
-            Image.asset(AseetsData.greenlogo2,height: 90,scale: 0.8,),
+            Image.asset(
+              AseetsData.greenlogo2,
+              height: 90,
+              scale: 0.8,
+            ),
             const SizedBox(
               height: 25,
             ),
-             Text('Create New Account',
+            Text('Create New Account',
                 textAlign: TextAlign.center,
-                style: AppTextStyles.textStyle32.copyWith(fontWeight: FontWeight.bold)),
-
+                style: AppTextStyles.textStyle32
+                    .copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(
               height: 35,
             ),
@@ -55,11 +59,15 @@ class _CreateAccountState extends State<CreateAccount> {
             const SizedBox(
               height: 15,
             ),
-             const CustomPasswordTextFormField(text: 'Password',),
+            const CustomPasswordTextFormField(
+              text: 'Password',
+            ),
             const SizedBox(
               height: 15,
             ),
-             const CustomPasswordTextFormField(text: 'Confirm Password',),
+            const CustomPasswordTextFormField(
+              text: 'Confirm Password',
+            ),
             const SizedBox(
               height: 15,
             ),
@@ -67,6 +75,7 @@ class _CreateAccountState extends State<CreateAccount> {
               children: [
                 Checkbox(
                     value: isChecked,
+                    activeColor: AppColors.kPrimaryColor,
                     onChanged: (bool? value) {
                       setState(() {
                         isChecked = value!;
@@ -117,7 +126,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   splashColor: AppColors.kGrayColor,
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    child:  const Icon(
+                    child: const Icon(
                       FontAwesomeIcons.facebook,
                       color: Colors.blue,
                       size: 50,
@@ -163,7 +172,8 @@ class _CreateAccountState extends State<CreateAccount> {
                   child: const Text(
                     'Sign In',
                     style: TextStyle(
-                        color: AppColors.kPrimaryColor,),
+                      color: AppColors.kPrimaryColor,
+                    ),
                   ),
                 )
               ],
