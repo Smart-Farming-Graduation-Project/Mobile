@@ -16,7 +16,7 @@ class CustomNotificationIcon extends StatelessWidget {
         badges.Badge(
           badgeStyle: const badges.BadgeStyle(badgeColor: AppColors.kPrimaryColor),
           position: badges.BadgePosition.topEnd(top: -5, end: -5),
-          badgeContent: const Text("3", style: TextStyle(color: Colors.white, fontSize: 12)),
+          badgeContent: const Text("0", style: TextStyle(color: Colors.white, fontSize: 12)),
           child: const Icon(FontAwesomeIcons.solidBell, size: 28),
         ),
         const SizedBox(width: 15),
@@ -27,7 +27,7 @@ class CustomNotificationIcon extends StatelessWidget {
           child: badges.Badge(
             badgeStyle: const badges.BadgeStyle(badgeColor: AppColors.kPrimaryColor),
             position: badges.BadgePosition.topEnd(top: -5, end: -5),
-            badgeContent: const Text("3", style: TextStyle(color: Colors.white, fontSize: 12)),
+            badgeContent: const Text("4", style: TextStyle(color: Colors.white, fontSize: 12)),
             child: const Icon(Icons.shopping_cart, size: 28),
           ),
         ),

@@ -16,33 +16,35 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold),),
-
-        centerTitle: true,
-      ),
+      appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
         child: ListView(
 
           children: [
+            const Center(child: Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,
 
+              fontFamily: 'popalin' ,
+             ),)),
+
+            const SizedBox( height: 15,),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
 
               child: Center(
                 child: Column(
                   children: [
                     Stack(
                         children:[
-                          SizedBox(
-                            height: 100,
-                            width: 120,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(80),
-
-                              child: Image(image: AssetImage('assets/images/home/profile.png')),
-
+                          Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: const CircleAvatar(
+                              radius: 60,
+                              backgroundImage: AssetImage(
+                                'assets/images/home/profile.png',
+                              ),
                             ),
                           ),
 
@@ -67,7 +69,7 @@ class _EditProfileState extends State<EditProfile> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(80),
                                   color: AppColors.kPrimaryColor),
-                              child: Icon(FontAwesomeIcons.pen,
+                              child: const Icon(FontAwesomeIcons.pen,
 
                                 color: AppColors.kWhiteColor,
                                 size: 20,),
@@ -80,20 +82,19 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
             ),
-            TextBox1(name: 'Name'),
-            SizedBox(height: 15,),
-            TextBox1(name: 'Email Address'),
-            SizedBox(height: 15,),
-            TextBox1(name: 'Mobile Number'),
-            SizedBox(height: 15,),
-            TextBox1(name: 'Enter Address'),
-            SizedBox(height: 230,),
-            CustomButton(buttoncolor: AppColors.kPrimaryColor,
+            const TextBox1(name: 'Name'),
+            const SizedBox(height: 15,),
+            const TextBox1(name: 'Email Address'),
+            const SizedBox(height: 15,),
+            const TextBox1(name: 'Mobile Number'),
+            const SizedBox(height: 15,),
+            const TextBox1(name: 'Enter Address'),
+            const SizedBox(height: 100,),
+            const CustomButton(buttoncolor: AppColors.kPrimaryColor,
 
                 buttonwidth: 50,
                 buttonheight: 60,
-                buttontext: 'Update', textcolor:AppColors.kWhiteColor)
-
+                buttontext: 'Update', textcolor:AppColors.kWhiteColor),
           ],
         ),
       ),

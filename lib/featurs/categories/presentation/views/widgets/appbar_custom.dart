@@ -7,6 +7,7 @@ class AppbarCustom extends StatelessWidget {
   const AppbarCustom({
     super.key,
     required this.appbarName,
+
   });
   final String appbarName;
   @override

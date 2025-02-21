@@ -15,18 +15,21 @@ class CustomButton extends StatelessWidget {
   final double radius ;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color:buttoncolor ,
-            borderRadius: BorderRadius.circular(10)
-        ),
-        width: buttonwidth,
-        height: buttonheight,
-        child: Center(
-            child: Text( buttontext ,
-            style:AppTextStyles.textStyle24.copyWith(color: textcolor)
-            )
-        )
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: Container(
+          decoration: BoxDecoration(
+              color:buttoncolor ,
+              borderRadius: BorderRadius.circular(10)
+          ),
+          width: buttonwidth,
+          height: buttonheight,
+          child: Center(
+              child: Text( buttontext ,
+              style:AppTextStyles.textStyle24.copyWith(color: textcolor)
+              )
+          )
+      ),
     );
   }
 }
