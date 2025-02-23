@@ -1,9 +1,11 @@
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
+import 'package:crop_guard/featurs/welcome/auth/cubit/account_cubit.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/rule_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/theme/app_colors.dart';
 import '../../../../../core/utils/theme/app_text_styles.dart';
+import '../../cubit/account_cubit_state.dart';
 import 'create_account.dart';
 
 class AccountType extends StatefulWidget {
@@ -25,7 +27,9 @@ class _AccountTypeState extends State<AccountType> {
       backgroundColor: AppColors.kWhiteColor,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Column(
+        child: BlocProvider<AccountCubit>(create:(context)=> AccountCubit( ),
+     child:
+        Column(
           children: [
             const Spacer(
               flex: 11,
@@ -42,7 +46,12 @@ class _AccountTypeState extends State<AccountType> {
             const Spacer(
               flex: 8,
             ),
-            ElevatedButton(
+            BlocBuilder<AccountCubit, AccountState>(builder:(context, state){
+              {
+                context.read<AccountCubit>();
+              }
+
+            return  ElevatedButton(
                 onPressed:
                     (){
                   Navigator.push(context,
@@ -58,6 +67,8 @@ class _AccountTypeState extends State<AccountType> {
                   color: AppColors.kWhiteColor
                 )
                 ),
+              ) ;
+            }
             ),
             const Spacer(
               flex: 1,
@@ -65,6 +76,6 @@ class _AccountTypeState extends State<AccountType> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

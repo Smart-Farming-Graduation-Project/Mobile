@@ -1,7 +1,10 @@
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/icon_buyer.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/icon_seller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/utils/theme/app_colors.dart';
+import '../../../cubit/account_cubit.dart';
+import '../../../cubit/account_cubit_state.dart';
 
 class RuleIcon extends StatefulWidget {
   const RuleIcon({super.key,});
@@ -23,50 +26,30 @@ class _RuleIconState extends State<RuleIcon> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        GestureDetector(
+        BlocBuilder<AccountCubit, AccountState>(builder:(context, state){
+
+      return  GestureDetector(
           onTap: (){
-            onTap=true;
-            if(onTap=true){
-              containerColor1=AppColors.kPrimaryColor;
-              personColor1 =  AppColors.kWhiteColor;
-              containerColor2=AppColors.kWhiteColor;
-              personColor2 =  AppColors.kGrayColor;
+            context.read<AccountCubit>().ChooseBuyer();
 
-            }else{
-              containerColor1=AppColors.kWhiteColor;
-              personColor1 =  AppColors.kGrayColor;
-              containerColor2=AppColors.kWhiteColor;
-              personColor2 =  AppColors.kGrayColor;
-            }
-            setState(() {
-
-            }
-            );
           },
+
+
           child: const IconBuyer(),
-        ),
-        GestureDetector(
-          onTap: (){
-            onTap=true;
-            if(onTap=true){
-              containerColor2=AppColors.kPrimaryColor;
-              personColor2 =  AppColors.kWhiteColor;
-              containerColor1=AppColors.kWhiteColor;
-              personColor1 =  AppColors.kGrayColor;
-
-            }else{
-              containerColor2=AppColors.kWhiteColor;
-              personColor2 =  AppColors.kGrayColor;
-              containerColor1=AppColors.kWhiteColor;
-              personColor1 =  AppColors.kGrayColor;
-            }
-            setState(() {
-
-            });
-          },
-          child:const IconSeller(),
         )
-      ],
+    ;
+    }),
+        BlocBuilder<AccountCubit, AccountState>(builder:(context, state){
+
+    return GestureDetector(
+    onTap: (){
+    context.read<AccountCubit>().ChooseSeller();
+
+    },
+    child:const IconSeller(),
+    );
+    }
+        )],
     );
 
   }

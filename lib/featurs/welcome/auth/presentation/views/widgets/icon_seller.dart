@@ -10,8 +10,7 @@ class IconSeller extends StatefulWidget {
 }
 
 class _IconSellerState extends State<IconSeller> {
-  Color containerColor1 = AppColors.kWhiteColor;
-  Color personColor1 =  AppColors.kGrayColor;
+
   Color containerColor2 = AppColors.kWhiteColor;
   Color personColor2 =  AppColors.kGrayColor;
   @override
@@ -21,9 +20,10 @@ class _IconSellerState extends State<IconSeller> {
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: containerColor2,
+        color: Colors.black.withAlpha(15),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Stack(
             alignment: Alignment.center,
@@ -44,7 +44,7 @@ class _IconSellerState extends State<IconSeller> {
                 child: CircleAvatar(
                   radius: 17,
                   backgroundColor:personColor2 ,
-                  child:Icon( Icons.monetization_on_rounded,
+                  child:Icon( Icons.agriculture_outlined,
                       size: 20, color: containerColor2),
                 ),
               ),

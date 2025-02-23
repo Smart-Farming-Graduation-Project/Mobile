@@ -9,10 +9,9 @@ class IconBuyer extends StatefulWidget {
 }
 
 class _IconBuyerState extends State<IconBuyer> {
-  Color containerColor1 = AppColors.kWhiteColor;
-  Color personColor1 =  AppColors.kGrayColor;
-  Color containerColor2 = AppColors.kWhiteColor;
-  Color personColor2 =  AppColors.kGrayColor;
+  final Color containerColor1 = AppColors.kWhiteColor;
+  final Color personColor1 =  AppColors.kGrayColor;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,9 +19,11 @@ class _IconBuyerState extends State<IconBuyer> {
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: containerColor1,
+        color: Colors.black.withAlpha(15),
       ),
       child:Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+
         children: [
           Stack(
             alignment: Alignment.center,
