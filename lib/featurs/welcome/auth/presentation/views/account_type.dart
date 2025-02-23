@@ -3,6 +3,7 @@ import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/rule_
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/theme/app_colors.dart';
+import '../../../../../core/utils/theme/app_text_styles.dart';
 import 'create_account.dart';
 
 class AccountType extends StatefulWidget {
@@ -16,6 +17,7 @@ class _AccountTypeState extends State<AccountType> {
   bool onTap = false;
   Color containerColor = AppColors.kWhiteColor;
   Color personColor = AppColors.kGrayColor;
+  Color buttonColor =  AppColors.kGrayColor;
 
   @override
   Widget build(BuildContext context) {
@@ -40,28 +42,22 @@ class _AccountTypeState extends State<AccountType> {
             const Spacer(
               flex: 8,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const CreateAccount();
-                    },
-                  ),
-                );
-              },
-              child: const Align(
-                alignment: Alignment.centerRight,
-                child: CustomButton(
-                  buttoncolor: AppColors.kPrimaryColor,
-                  buttonheight: 50,
-                  buttonwidth: 130,
-                  buttontext: 'Next',
-                  textcolor: Colors.white,
-                  radius: 10,
+            ElevatedButton(
+                onPressed:
+                    (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder:
+                          (context)=>CreateAccount(
+                      )));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.kPrimaryColor,
+                    minimumSize: Size(200, 70),
                 ),
-              ),
+                child: Text('Next',style: AppTextStyles.textStyle24.copyWith(
+                  color: AppColors.kWhiteColor
+                )
+                ),
             ),
             const Spacer(
               flex: 1,
