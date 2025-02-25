@@ -51,6 +51,7 @@ dependencies:
   skeletonizer: ^1.4.3
   google_maps_flutter: ^2.10.0
   location: ^8.0.0
+  dio: ^5.8.0+1
 
 dev_dependencies:
   flutter_test:
