@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../models/recommended_model.dart';
-import 'item_card.dart';
+import '../../../../categories/presentation/models/product_model.dart';
+import '../../../../categories/presentation/views/widgets/product_card.dart';
 
 class RecommendedSection extends StatelessWidget {
   const RecommendedSection({super.key});
@@ -8,20 +8,19 @@ class RecommendedSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric( horizontal: 14, vertical: 14),
       child: GridView.builder(
         shrinkWrap: true,
-        padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: items.length,
+        itemCount: products.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 0.75,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.7,
         ),
         itemBuilder: (context, index) {
-          return ItemCard(item: items[index]);
+          return ProductCard(product: products[index]);
         },
       ),
     );

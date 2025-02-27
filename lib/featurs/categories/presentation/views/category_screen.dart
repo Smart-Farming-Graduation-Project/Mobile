@@ -14,7 +14,7 @@ class CategoryScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => CategoryCubit(),
       child: Scaffold(
-        appBar: const PreferredSize(
+        appBar:  const PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: AppbarCustom(
               appbarName: 'Category',

@@ -16,17 +16,18 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  const Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold),),
-
-        centerTitle: true,
-      ),
+      appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
         child: ListView(
 
           children: [
+            const Center(child: Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,
 
+              fontFamily: 'popalin' ,
+             ),)),
+
+            const SizedBox( height: 15,),
             Container(
               padding: const EdgeInsets.all(16),
 
@@ -35,14 +36,15 @@ class _EditProfileState extends State<EditProfile> {
                   children: [
                     Stack(
                         children:[
-                          SizedBox(
-                            height: 100,
-                            width: 120,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(80),
-
-                              child: const Image(image: AssetImage('assets/images/home/profile.png')),
-
+                          Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: const CircleAvatar(
+                              radius: 60,
+                              backgroundImage: AssetImage(
+                                'assets/images/home/profile.png',
+                              ),
                             ),
                           ),
 
@@ -87,13 +89,12 @@ class _EditProfileState extends State<EditProfile> {
             const TextBox1(name: 'Mobile Number'),
             const SizedBox(height: 15,),
             const TextBox1(name: 'Enter Address'),
-            const SizedBox(height: 230,),
+            const SizedBox(height: 100,),
             const ButtonDecoration(buttoncolor: AppColors.kPrimaryColor,
 
                 buttonwidth: 50,
                 buttonheight: 60,
-                buttontext: 'Update', textcolor:AppColors.kWhiteColor)
-
+                buttontext: 'Update', textcolor:AppColors.kWhiteColor),
           ],
         ),
       ),

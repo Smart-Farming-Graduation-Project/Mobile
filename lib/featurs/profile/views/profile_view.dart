@@ -1,8 +1,7 @@
-import 'package:crop_guard/core/widgets/button_decoration.dart';
 import 'package:crop_guard/featurs/profile/views/widgets/information_widget.dart';
+import 'package:crop_guard/featurs/profile/views/widgets/log_out_button.dart';
 import 'package:crop_guard/featurs/profile/views/widgets/setting_options_widget.dart';
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -14,66 +13,29 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.kWhiteColor,
-        appBar: AppBar(
-          title: const Text('My Profile',style: TextStyle(
-            color: AppColors.kWhiteColor,fontWeight: FontWeight.bold),),
-          centerTitle: true,
-          backgroundColor: AppColors.kPrimaryColor,
-        ),
+    return  Scaffold(
+      body: Column(
+        spacing:24,
+        children: [
+          const Spacer(flex: 1),
 
-        body: const Column(
-          children: [
-           InformationWidget(),
-            SizedBox(height: 35),
+          const InformationWidget(),
+          const SettingOptionsWidget(name: 'Edit Profile', iconName: Icons.edit),
+          const SettingOptionsWidget(name: 'Change Password', iconName: Icons.lock_outline),
+          const SettingOptionsWidget(name: 'Payment Method', iconName: Icons.payment),
+          const SettingOptionsWidget(name: 'My Orders', iconName: Icons.shopping_cart_outlined),
+          const SettingOptionsWidget(name: 'Privacy Policy', iconName: Icons.privacy_tip_outlined),
+          const SettingOptionsWidget(name: 'Terms & Conditions', iconName: Icons.list_alt),
+          const Spacer(flex: 3),
+          LogOutButton(buttoncolor: Colors.grey.withValues(alpha: 0.2),
+              buttonwidth: 350, buttonheight: 60,
+              buttontext: 'log out', textcolor: Colors.red),
+          const Spacer(flex: 3),
 
-            SettingOptionsWidget(name: 'Edit Profile', iconName: Icons.edit),
-            Divider(
-              thickness: .3,
-              color: Colors.grey,
-            ),
-            SizedBox(height:  3),
-            SettingOptionsWidget(name: 'Change Password', iconName: Icons.lock_outline),
-            Divider(
-              thickness: .3,
-              color: Colors.grey,
-            ),
-            SizedBox(height:  3),
-            SettingOptionsWidget(name: 'Payment Method', iconName: Icons.payment),
-            Divider(
-              thickness: .3,
-              color: Colors.grey,
-            ),
-            SizedBox(height:  3),
-            SettingOptionsWidget(name: 'My Orders', iconName: Icons.shopping_cart_outlined),
-            Divider(
-              thickness: .3,
-              color: Colors.grey,
-            ),
-            SizedBox(height:  3),
-            SettingOptionsWidget(name: 'Privacy Policy', iconName: Icons.privacy_tip_outlined),
-            Divider(
-              thickness: .3,
-              color: Colors.grey,
-            ),
-            SizedBox(height: 3),
-            SettingOptionsWidget(name: 'Terms & Conditions', iconName: Icons.list_alt),
-            Divider(
-              thickness: .3,
-              color: Colors.grey,
-            ),
-            SizedBox(height: 30),
-            ButtonDecoration(buttoncolor: AppColors.kPrimaryColor,
-                buttonwidth: 350, buttonheight: 60,
-                buttontext: 'log out', textcolor: AppColors.kWhiteColor)
-      
-      
-          ],
-        ),
-      
+
+        ],
       ),
+
     );
   }
 }

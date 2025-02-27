@@ -22,12 +22,17 @@ class UserCubit extends Cubit<LoguinState> {
   final bool isTermsAccepted = false;
 
   Future<void> signIn(BuildContext context) async {
+    // this is temporary
+    // ignore: use_build_context_synchronously
+    GoRouter.of(context).go(AppRouter.home);
     if (formKey.currentState!.validate()) {
       try {
         emit(LoadingState());
         final response = await api.post(EndPoints.login, data: {
-          ApiKeys.usernameOrEmail: emailController.text,
-          ApiKeys.password: passwordController.text
+          //   ApiKeys.usernameOrEmail: emailController.text,
+          //   ApiKeys.password: passwordController.text
+          ApiKeys.email: 'mo.zonkol@gmail.com',
+          ApiKeys.password: 'Mo@123456'
         });
         log(response.toString());
         emit(SuccessState());
