@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import '../../../../../core/utils/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 class FilterButton extends StatelessWidget {
    const FilterButton({super.key, required this.text1});
   final String text1;

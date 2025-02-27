@@ -1,5 +1,5 @@
-import 'package:crop_guard/core/utils/theme/app_colors.dart';
-import 'package:crop_guard/core/utils/theme/app_text_styles.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/select_address_sheet.dart';

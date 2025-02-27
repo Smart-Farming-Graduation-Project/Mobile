@@ -1,10 +1,10 @@
-import 'package:crop_guard/core/utils/theme/app_text_styles.dart';
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 
-class CustomButton extends StatelessWidget {
+class ButtonDecoration extends StatelessWidget {
 
-  const CustomButton({super.key, required this.buttoncolor,
+  const ButtonDecoration({super.key, required this.buttoncolor,
     required this.buttonwidth, required this.buttonheight,
     required this.buttontext, required this.textcolor,this.radius=20});
  final Color buttoncolor;

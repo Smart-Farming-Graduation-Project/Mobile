@@ -2,7 +2,7 @@ import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/utils/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../categories/presentation/views/category_screen.dart';
 import '../../manger/cubit/home_cubit.dart';
 import 'widgets/home_content.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import '../../../../core/utils/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../home/presentation/views/widgets/search_filter_bar.dart';
 import '../../manger/cubit/product_cubit.dart';
 import '../models/product_model.dart';

@@ -1,10 +1,10 @@
-import 'package:crop_guard/core/utils/routing/app_router.dart';
+import 'package:crop_guard/core/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 
 class CustomNotificationIcon extends StatelessWidget {
   const CustomNotificationIcon({super.key});

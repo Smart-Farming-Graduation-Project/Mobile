@@ -1,4 +1,4 @@
-import 'package:crop_guard/core/utils/theme/assets_data.dart';
+import 'package:crop_guard/core/theme/assets_data.dart';
 import 'package:flutter/material.dart';
 
 class EmptyCart extends StatelessWidget {
@@ -16,7 +16,7 @@ class EmptyCart extends StatelessWidget {
             flex: 3,
           ),
           Image.asset(
-            AseetsData.emptyCart,
+            AssetsData.emptyCart,
             width: double.infinity,
             height: 300,
             scale: 0.8,

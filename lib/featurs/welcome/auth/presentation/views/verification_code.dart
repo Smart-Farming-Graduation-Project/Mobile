@@ -1,8 +1,8 @@
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
+import 'package:crop_guard/core/widgets/button_decoration.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/theme/app_colors.dart';
-import '../../../../../core/utils/theme/app_text_styles.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 import 'package:pinput/pinput.dart';
 
 class VerificationCode extends StatefulWidget {
@@ -63,7 +63,7 @@ class _VerificationCodeState extends State<VerificationCode> {
 
 
 
-            CustomButton(
+            ButtonDecoration(
               buttoncolor: AppColors.kPrimaryColor,
               buttonheight: 60,
               buttonwidth: double.infinity,

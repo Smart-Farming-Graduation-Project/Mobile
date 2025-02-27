@@ -1,4 +1,4 @@
-import 'package:crop_guard/core/utils/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../../models/recommended_model.dart';
 

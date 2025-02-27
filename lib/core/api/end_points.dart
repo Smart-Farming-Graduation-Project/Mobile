@@ -19,6 +19,18 @@ class EndPoints {
   //Authorization
   static const String getRoles = 'Authorization/GetRoles';
   static const String getPermissions = 'Authorization/get-permissions';
+}
 
+class ApiKeys {
+  static const String statusCode = 'statusCode';
+  static const String errorMessage = 'message';
+  static const String succeeded = 'succeeded';
+  static const String data = 'data';
+  static const String meta = 'meta';
+  static const String email = 'email';
+  static const String usernameOrEmail = 'userNameOrEmail';
+  static const String username = 'userName';
+  static const String password = 'password';
+  static const String confirmPassword = 'confirmPassword';
 
 }

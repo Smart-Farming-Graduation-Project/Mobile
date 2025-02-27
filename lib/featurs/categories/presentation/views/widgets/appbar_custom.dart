@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../home/manger/cubit/home_cubit.dart';
 
 class AppbarCustom extends StatelessWidget {

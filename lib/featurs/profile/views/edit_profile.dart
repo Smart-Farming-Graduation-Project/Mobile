@@ -1,9 +1,9 @@
 import 'package:crop_guard/featurs/profile/views/widgets/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
+import 'package:crop_guard/core/widgets/button_decoration.dart';
 
-import '../../../core/utils/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -88,7 +88,7 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 15,),
             const TextBox1(name: 'Enter Address'),
             const SizedBox(height: 230,),
-            const CustomButton(buttoncolor: AppColors.kPrimaryColor,
+            const ButtonDecoration(buttoncolor: AppColors.kPrimaryColor,
 
                 buttonwidth: 50,
                 buttonheight: 60,

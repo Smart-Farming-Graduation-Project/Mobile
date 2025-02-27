@@ -2,19 +2,19 @@ import 'package:crop_guard/featurs/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/create_account.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_up_view.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
 import 'package:go_router/go_router.dart';
-import '../../../featurs/categories/presentation/views/category_screen.dart';
-import '../../../featurs/home/presentation/views/home_page.dart';
-import '../../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
-import '../../../featurs/welcome/splash/presentation/views/splash_view.dart';
+import '../../featurs/categories/presentation/views/category_screen.dart';
+import '../../featurs/home/presentation/views/home_page.dart';
+import '../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
+import '../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
-  static const String splash = '/';
+  static const String splash = '/splash';
   static const String onboarding = '/onboarding';
-  static const String login = '/login';
-  static const String register = '/register';
+  static const String signIn = '/';
+  static const String signUp = '/signUp';
   static const String home = '/home';
   static const String homeContent = '/homeContent';
   static const String selectRole = '/selectRole';
@@ -40,12 +40,12 @@ abstract class AppRouter {
       builder: (context, state) => const AccountType(),
     ),
     GoRoute(
-      path: login,
-      builder: (context, state) => const SignIn(),
+      path: signIn,
+      builder: (context, state) => const SignInView(),
     ),
     GoRoute(
-      path: register,
-      builder: (context, state) => const CreateAccount(),
+      path: signUp,
+      builder: (context, state) => const SignUpView(),
     ),
     GoRoute(
       path: cart,

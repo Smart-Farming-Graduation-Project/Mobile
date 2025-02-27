@@ -1,8 +1,8 @@
+import 'package:crop_guard/core/widgets/button_decoration.dart';
 import 'package:crop_guard/featurs/profile/views/widgets/information_widget.dart';
 import 'package:crop_guard/featurs/profile/views/widgets/setting_options_widget.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import '../../../core/utils/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -65,7 +65,7 @@ class _ProfileViewState extends State<ProfileView> {
               color: Colors.grey,
             ),
             SizedBox(height: 30),
-            CustomButton(buttoncolor: AppColors.kPrimaryColor,
+            ButtonDecoration(buttoncolor: AppColors.kPrimaryColor,
                 buttonwidth: 350, buttonheight: 60,
                 buttontext: 'log out', textcolor: AppColors.kWhiteColor)
       

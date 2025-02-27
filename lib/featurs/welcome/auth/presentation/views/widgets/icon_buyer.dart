@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/utils/theme/app_colors.dart';
+import '../../../../../../core/theme/app_colors.dart';
 
 class IconBuyer extends StatefulWidget {
   const IconBuyer({super.key});

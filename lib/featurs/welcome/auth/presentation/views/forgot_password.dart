@@ -1,10 +1,9 @@
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/verification_code.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_button.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:crop_guard/core/widgets/button_decoration.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/theme/app_colors.dart';
-import '../../../../../core/utils/theme/app_text_styles.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -32,11 +31,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             const Spacer(
               flex: 1,
             ),
-            const CustomTextFormField(
-              obsscureText: false,
-              name: 'Email',
-              iconName: Icons.mail,
-            ),
+            // const CustomTextFormField(
+            //   obsscureText: false,
+            //   name: 'Email',
+            //   iconName: Icons.mail,
+            // ),
             const Spacer(
               flex: 1,
             ),
@@ -51,7 +50,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                 );
               },
-              child: const CustomButton(
+              child: const ButtonDecoration(
                 buttoncolor: AppColors.kPrimaryColor,
                 buttonheight: 60,
                 buttonwidth: double.infinity,

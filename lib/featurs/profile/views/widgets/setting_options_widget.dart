@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/theme/app_text_styles.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../edit_profile.dart';
 
 class SettingOptionsWidget extends StatefulWidget {

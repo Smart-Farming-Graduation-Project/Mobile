@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class TextBox1 extends StatefulWidget {
   const TextBox1({super.key, required this.name});

@@ -1,7 +1,7 @@
-import 'package:crop_guard/core/utils/responsive/widget_width.dart';
-import 'package:crop_guard/core/utils/theme/app_colors.dart';
+import 'package:crop_guard/core/responsive/widget_width.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/responsive/widget_height.dart';
+import '../../../../../core/responsive/widget_height.dart';
 import '../../models/offer_model.dart';
 
 class OfferCard extends StatelessWidget {

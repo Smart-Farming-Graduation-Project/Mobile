@@ -1,8 +1,8 @@
-import 'package:crop_guard/core/utils/routing/app_router.dart';
+import 'package:crop_guard/core/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../../core/utils/theme/app_colors.dart';
-import '../../../../../../core/utils/theme/assets_data.dart';
+import '../../../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/assets_data.dart';
 import '../models/splash_screen_controller.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -54,7 +54,7 @@ class SplashScreenState extends State<SplashScreen>
                       10,
                     ),
                     child: Image.asset(
-                      AseetsData.logo,
+                      AssetsData.logo,
                       scale: 1.7,
                     ),
                   ),

@@ -43,8 +43,3 @@ app.*.map.json
 /android/app/release
 android/app/.cxx/
 pubspec.lock
-/android/app/.cxx/
-
-
-pubspec.lock
-pubspec.lock

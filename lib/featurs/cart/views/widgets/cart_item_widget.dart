@@ -1,4 +1,4 @@
-import 'package:crop_guard/core/utils/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/models/cart_product.dart';
 import 'package:flutter/material.dart';

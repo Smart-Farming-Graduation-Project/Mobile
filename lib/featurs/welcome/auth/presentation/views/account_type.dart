@@ -1,12 +1,12 @@
-import 'package:crop_guard/featurs/welcome/auth/cubit/account_cubit.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubit/account_cubit.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/rule_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/theme/app_colors.dart';
-import '../../../../../core/utils/theme/app_text_styles.dart';
-import '../../cubit/account_cubit_state.dart';
-import 'create_account.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
+import '../../manger/cubit/account_cubit_state.dart';
+import 'sign_up_view.dart';
 
 class AccountType extends StatefulWidget {
   const AccountType({super.key});
@@ -56,12 +56,12 @@ class _AccountTypeState extends State<AccountType> {
                     (){
                   Navigator.push(context,
                       MaterialPageRoute(builder:
-                          (context)=>CreateAccount(
+                          (context)=>const SignUpView(
                       )));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.kPrimaryColor,
-                    minimumSize: Size(200, 70),
+                    minimumSize: const Size(200, 70),
                 ),
                 child: Text('Next',style: AppTextStyles.textStyle24.copyWith(
                   color: AppColors.kWhiteColor

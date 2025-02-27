@@ -52,6 +52,7 @@ dependencies:
   google_maps_flutter: ^2.10.0
   location: ^8.0.0
   dio: ^5.8.0+1
+  sign_in_button: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +83,7 @@ flutter:
       - assets/images/onboarding/
       - assets/images/cart/
       - assets/images/home/
+      - assets/images/auth/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

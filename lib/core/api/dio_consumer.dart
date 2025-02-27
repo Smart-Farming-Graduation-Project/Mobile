@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/api/api_consumer.dart';
 import 'package:crop_guard/core/api/api_interceptor.dart';
+import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
 import 'package:dio/dio.dart';
 
@@ -7,7 +8,7 @@ class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
-    dio.options.baseUrl = 'https://crop-pilot-api.azurewebsites.net/api/';
+    dio.options.baseUrl = EndPoints.baseUrl;
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(LogInterceptor(
       request: true,
@@ -20,8 +21,11 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future delete(String path,
-      {Map<String, dynamic>? queryParameters, Object? data}) async {
+  Future delete(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? data,
+  }) async {
     try {
       final response =
           await dio.delete(path, data: data, queryParameters: queryParameters);
@@ -33,7 +37,8 @@ class DioConsumer extends ApiConsumer {
 
   @override
   Future get(String path,
-      {Map<String, dynamic>? queryParameters, Object? data}) async {
+      {Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? data}) async {
     try {
       final response =
           await dio.get(path, data: data, queryParameters: queryParameters);
@@ -45,7 +50,8 @@ class DioConsumer extends ApiConsumer {
 
   @override
   Future post(String path,
-      {Map<String, dynamic>? queryParameters, Object? data}) async {
+      {Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? data}) async {
     try {
       final response =
           await dio.post(path, queryParameters: queryParameters, data: data);
@@ -56,8 +62,11 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future put(String path,
-      {Map<String, dynamic>? queryParameters, Object? data}) async {
+  Future put(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? data,
+  }) async {
     try {
       final response =
           await dio.put(path, queryParameters: queryParameters, data: data);
