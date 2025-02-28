@@ -76,7 +76,7 @@ class SignUpView extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const AuthDivider(),
-                const SocialButtons(),
+                const SocialButtons(isSignInPage: false,),
                 const SizedBox(height: 15),
                 const NavigateToPage(nextPage: 'signIn'),
               ],

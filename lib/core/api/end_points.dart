@@ -32,5 +32,10 @@ class ApiKeys {
   static const String username = 'userName';
   static const String password = 'password';
   static const String confirmPassword = 'confirmPassword';
+  static const String firstName = 'firstName';
+  static const String lastName = 'lastName';
+  static const String accessToken = 'accessToken';
+  static const String refreshToken = 'refreshToken';
+  static const String provider = 'provider';
 
 }

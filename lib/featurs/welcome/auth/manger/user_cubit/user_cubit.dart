@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
@@ -7,7 +6,9 @@ import 'package:crop_guard/core/routing/app_router.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/user_cubit/user_state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserCubit extends Cubit<LoguinState> {
   UserCubit(this.api) : super(InitialState());
@@ -19,7 +20,6 @@ class UserCubit extends Cubit<LoguinState> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final bool isTermsAccepted = false;
 
   Future<void> signIn(BuildContext context) async {
     // this is temporary
@@ -29,10 +29,10 @@ class UserCubit extends Cubit<LoguinState> {
       try {
         emit(LoadingState());
         final response = await api.post(EndPoints.login, data: {
-          //   ApiKeys.usernameOrEmail: emailController.text,
-          //   ApiKeys.password: passwordController.text
-          ApiKeys.email: 'mo.zonkol@gmail.com',
-          ApiKeys.password: 'Mo@123456'
+          ApiKeys.usernameOrEmail: emailController.text,
+          ApiKeys.password: passwordController.text
+          // ApiKeys.email: 'mo.zonkol@gmail.com',
+          // ApiKeys.password: 'Mo@123456'
         });
         log(response.toString());
         emit(SuccessState());
@@ -42,6 +42,33 @@ class UserCubit extends Cubit<LoguinState> {
         log(e.errorModel.errorMessage);
         emit(ErrorState(errorMessage: e.errorModel.errorMessage));
       }
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        await signInWithThirdParty(
+            accessToken: googleAuth.accessToken!, provider: 'google');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final String accessToken = result.accessToken!.tokenString;
+        await signInWithThirdParty(
+            accessToken: accessToken, provider: 'facebook');
+      }
+    } catch (e) {
+      log(e.toString());
     }
   }
 
@@ -61,6 +88,81 @@ class UserCubit extends Cubit<LoguinState> {
         log(e.errorModel.errorMessage);
         emit(ErrorState(errorMessage: e.errorModel.errorMessage));
       }
+    }
+  }
+
+  Future<void> signUpWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final String accessToken = googleAuth.accessToken!;
+        final String firstName = googleUser.displayName?.split(' ').first ?? '';
+        final String lastName = googleUser.displayName?.split(' ').last ?? '';
+        await signUpWithThirdParty(
+            firstName: firstName,
+            lastName: lastName,
+            accessToken: accessToken,
+            provider: 'google');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> signUpWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final String accessToken = result.accessToken!.tokenString;
+
+        final userData = await FacebookAuth.instance.getUserData();
+        final String firstName = userData['first_name'] ?? '';
+        final String lastName = userData['last_name'] ?? '';
+        await signUpWithThirdParty(
+            firstName: firstName,
+            lastName: lastName,
+            accessToken: accessToken,
+            provider: 'facebook');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> signInWithThirdParty(
+      {required String accessToken, required String provider}) async {
+    try {
+      emit(LoadingState());
+      final response = await api.post(EndPoints.loginWithThirdParty,
+          data: {ApiKeys.accessToken: accessToken, ApiKeys.provider: provider});
+      log(response.toString());
+      emit(SuccessState());
+    } on ServerException catch (e) {
+      log(e.errorModel.errorMessage);
+      emit(ErrorState(errorMessage: e.errorModel.errorMessage));
+    }
+  }
+
+  Future<void> signUpWithThirdParty(
+      {required String firstName,
+      required String lastName,
+      required String accessToken,
+      required String provider}) async {
+    try {
+      emit(LoadingState());
+      final response = await api.post(EndPoints.registerWithThirdParty, data: {
+        ApiKeys.firstName: firstName,
+        ApiKeys.lastName: lastName,
+        ApiKeys.accessToken: accessToken,
+        ApiKeys.provider: provider
+      });
+      log(response.toString());
+      emit(SuccessState());
+    } on ServerException catch (e) {
+      log(e.errorModel.errorMessage);
+      emit(ErrorState(errorMessage: e.errorModel.errorMessage));
     }
   }
 }

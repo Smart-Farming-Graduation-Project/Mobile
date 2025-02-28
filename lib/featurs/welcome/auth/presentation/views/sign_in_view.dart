@@ -70,7 +70,7 @@ class SignInView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const SocialButtons(),
+                const SocialButtons(isSignInPage: true,),
                 const SizedBox(
                   height: 25,
                 ),
