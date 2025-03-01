@@ -6,7 +6,7 @@ class FacebookIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: onPressed,
       icon: const Icon(
         Icons.facebook,
         color: Color(0xFF0866FF),

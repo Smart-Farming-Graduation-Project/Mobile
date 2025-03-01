@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "926656223415",
+    "project_id": "crop-guard-e9750",
+    "storage_bucket": "crop-guard-e9750.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926656223415:android:39519971701765312e9532",
+        "android_client_info": {
+          "package_name": "com.example.crop_guard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWPWQSltD65kuujl1XdYsv_sklQ_X10fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

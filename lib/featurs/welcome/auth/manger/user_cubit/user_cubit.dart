@@ -47,7 +47,8 @@ class UserCubit extends Cubit<LoguinState> {
 
   Future<void> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
@@ -93,13 +94,17 @@ class UserCubit extends Cubit<LoguinState> {
 
   Future<void> signUpWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
         final String accessToken = googleAuth.accessToken!;
         final String firstName = googleUser.displayName?.split(' ').first ?? '';
         final String lastName = googleUser.displayName?.split(' ').last ?? '';
+        log(firstName);
+        log(lastName);
+        log(accessToken);
         await signUpWithThirdParty(
             firstName: firstName,
             lastName: lastName,
@@ -112,14 +117,19 @@ class UserCubit extends Cubit<LoguinState> {
   }
 
   Future<void> signUpWithFacebook() async {
+    log('signUpWithFacebook');
     try {
       final LoginResult result = await FacebookAuth.instance.login();
+      log(result.toString());
       if (result.status == LoginStatus.success) {
         final String accessToken = result.accessToken!.tokenString;
 
         final userData = await FacebookAuth.instance.getUserData();
         final String firstName = userData['first_name'] ?? '';
         final String lastName = userData['last_name'] ?? '';
+        log(firstName);
+        log(lastName);
+        log(accessToken);
         await signUpWithThirdParty(
             firstName: firstName,
             lastName: lastName,
