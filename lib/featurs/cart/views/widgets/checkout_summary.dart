@@ -1,7 +1,8 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
+import 'package:crop_guard/featurs/cart/manger/address_sheet_cubit/address_sheet_cubit.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_cubit.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_state.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/select_address_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +18,14 @@ class CheckoutSummary extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.kWhiteColor,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
           ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withAlpha(128),
               offset: const Offset(0, 5),
+              spreadRadius: 6,
               blurRadius: 20,
             ),
           ],
@@ -53,12 +55,17 @@ class CheckoutSummary extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                showModalBottomSheet(context: context, 
-                isScrollControlled: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),),
-                builder: (context) => const SelectAddressSheet(),
-
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  builder: (context) => BlocProvider(
+                    create: (context) =>
+                        AddressSheetCubit()..loadSavedAddress(),
+                    child: const SelectAddressSheet(),
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -69,7 +76,10 @@ class CheckoutSummary extends StatelessWidget {
               ),
               child: const Text(
                 "Checkout",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
               ),
             )
           ],

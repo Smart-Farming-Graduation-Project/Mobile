@@ -1,9 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class SearchBarFilter extends StatelessWidget {
   final ValueChanged<String>? onChanged;
 
-  const SearchBarFilter({super.key, this.onChanged});
+  const SearchBarFilter({
+    super.key,
+    this.onChanged,
+    this.isGoogleMap = false,
+  });
+  final bool isGoogleMap;
 
   @override
   Widget build(BuildContext context) {
@@ -11,19 +17,26 @@ class SearchBarFilter extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.grey[200],
+        fillColor: isGoogleMap ? Colors.white : Colors.grey[200],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide.none,
         ),
         hintText: "Search",
-        hintStyle: TextStyle(color: Colors.grey[600]),
-        prefixIcon: const Icon(Icons.search, size: 28, color: Colors.green),
-        suffixIcon: const Icon(Icons.keyboard_voice_rounded, size: 28,),
-        contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        hintStyle: isGoogleMap
+            ? TextStyle(color: Colors.grey[600], fontSize: 18)
+            : TextStyle(
+                color: Colors.grey[600],
+              ),
+        prefixIcon: Icon(Icons.search,
+            size: 28, color: isGoogleMap ? Colors.grey[600] : Colors.green),
+        suffixIcon: const Icon(
+          Icons.keyboard_voice_rounded,
+          size: 28,
+        ),
+        contentPadding: EdgeInsets.symmetric(
+            vertical: isGoogleMap ? 20 : 14, horizontal: 20),
       ),
     );
   }
 }
-
-

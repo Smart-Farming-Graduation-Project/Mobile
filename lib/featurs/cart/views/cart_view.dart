@@ -1,4 +1,4 @@
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/cart_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

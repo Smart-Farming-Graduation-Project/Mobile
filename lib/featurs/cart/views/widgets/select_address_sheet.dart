@@ -1,7 +1,11 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/featurs/cart/manger/address_sheet_cubit/address_sheet_cubit.dart';
+import 'package:crop_guard/featurs/cart/manger/address_sheet_cubit/address_sheet_state.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/add_address_button.dart';
+import 'package:crop_guard/featurs/cart/views/widgets/address_sheet_title.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/address_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectAddressSheet extends StatelessWidget {
   const SelectAddressSheet({super.key});
@@ -9,6 +13,7 @@ class SelectAddressSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
+      initialChildSize: 0.45,
       maxChildSize: 0.5,
       expand: false,
       builder: (context, scrollController) => Container(
@@ -20,39 +25,54 @@ class SelectAddressSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              children: [
-                const Text(
-                  "Select an Address",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                const Spacer(),
-                IconButton(
-                  icon: const CircleAvatar(
-                    radius: 15,
-                    backgroundColor: AppColors.kGreenColor,
-                    child: CircleAvatar(
-                      radius: 13,
-                      backgroundColor: AppColors.kWhiteColor,
-                      child: Icon(
-                        Icons.close_rounded,
-                        color: AppColors.kGreenColor,
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
+            const AddressSheetTitle(),
             const Divider(),
-            const AddressTile(),
-            const Spacer(),
-            const AddAddressButton(),
+            Expanded(
+              child: BlocBuilder<AddressSheetCubit, AddressSheetState>(
+                  builder: (context, state) {
+                if (state is AddressSheetLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is AddressSavedEmptyState) {
+                  return const Center(child: Text("No saved address found"));
+                } else if (state is AddressSavedState) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 8),
+                          itemCount: state.addresses.length,
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 12,
+                          ),
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                              context
+                                  .read<AddressSheetCubit>()
+                                  .selectAddress(index);
+                            },
+                            child: AddressTile(
+                              address: state.addresses[index],
+                              isSelected: state.addressIndex == index,
+                              addressIndex: index,
+                            ),
+                          ),
+                        ),
+                      ),
+                      state.addressIndex == -1
+                          ? const AddressButton(
+                              isAddressSelected: false,
+                            )
+                          : const AddressButton(
+                              isAddressSelected: true,
+                            ),
+                    ],
+                  );
+                } else {
+                  return const Center(child: Text("Something went wrong"));
+                }
+              }),
+            )
           ],
         ),
       ),

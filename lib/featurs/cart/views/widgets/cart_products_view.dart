@@ -1,5 +1,5 @@
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_cubit.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_state.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/cart_item_widget.dart';
 import 'package:crop_guard/featurs/cart/views/widgets/checkout_summary.dart';
 import 'package:flutter/material.dart';

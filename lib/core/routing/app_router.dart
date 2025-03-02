@@ -1,4 +1,5 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
+import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_location.dart';
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
@@ -19,11 +20,10 @@ abstract class AppRouter {
   static const String homeContent = '/homeContent';
   static const String selectRole = '/selectRole';
   static const String cart = '/cart';
+  static const String confirmDeliveryLocation = '/confirmDeliveryLocation';
   static const String categoryscreen = '/categoryscreen';
   static const details = '/category-details';
   static const String favorites = '/favorites';
-
-
 
   static final router = GoRouter(initialLocation: splash, routes: [
     // welcome routes
@@ -50,6 +50,10 @@ abstract class AppRouter {
     GoRoute(
       path: cart,
       builder: (context, state) => const CartView(),
+    ),
+    GoRoute(
+      path: confirmDeliveryLocation,
+      builder: (context, state) => const ConfirmDeliveryLocationView(),
     ),
     GoRoute(
       path: home,

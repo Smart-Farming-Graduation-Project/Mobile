@@ -1,5 +1,5 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_cubit.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/models/cart_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +39,7 @@ class CartItemWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withAlpha(128),
