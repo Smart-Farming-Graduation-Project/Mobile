@@ -12,7 +12,7 @@ class RecommendedSection extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.zero,
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context, index) {

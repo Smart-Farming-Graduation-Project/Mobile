@@ -19,7 +19,7 @@ class CategoryScreen extends StatelessWidget {
                   .contains(controller.text.toLowerCase())).toList();
           return ListView.builder(
             padding: EdgeInsets.zero,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: filteredCategories.length,
             itemBuilder: (context, index) {

@@ -18,10 +18,11 @@ class BuyerRole extends StatelessWidget {
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15)
-        ,
-        boxShadow:
-            isSelected ? [BoxShadow(color: Colors.black26, blurRadius: 5)] : [],
+        color:
+            isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
+        boxShadow: isSelected
+            ? [const BoxShadow(color: Colors.black26, blurRadius: 5)]
+            : [],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +47,11 @@ class BuyerRole extends StatelessWidget {
               )
             ],
           ),
-          Text('Buyer', style: TextStyle(color: personColor, fontSize: 20, fontWeight: FontWeight.bold)),
+          Text('Buyer',
+              style: TextStyle(
+                  color: personColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
         ],
       ),
     );

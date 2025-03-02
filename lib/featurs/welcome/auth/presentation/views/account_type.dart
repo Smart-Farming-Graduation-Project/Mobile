@@ -23,9 +23,9 @@ class AccountType extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const Spacer(flex: 13),
-              Align(
+              const Align(
                 alignment: Alignment.center,
-                child: const Text(
+                child: Text(
                   'Select Your Account Type',
                   style: TextStyle(fontSize: 27, fontWeight: FontWeight.w900,),
                 ),

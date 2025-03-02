@@ -29,7 +29,7 @@ class ConfirmDeliveryLocationViewBody extends StatelessWidget {
             if (state is LocationLoaded) {
               markers.add(
                 Marker(
-                  markerId: const MarkerId('deliveryLocation'),
+                  markerId: const MarkerId('My home Location'),
                   position: state.position,
                   infoWindow: InfoWindow(title: state.address),
                   icon: BitmapDescriptor.defaultMarkerWithHue(
@@ -40,7 +40,7 @@ class ConfirmDeliveryLocationViewBody extends StatelessWidget {
             } else {
               markers.add(
                 Marker(
-                  markerId: const MarkerId('defaultLocation'),
+                  markerId: const MarkerId('Default Location'),
                   position:
                       const LatLng(30.308949273893507, 31.703599845621095),
                   infoWindow: const InfoWindow(title: 'Default Location'),
@@ -50,46 +50,40 @@ class ConfirmDeliveryLocationViewBody extends StatelessWidget {
                 ),
               );
             }
-            return Column(
+            return Stack(
               children: [
-                Stack(
-                  children: [
-                    GoogleMap(
-                      onMapCreated: (controller) =>
-                          context.read<LocationCubit>().onMapCreated(controller),
-                      initialCameraPosition: CameraPosition(
-                        target: state is LocationLoaded
-                            ? state.position
-                            : const LatLng(30.308949273893507, 31.703599845621095),
-                        zoom: 16,
-                      ),
-                      markers: markers,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(24.0),
-                      child: SearchBarFilter(
-                        isGoogleMap: true,
-                      ),
-                    ),
-                    const Spacer(),
-                    Positioned(
-                      right: 20,
-                      bottom: 20,
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.green,
-                        shape: const CircleBorder(),
-                        onPressed: () {
-                          context.read<LocationCubit>().getCurrentLocation();
-                        },
-                        child: const Icon(
-                          Icons.my_location_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
+                GoogleMap(
+                  onMapCreated: (controller) =>
+                      context.read<LocationCubit>().onMapCreated(controller),
+                  initialCameraPosition: CameraPosition(
+                    target: state is LocationLoaded
+                        ? state.position
+                        : const LatLng(30.308949273893507, 31.703599845621095),
+                    zoom: 16,
+                  ),
+                  markers: markers,
                 ),
-
+                const Padding(
+                  padding: EdgeInsets.all(24.0),
+                  child: SearchBarFilter(
+                    isGoogleMap: true,
+                  ),
+                ),
+                Positioned(
+                  right: 20,
+                  bottom: 20,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.green,
+                    shape: const CircleBorder(),
+                    onPressed: () {
+                      context.read<LocationCubit>().getCurrentLocation();
+                    },
+                    child: const Icon(
+                      Icons.my_location_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ],
             );
           },
