@@ -48,7 +48,7 @@ dependencies:
   local_hero_transform: ^0.0.5
   local_hero: ^0.3.0
   skeletonizer: ^1.4.3
-  google_maps_flutter: ^2.10.0
+  google_maps_flutter: ^2.10.1
   location: ^8.0.0
   dio: ^5.8.0+1
   google_sign_in: ^6.2.2

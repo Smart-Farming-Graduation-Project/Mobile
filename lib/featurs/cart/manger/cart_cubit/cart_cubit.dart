@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:crop_guard/featurs/cart/manger/cubit/cart_state.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_state.dart';
 import 'package:crop_guard/featurs/cart/manger/models/cart_product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
