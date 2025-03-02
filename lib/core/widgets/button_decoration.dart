@@ -1,12 +1,14 @@
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 
 class ButtonDecoration extends StatelessWidget {
 
-  const ButtonDecoration({super.key, required this.buttoncolor,
-    required this.buttonwidth, required this.buttonheight,
-    required this.buttontext, required this.textcolor,this.radius=20});
+  const ButtonDecoration({super.key,  this.buttoncolor=AppColors.kPrimaryColor,
+     this.buttonwidth=double.infinity,  this.buttonheight=50,
+    required this.buttontext,  this.textcolor=AppColors.kWhiteColor,this.radius=20});
  final Color buttoncolor;
  final double buttonwidth ;
  final double buttonheight ;
@@ -26,7 +28,7 @@ class ButtonDecoration extends StatelessWidget {
           height: buttonheight,
           child: Center(
               child: Text( buttontext ,
-              style:AppTextStyles.textStyle24.copyWith(color: textcolor)
+              style:AppTextStyles.textStyle16.copyWith(color: textcolor,fontWeight: FontWeight.bold)
               )
           )
       ),

@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../../core/theme/app_colors.dart';
 
-class IconSeller extends StatefulWidget {
-  const IconSeller({super.key});
+class FarmerRole extends StatelessWidget {
+  final bool isSelected;
 
-  @override
-  State<IconSeller> createState() => _IconSellerState();
-}
+  const FarmerRole({super.key, required this.isSelected});
 
-class _IconSellerState extends State<IconSeller> {
-
-  Color containerColor2 = AppColors.kWhiteColor;
-  Color personColor2 =  AppColors.kGrayColor;
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    final Color containerColor = isSelected ? AppColors.kPrimaryColor : AppColors.kWhiteColor;
+    final Color personColor = isSelected ? AppColors.kWhiteColor : AppColors.kGrayColor;
+
+    return Container(
       width: 150,
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.black.withAlpha(15),
+          color: isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
+        boxShadow: isSelected ? [const BoxShadow(color: Colors.black26, blurRadius: 5)] : [],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,32 +25,23 @@ class _IconSellerState extends State<IconSeller> {
           Stack(
             alignment: Alignment.center,
             children: [
-              Icon(Icons.person, size: 100
-                  , color: personColor2),
+              Icon(Icons.person, size: 100, color: personColor),
               Positioned(
                 bottom: 14,
                 right: 10,
                 child: CircleAvatar(
                   radius: 18,
-                  backgroundColor: containerColor2 ,
-                ),
-              ),
-              Positioned(
-                bottom: 14,
-                right: 10,
+                  backgroundColor:containerColor,
+
                 child: CircleAvatar(
-                  radius: 17,
-                  backgroundColor:personColor2 ,
-                  child:Icon( Icons.agriculture_outlined,
-                      size: 20, color: containerColor2),
+                  radius: 15,
+                  backgroundColor:personColor ,
+                  child:  Icon(Icons.agriculture_outlined, size: 20,  color:containerColor),
                 ),
               ),
-            ],
+              )],
           ),
-          Text('Seller',style: TextStyle(
-            color: personColor2,
-            fontSize: 18,
-          ),)
+          Text('Farmer', style: TextStyle(color:personColor , fontSize: 20, fontWeight: FontWeight.bold)),
         ],
       ),
     );

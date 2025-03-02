@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../../core/routing/app_router.dart';
 import '../../../../../core/theme/app_colors.dart';
 
 class TextSection extends StatelessWidget {
@@ -20,13 +18,10 @@ final String text1;
             text1,
             style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold,fontFamily: 'Poppins'),
           ),
-          TextButton(
-            onPressed: () {
-              GoRouter.of(context).go(AppRouter.categoryscreen);
-            },
-            child:  Text(
+
+            Text(
               text2 ,
-              style: const TextStyle(color: AppColors.kPrimaryColor, fontSize: 20,fontWeight: FontWeight.bold),))
+              style: const TextStyle(color: AppColors.kPrimaryColor, fontSize: 20,fontWeight: FontWeight.bold),)
       ]
       ),
     );

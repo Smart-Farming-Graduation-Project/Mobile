@@ -21,9 +21,9 @@ class GetCardsContent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            image,
-            scale: 0.8,
+          Image.asset(image,
+            width: 300,
+            height: 300,
           ),
           const SizedBox(height: 30),
           Text(

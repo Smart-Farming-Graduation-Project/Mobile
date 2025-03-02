@@ -19,7 +19,7 @@ class NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: widgetWidth(context: context, width: 20),
+        horizontal: widgetWidth(context: context, width: isLastPage?5:20 ),
         vertical: widgetHeight(context: context, height: 20),
       ),
       child: ElevatedButton(

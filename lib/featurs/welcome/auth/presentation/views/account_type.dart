@@ -1,81 +1,56 @@
-import 'package:crop_guard/featurs/welcome/auth/manger/cubit/account_cubit.dart';
+import 'package:crop_guard/core/routing/app_router.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/rule_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_text_styles.dart';
+import '../../../../../core/widgets/button_decoration.dart';
+import '../../manger/cubit/account_cubit.dart';
 import '../../manger/cubit/account_cubit_state.dart';
-import 'sign_up_view.dart';
 
-class AccountType extends StatefulWidget {
+class AccountType extends StatelessWidget {
   const AccountType({super.key});
 
   @override
-  State<AccountType> createState() => _AccountTypeState();
-}
-
-class _AccountTypeState extends State<AccountType> {
-  bool onTap = false;
-  Color containerColor = AppColors.kWhiteColor;
-  Color personColor = AppColors.kGrayColor;
-  Color buttonColor =  AppColors.kGrayColor;
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.kWhiteColor,
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: BlocProvider<AccountCubit>(create:(context)=> AccountCubit( ),
-     child:
-        Column(
-          children: [
-            const Spacer(
-              flex: 11,
-            ),
-            const Text('Select Your Account Type',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 25,
-                )),
-            const Spacer(
-              flex: 1,
-            ),
-            const RuleIcon(),
-            const Spacer(
-              flex: 8,
-            ),
-            BlocBuilder<AccountCubit, AccountState>(builder:(context, state){
-              {
-                context.read<AccountCubit>();
-              }
-
-            return  ElevatedButton(
-                onPressed:
-                    (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder:
-                          (context)=>const SignUpView(
-                      )));
+    return BlocProvider(
+      create: (context) => AccountCubit(),
+      child: Scaffold(
+        backgroundColor: AppColors.kWhiteColor,
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Spacer(flex: 13),
+              Align(
+                alignment: Alignment.center,
+                child: const Text(
+                  'Select Your Account Type',
+                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.w900,),
+                ),
+              ),
+              const Spacer(flex: 2),
+              const RoleIcons(),
+              const Spacer(flex: 9),
+              BlocBuilder<AccountCubit, AccountState>(
+                builder: (context, state) {
+                  return GestureDetector(
+                    onTap: (){
+                      GoRouter.of(context).go(AppRouter.signIn);
+                    },
+                      child: ButtonDecoration(
+                    buttonwidth: 130,
+                    buttontext: 'Next',
+                        buttoncolor: state is InitialState? AppColors.kGrayColor: AppColors.kPrimaryColor,
+                  ));
                 },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.kPrimaryColor,
-                    minimumSize: const Size(200, 70),
-                ),
-                child: Text('Next',style: AppTextStyles.textStyle24.copyWith(
-                  color: AppColors.kWhiteColor
-                )
-                ),
-              ) ;
-            }
-            ),
-            const Spacer(
-              flex: 1,
-            )
-          ],
+              ),
+              const Spacer(flex: 1),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

@@ -2,8 +2,8 @@ import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../categories/presentation/views/category_screen.dart';
+import 'package:iconsax/iconsax.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../manger/cubit/home_cubit.dart';
 import 'widgets/home_content.dart';
 
@@ -18,7 +18,6 @@ class HomePage extends StatelessWidget {
         builder: (context, selectedIndex) {
           final List<Widget> pages = [
             const HomeContent(),
-            const CategoryScreen(),
             const FavScreen(),
             const Center(child: Text("Orders")),
             const ProfileView(),
@@ -26,30 +25,80 @@ class HomePage extends StatelessWidget {
 
           return Scaffold(
             body: pages[selectedIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: selectedIndex,
-              onTap: (index) {
-                context.read<HomeCubit>().changePage(index);
-              },
-              type: BottomNavigationBarType.fixed,
-              selectedItemColor: AppColors.kPrimaryColor,
-              unselectedItemColor: Colors.grey,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: "Home",
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(15),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+
+                borderRadius: BorderRadius.circular(30),
+                child: BottomNavigationBar(
+                  currentIndex: selectedIndex,
+                  onTap: (index) {
+                    context.read<HomeCubit>().changePage(index);
+                  },
+                  type: BottomNavigationBarType.fixed,
+                  selectedItemColor: AppColors.kPrimaryColor,
+                  unselectedItemColor: Colors.grey,
+                  showUnselectedLabels: false,
+                  showSelectedLabels: false,
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  iconSize: 24,
+                  selectedFontSize: 0,
+                  unselectedFontSize: 0,
+                  items: List.generate(4, (index) {
+                    List<IconData> icons = [
+                      Iconsax.home5,
+                      Iconsax.heart5,
+                      Iconsax.note_15,
+                      Iconsax.profile_2user5,
+                    ];
+                    List<IconData> unselectedIcons = [
+                      Iconsax.home,
+                      Iconsax.heart,
+                      Iconsax.note_14,
+                      Iconsax.profile_2user,
+                    ];
+
+                    return BottomNavigationBarItem(
+
+                      icon: Container(
+                        decoration: BoxDecoration(
+                          color: selectedIndex == index
+                              ? Colors.grey.shade200
+                              : Colors.transparent,
+                          shape: BoxShape.circle,
+
+
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 8,
+                          ),
+                          child: Icon(
+                            size: 24,
+                            selectedIndex == index ? icons[index] : unselectedIcons[index],
+                            color: selectedIndex == index
+                                ? AppColors.kPrimaryColor
+                                : AppColors.kPrimaryColor,
+                          ),
+                        ),
+                      ),
+                      label: "",
+                    );
+                  }),
                 ),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.category), label: "Category"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite), label: "Favorites"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.list_alt), label: "Orders"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: "Profile"),
-              ],
+              ),
             ),
           );
         },

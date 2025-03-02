@@ -55,6 +55,8 @@ dependencies:
   flutter_facebook_auth: ^7.1.1
   firebase_core: ^3.12.1
   firebase_auth: ^5.5.1
+  curved_navigation_bar: ^1.0.6
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:

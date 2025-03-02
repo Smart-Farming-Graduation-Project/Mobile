@@ -39,8 +39,10 @@ class _OnboardingViewState extends State<OnboardingView> {
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
-      body: Stack(
+      body:
+      Stack(
         children: [
+
           Column(
             children: [
               Expanded(

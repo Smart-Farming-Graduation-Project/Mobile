@@ -1,59 +1,52 @@
 import 'package:flutter/material.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
-class IconBuyer extends StatefulWidget {
-  const IconBuyer({super.key});
+class BuyerRole extends StatelessWidget {
+  final bool isSelected;
 
-  @override
-  State<IconBuyer> createState() => _IconBuyerState();
-}
-
-class _IconBuyerState extends State<IconBuyer> {
-  final Color containerColor1 = AppColors.kWhiteColor;
-  final Color personColor1 =  AppColors.kGrayColor;
+  const BuyerRole({super.key, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
+    final Color containerColor =
+        isSelected ? AppColors.kPrimaryColor : AppColors.kWhiteColor;
+    final Color personColor =
+        isSelected ? AppColors.kWhiteColor : AppColors.kGrayColor;
+
     return Container(
       width: 150,
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.black.withAlpha(15),
+        color: isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15)
+        ,
+        boxShadow:
+            isSelected ? [BoxShadow(color: Colors.black26, blurRadius: 5)] : [],
       ),
-      child:Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
           Stack(
             alignment: Alignment.center,
             children: [
-              Icon(Icons.person, size: 100
-                  , color: personColor1),
+              Icon(Icons.person, size: 100, color: personColor),
               Positioned(
                 bottom: 14,
                 right: 10,
                 child: CircleAvatar(
                   radius: 18,
-                  backgroundColor: containerColor1 ,
+                  backgroundColor: containerColor,
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: personColor,
+                    child: Icon(Icons.shopping_cart_outlined,
+                        size: 20, color: containerColor),
+                  ),
                 ),
-              ),
-              Positioned(
-                bottom: 14,
-                right: 10,
-                child: CircleAvatar(
-                  radius: 17,
-                  backgroundColor:personColor1 ,
-                  child:Icon(Icons.shopping_cart_outlined,
-                      size: 20, color: containerColor1),
-                ),
-              ),
+              )
             ],
           ),
-          Text('Buyer',style: TextStyle(
-            color: personColor1,
-            fontSize: 18,
-          ),)
+          Text('Buyer', style: TextStyle(color: personColor, fontSize: 20, fontWeight: FontWeight.bold)),
         ],
       ),
     );

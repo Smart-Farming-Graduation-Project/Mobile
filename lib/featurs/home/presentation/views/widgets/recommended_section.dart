@@ -7,20 +7,21 @@ class RecommendedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric( horizontal: 14, vertical: 14),
-      child: GridView.builder(
+    return SizedBox(
+      height: 245,
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
         itemCount: products.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-          childAspectRatio: 0.7,
-        ),
         itemBuilder: (context, index) {
-          return ProductCard(product: products[index]);
+          return Padding(
+            padding: const EdgeInsets.only( top: 10, bottom: 10 , left: 10, right: 10),
+            child: SizedBox(
+                width: 165,
+                child: ProductCard(product: products[index])),
+          );
         },
       ),
     );
