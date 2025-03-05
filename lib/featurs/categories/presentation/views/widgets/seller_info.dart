@@ -24,7 +24,7 @@ class SellerInfoTile extends StatelessWidget {
               Expanded(
                 child: Text(
                   seller.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
             ],

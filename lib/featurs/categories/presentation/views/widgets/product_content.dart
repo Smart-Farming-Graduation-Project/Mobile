@@ -4,6 +4,7 @@ import '../../../../../../core/theme/app_colors.dart';
 
 class ProductContent extends StatelessWidget {
   const ProductContent({super.key, required this.product});
+
   final ProductModel product;
 
   @override
@@ -23,14 +24,23 @@ class ProductContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('${product.price} EGP',
-                style: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold)),
-            FloatingActionButton(
-              onPressed: () {}, 
-              backgroundColor: AppColors.kPrimaryColor,
-              mini: true,
-              child: const Icon(Icons.add, color: Colors.white, size: 25),
-            ),
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+         GestureDetector(
+           onTap: () {},
+           child: Container(
+             height: 40,
+             width: 40,
+             margin: const EdgeInsets.only(left: 10),
+             decoration: BoxDecoration(
+               color: AppColors.kPrimaryColor,
+               borderRadius: BorderRadius.circular(12),
+             ),
+             child: const Icon(Icons.add,
+                      color: AppColors.kWhiteColor, size: 26),
+           ),
+         ),
+
           ],
         ),
       ],
