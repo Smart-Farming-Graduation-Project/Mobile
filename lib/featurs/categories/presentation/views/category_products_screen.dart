@@ -1,4 +1,3 @@
-import 'package:crop_guard/featurs/categories/presentation/views/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,14 +6,14 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../home/presentation/views/widgets/search_filter_bar.dart';
 import '../../manger/cubit/product_cubit.dart';
 import '../models/product_model.dart';
-
+import 'widgets/product_item.dart';
 class CategoryProductsScreen extends StatelessWidget {
   final String categoryName;
   const CategoryProductsScreen({super.key, required this.categoryName});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.kPrimaryColor,
         elevation: 0,
@@ -29,7 +28,7 @@ class CategoryProductsScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-         GoRouter.of(context).pop();
+            GoRouter.of(context).pop();
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -38,37 +37,40 @@ class CategoryProductsScreen extends StatelessWidget {
           ),
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-             Row(
-               children: [
-                 const Expanded(child: SearchBarFilter()),
-                 IconButton(onPressed: (){}, icon: const Icon( Symbols.instant_mix,color:AppColors.kPrimaryColor,
-                   size: 34,))
-               ],
-             ),
-
+            Row(
+              children: [
+                const Expanded(child: SearchBarFilter()),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Symbols.instant_mix,
+                      color: AppColors.kPrimaryColor,
+                      size: 34,
+                    ))
+              ],
+            ),
             Expanded(
               child: BlocBuilder<ProductCubit, List<ProductModel>>(
                 builder: (context, products) {
-
                   if (products.isEmpty) {
                     return const Center(child: Text("No Products Available"));
                   }
                   return GridView.builder(
                     padding: const EdgeInsets.all(12.0),
                     itemCount: products.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 20,
                       childAspectRatio: 0.7,
                     ),
                     itemBuilder: (context, index) {
-                      return ProductCard(product: products[index]);
+                      return ProductItem(product: products[index]);
                     },
                   );
                 },

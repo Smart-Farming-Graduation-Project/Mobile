@@ -1,8 +1,8 @@
+import 'package:crop_guard/featurs/categories/presentation/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../categories/manger/cubit/product_cubit.dart';
 import '../../../categories/presentation/models/product_model.dart';
-import '../../../categories/presentation/views/widgets/product_card.dart';
 
 class FavScreen extends StatelessWidget {
   const FavScreen({super.key});
@@ -30,7 +30,7 @@ class FavScreen extends StatelessWidget {
                 childAspectRatio: 0.7,
               ),
               itemBuilder: (context, index) {
-                return ProductCard(product: favoriteProducts[index]);
+                return ProductItem(product: favoriteProducts[index]);
               },
             );
           },

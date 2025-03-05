@@ -2,6 +2,7 @@ import 'package:crop_guard/featurs/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_location.dart';
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
+import 'package:crop_guard/featurs/reviews/presentation/views/reviews_screen.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_up_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
@@ -12,9 +13,9 @@ import '../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart
 import '../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
-  static const String splash = '/splash';
+  static const String splash = '/';
   static const String onboarding = '/onboarding';
-  static const String signIn = '/';
+  static const String signIn = '/signIn';
   static const String signUp = '/signUp';
   static const String home = '/home';
   static const String homeContent = '/homeContent';
@@ -22,10 +23,16 @@ abstract class AppRouter {
   static const String cart = '/cart';
   static const String confirmDeliveryLocation = '/confirmDeliveryLocation';
   static const String categoryscreen = '/categoryscreen';
-  static const details = '/category-details';
   static const String favorites = '/favorites';
+  static const String profile = '/profile';
+  static const String notifications = '/notifications';
+  static const String settings = '/settings';
+  static const String productdetails = '/productdetails';
+  static const String review = '/review';
 
-  static final router = GoRouter(initialLocation: splash, routes: [
+
+
+  static final router = GoRouter( routes: [
     // welcome routes
     GoRoute(
       path: splash,
@@ -71,5 +78,14 @@ abstract class AppRouter {
       path: categoryscreen,
       builder: (context, state) =>  const CategoryScreen(),
     ),
+    GoRoute(
+      path: review,
+      builder: (context, state) =>  const  ReviewsScreen(),
+    ),
+
+
+
+
+
   ]);
 }

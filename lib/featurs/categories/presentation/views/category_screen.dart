@@ -23,7 +23,6 @@ class CategoryScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: filteredCategories.length,
             itemBuilder: (context, index) {
-
               return Padding(
                 padding: const EdgeInsets.all(5),
                 child: SizedBox(

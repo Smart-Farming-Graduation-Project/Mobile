@@ -14,7 +14,7 @@ class HomeContent extends StatelessWidget {
     return  const SafeArea(
         child:  Scaffold(
           body: Padding(
-            padding: EdgeInsets.symmetric( horizontal: 20),
+            padding: EdgeInsets.symmetric( horizontal: 15),
             child: Column(
               children: [
                 AppbarSection( userName: 'Noha Ahmed',),

@@ -1,6 +1,8 @@
+import 'package:crop_guard/core/responsive/widget_height.dart';
+import 'package:crop_guard/core/responsive/widget_width.dart';
+import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
+import 'package:crop_guard/featurs/categories/presentation/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
-import '../../../../categories/presentation/models/product_model.dart';
-import '../../../../categories/presentation/views/widgets/product_card.dart';
 
 class RecommendedSection extends StatelessWidget {
   const RecommendedSection({super.key});
@@ -8,19 +10,18 @@ class RecommendedSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 245,
+      height: widgetHeight(context: context, height: 230),
       child: ListView.builder(
         padding: EdgeInsets.zero,
-        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only( top: 10, bottom: 10 , left: 10, right: 10),
+            padding: const EdgeInsets.all(4),
             child: SizedBox(
-                width: 165,
-                child: ProductCard(product: products[index])),
+                width: widgetWidth(context: context, width: 153),
+                child: ProductItem(product: products[index])),
           );
         },
       ),
