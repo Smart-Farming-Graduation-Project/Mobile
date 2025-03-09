@@ -1,4 +1,5 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/featurs/categories/manger/cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/add_to_cart_button.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/price_display.dart';
@@ -7,6 +8,7 @@ import 'package:crop_guard/featurs/categories/presentation/views/widgets/product
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/quantity_selector.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/review_stars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'widgets/favorite_icon.dart';
 import 'widgets/info_box.dart';
@@ -44,76 +46,92 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.kPrimaryColor,
-        elevation: 0,
-        title: const Text(
-          'Product Details',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-            color: Colors.white,
+    return BlocProvider(
+      create: (context) => ProductCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.kPrimaryColor,
+          elevation: 0,
+          title: const Text(
+            'Product Details',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 28,
+            ),
           ),
         ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-            size: 28,
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ProductImageDetails(
-              image: widget.product.image,
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                ProductTitle(
-                    name: widget.product.name,
-                    category: widget.product.category),
-                const Spacer(),
-                FavoriteIcon(product: widget.product),
-              ],
-            ),
-            const SizedBox(height: 18),
-            const InfoBoxDetails(),
-            const SizedBox(height: 18),
-            Row(
-              children: [
-                QuantitySelector(
-                  quantity: quantity,
-                  onIncrement: incrementQuantity,
-                  onDecrement: decrementQuantity,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
                 ),
-                const Spacer(),
-                PriceDisplay(
-                    price: double.tryParse(widget.product.price) ?? 0.0),
-              ],
-            ),
-            const SizedBox(height: 10),
-            ProductDetailExpansion(description: widget.product.description),
-            const SizedBox(height: 10),
-            const ReviewStars(),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                SellerInfoTile(seller: widget.product.seller),
-                const Spacer(),
-                const AddToCartButton(),
-              ],
-            ),
-          ],
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ProductImageDetails(image: widget.product.image),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            ProductTitle(
+                                name: widget.product.name,
+                                category: widget.product.category),
+                            const Spacer(),
+                            FavoriteIcon(product: widget.product),
+                          ],
+                        ),
+                        const SizedBox(height: 18),
+                        const InfoBoxDetails(),
+                        const SizedBox(height: 18),
+                        Row(
+                          children: [
+                            QuantitySelector(
+                              quantity: quantity,
+                              onIncrement: incrementQuantity,
+                              onDecrement: decrementQuantity,
+                            ),
+                            const Spacer(),
+                            PriceDisplay(
+                                price: double.tryParse(widget.product.price) ??
+                                    0.0),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        ProductDetailExpansion(
+                            description: widget.product.description),
+                        const SizedBox(height: 10),
+                        const ReviewStars(),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            SellerInfoTile(seller: widget.product.seller),
+                            const Spacer(),
+                            const AddToCartButton(),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

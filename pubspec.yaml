@@ -58,6 +58,7 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   iconsax: ^0.0.8
   flutter_rating_bar: ^4.0.1
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,7 @@ flutter:
     - assets/images/cart/
     - assets/images/home/
     - assets/images/auth/
+    - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

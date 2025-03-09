@@ -1,6 +1,10 @@
+import 'package:crop_guard/featurs/categories/manger/cubit/category_cubit.dart';
+import 'package:crop_guard/featurs/categories/manger/cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/category_screen.dart';
+import 'package:crop_guard/featurs/home/manger/cubit/home_cubit.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/search_filter_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'appbar_section.dart';
 import 'filter_button.dart';
 import 'offer_card.dart';
@@ -11,7 +15,17 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
   @override
   Widget build(BuildContext context) {
-    return  const SafeArea(
+
+    return MultiBlocProvider(
+    providers: [
+    BlocProvider(create: (context) => HomeCubit()),
+    BlocProvider(create: (context) => CategoryCubit()),
+    BlocProvider(create: (context) => ProductCubit()),
+    ],
+   child:
+
+
+    const SafeArea(
         child:  Scaffold(
           body: Padding(
             padding: EdgeInsets.symmetric( horizontal: 15),
@@ -59,6 +73,6 @@ class HomeContent extends StatelessWidget {
             ),
           ),
         ),
-      );
+      ));
   }
 }

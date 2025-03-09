@@ -7,9 +7,12 @@ import '../../../home/presentation/views/widgets/search_filter_bar.dart';
 import '../../manger/cubit/product_cubit.dart';
 import '../models/product_model.dart';
 import 'widgets/product_item.dart';
+
 class CategoryProductsScreen extends StatelessWidget {
   final String categoryName;
+
   const CategoryProductsScreen({super.key, required this.categoryName});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

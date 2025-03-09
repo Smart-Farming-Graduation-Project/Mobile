@@ -7,6 +7,7 @@ import 'product_content.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
+
   final ProductModel product;
 
   @override
@@ -19,10 +20,10 @@ class _ProductItemState extends State<ProductItem> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailsPage(product: widget.product),
-        )) ;
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailsPage(product: widget.product),
+            ));
       },
       child: Container(
         padding: const EdgeInsets.all(10),
