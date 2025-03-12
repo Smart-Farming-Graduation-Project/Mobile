@@ -57,6 +57,8 @@ dependencies:
   firebase_auth: ^5.5.1
   curved_navigation_bar: ^1.0.6
   iconsax: ^0.0.8
+  shared_preferences: ^2.5.2
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:

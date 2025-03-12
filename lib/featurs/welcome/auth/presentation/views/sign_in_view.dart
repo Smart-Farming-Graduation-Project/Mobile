@@ -1,6 +1,4 @@
-import 'package:crop_guard/core/api/dio_consumer.dart';
-import 'package:crop_guard/featurs/welcome/auth/manger/password_cubit.dart/password_cubit.dart';
-import 'package:crop_guard/featurs/welcome/auth/manger/user_cubit/user_cubit.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/login_cubit/login_cubit.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/social_buttons.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_divider.dart';
@@ -10,7 +8,6 @@ import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/email
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/forgot_password_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/navigate_to_page.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/password_text_form_field.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,16 +16,9 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userCubit = UserCubit(DioConsumer(dio: Dio()));
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => userCubit,
-        ),
-        BlocProvider(
-          create: (context) => PasswordCubit(),
-        ),
-      ],
+    final userCubit = LoginCubit();
+    return BlocProvider(
+      create: (context) => userCubit,
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -70,7 +60,9 @@ class SignInView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const SocialButtons(isSignInPage: true,),
+                const SocialButtons(
+                  isSignInPage: true,
+                ),
                 const SizedBox(
                   height: 25,
                 ),

@@ -1,4 +1,5 @@
-import 'package:crop_guard/featurs/welcome/auth/manger/user_cubit/user_cubit.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/login_cubit/login_cubit.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_cubit.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/facebook_icon.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/google_icon.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +19,16 @@ class SocialButtons extends StatelessWidget {
       children: [
         FacebookIcon(onPressed: () {
           if (isSignInPage) {
-            context.read<UserCubit>().signInWithFacebook();
+            context.read<LoginCubit>().signInWithFacebook(context);
           } else {
-            context.read<UserCubit>().signInWithFacebook();
+            context.read<RegisterCubit>().signUpWithFacebook(context);
           }
         }),
         GoogleIcon(onPressed: () {
           if (isSignInPage) {
-            context.read<UserCubit>().signInWithGoogle();
+            context.read<LoginCubit>().signInWithGoogle(context);
           } else {
-            context.read<UserCubit>().signUpWithGoogle();
+            context.read<RegisterCubit>().signUpWithGoogle(context);
           }
         })
       ],

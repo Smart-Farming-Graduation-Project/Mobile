@@ -1,4 +1,4 @@
-import 'package:crop_guard/core/routing/app_router.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -1,30 +1,28 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class NameTextFormField extends StatelessWidget {
-  const NameTextFormField(
-      {super.key, required this.controller, required this.labelText});
+class PhoneNumberTextFormField extends StatelessWidget {
+  const PhoneNumberTextFormField({super.key, required this.controller});
   final TextEditingController controller;
-  final String labelText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.phone,
       validator: (value) {
-        if (RegExp(r'^[A-Za-z]{2,30}$').hasMatch(value!)) {
+        if (RegExp(r'^[0-9]{10,15}$').hasMatch(value!)) {
           return null;
         } else {
-          return 'Enter a valid Name';
+          return 'Enter a valid phone number';
         }
       },
       decoration: InputDecoration(
         prefixIcon: const Icon(
-          Icons.person,
+          Icons.phone,
           color: AppColors.kPrimaryColor,
         ),
-        labelText: labelText,
+        labelText: 'Phone Number',
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: AppColors.kPrimaryColor),
