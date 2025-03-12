@@ -21,6 +21,7 @@ class EndPoints {
       'Authentication/register-with-third-party';
   static const String loginWithThirdParty =
       '/Authentication/login-with-third-party';
+      static const String checkEmailAndUsername = 'User/IsValidUserNameAndEmail';
 
   //Authorization
   static const String getRoles = 'Authorization/GetRoles';
@@ -28,11 +29,13 @@ class EndPoints {
 }
 
 class ApiKeys {
+  ////////////// errorModel ///////////////////////
   static const String statusCode = 'statusCode';
   static const String errorMessage = 'message';
   static const String succeeded = 'succeeded';
   static const String data = 'data';
   static const String meta = 'meta';
+  ////////////////////// Authentication //////////////////////
   static const String email = 'email';
   static const String usernameOrEmail = 'userNameOrEmail';
   static const String username = 'userName';
@@ -40,7 +43,13 @@ class ApiKeys {
   static const String confirmPassword = 'confirmPassword';
   static const String firstName = 'firstName';
   static const String lastName = 'lastName';
+  static const String phoneNumber = 'phone';
+  ///////////////////////// Authentication response ////////////////////////
   static const String accessToken = 'accessToken';
   static const String refreshToken = 'refreshToken';
   static const String provider = 'provider';
+  static const String code = 'code';
+  ////////////////////// resetPassword  ////////////////////////
+  static const String token = 'token';
+  static const String newPassword = 'newPassword';
 }

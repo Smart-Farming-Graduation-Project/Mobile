@@ -1,98 +1,86 @@
 import 'dart:developer';
+
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
-import 'package:crop_guard/core/routing/app_router.dart';
-import 'package:crop_guard/featurs/welcome/auth/manger/user_cubit/user_state.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class UserCubit extends Cubit<LoguinState> {
-  UserCubit(this.api) : super(InitialState());
-  final DioConsumer api;
+class RegisterCubit extends Cubit<RegisterState> {
+  RegisterCubit() : super(AccountTypestate());
+  final api = getIt<DioConsumer>();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyFirstPage = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formKeySecondPage = GlobalKey<FormState>();
+  String role = '';
 
-  Future<void> signIn(BuildContext context) async {
-    // this is temporary
-    // ignore: use_build_context_synchronously
-    GoRouter.of(context).go(AppRouter.home);
-    if (formKey.currentState!.validate()) {
+  void goToFirstSignUpPage() {
+    emit(FirstSignUpState());
+  }
+
+  void selectRole(String selectedRole) {
+    role = selectedRole;
+    emit(RegisterRoleSelectedState(role));
+  }
+
+  Future<void> checkEmailAndUsername() async {
+    if (formKeyFirstPage.currentState!.validate()) {
       try {
-        emit(LoadingState());
-        final response = await api.post(EndPoints.login, data: {
-          ApiKeys.usernameOrEmail: emailController.text,
-          ApiKeys.password: passwordController.text
-          // ApiKeys.email: 'mo.zonkol@gmail.com',
-          // ApiKeys.password: 'Mo@123456'
+        emit(FirstSignUpLoadingState());
+        final response = await api.post(EndPoints.checkEmailAndUsername, data: {
+          ApiKeys.email: emailController.text,
+          ApiKeys.username: usernameController.text,
         });
         log(response.toString());
-        emit(SuccessState());
-        // ignore: use_build_context_synchronously
-        GoRouter.of(context).go(AppRouter.home);
+        emit(SecondSignUpState());
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
-        emit(ErrorState(errorMessage: e.errorModel.errorMessage));
+        emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
     }
   }
 
-  Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
-        await signInWithThirdParty(
-            accessToken: googleAuth.accessToken!, provider: 'google');
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  Future<void> signInWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final String accessToken = result.accessToken!.tokenString;
-        await signInWithThirdParty(
-            accessToken: accessToken, provider: 'facebook');
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  Future<void> signUp() async {
-    if (formKey.currentState!.validate()) {
+  Future<void> signUp(BuildContext context) async {
+    if (formKeySecondPage.currentState!.validate()) {
       try {
-        emit(LoadingState());
+        emit(SecondSignUpLoadingState());
         final response = await api.post(EndPoints.register, data: {
+          ApiKeys.firstName: firstNameController.text,
+          ApiKeys.lastName: lastNameController.text,
           ApiKeys.username: usernameController.text,
           ApiKeys.email: emailController.text,
           ApiKeys.password: passwordController.text,
-          ApiKeys.confirmPassword: confirmPasswordController.text
+          ApiKeys.confirmPassword: confirmPasswordController.text,
+          ApiKeys.phoneNumber: phoneController.text,
+          // ApiKeys.role: role,
         });
         log(response.toString());
-        emit(SuccessState());
+        if (context.mounted) {
+          GoRouter.of(context).go(AppRouter.home);
+        }
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
-        emit(ErrorState(errorMessage: e.errorModel.errorMessage));
+        emit(SecondSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
     }
   }
 
-  Future<void> signUpWithGoogle() async {
+  //! signUp with Google and get needed data to send to method {signUpWithThirdParty} which deal with api
+  Future<void> signUpWithGoogle(BuildContext context) async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -110,13 +98,17 @@ class UserCubit extends Cubit<LoguinState> {
             lastName: lastName,
             accessToken: accessToken,
             provider: 'google');
+        if (context.mounted) {
+          GoRouter.of(context).go(AppRouter.home);
+        }
       }
     } catch (e) {
       log(e.toString());
     }
   }
 
-  Future<void> signUpWithFacebook() async {
+  //! signUp with Facebook and get needed data to send to method {signUpWithThirdParty} which deal with api
+  Future<void> signUpWithFacebook(BuildContext context) async {
     log('signUpWithFacebook');
     try {
       final LoginResult result = await FacebookAuth.instance.login();
@@ -135,33 +127,23 @@ class UserCubit extends Cubit<LoguinState> {
             lastName: lastName,
             accessToken: accessToken,
             provider: 'facebook');
+        if (context.mounted) {
+          GoRouter.of(context).go(AppRouter.home);
+        }
       }
     } catch (e) {
       log(e.toString());
     }
   }
 
-  Future<void> signInWithThirdParty(
-      {required String accessToken, required String provider}) async {
-    try {
-      emit(LoadingState());
-      final response = await api.post(EndPoints.loginWithThirdParty,
-          data: {ApiKeys.accessToken: accessToken, ApiKeys.provider: provider});
-      log(response.toString());
-      emit(SuccessState());
-    } on ServerException catch (e) {
-      log(e.errorModel.errorMessage);
-      emit(ErrorState(errorMessage: e.errorModel.errorMessage));
-    }
-  }
-
+  //! signUp with ThirdParty deal with api
   Future<void> signUpWithThirdParty(
       {required String firstName,
       required String lastName,
       required String accessToken,
       required String provider}) async {
     try {
-      emit(LoadingState());
+      emit(FirstSignUpLoadingState());
       final response = await api.post(EndPoints.registerWithThirdParty, data: {
         ApiKeys.firstName: firstName,
         ApiKeys.lastName: lastName,
@@ -169,10 +151,17 @@ class UserCubit extends Cubit<LoguinState> {
         ApiKeys.provider: provider
       });
       log(response.toString());
-      emit(SuccessState());
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
-      emit(ErrorState(errorMessage: e.errorModel.errorMessage));
+      emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
     }
+  }
+
+  void chooseBuyer() {
+    selectRole('Buyer');
+  }
+
+  void chooseFarmer() {
+    selectRole('Farmer');
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../core/routing/app_router.dart';
+import '../../../../../../core/routes/app_router.dart';
 
 class OnboardingController {
   final PageController pageController = PageController();
@@ -9,17 +9,20 @@ class OnboardingController {
     {
       "image": 'assets/images/onboarding/page1.png',
       "cardContent": " Everything You Need,\n Just a Tap Away!",
-      "subtitle": "Discover a world of fresh products and hassle-free shopping, tailored to your lifestyle.",
+      "subtitle":
+          "Discover a world of fresh products and hassle-free shopping, tailored to your lifestyle.",
     },
     {
       "image": 'assets/images/onboarding/page2.png',
       "cardContent": "Smart Farming at Your Fingertips!",
-      "subtitle": " Stay connected to your farm, track rover movements, and optimize operations—all from your mobile app.",
+      "subtitle":
+          " Stay connected to your farm, track rover movements, and optimize operations—all from your mobile app.",
     },
     {
       "image": 'assets/images/onboarding/page3.png',
       "cardContent": "Grow Together,\n Thrive Together!",
-      "subtitle": "Connect with a community of smart farmers, share insights, and optimize your farm with remote rover control.",
+      "subtitle":
+          "Connect with a community of smart farmers, share insights, and optimize your farm with remote rover control.",
     },
   ];
 
@@ -37,7 +40,7 @@ class OnboardingController {
 
   void handleNext(BuildContext context) {
     if (isLastPage) {
-      GoRouter.of(context).go(AppRouter.selectRole);
+      GoRouter.of(context).go(AppRouter.signIn);
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 400),
@@ -46,12 +49,9 @@ class OnboardingController {
     }
   }
 
-  
   void dispose() {
     if (pageController.hasClients) {
       pageController.dispose();
     }
-
   }
-
 }

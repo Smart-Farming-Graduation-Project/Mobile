@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:onboarding_animation/onboarding_animation.dart';
 
-import '../../../../../core/routing/app_router.dart';
+import '../../../../../core/routes/app_router.dart';
 
 import '../../../../../core/theme/app_text_styles.dart';
 import 'widgets/controller_page.dart';
@@ -39,10 +38,8 @@ class _OnboardingViewState extends State<OnboardingView> {
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
-      body:
-      Stack(
+      body: Stack(
         children: [
-
           Column(
             children: [
               Expanded(
@@ -50,9 +47,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                   controller: _controller.pageController,
                   pages: List.generate(
                     _controller.onboardingData.length,
-                        (index) => GetCardsContent(
+                    (index) => GetCardsContent(
                       image: _controller.onboardingData[index]["image"]!,
-                      cardContent: _controller.onboardingData[index]["cardContent"]!,
+                      cardContent: _controller.onboardingData[index]
+                          ["cardContent"]!,
                       subtitle: _controller.onboardingData[index]["subtitle"]!,
                     ),
                   ),
@@ -62,8 +60,6 @@ class _OnboardingViewState extends State<OnboardingView> {
                   indicatorType: IndicatorType.jumpingDots,
                   indicatorPosition: IndicatorPosition.bottomCenter,
                   indicatorSwapType: SwapType.normal,
-
-
                 ),
               ),
             ],
@@ -74,10 +70,11 @@ class _OnboardingViewState extends State<OnboardingView> {
             child: GestureDetector(
               child: Text(
                 'SKIP',
-              style: AppTextStyles.textStyle24.copyWith(fontSize: 20,fontWeight: FontWeight.bold),
+                style: AppTextStyles.textStyle24
+                    .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                GoRouter.of(context).go(AppRouter.selectRole);
+                GoRouter.of(context).go(AppRouter.signIn);
               },
             ),
           ),

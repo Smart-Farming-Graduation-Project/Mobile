@@ -1,11 +1,9 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class NameTextFormField extends StatelessWidget {
-  const NameTextFormField(
-      {super.key, required this.controller, required this.labelText});
+class UsernameTextFormField extends StatelessWidget {
+  const UsernameTextFormField({super.key, required this.controller});
   final TextEditingController controller;
-  final String labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +11,10 @@ class NameTextFormField extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.text,
       validator: (value) {
-        if (RegExp(r'^[A-Za-z]{2,30}$').hasMatch(value!)) {
+        if (RegExp(r"^[a-zA-Z0-9]{3,16}$").hasMatch(value!)) {
           return null;
         } else {
-          return 'Enter a valid Name';
+          return 'Enter a valid username like User123';
         }
       },
       decoration: InputDecoration(
@@ -24,7 +22,7 @@ class NameTextFormField extends StatelessWidget {
           Icons.person,
           color: AppColors.kPrimaryColor,
         ),
-        labelText: labelText,
+        labelText: 'Username',
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: AppColors.kPrimaryColor),

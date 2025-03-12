@@ -1,44 +1,80 @@
 import 'dart:ui';
-
+import 'package:crop_guard/core/api/end_points.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/core/widgets/button_decoration.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/forgot_password_dialog_cubit/forgot_password_dialog_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 void showForgotPasswordDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: AlertDialog(
-            content: Text(
-              "Verify Your Email Address\n\n\nwe will send the authentication code\n    to the email address you entered.\n                 Do you want to continue?\n",
-              style: AppTextStyles.textStyle16.copyWith(fontWeight: FontWeight.bold),
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return BlocProvider(
+        create: (context) => ForgotPasswordDialogCubit(),
+        child: Builder(builder: (context) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: AlertDialog(
+              title: Align(
+                alignment: Alignment.center,
+                child: Text('Forgot Password',
+                    style: AppTextStyles.textStyle24.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.kDangerColor)),
+              ),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                spacing: 8,
+                children: [
+                  const Text(
+                    'Enter your email address to receive a password reset link.',
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    getIt<CacheHelper>().getData(key: ApiKeys.email),
+                    style: AppTextStyles.textStyle22,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: () {
+                            GoRouter.of(context).pop();
+                          },
+                          child: const ButtonDecoration(
+                            buttontext: 'Cancel',
+                          ),
+                        ),
+                      ),
+                      const Spacer(flex: 1),
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: () {
+                            context
+                                .read<ForgotPasswordDialogCubit>()
+                                .forgotUsernameOrPasswordUsingOTP(context);
+                          },
+                          child: const ButtonDecoration(
+                            buttontext: 'Next',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.kPrimaryColor,
-                  foregroundColor: AppColors.kWhiteColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.kPrimaryColor,
-                  foregroundColor: AppColors.kWhiteColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                child: const Text('Next'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+          );
+        }),
+      );
+    },
+  );
+}
