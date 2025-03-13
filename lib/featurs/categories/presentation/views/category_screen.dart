@@ -13,17 +13,14 @@ class CategoryScreen extends StatelessWidget {
       create: (context) => CategoryCubit(),
       child:  BlocBuilder<CategoryCubit, TextEditingController>(
         builder: (context, controller) {
-
           final filteredCategories = categories
-              .where((category) => category.categoryName.toLowerCase()
-                  .contains(controller.text.toLowerCase())).toList();
+              .where((category) => category.categoryName.toLowerCase().contains(controller.text.toLowerCase())).toList();
           return ListView.builder(
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: filteredCategories.length,
             itemBuilder: (context, index) {
-
               return Padding(
                 padding: const EdgeInsets.all(5),
                 child: SizedBox(
