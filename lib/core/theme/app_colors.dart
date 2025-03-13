@@ -9,4 +9,10 @@ abstract class AppColors {
   static const Color kPrimaryColor = Color(0xFF06AE57);
   static const Color kDangerColor = Color(0xFFD32F2F);
 
+  static const Color kDangerColor = Color(0xFFFF0000);
+
+  static var kYellowColor= const Color(0xFFFFC107);
+
+
+
 }

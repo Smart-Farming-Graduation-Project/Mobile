@@ -38,7 +38,6 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               child: ClipRRect(
-
                 borderRadius: BorderRadius.circular(30),
                 child: BottomNavigationBar(
                   currentIndex: selectedIndex,
@@ -70,15 +69,12 @@ class HomePage extends StatelessWidget {
                     ];
 
                     return BottomNavigationBarItem(
-
                       icon: Container(
                         decoration: BoxDecoration(
                           color: selectedIndex == index
                               ? Colors.grey.shade200
                               : Colors.transparent,
                           shape: BoxShape.circle,
-
-
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -87,7 +83,9 @@ class HomePage extends StatelessWidget {
                           ),
                           child: Icon(
                             size: 24,
-                            selectedIndex == index ? icons[index] : unselectedIcons[index],
+                            selectedIndex == index
+                                ? icons[index]
+                                : unselectedIcons[index],
                             color: selectedIndex == index
                                 ? AppColors.kPrimaryColor
                                 : AppColors.kPrimaryColor,

@@ -20,7 +20,10 @@ class CartCubit extends Cubit<CartState> {
     log(cartProducts.map((e) => e.id).toString());
     checkEmpty(cartProducts);
   }
-
+ void addItem(CartProduct product) {
+    cartProducts.add(product);
+    checkEmpty(cartProducts);
+ }
   void updateQuantity(String productId, int quantity, bool isIncrement) {
     if (isIncrement) {
       cartProducts.firstWhere((element) => element.id == productId).quantity++;
