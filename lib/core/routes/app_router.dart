@@ -3,8 +3,6 @@ import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_locati
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/reviews/presentation/views/reviews_screen.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/account_type.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_up_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
@@ -17,9 +15,7 @@ import '../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
   static const String splash = '/';
-  static const String splash = '/';
   static const String onboarding = '/onboarding';
-  static const String signIn = '/signIn';
   static const String signIn = '/signIn';
   static const String forgotPassword = '/forgotPassword';
   static const String oTP = '/oTP';
@@ -40,7 +36,6 @@ abstract class AppRouter {
 
 
 
-  static final router = GoRouter( routes: [
   static final router = GoRouter(routes: [
     // welcome routes
     GoRoute(
