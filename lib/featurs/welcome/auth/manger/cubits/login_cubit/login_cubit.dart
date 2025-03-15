@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> signIn(BuildContext context) async {
     // this is temporary
     // ignore: use_build_context_synchronously
-    GoRouter.of(context).go(AppRouter.home);
+    // GoRouter.of(context).go(AppRouter.home);
     if (formKey.currentState!.validate()) {
       try {
         emit(LoadingState());
@@ -42,6 +42,9 @@ class LoginCubit extends Cubit<LoginState> {
           // ApiKeys.password: 'Mo@123456'
         });
         log(response.toString());
+        log(response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);
+        getIt<CacheHelper>().saveData(key: ApiKeys.accessToken, value: response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);  
+        getIt<CacheHelper>().saveData(key: ApiKeys.refreshToken, value: response[ApiKeys.data][ApiKeys.tokens][ApiKeys.refreshToken]);
         emit(SuccessState());
         // ignore: use_build_context_synchronously
         GoRouter.of(context).go(AppRouter.home);

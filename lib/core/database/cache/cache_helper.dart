@@ -51,5 +51,4 @@ class CacheHelper {
     return sharedPreferences.clear();
   }
 
-
 }
