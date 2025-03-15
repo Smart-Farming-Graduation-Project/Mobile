@@ -26,6 +26,11 @@ class EndPoints {
   //Authorization
   static const String getRoles = 'Authorization/GetRoles';
   static const String getPermissions = 'Authorization/get-permissions';
+
+  // Cart
+  static const String getCart = 'Cart/GetCart';
+  static const String addToCart = 'Cart/AddToCart';
+  static const String removeFromCart = 'Cart/RemoveProduct/${id}';
 }
 
 class ApiKeys {
@@ -44,7 +49,10 @@ class ApiKeys {
   static const String firstName = 'firstName';
   static const String lastName = 'lastName';
   static const String phoneNumber = 'phone';
+  /////////////////////////Authorization  ///////////////////////////////
+  static const String authorization = 'Authorization';
   ///////////////////////// Authentication response ////////////////////////
+  static const String tokens = 'tokens';
   static const String accessToken = 'accessToken';
   static const String refreshToken = 'refreshToken';
   static const String provider = 'provider';

@@ -1,13 +1,11 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_cubit.dart';
-import 'package:crop_guard/featurs/cart/manger/models/cart_product.dart';
+import 'package:crop_guard/featurs/cart/manger/models/cart_product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartItemWidget extends StatelessWidget {
   const CartItemWidget({super.key, required this.cartItem});
-  final CartProduct cartItem;
+  final CartProductModel cartItem;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class CartItemWidget extends StatelessWidget {
                 ),
                 onPressed: () {
                   Slidable.of(context)?.close();
-                  context.read<CartCubit>().removeItem(cartItem.id);
+                  // context.read<CartCubit>().removeItem(cartItem.id);
                 },
               ),
             ),
@@ -53,32 +51,32 @@ class CartItemWidget extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           leading: Image.network(
-            cartItem.imageUrl,
+            cartItem.productImage,
             width: 70,
             height: 70,
           ),
-          title: Text(cartItem.title,
+          title: Text(cartItem.productName,
               style:
                   const TextStyle(fontWeight: FontWeight.w900, fontSize: 19)),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(cartItem.category,
+              Text(cartItem.productDescription,
                   style: const TextStyle(
                       color: AppColors.kGrayColor,
                       fontWeight: FontWeight.w400)),
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Text("\$${cartItem.currentPrice.toStringAsFixed(2)}",
+                  Text("\$${cartItem.productPrice.toStringAsFixed(2)}",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16)),
-                  const SizedBox(width: 5),
-                  if (cartItem.currentPrice != cartItem.originalPrice)
-                    Text("\$${cartItem.originalPrice.toStringAsFixed(2)}",
-                        style: const TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.grey)),
+                  // const SizedBox(width: 5),
+                  // if (cartItem.currentPrice != cartItem.originalPrice)
+                  //   Text("\$${cartItem.originalPrice.toStringAsFixed(2)}",
+                  //       style: const TextStyle(
+                  //           decoration: TextDecoration.lineThrough,
+                  //           color: Colors.grey)),
                 ],
               )
             ],
@@ -90,11 +88,11 @@ class CartItemWidget extends StatelessWidget {
                   icon: const Icon(Icons.remove_circle_outline,
                       color: Colors.red),
                   onPressed: () {
-                    context.read<CartCubit>().updateQuantity(
-                          cartItem.id,
-                          cartItem.quantity,
-                          false,
-                        );
+                    // context.read<CartCubit>().updateQuantity(
+                    //       cartItem.id,
+                    //       cartItem.quantity,
+                    //       false,
+                    //     );
                   }),
               Text(cartItem.quantity.toString(),
                   style: const TextStyle(
@@ -103,11 +101,11 @@ class CartItemWidget extends StatelessWidget {
                   icon:
                       const Icon(Icons.add_circle_outline, color: Colors.green),
                   onPressed: () {
-                    context.read<CartCubit>().updateQuantity(
-                          cartItem.id,
-                          cartItem.quantity,
-                          true,
-                        );
+                    // context.read<CartCubit>().updateQuantity(
+                    //       cartItem.id,
+                    //       cartItem.quantity,
+                    //       true,
+                    //     );
                   }),
             ],
           ),
