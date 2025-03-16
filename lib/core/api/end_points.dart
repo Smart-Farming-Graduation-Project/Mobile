@@ -29,8 +29,12 @@ class EndPoints {
 
   // Cart
   static const String getCart = 'Cart/GetCart';
-  static const String addToCart = 'Cart/AddToCart';
-  static const String removeFromCart = 'Cart/RemoveProduct/${id}';
+  static String addToCart(String id){
+      return 'Cart/AddProduct/$id';
+  }
+  static String removeFromCart(String id){
+    return 'Cart/RemoveProduct/$id';
+  }
 }
 
 class ApiKeys {
