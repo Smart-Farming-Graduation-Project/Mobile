@@ -1,6 +1,8 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/featurs/cart/manger/cart_cubit/cart_cubit.dart';
 import 'package:crop_guard/featurs/cart/manger/models/cart_product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -26,7 +28,7 @@ class CartItemWidget extends StatelessWidget {
                 ),
                 onPressed: () {
                   Slidable.of(context)?.close();
-                  // context.read<CartCubit>().removeItem(cartItem.id);
+                  context.read<CartCubit>().removeFromCart(cartItem.productId);
                 },
               ),
             ),
@@ -68,7 +70,7 @@ class CartItemWidget extends StatelessWidget {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Text("\$${cartItem.productPrice.toStringAsFixed(2)}",
+                  Text("${cartItem.productPrice.toStringAsFixed(2)} EGP",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16)),
                   // const SizedBox(width: 5),
@@ -101,6 +103,7 @@ class CartItemWidget extends StatelessWidget {
                   icon:
                       const Icon(Icons.add_circle_outline, color: Colors.green),
                   onPressed: () {
+                    context.read<CartCubit>().addToCart(cartItem.productId);
                     // context.read<CartCubit>().updateQuantity(
                     //       cartItem.id,
                     //       cartItem.quantity,

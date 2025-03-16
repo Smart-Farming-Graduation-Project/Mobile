@@ -9,7 +9,7 @@ class CartLoadedState extends CartState {
   CartLoadedState(this.items, this.subTotalPrice);
 }
 class CartErrorState extends CartState {
-  final String message;
-  CartErrorState(this.message);
+  final String errorMessage;
+  CartErrorState({required this.errorMessage});
 }
 class CartEmptyState extends CartState {}

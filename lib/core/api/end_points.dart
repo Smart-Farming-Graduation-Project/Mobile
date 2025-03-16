@@ -29,8 +29,12 @@ class EndPoints {
 
   // Cart
   static const String getCart = 'Cart/GetCart';
-  static const String addToCart = 'Cart/AddToCart';
-  static const String removeFromCart = 'Cart/RemoveProduct/${id}';
+  static String addToCart(int id){
+      return 'Cart/AddProduct/$id';
+  }
+  static String removeFromCart(int id){
+    return 'Cart/RemoveProduct/$id';
+  }
 }
 
 class ApiKeys {
@@ -60,4 +64,7 @@ class ApiKeys {
   ////////////////////// resetPassword  ////////////////////////
   static const String token = 'token';
   static const String newPassword = 'newPassword';
+  //////////////////////// Cart ////////////////////////
+  static const String productId = 'productId';
+  static const String quantity = 'quantity';
 }
