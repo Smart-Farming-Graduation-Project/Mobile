@@ -37,7 +37,7 @@ class CartViewBody extends StatelessWidget {
           } else if (state is CartEmptyState) {
             return const EmptyCart();
           } else if (state is CartErrorState) {
-            return Center(child: Text(state.message));
+            return Center(child: Text(state.errorMessage));
           }
           return const Center(child: Text('Something went wrong'));
         },
