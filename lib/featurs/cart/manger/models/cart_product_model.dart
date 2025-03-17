@@ -5,7 +5,7 @@ class CartProductModel {
   final String productDescription;
   final double productPrice;
   final int quantity;
-  final String productImage;
+  final String? productImage;
 
   CartProductModel({
     required this.id,
