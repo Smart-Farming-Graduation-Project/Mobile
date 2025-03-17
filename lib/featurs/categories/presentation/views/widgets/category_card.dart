@@ -1,8 +1,8 @@
 import 'package:crop_guard/core/responsive/widget_height.dart';
 import 'package:crop_guard/core/responsive/widget_width.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../manger/cubit/product_cubit.dart';
 import '../../models/category_model.dart';
 import '../category_products_screen.dart';
 

@@ -1,5 +1,5 @@
+import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../presentation/models/product_model.dart';
 
 class ProductCubit extends Cubit<List<ProductModel>> {
   final List<ProductModel> allProducts = List.from(products);
@@ -21,7 +21,7 @@ class ProductCubit extends Cubit<List<ProductModel>> {
 
   void toggleFavorite(String productId) {
     for (var product in allProducts) {
-      if (product.id == productId) {
+      if (productId == product.id.toString()) {
         product.isFavorite = !product.isFavorite;
         break;
       }

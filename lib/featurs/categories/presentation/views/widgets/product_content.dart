@@ -18,8 +18,7 @@ class ProductContent extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
-        Text(product.amount,
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

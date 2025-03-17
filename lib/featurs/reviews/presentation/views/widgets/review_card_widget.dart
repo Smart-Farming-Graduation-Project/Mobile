@@ -1,23 +1,54 @@
+import 'package:crop_guard/featurs/reviews/presentation/model/review_model.dart';
 import 'package:flutter/material.dart';
 
-class ReviewCardWidget extends StatelessWidget {
-  final Map<String, dynamic> review;
+class ReviewCard extends StatelessWidget {
+  final ReviewModel review;
 
-  const ReviewCardWidget({super.key, required this.review});
+  const ReviewCard({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        title: Row(
-          children: [
-            Text(review["rating"].toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
-            const Icon(Icons.star, color: Colors.amber, size: 18),
-          ],
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(review.headline,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins')),
+              const SizedBox(height: 4),
+              Row(
+                children: List.generate(5, (index) {
+                  return Icon(
+                    index < review.rating ? Icons.star : Icons.star_border,
+                    color: Colors.yellow[700],
+                  );
+                }),
+              ),
+              const SizedBox(height: 8),
+              Text(review.reviewText,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              Text("By ${review.firstName} ${review.lastName}",
+                  style: TextStyle(
+                      color: Colors.black.withAlpha(150), fontSize: 13)),
+              const SizedBox(height: 4),
+              Text(
+                  "Date: ${review.reviewDate.toLocal().year}-${review.reviewDate.toLocal().month}-${review.reviewDate.toLocal().day} ${review.reviewDate.toLocal().hour}:${review.reviewDate.toLocal().minute}",
+                  style: TextStyle(
+                      color: Colors.black.withAlpha(150), fontSize: 13)),
+            ],
+          ),
         ),
-        subtitle: Text(review["comment"]),
-        trailing: Text(review["date"], style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ),
     );
   }

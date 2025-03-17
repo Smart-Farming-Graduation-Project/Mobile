@@ -1,8 +1,11 @@
-import 'package:crop_guard/featurs/categories/manger/cubit/category_cubit.dart';
-import 'package:crop_guard/featurs/categories/manger/cubit/product_cubit.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/cubit/category_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/category_screen.dart';
 import 'package:crop_guard/featurs/home/manger/cubit/home_cubit.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/search_filter_bar.dart';
+import 'package:crop_guard/featurs/reviews/presentation/manger/helper/review_service.dart';
+import 'package:crop_guard/featurs/reviews/presentation/manger/review_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'appbar_section.dart';
@@ -21,6 +24,15 @@ class HomeContent extends StatelessWidget {
     BlocProvider(create: (context) => HomeCubit()),
     BlocProvider(create: (context) => CategoryCubit()),
     BlocProvider(create: (context) => ProductCubit()),
+      BlocProvider(
+        create: (context) => ReviewCubit(getIt<ApiService>()),
+      ),
+
+
+
+
+
+
     ],
    child:
 

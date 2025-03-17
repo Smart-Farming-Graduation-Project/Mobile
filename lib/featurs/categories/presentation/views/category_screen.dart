@@ -1,6 +1,6 @@
+import 'package:crop_guard/featurs/categories/presentation/manger/cubit/category_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/category_card.dart';
 import 'package:flutter/material.dart';
-import '../../manger/cubit/category_cubit.dart';
 import '../models/category_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

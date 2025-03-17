@@ -1,5 +1,5 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/featurs/categories/manger/cubit/product_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/add_to_cart_button.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/price_display.dart';
@@ -43,7 +43,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -116,7 +115,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ProductDetailExpansion(
                             description: widget.product.description),
                         const SizedBox(height: 10),
-                        const ReviewStars(),
+                        ReviewStars(
+                          productId:widget. product.id,
+                          rating: widget.product.rating,
+
+                        ),
+
                         const SizedBox(height: 10),
                         Row(
                           children: [
