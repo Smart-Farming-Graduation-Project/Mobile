@@ -8,5 +8,4 @@ class CategoryCubit extends Cubit<TextEditingController> {
     state.text = query;
     emit(state);
   }
-
 }
