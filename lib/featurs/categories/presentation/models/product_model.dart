@@ -52,59 +52,84 @@ const List<SellerModel> sellers = [
     image: "assets/images/home/profile.png",
     description: "Supplying the finest dates and fresh nuts.",
   ),
+  SellerModel(
+    name: "Noha",
+    image: "assets/images/home/profile.png",
+    description: "Experts in growing roses and aromatic plants.",
+  ),SellerModel(
+    name: "Noha",
+    image: "assets/images/home/profile.png",
+    description: "Experts in growing roses and aromatic plants.",
+  ),SellerModel(
+    name: "Noha",
+    image: "assets/images/home/profile.png",
+    description: "Experts in growing roses and aromatic plants.",
+  ),SellerModel(
+    name: "Noha",
+    image: "assets/images/home/profile.png",
+    description: "Experts in growing roses and aromatic plants.",
+  ),SellerModel(
+    name: "Noha",
+    image: "assets/images/home/profile.png",
+    description: "Experts in growing roses and aromatic plants.",
+  ),SellerModel(
+    name: "Noha",
+    image: "assets/images/home/profile.png",
+    description: "Experts in growing roses and aromatic plants.",
+  ),
 ];
-
 class ProductModel {
+  final int id;
   final String name;
   final String category;
-  final String image;
   final String price;
-  final String amount;
-  final String id;
+  final String image;
   final String description;
   final SellerModel seller;
+  final double rating;
   bool isFavorite;
 
   ProductModel({
+    required this.id,
     required this.name,
     required this.category,
-    required this.image,
-    required this.amount,
     required this.price,
-    required this.id,
+    required this.image,
     required this.description,
     required this.seller,
+    this.rating = 4.5,
     this.isFavorite = false,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      id: json['id'],
       name: json['name'],
       category: json['category'],
+      price: json['price'].toString(),
       image: json['image'],
-      price: json['price'],
-      amount: json['amount'],
-      id: json['id'],
       description: json['description'],
-      isFavorite: json['isFavorite'] ?? false,
       seller: SellerModel.fromJson(json['seller']),
+      rating: (json['rating'] as num?)?.toDouble() ?? 4.5,
+      isFavorite: json['isFavorite'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'category': category,
-      'image': image,
       'price': price,
-      'amount': amount,
-      'id': id,
+      'image': image,
       'description': description,
-      'isFavorite': isFavorite,
       'seller': seller.toJson(),
+      'rating': rating,
+      'isFavorite': isFavorite,
     };
   }
 }
+
 
 final List<ProductModel> products = [
   ProductModel(
@@ -112,8 +137,8 @@ final List<ProductModel> products = [
     name: 'Broccoli',
     price: '18.00',
     category: 'Vegetable',
-    amount: 'Piece',
-    id: '1',
+
+    id: 1,
     description: 'Fresh organic broccoli directly from the farm.',
     seller: sellers[0],
   ),
@@ -121,9 +146,9 @@ final List<ProductModel> products = [
     image: 'assets/images/home/Avocado.png',
     name: 'Avocado',
     price: '25.00',
-    amount: 'Piece',
+
     category: 'Fruits',
-    id: '2',
+    id: 2,
     description: 'Organic avocado with rich taste and high quality.',
     seller: sellers[1],
   ),
@@ -131,9 +156,9 @@ final List<ProductModel> products = [
     image: 'assets/images/home/Broccoli.png',
     name: 'Tomato',
     price: '10.00',
-    amount: 'Kg',
+
     category: 'Vegetable',
-    id: '3',
+    id: 6,
     description: 'Fresh farm tomatoes with vibrant color and taste.',
     seller: sellers[2],
   ),
@@ -141,9 +166,9 @@ final List<ProductModel> products = [
     image: 'assets/images/home/Avocado.png',
     name: 'Apple',
     price: '15.00',
-    amount: 'Kg',
+
     category: 'Fruits',
-    id: '4',
+    id: 4,
     description: 'Crisp and juicy organic apples.',
     seller: sellers[3],
   ),
@@ -151,10 +176,56 @@ final List<ProductModel> products = [
     image: 'assets/images/home/Broccoli.png',
     name: 'Carrot',
     price: '12.00',
-    amount: 'Kg',
+
     category: 'Vegetable',
-    id: '5',
+    id: 5,
     description: 'Crunchy and sweet organic carrots.',
     seller: sellers[4],
+  ),
+  ProductModel(
+    image: 'assets/images/home/Avocado.png',
+    name: 'Apple',
+    price: '15.00',
+
+    category: 'Fruits',
+    id: 6,
+    description: 'Crisp and juicy organic apples.',
+    seller: sellers[3],
+  ), ProductModel(
+    image: 'assets/images/home/Avocado.png',
+    name: 'Apple',
+    price: '15.00',
+
+    category: 'Fruits',
+    id: 7,
+    description: 'Crisp and juicy organic apples.',
+    seller: sellers[3],
+  ), ProductModel(
+    image: 'assets/images/home/Avocado.png',
+    name: 'Apple',
+    price: '15.00',
+
+    category: 'Fruits',
+    id: 8,
+    description: 'Crisp and juicy organic apples.',
+    seller: sellers[3],
+  ), ProductModel(
+    image: 'assets/images/home/Avocado.png',
+    name: 'Apple',
+    price: '15.00',
+
+    category: 'Fruits',
+    id: 9,
+    description: 'Crisp and juicy organic apples.',
+    seller: sellers[3],
+  ), ProductModel(
+    image: 'assets/images/home/Avocado.png',
+    name: 'Apple',
+    price: '15.00',
+
+    category: 'Fruits',
+    id: 10,
+    description: 'Crisp and juicy organic apples.',
+    seller: sellers[3],
   ),
 ];

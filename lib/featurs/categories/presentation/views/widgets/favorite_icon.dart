@@ -1,4 +1,4 @@
-import 'package:crop_guard/featurs/categories/manger/cubit/product_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,7 @@ class FavoriteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.read<ProductCubit>().toggleFavorite(product.id),
+      onTap: () => context.read<ProductCubit>().toggleFavorite(product.id.toString() ),
       child: BlocBuilder<ProductCubit, List<ProductModel>>(
         builder: (context, state) {
           final updatedProduct = state.firstWhere(

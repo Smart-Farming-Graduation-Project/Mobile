@@ -27,19 +27,13 @@ class HomePage extends StatelessWidget {
             body: pages[selectedIndex],
             bottomNavigationBar: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(15),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
+
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: BottomNavigationBar(
+
                   currentIndex: selectedIndex,
                   onTap: (index) {
                     context.read<HomeCubit>().changePage(index);
@@ -50,7 +44,6 @@ class HomePage extends StatelessWidget {
                   showUnselectedLabels: false,
                   showSelectedLabels: false,
                   backgroundColor: Colors.white,
-                  elevation: 0,
                   iconSize: 24,
                   selectedFontSize: 0,
                   unselectedFontSize: 0,

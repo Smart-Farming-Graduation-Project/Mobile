@@ -1,57 +1,98 @@
+import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/featurs/reviews/presentation/manger/helper/review_service.dart';
+import 'package:crop_guard/featurs/reviews/presentation/manger/review_cubit.dart';
+import 'package:crop_guard/featurs/reviews/presentation/manger/review_state.dart';
+import 'package:crop_guard/featurs/reviews/presentation/model/review_model.dart';
 import 'package:flutter/material.dart';
-import 'widgets/rating_bar_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'widgets/review_card_widget.dart';
 import 'widgets/review_input_widget.dart';
-import 'widgets/review_list_widget.dart';
 
-class ReviewsScreen extends StatefulWidget {
-  const ReviewsScreen({super.key});
+class ReviewsScreen extends StatelessWidget {
+  final int productId;
 
-  @override
-  State<ReviewsScreen> createState() => _ReviewsScreenState();
-}
-
-class _ReviewsScreenState extends State<ReviewsScreen> {
-  double rating = 0;
-  final TextEditingController commentController = TextEditingController();
-  List<Map<String, dynamic>> reviews = [];
-
-  void submitReview() {
-    if (commentController.text.isNotEmpty) {
-      setState(() {
-        reviews.insert(0, {
-          "rating": rating,
-          "comment": commentController.text,
-          "date": DateTime.now().toLocal().toString().substring(0, 16),
-        });
-        commentController.clear();
-        rating = 0;
-      });
-    }
-  }
+  const ReviewsScreen({
+    super.key,
+    required this.productId,
+  });
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController reviewController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reviews", style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.kPrimaryColor,
+        elevation: 0,
+        title: const Text(
+          'Product Details',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.white,
+          ),
+        ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 28,
+          ),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Rate this product", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 25),
-            RatingBarWidget(initialRating: rating, onRatingUpdate: (newRating) => setState(() => rating = newRating)),
-            const SizedBox(height: 25),
-            ReviewInputWidget(controller: commentController, onSubmit: submitReview),
-            const SizedBox(height: 25),
-            const Text("Customer Reviews", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 25),
-            Expanded(child: ReviewListWidget(reviews: reviews)),
-          ],
+      body: BlocProvider(
+        create: (context) => ReviewCubit(ApiService())..loadReviews(productId),
+        child: BlocBuilder<ReviewCubit, ReviewState>(
+          builder: (context, state) {
+            if (state is ReviewsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is ReviewsLoaded) {
+              return Column(
+                children: [
+                  ReviewInputWidget(
+                    controller: reviewController,
+                    onSubmit: () {
+                      final reviewText = reviewController.text.trim();
+                      if (reviewText.isNotEmpty) {
+                        context.read<ReviewCubit>().submitReview(
+                              ReviewModel(
+                                reviewID: 0,
+                                userID: '6',
+                                firstName: "User",
+                                lastName: "Test",
+                                headline: 'Review',
+                                rating: 5,
+                                reviewText: reviewText,
+                                reviewDate: DateTime.now(),
+                                productId: productId,
+                              ),
+                            );
+                        reviewController.clear();
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.reviews.length,
+                      itemBuilder: (context, index) {
+                        return ReviewCard(review: state.reviews[index]);
+                      },
+                    ),
+                  ),
+                ],
+              );
+            } else if (state is ReviewError) {
+              debugPrint(state.message);
+              return Center(child: Text(state.message));
+            }
+            return const Center(child: Text("No reviews available"));
+          },
         ),
       ),
     );

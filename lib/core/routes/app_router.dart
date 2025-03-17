@@ -2,7 +2,6 @@ import 'package:crop_guard/featurs/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_location.dart';
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
-import 'package:crop_guard/featurs/reviews/presentation/views/reviews_screen.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
@@ -33,8 +32,6 @@ abstract class AppRouter {
   static const String settings = '/settings';
   static const String productdetails = '/productdetails';
   static const String review = '/review';
-
-
 
   static final router = GoRouter(routes: [
     // welcome routes
@@ -90,14 +87,5 @@ abstract class AppRouter {
       path: categoryscreen,
       builder: (context, state) => const CategoryScreen(),
     ),
-    GoRoute(
-      path: review,
-      builder: (context, state) =>  const  ReviewsScreen(),
-    ),
-
-
-
-
-
   ]);
 }
