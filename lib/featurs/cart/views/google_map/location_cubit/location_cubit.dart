@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crop_guard/featurs/cart/views/google_map/location_cubit/location_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -6,12 +8,14 @@ import 'package:location/location.dart';
 class LocationCubit extends Cubit<LocationState> {
   GoogleMapController? mapController;
   LocationCubit() : super(LocationInitial());
-Location location = Location();
-  Future<void> getCurrentLocation() async{
+  Location location = Location();
+  Future<void> getCurrentLocation() async {
+    emit(LocationLoading());
     await checkAndRequestLocationService();
     await checkAndRequestLocationPermission();
-     final locationData = await location.getLocation();
+    final locationData = await location.getLocation();
     final position = LatLng(locationData.latitude!, locationData.longitude!);
+    log(position.toString());
     const address = '4517 Washington Ave. Manchester, Kentucky 39495';
     emit(LocationLoaded(position, address));
   }
@@ -21,6 +25,24 @@ Location location = Location();
     emit(LocationLoaded(const LatLng(30.308949273893507, 31.703599845621095),
         '4517 Washington Ave. Manchester, Kentucky 39495'));
   }
+
+  void updateLocation() async {
+    final locationData = await location.getLocation();
+    const position = LatLng(31.2234, 31.703599845621095);
+    log(position.toString());
+    const address = '4517 Washington Ave. Manchester, Kentucky 39495';
+    // Move the camera to the new position
+    mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        const CameraPosition(
+          target: position,
+          zoom: 16,
+        ),
+      ),
+    );
+    emit(LocationUpdated(position, address));
+  }
+
   Future<void> checkAndRequestLocationService() async {
     bool serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
@@ -30,17 +52,18 @@ Location location = Location();
       }
     }
   }
+
   Future<void> checkAndRequestLocationPermission() async {
     PermissionStatus permission = await location.hasPermission();
     if (permission == PermissionStatus.denied) {
-     permission = await location.requestPermission();
+      permission = await location.requestPermission();
       if (permission != PermissionStatus.granted) {
         return;
       }
     }
   }
+
   onMapCreated(GoogleMapController controller) {
     mapController = controller;
-    location.getLocation();
   }
 }
