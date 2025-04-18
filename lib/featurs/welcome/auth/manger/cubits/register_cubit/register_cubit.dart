@@ -53,7 +53,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<void> signUp() async {
     if (formKeySecondPage.currentState!.validate()) {
       try {
         emit(SecondSignUpLoadingState());
@@ -68,9 +68,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           // ApiKeys.role: role,
         });
         log(response.toString());
-        if (context.mounted) {
-          GoRouter.of(context).go(AppRouter.home);
-        }
+        emit(RegisterSuccessState());
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
         emit(SecondSignUpErrorState(errorMessage: e.errorModel.errorMessage));

@@ -19,14 +19,14 @@ class SocialButtons extends StatelessWidget {
       children: [
         FacebookIcon(onPressed: () {
           if (isSignInPage) {
-            context.read<LoginCubit>().signInWithFacebook(context);
+            context.read<LoginCubit>().signInWithFacebook();
           } else {
             context.read<RegisterCubit>().signUpWithFacebook(context);
           }
         }),
         GoogleIcon(onPressed: () {
           if (isSignInPage) {
-            context.read<LoginCubit>().signInWithGoogle(context);
+            context.read<LoginCubit>().signInWithGoogle();
           } else {
             context.read<RegisterCubit>().signUpWithGoogle(context);
           }

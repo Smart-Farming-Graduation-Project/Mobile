@@ -3,7 +3,6 @@ import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
-import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/helper/show_forgot_password_dialog.dart';
@@ -11,7 +10,6 @@ import 'package:crop_guard/featurs/welcome/auth/manger/cubits/login_cubit/login_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -28,26 +26,24 @@ class LoginCubit extends Cubit<LoginState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   //! basic signIn method {deal with email and password and send to api}
-  Future<void> signIn(BuildContext context) async {
-    // this is temporary
-    // ignore: use_build_context_synchronously
-    // GoRouter.of(context).go(AppRouter.home);
+  Future<void> signIn() async {
     if (formKey.currentState!.validate()) {
       try {
         emit(LoadingState());
         final response = await api.post(EndPoints.login, data: {
           ApiKeys.usernameOrEmail: emailController.text,
-          ApiKeys.password: passwordController.text
-          // ApiKeys.email: 'mo.zonkol@gmail.com',
-          // ApiKeys.password: 'Mo@123456'
+          ApiKeys.password: passwordController.text,
         });
         log(response.toString());
         log(response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);
-        getIt<CacheHelper>().saveData(key: ApiKeys.accessToken, value: response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);  
-        getIt<CacheHelper>().saveData(key: ApiKeys.refreshToken, value: response[ApiKeys.data][ApiKeys.tokens][ApiKeys.refreshToken]);
+        getIt<CacheHelper>().saveData(
+            key: ApiKeys.accessToken,
+            value: response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);
+        getIt<CacheHelper>().saveData(
+            key: ApiKeys.refreshToken,
+            value: response[ApiKeys.data][ApiKeys.tokens]
+                [ApiKeys.refreshToken]);
         emit(SuccessState());
-        // ignore: use_build_context_synchronously
-        GoRouter.of(context).go(AppRouter.home);
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
         emit(ErrorState(errorMessage: e.errorModel.errorMessage));
@@ -56,18 +52,19 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   //! signIn with Google and get needed data to send to method {signInWithThirdParty} which deal with api
-  Future<void> signInWithGoogle(BuildContext context) async {
+  Future<void> signInWithGoogle() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
-        await signInWithThirdParty(
-            accessToken: googleAuth.accessToken!, provider: 'google');
-      }
-      if (context.mounted) {
-        GoRouter.of(context).go(AppRouter.home);
+        
+          await signInWithThirdParty(
+              accessToken: googleAuth.accessToken!,
+              provider: 'google',
+              );
+        
       }
     } catch (e) {
       log(e.toString());
@@ -75,16 +72,13 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   //! signIn with Facebook and get needed data to send to method {signInWithThirdParty} which deal with api
-  Future<void> signInWithFacebook(BuildContext context) async {
+  Future<void> signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
         final String accessToken = result.accessToken!.tokenString;
-        await signInWithThirdParty(
-            accessToken: accessToken, provider: 'facebook');
-      }
-      if (context.mounted) {
-        GoRouter.of(context).go(AppRouter.home);
+          await signInWithThirdParty(
+              accessToken: accessToken, provider: 'facebook', );
       }
     } catch (e) {
       log(e.toString());
@@ -93,13 +87,16 @@ class LoginCubit extends Cubit<LoginState> {
 
   //! signIn with ThirdParty deal with api
   Future<void> signInWithThirdParty(
-      {required String accessToken, required String provider}) async {
+      {required String accessToken,
+      required String provider,
+      }) async {
     try {
       emit(LoadingState());
       final response = await api.post(EndPoints.loginWithThirdParty,
           data: {ApiKeys.accessToken: accessToken, ApiKeys.provider: provider});
       log(response.toString());
       emit(SuccessState());
+      
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
       emit(ErrorState(errorMessage: e.errorModel.errorMessage));
