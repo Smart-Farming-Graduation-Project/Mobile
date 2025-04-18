@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.crop_guard"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

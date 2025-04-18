@@ -3,12 +3,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class LocationState {
 }
 class LocationInitial extends LocationState {}
+class LocationLoading extends LocationState {}
 
 class LocationLoaded extends LocationState {
   final LatLng position;
   final String address;
   LocationLoaded(this.position, this.address);
 }
+
+class LocationUpdated extends LocationState {
+  final LatLng position;
+  final String address;
+  LocationUpdated(this.position, this.address);
+}
+
+class LocationError extends LocationState {}
 
 //       appBar: AppBar(
 //         elevation: 0,
