@@ -1,11 +1,14 @@
 import 'dart:ui';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:crop_guard/core/widgets/button_decoration.dart';
+import 'package:crop_guard/core/widgets/loading_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/forgot_password_dialog_cubit/forgot_password_dialog_cubit.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/forgot_password_dialog_cubit/forgot_password_dialog_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -60,10 +63,39 @@ void showForgotPasswordDialog(BuildContext context) {
                           onTap: () {
                             context
                                 .read<ForgotPasswordDialogCubit>()
-                                .forgotUsernameOrPasswordUsingOTP(context);
+                                .forgotUsernameOrPasswordUsingOTP();
                           },
-                          child: const ButtonDecoration(
-                            buttontext: 'Next',
+                          child: BlocConsumer<ForgotPasswordDialogCubit,
+                              ForgotPasswordDialogState>(
+                            builder: (context, state) {
+                              if (state is LoadingState) {
+                                return const LoadingButton();
+                              }
+                              return const ButtonDecoration(
+                                buttontext: 'Next',
+                              );
+                            },
+                            listener: (BuildContext context,
+                                ForgotPasswordDialogState state) {
+                              if (state is SuccessState) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Check your email for the OTP code.'),
+                                    backgroundColor: AppColors.kGreenColor,
+                                  ),
+                                );
+
+                                GoRouter.of(context).go(AppRouter.oTP);
+                              } else if (state is ErrorState) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(state.errorMessage),
+                                    backgroundColor: AppColors.kDangerColor,
+                                  ),
+                                );
+                              }
+                            },
                           ),
                         ),
                       ),
