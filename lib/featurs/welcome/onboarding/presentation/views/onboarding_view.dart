@@ -70,8 +70,8 @@ class _OnboardingViewState extends State<OnboardingView> {
             child: GestureDetector(
               child: Text(
                 'SKIP',
-                style: AppTextStyles.textStyle24
-                    .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+                style: AppTextStyles.textStyle20
+                    .copyWith( fontWeight: FontWeight.bold),
               ),
               onTap: () {
                 GoRouter.of(context).go(AppRouter.signIn);

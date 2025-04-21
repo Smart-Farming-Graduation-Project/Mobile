@@ -1,4 +1,6 @@
 import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
+import 'package:crop_guard/featurs/order/presentation/views/track_order_screen.dart';
+import 'package:crop_guard/featurs/home/manger/cubit/home_state.dart';
 import 'package:crop_guard/featurs/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../manger/cubit/home_cubit.dart';
 import 'widgets/home_content.dart';
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -14,13 +15,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit(),
-      child: BlocBuilder<HomeCubit, int>(
-        builder: (context, selectedIndex) {
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          final selectedIndex = state is HomeLoaded
+              ? state.pageIndex
+              : 0; // Default to 0 if state is not HomeLoaded
           final List<Widget> pages = [
+
             const HomeContent(),
             const FavScreen(),
-            const Center(child: Text("Orders")),
+            const TrackOrderScreen(),
             const ProfileView(),
+
           ];
 
           return Scaffold(

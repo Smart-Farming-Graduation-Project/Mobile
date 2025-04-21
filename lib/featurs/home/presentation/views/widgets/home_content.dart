@@ -18,73 +18,64 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
-    providers: [
-    BlocProvider(create: (context) => HomeCubit()),
-    BlocProvider(create: (context) => CategoryCubit()),
-    BlocProvider(create: (context) => ProductCubit()),
-      BlocProvider(
-        create: (context) => ReviewCubit(getIt<ApiService>()),
-      ),
-
-
-
-
-
-
-    ],
-   child:
-
-
-    const SafeArea(
-        child:  Scaffold(
-          body: Padding(
-            padding: EdgeInsets.symmetric( horizontal: 15),
-            child: Column(
-              children: [
-                AppbarSection( userName: 'Noha Ahmed',),
-                SearchBarFilter(),
-                Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: SizedBox(height: 12),
-                      ),
-                      SliverToBoxAdapter(
-                        child:TextSection(text1: 'Categories', text2: 'See All'),
-                      ),
-                      SliverToBoxAdapter(
-                        child: SizedBox(height: 10),
-                      ),
-                      SliverToBoxAdapter(
-                        child:  SizedBox(
-                            height: 100,
-                            child: CategoryScreen()),
-                      ),
-
-                      SliverToBoxAdapter(
-                        child: TextSection(text1: 'Today\'s Offer', text2: ''),
-                      ),
-                      SliverToBoxAdapter(
-                        child: SizedBox(height: 10),
-                      ),
-                      OfferCard(),
-                      SliverToBoxAdapter(
-                        child: FilterButton(
-                          text1: 'Popular',
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: RecommendedSection(),
-                      ),
-                    ],
+        providers: [
+          BlocProvider(create: (context) => HomeCubit()),
+          BlocProvider(create: (context) => CategoryCubit()),
+          BlocProvider(create: (context) => ProductCubit()),
+          BlocProvider(
+            create: (context) => ReviewCubit(getIt<ApiService>()),
+          ),
+        ],
+        child: const SafeArea(
+          child: Scaffold(
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  AppbarSection(
+                    userName: 'Noha Ahmed',
                   ),
-                ),
-              ],
+                  SearchBarFilter(),
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: SizedBox(height: 12),
+                        ),
+                        SliverToBoxAdapter(
+                          child: TextSection(
+                              text1: 'Categories', text2: 'See All'),
+                        ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(height: 10),
+                        ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(height: 100, child: CategoryScreen()),
+                        ),
+                        SliverToBoxAdapter(
+                          child:
+                              TextSection(text1: 'Today\'s Offer', text2: ''),
+                        ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(height: 10),
+                        ),
+                        OfferCard(),
+                        SliverToBoxAdapter(
+                          child: FilterButton(
+                            text1: 'Popular',
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: RecommendedSection(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ));
+        ));
   }
 }
