@@ -1,8 +1,8 @@
 import 'package:crop_guard/core/api/end_points.dart';
 
 class ErrorModel {
-  final String errorMessage;
-  final int statusCode;
+  final dynamic errorMessage;
+  final String statusCode;
   final bool succeeded;
   final Map<String, dynamic>? data;
   final dynamic meta;
