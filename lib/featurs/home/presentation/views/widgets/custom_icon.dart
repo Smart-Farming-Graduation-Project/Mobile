@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../notification/views/notification_view.dart';
 
 class CustomNotificationIcon extends StatelessWidget {
   const CustomNotificationIcon({super.key});
@@ -13,11 +14,22 @@ class CustomNotificationIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        badges.Badge(
-          badgeStyle: const badges.BadgeStyle(badgeColor: AppColors.kPrimaryColor),
-          position: badges.BadgePosition.topEnd(top: -5, end: -5),
-          badgeContent: const Text("0", style: TextStyle(color: Colors.white, fontSize: 12)),
-          child: const Icon(FontAwesomeIcons.solidBell, size: 28),
+        GestureDetector(
+          onTap: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                builder: (context) {
+              return const NotificationView();
+            },)
+            );
+          },
+          child: badges.Badge(
+            badgeStyle: const badges.BadgeStyle(badgeColor: AppColors.kPrimaryColor),
+            position: badges.BadgePosition.topEnd(top: -5, end: -5),
+            badgeContent: const Text("0", style: TextStyle(color: Colors.white, fontSize: 12)),
+            child: const Icon(FontAwesomeIcons.solidBell, size: 28),
+          ),
         ),
         const SizedBox(width: 15),
         GestureDetector(
