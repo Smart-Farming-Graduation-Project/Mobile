@@ -275,6 +275,7 @@ packages:
     description:
       name: flutter_plugin_android_lifecycle
       sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
+      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
       url: "https://pub.dev"
     source: hosted
     version: "2.0.27"
@@ -565,8 +566,10 @@ packages:
     description:
       name: google_sign_in_platform_interface
       sha256: "5f6f79cf139c197261adb6ac024577518ae48fdff8e53205c5373b5f6430a8aa"
+      sha256: "5f6f79cf139c197261adb6ac024577518ae48fdff8e53205c5373b5f6430a8aa"
       url: "https://pub.dev"
     source: hosted
+    version: "2.5.0"
     version: "2.5.0"
   google_sign_in_web:
     dependency: transitive

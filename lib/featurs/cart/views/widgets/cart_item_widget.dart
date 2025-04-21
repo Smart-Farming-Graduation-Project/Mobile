@@ -92,11 +92,9 @@ class CartItemWidget extends StatelessWidget {
                   icon: const Icon(Icons.remove_circle_outline,
                       color: Colors.red),
                   onPressed: () {
-                    // context.read<CartCubit>().updateQuantity(
-                    //       cartItem.id,
-                    //       cartItem.quantity,
-                    //       false,
-                    //     );
+                    context
+                        .read<CartCubit>()
+                        .updateCart(cartItem.productId, cartItem.quantity - 1);
                   }),
               Text(cartItem.quantity.toString(),
                   style: const TextStyle(
@@ -105,12 +103,9 @@ class CartItemWidget extends StatelessWidget {
                   icon:
                       const Icon(Icons.add_circle_outline, color: Colors.green),
                   onPressed: () {
-                    context.read<CartCubit>().addToCart(cartItem.productId);
-                    // context.read<CartCubit>().updateQuantity(
-                    //       cartItem.id,
-                    //       cartItem.quantity,
-                    //       true,
-                    //     );
+                    context
+                        .read<CartCubit>()
+                        .updateCart(cartItem.productId, cartItem.quantity + 1);
                   }),
             ],
           ),
