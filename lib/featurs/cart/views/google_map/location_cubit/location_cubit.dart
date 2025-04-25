@@ -1,9 +1,8 @@
 import 'dart:developer';
-
 import 'package:crop_guard/featurs/cart/views/google_map/location_cubit/location_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationCubit extends Cubit<LocationState> {
