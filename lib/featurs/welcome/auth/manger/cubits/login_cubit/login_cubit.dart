@@ -17,12 +17,6 @@ class LoginCubit extends Cubit<LoginState> {
   final api = getIt<DioConsumer>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   //! basic signIn method {deal with email and password and send to api}
