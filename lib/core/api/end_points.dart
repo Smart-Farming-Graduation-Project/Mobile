@@ -35,6 +35,12 @@ class EndPoints {
   static String removeFromCart(int id){
     return 'Cart/RemoveProduct/$id';
   }
+
+  // Categories
+  static const String getCategories = 'Category/CategoryList';
+  static String getCategoryProducts(String id) {
+    return 'Category/Category/$id';
+  }
 }
 
 class ApiKeys {
@@ -65,6 +71,22 @@ class ApiKeys {
   static const String token = 'token';
   static const String newPassword = 'newPassword';
   //////////////////////// Cart ////////////////////////
-  static const String productId = 'productId';
   static const String quantity = 'quantity';
+
+  ///////////////////////// Category ////////////////////////
+  static const String categoryId = 'categoryId';
+  static const String categoryName = 'categoryName';
+  
+
+  /////////////////////// Product ////////////////////////
+  static const String products = 'products';
+  static const String productId = 'productId';
+  static const String productName = 'productName';
+  static const String productImages = 'images';
+  static const String productPrice = 'price';
+  static const String productDescription = 'description';
+  static const String productIsFavorite = 'is_favorite';
+
+
+
 }

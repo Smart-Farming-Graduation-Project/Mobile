@@ -1,5 +1,5 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/add_to_cart_button.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/price_display.dart';

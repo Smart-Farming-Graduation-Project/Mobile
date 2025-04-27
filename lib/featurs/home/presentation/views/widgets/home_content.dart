@@ -1,6 +1,6 @@
 import 'package:crop_guard/core/services/service_locator.dart';
-import 'package:crop_guard/featurs/categories/presentation/manger/cubit/category_cubit.dart';
-import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/category_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/category_screen.dart';
 import 'package:crop_guard/featurs/home/manger/cubit/home_cubit.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/search_filter_bar.dart';
@@ -21,7 +21,9 @@ class HomeContent extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => HomeCubit()),
-          BlocProvider(create: (context) => CategoryCubit()),
+          BlocProvider(
+              create: (context) =>
+                  CategoryCubit()..loadCategoriesProducts("1")),
           BlocProvider(create: (context) => ProductCubit()),
           BlocProvider(
             create: (context) => ReviewCubit(getIt<ApiService>()),
