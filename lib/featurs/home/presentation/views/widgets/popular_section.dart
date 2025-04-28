@@ -6,8 +6,8 @@ import 'package:crop_guard/featurs/categories/presentation/views/widgets/product
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RecommendedSection extends StatelessWidget {
-  const RecommendedSection({super.key});
+class PopularSection extends StatelessWidget {
+  const PopularSection({super.key});
 
   @override
   Widget build(BuildContext context) {
