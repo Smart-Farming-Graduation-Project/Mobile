@@ -45,6 +45,8 @@ class ApiKeys {
   static const String productRating = 'averageRating';
   static const String isFavorite = 'isFavorite';
 
+  ///////////////// favorite ////////////////////////
+  static const String favoriteProducts = 'wishlistItems';
 
 
 }

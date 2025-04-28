@@ -8,7 +8,7 @@ List<CategoryModel> categoriesList = [
   CategoryModel(
       categoryName: "Vegetable",
       image: 'assets/images/home/Vegetable.png',
-      categoryId: '2'),
+      categoryId: '3'),
   CategoryModel(
       categoryName: "Fruits",
       image: 'assets/images/home/Fruits.png',

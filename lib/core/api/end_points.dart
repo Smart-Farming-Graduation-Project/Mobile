@@ -41,4 +41,13 @@ class EndPoints {
   static String getCategoryProducts(String id) {
     return 'Category/Category/$id';
   }
+
+  // Favorites
+  static const String getFavorites = 'Wishlist/GetWishlist';
+  static String addToFavorites(int id) {
+    return 'Wishlist/AddProduct/$id';
+  }
+  static String removeFromFavorites(int id) {
+    return 'Wishlist/RemoveProduct/$id';
+  }
 }

@@ -30,7 +30,11 @@ class CategoryCubit extends Cubit<CategoryState> {
         for (var element in response[ApiKeys.data][ApiKeys.products]) {
           productsList.add(ProductModel.fromJson(element));
         }
-        emit(CategorySuccess(productsList));
+        if (productsList.isEmpty) {
+          emit(CategoryEmpty("No products found."));
+        } else {
+          emit(CategorySuccess(productsList));
+        }
       } else {
         log("Invalid response format");
         emit(CategoryError("Invalid response format"));
@@ -43,6 +47,4 @@ class CategoryCubit extends Cubit<CategoryState> {
       emit(CategoryError("An unexpected error occurred."));
     }
   }
-
-  
 }
