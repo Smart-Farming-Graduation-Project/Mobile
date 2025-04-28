@@ -1,7 +1,4 @@
-import 'package:crop_guard/core/responsive/widget_width.dart';
-import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/responsive/widget_height.dart';
 import '../../models/offer_model.dart';
 import '../../../../../core/widgets/custom_button.dart';
 
