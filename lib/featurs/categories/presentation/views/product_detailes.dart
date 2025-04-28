@@ -1,6 +1,7 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
-import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/product_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/helper/sellers_list.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/add_to_cart_button.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/price_display.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/product_detail_expansion.dart';
@@ -10,7 +11,6 @@ import 'package:crop_guard/featurs/categories/presentation/views/widgets/review_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'widgets/favorite_icon.dart';
 import 'widgets/info_box.dart';
 import 'widgets/product_image_details.dart';
 import 'widgets/seller_info.dart';
@@ -43,6 +43,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -84,15 +85,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ProductImageDetails(image: widget.product.image),
+                        ProductImageDetails(
+                            image: widget.product.productImages[0]),
                         const SizedBox(height: 10),
                         Row(
                           children: [
                             ProductTitle(
-                                name: widget.product.name,
-                                category: widget.product.category),
+                                name: widget.product.productName,
+                                category: widget.product.categoryName!),
                             const Spacer(),
-                            FavoriteIcon(product: widget.product),
+                            // FavoriteIcon(product: widget.product),
                           ],
                         ),
                         const SizedBox(height: 18),
@@ -106,25 +108,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               onDecrement: decrementQuantity,
                             ),
                             const Spacer(),
-                            PriceDisplay(
-                                price: double.tryParse(widget.product.price) ??
-                                    0.0),
+                            PriceDisplay(price: widget.product.productPrice),
                           ],
                         ),
                         const SizedBox(height: 10),
                         ProductDetailExpansion(
-                            description: widget.product.description),
+                            description: widget.product.productDescription),
                         const SizedBox(height: 10),
                         ReviewStars(
-                          productId:widget. product.id,
-                          rating: widget.product.rating,
-
+                          productId: widget.product.productId,
+                          rating: widget.product.productRating ?? 0.0,
                         ),
-
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            SellerInfoTile(seller: widget.product.seller),
+                            SellerInfoTile(seller: sellersList[0]),
                             const Spacer(),
                             const AddToCartButton(),
                           ],

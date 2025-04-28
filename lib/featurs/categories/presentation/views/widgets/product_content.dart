@@ -1,4 +1,4 @@
-import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
@@ -12,7 +12,7 @@ class ProductContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(product.name,
+        Text(product.productName,
             style: const TextStyle(
                 color: AppColors.kPrimaryColor,
                 fontSize: 18,
@@ -22,7 +22,7 @@ class ProductContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${product.price} EGP',
+            Text('${product.productPrice} EGP',
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
          GestureDetector(

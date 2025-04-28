@@ -1,13 +1,13 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/responsive/widget_height.dart';
 import 'package:crop_guard/core/responsive/widget_width.dart';
-import 'package:crop_guard/featurs/categories/presentation/manger/cubit/product_cubit.dart';
-import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
+import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RecommendedSection extends StatelessWidget {
-  const RecommendedSection({super.key});
+class PopularSection extends StatelessWidget {
+  const PopularSection({super.key});
 
   @override
   Widget build(BuildContext context) {

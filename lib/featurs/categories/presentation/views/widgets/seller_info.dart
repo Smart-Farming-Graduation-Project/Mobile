@@ -1,5 +1,5 @@
 import 'package:crop_guard/core/responsive/widget_width.dart';
-import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
+import 'package:crop_guard/featurs/categories/presentation/models/seller_model.dart';
 import 'package:flutter/material.dart';
 
 class SellerInfoTile extends StatelessWidget {

@@ -35,36 +35,19 @@ class EndPoints {
   static String removeFromCart(int id){
     return 'Cart/RemoveProduct/$id';
   }
-}
 
-class ApiKeys {
-  ////////////// errorModel ///////////////////////
-  static const String statusCode = 'statusCode';
-  static const String errorMessage = 'message';
-  static const String succeeded = 'succeeded';
-  static const String data = 'data';
-  static const String meta = 'meta';
-  ////////////////////// Authentication //////////////////////
-  static const String email = 'email';
-  static const String usernameOrEmail = 'userNameOrEmail';
-  static const String username = 'userName';
-  static const String password = 'password';
-  static const String confirmPassword = 'confirmPassword';
-  static const String firstName = 'firstName';
-  static const String lastName = 'lastName';
-  static const String phoneNumber = 'phone';
-  /////////////////////////Authorization  ///////////////////////////////
-  static const String authorization = 'Authorization';
-  ///////////////////////// Authentication response ////////////////////////
-  static const String tokens = 'tokens';
-  static const String accessToken = 'accessToken';
-  static const String refreshToken = 'refreshToken';
-  static const String provider = 'provider';
-  static const String code = 'code';
-  ////////////////////// resetPassword  ////////////////////////
-  static const String token = 'token';
-  static const String newPassword = 'newPassword';
-  //////////////////////// Cart ////////////////////////
-  static const String productId = 'productId';
-  static const String quantity = 'quantity';
+  // Categories
+  static const String getCategories = 'Category/CategoryList';
+  static String getCategoryProducts(String id) {
+    return 'Category/Category/$id';
+  }
+
+  // Favorites
+  static const String getFavorites = 'Wishlist/GetWishlist';
+  static String addToFavorites(int id) {
+    return 'Wishlist/AddProduct/$id';
+  }
+  static String removeFromFavorites(int id) {
+    return 'Wishlist/RemoveProduct/$id';
+  }
 }
