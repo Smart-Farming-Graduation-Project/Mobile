@@ -1,6 +1,7 @@
 import 'package:crop_guard/featurs/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_location.dart';
-import 'package:crop_guard/featurs/favorite/presentation/views/fav_screen.dart';
+import 'package:crop_guard/featurs/categories/presentation/models/category_model.dart';
+import 'package:crop_guard/featurs/categories/presentation/views/category_products_screen.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
@@ -26,6 +27,7 @@ abstract class AppRouter {
   static const String cart = '/cart';
   static const String confirmDeliveryLocation = '/confirmDeliveryLocation';
   static const String categoryscreen = '/categoryscreen';
+  static const String categoryProducts = '/categoryProducts';
   static const String favorites = '/favorites';
   static const String profile = '/profile';
   static const String notifications = '/notifications';
@@ -79,13 +81,24 @@ abstract class AppRouter {
       path: homeContent,
       builder: (context, state) => const HomeContent(),
     ),
-    GoRoute(
-      path: favorites,
-      builder: (context, state) => const FavScreen(),
-    ),
+    // GoRoute(
+    //   path: favorites,
+    //   // builder: (context, state) => const FavScreen(),
+    // ),
     GoRoute(
       path: categoryscreen,
       builder: (context, state) => const CategoryScreen(),
+    ),
+    GoRoute(
+      
+
+      path: categoryProducts,
+      builder: (context, state) {
+        CategoryModel category = state.extra as CategoryModel;
+        return CategoryProductsScreen(category: category);
+      },
+
+
     ),
   ]);
 }

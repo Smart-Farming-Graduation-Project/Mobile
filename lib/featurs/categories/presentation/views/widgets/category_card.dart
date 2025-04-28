@@ -1,28 +1,21 @@
 import 'package:crop_guard/core/responsive/widget_height.dart';
 import 'package:crop_guard/core/responsive/widget_width.dart';
-import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/product_cubit.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../models/category_model.dart';
-import '../category_products_screen.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.categorie});
-  final CategoryModel categorie;
+  const CategoryCard({super.key, required this.category});
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-
-            builder: (context) => BlocProvider(
-              create: (context) => ProductCubit()..getProductsByCategory(categorie.categoryName),
-              child: CategoryProductsScreen(categoryName: categorie.categoryName),
-            ),
-          ),
+        GoRouter.of(context).push(
+          AppRouter.categoryProducts,
+          extra: category,
         );
       },
     child:  Column(
@@ -34,13 +27,13 @@ class CategoryCard extends StatelessWidget {
             color: Colors.black.withAlpha(15),
             borderRadius: BorderRadius.circular(25),
           ),
-          child: Image.asset(categorie.image,
+          child: Image.asset(category.image,
 
           ),
         ),
         const SizedBox(height: 5),
         Text(
-          categorie.categoryName,
+          category.categoryName,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins',),
         ),
       ],

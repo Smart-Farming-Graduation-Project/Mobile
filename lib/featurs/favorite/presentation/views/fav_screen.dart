@@ -1,12 +1,12 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/featurs/categories/presentation/manger/category_cubit/product_cubit.dart';
+import 'package:crop_guard/featurs/categories/presentation/views/widgets/product_item.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/search_filter_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import '../../../categories/presentation/models/product_model.dart';
-import '../../../categories/presentation/views/widgets/product_item.dart';
 
 class FavScreen extends StatelessWidget {
   const FavScreen({super.key});

@@ -1,5 +1,5 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/featurs/categories/presentation/manger/helper/products_list.dart';
-import 'package:crop_guard/featurs/categories/presentation/models/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCubit extends Cubit<List<ProductModel>> {
@@ -14,7 +14,7 @@ class ProductCubit extends Cubit<List<ProductModel>> {
       emit(List.from(allProducts));
     } else {
       final filteredProducts = allProducts
-          .where((product) => product.category == categoryName)
+          .where((product) => product.categoryName == categoryName)
           .toList();
       emit(List.from(filteredProducts));
     }
@@ -22,7 +22,7 @@ class ProductCubit extends Cubit<List<ProductModel>> {
 
   void toggleFavorite(String productId) {
     for (var product in allProducts) {
-      if (productId == product.id.toString()) {
+      if (productId == product.productId.toString()) {
         product.isFavorite = !product.isFavorite;
         break;
       }
