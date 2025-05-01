@@ -1,4 +1,5 @@
 
+import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'custom_icon.dart';
 
@@ -20,17 +21,7 @@ class AppbarSection extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-            ),
-            child: const CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage(
-                'assets/images/home/profile.png',
-              ),
-            ),
-          ),
+         const UserImage(radius: 30,),
           const SizedBox(
             width: 10,
           ),

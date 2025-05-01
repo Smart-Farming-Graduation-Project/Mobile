@@ -9,7 +9,6 @@ class ApiService {
     try {
       final response = await _dio.get('/GetReviews/$productId');
 
-      print("API Response: ${response.data}");
 
       if (response.statusCode == 200 && response.data["data"] != null) {
         final List<dynamic> data = response.data["data"];
@@ -18,7 +17,6 @@ class ApiService {
         throw Exception("No data available");
       }
     } catch (e) {
-      print("Error fetching reviews: $e");
       throw Exception(e.toString());
     }
   }
