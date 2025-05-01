@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/post_model.dart';
@@ -19,8 +21,8 @@ class PostCubit extends Cubit<PostState> {
     } catch (e) {
 
       emit(PostError('Failed to load posts'));
-      print( state.runtimeType);
-      print(e);
+      log(state.runtimeType.toString());
+      log(e.toString());
 
     }
   }

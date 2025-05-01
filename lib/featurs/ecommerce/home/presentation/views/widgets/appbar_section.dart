@@ -1,5 +1,5 @@
 
-import 'package:crop_guard/featurs/home/presentation/views/widgets/user_image.dart';
+import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'custom_icon.dart';
 

@@ -1,7 +1,7 @@
 
 import 'package:crop_guard/core/responsive/widget_width.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
-import 'package:crop_guard/featurs/home/presentation/views/widgets/user_image.dart';
+import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

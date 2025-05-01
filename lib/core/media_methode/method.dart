@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -19,7 +21,7 @@ void showMediaOptions(BuildContext context, {required bool isImage}) {
               Navigator.pop(context);
               final file = await pickMedia(source: ImageSource.camera, isImage: isImage);
               if (file != null) {
-                print('Selected file: ${file.path}');
+                log('Selected file: ${file.path}');
               }
             },
           ),
@@ -30,7 +32,7 @@ void showMediaOptions(BuildContext context, {required bool isImage}) {
               Navigator.pop(context);
               final file = await pickMedia(source: ImageSource.gallery, isImage: isImage);
               if (file != null) {
-                print('Selected file: ${file.path}');
+                log('Selected file: ${file.path}');
               }
             },
           ),

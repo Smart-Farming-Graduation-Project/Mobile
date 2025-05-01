@@ -1,10 +1,11 @@
-import 'package:crop_guard/featurs/cart/views/cart_view.dart';
-import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_location.dart';
-import 'package:crop_guard/featurs/categories/presentation/models/category_model.dart';
-import 'package:crop_guard/featurs/categories/presentation/views/category_products_screen.dart';
 import 'package:crop_guard/featurs/community/presentation/views/community_home_screen.dart';
 import 'package:crop_guard/featurs/community/presentation/views/create_post.dart';
-import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
+import 'package:crop_guard/featurs/ecommerce/cart/views/cart_view.dart';
+import 'package:crop_guard/featurs/ecommerce/cart/views/google_map/confirm_delivery_location.dart';
+import 'package:crop_guard/featurs/ecommerce/categories/presentation/models/category_model.dart';
+import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_products_screen.dart';
+import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
+import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
