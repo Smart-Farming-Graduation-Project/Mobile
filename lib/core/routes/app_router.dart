@@ -3,6 +3,7 @@ import 'package:crop_guard/featurs/ecommerce/cart/views/google_map/confirm_deliv
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/models/category_model.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_products_screen.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
+import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
@@ -11,7 +12,6 @@ import 'package:go_router/go_router.dart';
 import '../../featurs/ecommerce/categories/presentation/views/category_screen.dart';
 import '../../featurs/ecommerce/home/presentation/views/home_page.dart';
 import '../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
-import '../../featurs/welcome/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
   static const String splash = '/';
@@ -35,11 +35,14 @@ abstract class AppRouter {
   static const String productdetails = '/productdetails';
   static const String review = '/review';
 
-  static final router = GoRouter(routes: [
+  static final router = GoRouter(
+    
+    routes: [
+  
     // welcome routes
     GoRoute(
       path: splash,
-      builder: (context, state) => const SplashView(),
+      builder: (context, state) => const NotificationView(),
     ),
     GoRoute(
       path: onboarding,

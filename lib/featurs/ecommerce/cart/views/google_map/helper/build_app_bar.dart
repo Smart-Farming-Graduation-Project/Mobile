@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar buildAppBar(BuildContext context) {
+AppBar buildAppBar(BuildContext context,) {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,

@@ -1,7 +1,7 @@
+import 'package:crop_guard/core/helper/build_app_bar.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:go_router/go_router.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -9,20 +9,8 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Notification",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-          ),
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-        ),
+      appBar: buildAppBar(context,
+        title: 'Notification',
       ),
       body: ListView.separated(itemBuilder: (context,index){
         return Padding(
@@ -73,4 +61,6 @@ class NotificationView extends StatelessWidget {
 
     );
   }
+
+  
 }
