@@ -14,7 +14,6 @@ class ReviewCubit extends Cubit<ReviewState> {
       final reviews = await apiService.fetchReviews(productId);
       emit(ReviewsLoaded(reviews));
     } catch (e) {
-      print("Error loading reviews: ${e.toString()}");
       emit(ReviewError("Failed to load reviews: ${e.toString()}"));
     }
   }
@@ -25,7 +24,6 @@ class ReviewCubit extends Cubit<ReviewState> {
       final reviews = await apiService.fetchReviews(review.productId);
       emit(ReviewsLoaded(reviews));
     } catch (e) {
-      print(" Error submitting review: ${e.toString()}");
       emit(ReviewError("Failed to submit review: ${e.toString()}"));
     }
   }
@@ -36,7 +34,6 @@ class ReviewCubit extends Cubit<ReviewState> {
       final reviews = await apiService.fetchReviews(review.productId);
       emit(ReviewsLoaded(reviews));
     } catch (e) {
-      print(" Error updating review: ${e.toString()}");
       emit(ReviewError("Failed to update review: ${e.toString()}"));
     }
   }
@@ -47,7 +44,6 @@ class ReviewCubit extends Cubit<ReviewState> {
       final reviews = await apiService.fetchReviews(productId);
       emit(ReviewsLoaded(reviews));
     } catch (e) {
-      print(" Error deleting review: ${e.toString()}");
       emit(ReviewError("Failed to delete review: ${e.toString()}"));
     }
   }
