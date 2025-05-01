@@ -3,6 +3,7 @@ import 'package:crop_guard/featurs/cart/views/google_map/confirm_delivery_locati
 import 'package:crop_guard/featurs/categories/presentation/models/category_model.dart';
 import 'package:crop_guard/featurs/categories/presentation/views/category_products_screen.dart';
 import 'package:crop_guard/featurs/community/presentation/views/community_home_screen.dart';
+import 'package:crop_guard/featurs/community/presentation/views/create_post.dart';
 import 'package:crop_guard/featurs/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
@@ -36,6 +37,7 @@ abstract class AppRouter {
   static const String productdetails = '/productdetails';
   static const String review = '/review';
   static const String community = '/commumity';
+  static const String createpost = '/createpost';
 
 
   static final router = GoRouter(initialLocation: community, routes: [
@@ -43,6 +45,10 @@ abstract class AppRouter {
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),
+    ),
+    GoRoute(
+      path: createpost,
+      builder: (context, state) => const CreatePost(),
     ),
     // welcome routes
     GoRoute(

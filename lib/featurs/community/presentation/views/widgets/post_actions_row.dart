@@ -25,7 +25,7 @@ class PostActionsRow extends StatelessWidget {
           onTap: cubit.upvote,
           child: Icon(Icons.arrow_upward_sharp,
               color: state.voteStatus == VoteStatus.upvoted
-                  ? Colors.orange
+                  ? Colors.lightGreenAccent
                   : Colors.white,
               size: 24),
         ),
@@ -37,7 +37,7 @@ class PostActionsRow extends StatelessWidget {
           onTap: cubit.downvote,
           child: Icon(Icons.arrow_downward_sharp,
               color: state.voteStatus == VoteStatus.downvoted
-                  ? Colors.blue
+                  ? Colors.red
                   : Colors.white,
               size: 24),
         ),

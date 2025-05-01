@@ -11,14 +11,19 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
-        const UserImage(radius: 12,),
-        const SizedBox(width: 8),
-        Text(
-          '$subreddit ',
-          style: const TextStyle(color: Colors.white, fontSize: 18),
-        ),
+        UserImage(radius: 12,),
+        SizedBox(width: 8),
+        // Text(
+        //   subreddit,
+        //   overflow: TextOverflow.ellipsis,
+        //   maxLines: 1,
+        //   softWrap: true,
+        //   style: const TextStyle(color: Colors.white, fontSize: 18,
+        //
+        //     ),
+        // ),
       ],
     );
   }
