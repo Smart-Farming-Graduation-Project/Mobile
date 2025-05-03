@@ -1,9 +1,11 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/featurs/community/presentation/views/community_home_screen.dart';
 import 'package:crop_guard/featurs/community/presentation/views/create_post.dart';
 import 'package:crop_guard/featurs/ecommerce/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/ecommerce/cart/views/google_map/confirm_delivery_location.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/models/category_model.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_products_screen.dart';
+import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/product_detailes_view.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
@@ -34,14 +36,12 @@ abstract class AppRouter {
   static const String profile = '/profile';
   static const String notifications = '/notifications';
   static const String settings = '/settings';
-  static const String productdetails = '/productdetails';
+  static const String productDetails = '/productDetails';
   static const String review = '/review';
   static const String community = '/commumity';
   static const String createpost = '/createpost';
 
-
   static final router = GoRouter(initialLocation: signIn, routes: [
-
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),
@@ -104,15 +104,18 @@ abstract class AppRouter {
       builder: (context, state) => const CategoryScreen(),
     ),
     GoRoute(
-      
-
       path: categoryProducts,
       builder: (context, state) {
         CategoryModel category = state.extra as CategoryModel;
         return CategoryProductsScreen(category: category);
       },
-
-
     ),
-  ]);
+    GoRoute(
+      path: productDetails,
+       builder: (context, state) {
+         final product = state.extra as ProductModel;
+         return ProductDetailsView(product: product);
+       },
+    ),
+      ]);
 }

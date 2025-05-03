@@ -50,4 +50,10 @@ class EndPoints {
   static String removeFromFavorites(int id) {
     return 'Wishlist/RemoveProduct/$id';
   }
+
+  // Products
+  static const String getProducts = 'Product/ProductList';
+  static String getProductDetails(String id) {
+    return 'Product/product/$id';
+  }
 }

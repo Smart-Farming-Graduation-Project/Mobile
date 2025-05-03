@@ -26,11 +26,19 @@ class ProductImageDetails extends StatelessWidget {
               children: [
                 Opacity(
                   opacity: 0.9,
-                  child: Image.asset(
+                  child: Image.network(
                     image,
                     height: 300,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

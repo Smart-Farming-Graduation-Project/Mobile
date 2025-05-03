@@ -1,5 +1,7 @@
 import 'package:crop_guard/core/models/product_model.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'favorite_icon.dart';
 import 'product_image.dart';
 import 'product_content.dart';
@@ -13,7 +15,10 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-       
+       GoRouter.of(context).push(
+          AppRouter.productDetails,
+          extra: product,
+        );
       },
       child: Container(
         padding: const EdgeInsets.all(10),
