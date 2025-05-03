@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_cubit.dart';
+import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/models/product_model.dart';
-
 
 class FavoriteIcon extends StatelessWidget {
   final ProductModel product;
@@ -9,20 +13,27 @@ class FavoriteIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      // onTap: () => context.read<ProductCubit>().toggleFavorite(product.id.toString() ),
-      // child: BlocBuilder<ProductCubit, List<ProductModel>>(
-      //   builder: (context, state) {
-      //     final updatedProduct = state.firstWhere(
-      //           (p) => p.id == product.id,
-      //       orElse: () => product,
-      //     );
+    return BlocBuilder<FavoriteCubit, FavoriteState>(
+      builder: (context, state) {
+        final isFavorite = state is FavoriteSuccess &&
+            state.favoriteProducts.any((p) => p.productId == product.productId);
 
-      child: Icon(
-        product.isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: Colors.red,
-      ),
+        return GestureDetector(
+          onTap: () {
+            if (isFavorite) {
+              log('Remove from favorites');
+              context.read<FavoriteCubit>().removeFromFavorites(product);
+            } else {
+              log('Add to favorites');
+              context.read<FavoriteCubit>().addToFavorites(product);
+            }
+          },
+          child: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: Colors.red,
+          ),
+        );
+      },
     );
   }
 }

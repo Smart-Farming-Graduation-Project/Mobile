@@ -1,3 +1,5 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_cubit.dart';
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:flutter/material.dart';

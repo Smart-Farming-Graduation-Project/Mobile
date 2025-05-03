@@ -101,7 +101,6 @@ class CategoryProductsScreen extends StatelessWidget {
                       );
                     } else if (state is CategorySuccess) {
                       final products = state.products;
-                      
                       return GridView.builder(
                         padding: const EdgeInsets.all(12.0),
                         itemCount: products.length,
