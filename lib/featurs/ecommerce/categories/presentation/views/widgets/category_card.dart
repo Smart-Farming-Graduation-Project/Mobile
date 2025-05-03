@@ -12,32 +12,44 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        GoRouter.of(context).push(
-          AppRouter.categoryProducts,
-          extra: category,
-        );
-      },
-    child:  Column(
-      children: [
-        Container(
-          width: widgetWidth(context: context, width: 70),
-          height: widgetHeight(context: context, height: 50),
-          decoration: BoxDecoration(
-            color: Colors.black.withAlpha(15),
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Image.asset(category.image,
-
-          ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          category.categoryName,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins',),
-        ),
-      ],
-    )
-    );
+        onTap: () {
+          GoRouter.of(context).push(
+            AppRouter.categoryProducts,
+            extra: category,
+          );
+        },
+        child: Column(
+          children: [
+            Container(
+              width: widgetWidth(context: context, width: 70),
+              height: widgetHeight(context: context, height: 50),
+              decoration: BoxDecoration(
+                color: Colors.black.withAlpha(15),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: Image.network(
+                category.image,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              category.categoryName,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+              ),
+            ),
+          ],
+        ));
   }
 }

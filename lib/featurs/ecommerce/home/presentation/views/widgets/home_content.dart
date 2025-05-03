@@ -19,7 +19,7 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => HomeCubit()),
+        BlocProvider(create: (context) => HomeCubit()..getCategories()),
         BlocProvider(create: (context) => ProductCubit()),
         BlocProvider(
           create: (context) => ReviewCubit(getIt<ApiService>()),

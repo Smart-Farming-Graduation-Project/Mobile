@@ -40,7 +40,7 @@ abstract class AppRouter {
   static const String createpost = '/createpost';
 
 
-  static final router = GoRouter(initialLocation: community, routes: [
+  static final router = GoRouter(initialLocation: signIn, routes: [
 
     GoRoute(
       path: community,
