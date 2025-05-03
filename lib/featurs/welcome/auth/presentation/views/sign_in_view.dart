@@ -33,7 +33,11 @@ class SignInView extends StatelessWidget {
                 backgroundColor: AppColors.kGreenColor,
               ),
             );
-            GoRouter.of(context).go(AppRouter.home);
+            if (state.role == "Buyer") {
+              GoRouter.of(context).go(AppRouter.home);
+            } else {
+              GoRouter.of(context).go(AppRouter.community);
+            }
           } else if (state is ErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
