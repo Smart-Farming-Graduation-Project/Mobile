@@ -1,6 +1,7 @@
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_screen.dart';
+import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/home/manger/cubit/home_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/popular_section.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/search_filter_bar.dart';
@@ -24,6 +25,12 @@ class HomeContent extends StatelessWidget {
         BlocProvider(
           create: (context) => ReviewCubit(getIt<ApiService>()),
         ),
+        BlocProvider(
+          create: (_) => FavoriteCubit(
+          ),
+
+        )
+
       ],
       child: const SafeArea(
         child: Scaffold(

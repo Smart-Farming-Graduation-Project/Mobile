@@ -27,12 +27,12 @@ class FavoriteCubit extends Cubit<FavoriteState>{
   
   void removeFromFavorites(ProductModel product) async {
     favoriteProducts.remove(product);
-    final response = await api.post(EndPoints.removeFromFavorites(product.productId));
+    final response = await api.delete(EndPoints.removeFromFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
       favoriteProducts.add(product);
       emit(FavoriteError(response[ApiKeys.errorMessage]));
     } else {
-      emit(FavoriteSuccess(favoriteProducts));
+      loadFavorites();
     }
   }
   Future<void> loadFavorites() async {
