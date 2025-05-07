@@ -4,13 +4,13 @@ import 'package:material_symbols_icons/symbols.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({super.key, required this.text1});
-  final String text1;
+  const FilterButton({super.key, required this.text});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(
-        text1,
+        text,
         style: AppTextStyles.textStyle20BlackBold,
       ),
       IconButton(
