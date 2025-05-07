@@ -25,23 +25,23 @@ class CropGaurd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(375, 812),
-        splitScreenMode: true,
-        useInheritedMediaQuery: true,
-        minTextAdapt: true,
-        builder: (context, child) {
-          return MaterialApp.router(
-            routerConfig: AppRouter.router,
-            debugShowCheckedModeBanner: false,
-            title: 'CropGuard',
-            theme: ThemeData(
-              primaryColor: AppColors.kPrimaryColor,
-              colorScheme:
-              ColorScheme.fromSeed(seedColor: AppColors.kPrimaryColor),
-              textTheme: GoogleFonts.alexandriaTextTheme(),
-            ),
-          );
-        },
-      );
+      designSize: const Size(375, 812),
+      splitScreenMode: true,
+      useInheritedMediaQuery: true,
+      minTextAdapt: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          routerConfig: AppRouter.router,
+          debugShowCheckedModeBanner: false,
+          title: 'CropGuard',
+          theme: ThemeData(
+            primaryColor: AppColors.kPrimaryColor,
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: AppColors.kPrimaryColor),
+            textTheme: GoogleFonts.poppinsTextTheme(),
+          ),
+        );
+      },
+    );
   }
 }

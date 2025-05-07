@@ -1,6 +1,5 @@
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/manger/helper/categories_list.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/category_card.dart';
-import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/home/manger/cubit/home_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/home/manger/cubit/home_state.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-    BlocProvider<FavoriteCubit>(
-        create: (context) => FavoriteCubit(),
-    child:BlocBuilder<HomeCubit, HomeState>(
+    BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is CategoriesLoading) {
           return const Center(
@@ -66,6 +63,6 @@ class CategoryScreen extends StatelessWidget {
           },
         );
       },
-    ));
+    );
   }
 }

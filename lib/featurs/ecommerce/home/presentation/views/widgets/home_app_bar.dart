@@ -1,10 +1,10 @@
-
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/user_image.dart';
 import 'package:flutter/material.dart';
-import 'custom_icon.dart';
+import 'home_header_icons.dart';
 
-class AppbarSection extends StatelessWidget {
-  const AppbarSection({
+class HomeAppBar extends StatelessWidget {
+  const HomeAppBar({
     super.key,
     required this.userName,
   });
@@ -13,7 +13,7 @@ class AppbarSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -21,46 +21,32 @@ class AppbarSection extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-         const UserImage(radius: 30,),
+          const UserImage(
+            radius: 24,
+          ),
           const SizedBox(
             width: 10,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize:  MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Deliverd to',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              const SizedBox(
-                height: 5,
+                style: AppTextStyles.textStyle14GreyRegular,
               ),
               Text(
                 userName,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontFamily: 'Poppins',
-                ),
+                style: AppTextStyles.textStyle20BlackBold,
               ),
-
             ],
           ),
           const Spacer(
             flex: 1,
           ),
-          const CustomNotificationIcon(),
+          const HomeHeaderIcons(),
         ],
       ),
     );
   }
 }
-
-

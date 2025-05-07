@@ -73,6 +73,8 @@ dependencies:
   path_provider: ^2.1.5
   path: ^1.9.1
   jwt_decoder: ^2.0.1
+  data_connection_checker_tv: ^0.3.5-nullsafety
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

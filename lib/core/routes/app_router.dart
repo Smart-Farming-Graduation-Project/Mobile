@@ -12,6 +12,7 @@ import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/otp_code_view.dart';
+import 'package:crop_guard/featurs/welcome/splash/presentation/views/widgets/splash_view_body.dart';
 import 'package:go_router/go_router.dart';
 import '../../featurs/ecommerce/categories/presentation/views/category_screen.dart';
 import '../../featurs/ecommerce/home/presentation/views/home_page.dart';
@@ -41,7 +42,7 @@ abstract class AppRouter {
   static const String community = '/commumity';
   static const String createpost = '/createpost';
 
-  static final router = GoRouter(initialLocation: signIn, routes: [
+  static final router = GoRouter(routes: [
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),
@@ -53,7 +54,7 @@ abstract class AppRouter {
     // welcome routes
     GoRoute(
       path: splash,
-      builder: (context, state) => const NotificationView(),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: onboarding,
@@ -112,10 +113,14 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: productDetails,
-       builder: (context, state) {
-         final product = state.extra as ProductModel;
-         return ProductDetailsView(product: product);
-       },
+      builder: (context, state) {
+        final product = state.extra as ProductModel;
+        return ProductDetailsView(product: product);
+      },
     ),
-      ]);
+    GoRoute(
+      path: notifications,
+      builder: (context, state) => const NotificationView(),
+    ),
+  ]);
 }
