@@ -15,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await ScreenUtil.ensureScreenSize();
 
   runApp(const CropGaurd());
 }

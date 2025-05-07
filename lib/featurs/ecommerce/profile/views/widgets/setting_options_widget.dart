@@ -33,8 +33,8 @@ class _SettingOptionsWidgetState extends State<SettingOptionsWidget> {
                 width: 10,
               ),
               Text(widget.name,
-                  style: AppTextStyles.textStyle16
-                      .copyWith(fontWeight: FontWeight.bold)),
+                  style: AppTextStyles.textStyle16BlackBold
+                      ),
               const SizedBox(
                 width: 10,
               ),

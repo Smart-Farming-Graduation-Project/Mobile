@@ -20,15 +20,18 @@ class HomeContent extends StatelessWidget {
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 4,
               children: [
                 HomeAppBar(
                   userName: 'Noha Ahmed',
                 ),
                 SearchBarFilter(),
-                TextSection(text1: 'Categories', text2: 'See All'),
+                TextSection(text2: 'See All'),
                 SizedBox(height: 100, child: CategoryScreen()),
-                TextSection(text1: 'Today\'s Offer', text2: ''),
+                HomeTitleText(
+                  text1: 'Today\'s Offer',
+                ),
                 OfferCard(),
                 FilterButton(
                   text1: 'Popular',

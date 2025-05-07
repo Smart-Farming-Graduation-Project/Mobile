@@ -14,9 +14,9 @@ class ProductCubit extends Cubit<ProductState> {
     try{
       final response = await api.get(EndPoints.getProductDetails(productId));
       ProductModel product = ProductModel.fromJson(response[ApiKeys.data]);
-      emit(ProductLoadedState(product));
+      if (!isClosed) emit(ProductLoadedState(product));
         } catch (e) {
-      emit(ProductErrorState(e.toString()));
+      if (!isClosed) emit(ProductErrorState(e.toString()));
 
     }
   }

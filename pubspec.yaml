@@ -75,6 +75,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   data_connection_checker_tv: ^0.3.5-nullsafety
   dartz: ^0.10.1
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

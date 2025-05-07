@@ -32,7 +32,7 @@ class HomeAppBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Deliverd to',
+                'Hello,',
                 style: AppTextStyles.textStyle14GreyRegular,
               ),
               Text(

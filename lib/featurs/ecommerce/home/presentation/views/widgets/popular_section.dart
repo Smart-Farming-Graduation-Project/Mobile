@@ -16,7 +16,7 @@ class PopularSection extends StatelessWidget {
       child: BlocBuilder<ProductCubit, List<ProductModel>>(
         builder: (context, productList) {
           return SizedBox(
-            height: widgetHeight(context: context, height: 120),
+            height: widgetHeight(context: context, height: 180),
             child: ListView.builder(
               padding: EdgeInsets.zero,
               physics: const BouncingScrollPhysics(),
