@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class RegisterState {}
 
 class RegisterRoleSelectedState extends RegisterState {
@@ -19,4 +21,8 @@ class RegisterRoleSelectedState extends RegisterState {
  }
  class SecondSignUpLoadingState extends RegisterState {}
  class RegisterSuccessState extends RegisterState {}
+ class PickUserImageState extends RegisterState {
+  final File imageFile;
+  PickUserImageState({required this.imageFile});
+ }
  

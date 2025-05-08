@@ -27,7 +27,8 @@ class MainSignUp extends StatelessWidget {
             return const FirstSignUpView();
           } else if (state is SecondSignUpState ||
               state is SecondSignUpErrorState ||
-              state is SecondSignUpLoadingState) {
+              state is SecondSignUpLoadingState ||
+              state is PickUserImageState) {
             return const SecondSignUpView();
           }
           return const Center(child: Text('Something went wrong'));

@@ -6,7 +6,6 @@ import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/reg
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_state.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_title.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/crop_guard_logo.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/name_text_form_field.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/phone_number_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +47,66 @@ class SecondSignUpView extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 30,
+                    height: 80,
                   ),
-                  const CropGuardLogo(),
+                  // const CropGuardLogo(),
                   const AuthTitle(
                     title: 'Finish Sign Up',
                   ),
+                  const SizedBox(height: 20),
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          cubit.pickUserImage();
+                        },
+                        child: BlocBuilder<RegisterCubit, RegisterState>(
+                          builder: (context, state) {
+                            return Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[200], 
+                                image: cubit.imageFile != null
+                                    ? DecorationImage(
+                                        image: FileImage(cubit.imageFile!),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                              ),
+                              child: cubit.imageFile != null
+                                  ? null
+                                  : const Icon(
+                                      Icons.person,
+                                      size: 70,
+                                      color: Colors.grey,
+                                    ),
+                            );
+                          },
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: AppColors.kGreenColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            cubit.pickUserImage();
+                          },
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
                   NameTextFormField(
                     controller: cubit.firstNameController,
                     labelText: 'First Name',
@@ -71,7 +124,7 @@ class SecondSignUpView extends StatelessWidget {
                   ),
 
                   // const TermsAndConditions(),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 30),
                   BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       if (state is SecondSignUpLoadingState) {
