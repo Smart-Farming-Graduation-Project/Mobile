@@ -34,10 +34,16 @@ abstract class AppTextStyles {
     color: AppColors.kPrimaryColor,
   );
 
-  static TextStyle textStyle16BlackBold = TextStyle(
+    static TextStyle textStyle16BlackBold = TextStyle(
+      fontSize: 16.sp,
+      fontWeight: FontWeightHelper.bold,
+      color: AppColors.kBlackColor,
+    );
+
+  static TextStyle textStyle16GreyBold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
-    color: AppColors.kBlackColor,
+    color: AppColors.kGrayColor,
   );
 
   static TextStyle textStyle16Bold = TextStyle(
@@ -50,10 +56,16 @@ abstract class AppTextStyles {
     fontWeight: FontWeightHelper.regular,
   );
 
-  static TextStyle textStyle20BlackBold = TextStyle(
+    static TextStyle textStyle20BlackBold = TextStyle(
+      fontSize: 20.sp,
+      fontWeight: FontWeightHelper.bold,
+      color: AppColors.kBlackColor,
+    );
+
+  static TextStyle textStyle20WhiteBold = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.bold,
-    color: AppColors.kBlackColor,
+    color: AppColors.kWhiteColor,
   );
 
   static const TextStyle textStyle22 = TextStyle(

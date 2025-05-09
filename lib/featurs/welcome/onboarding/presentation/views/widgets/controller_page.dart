@@ -1,3 +1,5 @@
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,6 +43,10 @@ class OnboardingController {
   void handleNext(BuildContext context) {
     if (isLastPage) {
       GoRouter.of(context).go(AppRouter.signIn);
+      getIt<CacheHelper>().saveData(
+        key: "isOnboardingVisited",
+        value: true,
+      );
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 400),

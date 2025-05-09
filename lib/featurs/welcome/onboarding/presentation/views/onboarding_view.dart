@@ -1,3 +1,6 @@
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/helper/spacing.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:onboarding_animation/onboarding_animation.dart';
@@ -34,55 +37,60 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: OnBoardingAnimation(
-                  controller: _controller.pageController,
-                  pages: List.generate(
-                    _controller.onboardingData.length,
-                    (index) => GetCardsContent(
-                      image: _controller.onboardingData[index]["image"]!,
-                      cardContent: _controller.onboardingData[index]
-                          ["cardContent"]!,
-                      subtitle: _controller.onboardingData[index]["subtitle"]!,
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            verticalSpace(130),
+            Expanded(
+              child: OnBoardingAnimation(
+                controller: _controller.pageController,
+                pages: List.generate(
+                  _controller.onboardingData.length,
+                  (index) => GetCardsContent(
+                    image: _controller.onboardingData[index]["image"]!,
+                    cardContent: _controller.onboardingData[index]
+                        ["cardContent"]!,
+                    subtitle: _controller.onboardingData[index]["subtitle"]!,
                   ),
-                  indicatorDotHeight: 8,
-                  indicatorDotWidth: 8,
-                  indicatorActiveDotColor: Colors.green,
-                  indicatorType: IndicatorType.jumpingDots,
-                  indicatorPosition: IndicatorPosition.bottomCenter,
-                  indicatorSwapType: SwapType.normal,
                 ),
+                indicatorDotHeight: 8,
+                indicatorDotWidth: 8,
+                indicatorActiveDotColor: Colors.green,
+                indicatorType: IndicatorType.jumpingDots,
+                indicatorPosition: IndicatorPosition.bottomCenter,
+                indicatorSwapType: SwapType.normal,
               ),
-            ],
-          ),
-          Positioned(
-            bottom: 65,
-            left: screenWidth * 0.1,
-            child: GestureDetector(
-              child: Text('SKIP', style: AppTextStyles.textStyle20BlackBold),
-              onTap: () {
-                GoRouter.of(context).go(AppRouter.signIn);
-              },
             ),
-          ),
-          Positioned(
-            bottom: 40,
-            left: (screenWidth / 2) - 5,
-            child: NextButton(
-              isLastPage: _controller.isLastPage,
-              onPressed: () => _controller.handleNext(context),
+            verticalSpace(20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).go(AppRouter.signIn);
+                      getIt<CacheHelper>().saveData(
+                        key: "isOnboardingVisited",
+                        value: true,
+                      );
+                    },
+                    child:
+                        Text('SKIP', style: AppTextStyles.textStyle20BlackBold),
+                  ),
+                  NextButton(
+                    isLastPage: _controller.isLastPage,
+                    onPressed: () => _controller.handleNext(context),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            verticalSpace(30),
+          ],
+        ),
       ),
     );
   }
