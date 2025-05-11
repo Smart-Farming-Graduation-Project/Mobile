@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_cubit.dart';
@@ -15,14 +17,15 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return     BlocProvider(create: (_) => FavoriteCubit()..loadFavorites(),
-
-    child: GestureDetector(
+    log(product.productImages.toString());
+    return BlocProvider(
+      create: (_) => FavoriteCubit()..loadFavorites(),
+      child: GestureDetector(
         onTap: () {
           GoRouter.of(context).push(
-          AppRouter.productDetails,
-          extra: product,
-        );
+            AppRouter.productDetails,
+            extra: product,
+          );
         },
         child: Container(
           padding: const EdgeInsets.all(10),

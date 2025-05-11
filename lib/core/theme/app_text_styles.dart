@@ -4,86 +4,86 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class AppTextStyles {
-  static TextStyle textStyle12WhiteRegular = TextStyle(
+  static TextStyle font12WhiteRegular = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.kWhiteColor,
   );
 
-  static TextStyle textStyle12BlackBold = TextStyle(
+  static TextStyle font12BlackBold = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.bold,
     color: AppColors.kBlackColor,
   );
 
-  static TextStyle textStyle14GreyRegular = TextStyle(
+  static TextStyle font14GreyRegular = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.kGrayColor,
   );
 
-  static TextStyle textStyle14BlackBold = TextStyle(
+  static TextStyle font14BlackBold = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.bold,
     color: AppColors.kBlackColor,
   );
 
-  static TextStyle textStyle16GreenBold = TextStyle(
+  static TextStyle font16GreenBold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
     color: AppColors.kPrimaryColor,
   );
 
-    static TextStyle textStyle16BlackBold = TextStyle(
-      fontSize: 16.sp,
-      fontWeight: FontWeightHelper.bold,
-      color: AppColors.kBlackColor,
-    );
+  static TextStyle font16BlackBold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: AppColors.kBlackColor,
+  );
 
-  static TextStyle textStyle16GreyBold = TextStyle(
+  static TextStyle font16GreyBold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
     color: AppColors.kGrayColor,
   );
 
-  static TextStyle textStyle16Bold = TextStyle(
+  static TextStyle font16Bold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
   );
 
-  static const TextStyle textStyle18 = TextStyle(
+  static const TextStyle font18 = TextStyle(
     fontSize: 18,
     fontWeight: FontWeightHelper.regular,
   );
 
-    static TextStyle textStyle20BlackBold = TextStyle(
-      fontSize: 20.sp,
-      fontWeight: FontWeightHelper.bold,
-      color: AppColors.kBlackColor,
-    );
+  static TextStyle font20BlackBold = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: AppColors.kBlackColor,
+  );
 
-  static TextStyle textStyle20WhiteBold = TextStyle(
+  static TextStyle font20WhiteBold = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.bold,
     color: AppColors.kWhiteColor,
   );
 
-  static const TextStyle textStyle22 = TextStyle(
+  static const TextStyle font22 = TextStyle(
     fontSize: 22,
     fontWeight: FontWeightHelper.regular,
   );
 
-  static const TextStyle textStyle24 = TextStyle(
+  static const TextStyle font24 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeightHelper.regular,
   );
 
-  static const TextStyle textStyle32 = TextStyle(
+  static const TextStyle font32 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeightHelper.regular,
   );
 
-  static const TextStyle textStyle40 = TextStyle(
+  static const TextStyle font40 = TextStyle(
     fontSize: 40,
     fontWeight: FontWeightHelper.regular,
   );

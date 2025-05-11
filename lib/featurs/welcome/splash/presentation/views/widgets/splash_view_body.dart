@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
@@ -28,12 +29,18 @@ class SplashScreenState extends State<SplashScreen>
 
   void _navigateToNextPage() {
     if (getIt<CacheHelper>().getData(key: "isOnboardingVisited") != null) {
-      GoRouter.of(context).go(AppRouter.signIn);
+      if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) == "Buyer") {
+        GoRouter.of(context).go(AppRouter.home);
+      } else if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
+          "Farmer") {
+        GoRouter.of(context).go(AppRouter.community);
+      } else {
+        GoRouter.of(context).go(AppRouter.signIn);
+      }
     } else {
       GoRouter.of(context).go(AppRouter.onboarding);
     }
   }
-
 
   @override
   void dispose() {

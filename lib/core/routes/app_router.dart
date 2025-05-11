@@ -17,6 +17,8 @@ import 'package:go_router/go_router.dart';
 import '../../featurs/ecommerce/categories/presentation/views/category_screen.dart';
 import '../../featurs/ecommerce/home/presentation/views/home_page.dart';
 import '../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
+import 'package:flutter/material.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 
 abstract class AppRouter {
   static const String splash = '/';
@@ -42,7 +44,8 @@ abstract class AppRouter {
   static const String community = '/commumity';
   static const String createpost = '/createpost';
 
-  static final router = GoRouter(routes: [
+  static final router =
+      GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),

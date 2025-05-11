@@ -78,8 +78,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                         value: true,
                       );
                     },
-                    child:
-                        Text('SKIP', style: AppTextStyles.textStyle20BlackBold),
+                    child: Text('SKIP', style: AppTextStyles.font20BlackBold),
                   ),
                   NextButton(
                     isLastPage: _controller.isLastPage,

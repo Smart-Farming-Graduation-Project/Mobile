@@ -29,7 +29,7 @@ class ButtonDecoration extends StatelessWidget {
           height: buttonheight,
           child: Center(
               child: Text(buttontext,
-                  style: AppTextStyles.textStyle16Bold
+                  style: AppTextStyles.font16Bold
                       .copyWith(color: textcolor)))),
     );
   }

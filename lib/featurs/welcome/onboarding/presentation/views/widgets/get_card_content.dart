@@ -31,13 +31,13 @@ class GetCardsContent extends StatelessWidget {
           verticalSpace(30),
           Text(
             cardContent,
-            style: AppTextStyles.textStyle20BlackBold,
+            style: AppTextStyles.font20BlackBold,
             textAlign: TextAlign.center,
           ),
           verticalSpace(15),
           Text(
             subtitle,
-            style: AppTextStyles.textStyle16GreyBold,
+            style: AppTextStyles.font16GreyBold,
             textAlign: TextAlign.center,
           ),
           verticalSpace(50),

@@ -33,11 +33,11 @@ class HomeAppBar extends StatelessWidget {
             children: [
               Text(
                 'Hello,',
-                style: AppTextStyles.textStyle14GreyRegular,
+                style: AppTextStyles.font14GreyRegular,
               ),
               Text(
                 userName,
-                style: AppTextStyles.textStyle20BlackBold,
+                style: AppTextStyles.font20BlackBold,
               ),
             ],
           ),

@@ -1,5 +1,4 @@
 import 'package:crop_guard/core/models/product_model.dart';
-import 'package:crop_guard/core/responsive/widget_height.dart';
 import 'package:crop_guard/core/responsive/widget_width.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/product_item.dart';
@@ -15,8 +14,7 @@ class PopularSection extends StatelessWidget {
       create: (context) => ProductCubit(),
       child: BlocBuilder<ProductCubit, List<ProductModel>>(
         builder: (context, productList) {
-          return SizedBox(
-            height: widgetHeight(context: context, height: 180),
+          return Expanded(
             child: ListView.builder(
               padding: EdgeInsets.zero,
               physics: const BouncingScrollPhysics(),

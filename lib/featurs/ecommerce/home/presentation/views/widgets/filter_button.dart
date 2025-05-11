@@ -11,7 +11,7 @@ class FilterButton extends StatelessWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(
         text,
-        style: AppTextStyles.textStyle20BlackBold,
+        style: AppTextStyles.font20BlackBold,
       ),
       IconButton(
           onPressed: () {},

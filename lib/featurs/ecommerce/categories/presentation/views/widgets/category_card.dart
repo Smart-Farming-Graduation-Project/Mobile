@@ -44,8 +44,7 @@ class CategoryCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            Text(category.categoryName,
-                style: AppTextStyles.textStyle12BlackBold),
+            Text(category.categoryName, style: AppTextStyles.font12BlackBold),
           ],
         ));
   }

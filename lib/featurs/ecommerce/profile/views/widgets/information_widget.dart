@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +11,11 @@ class InformationWidget extends StatefulWidget {
 class _InformationWidgetState extends State<InformationWidget> {
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(25),
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only()
-      ),
-      child:  SafeArea(
+      decoration: const BoxDecoration(borderRadius: BorderRadius.only()),
+      child: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -33,18 +30,21 @@ class _InformationWidgetState extends State<InformationWidget> {
                 ),
               ),
             ),
-            const SizedBox(width: 20,),
-        
+            const SizedBox(
+              width: 20,
+            ),
             Column(
               children: [
-                Text('Menna Fouda',style: AppTextStyles.textStyle24.copyWith(
-                    fontWeight: FontWeight.bold, )
-                ),
-                const Text('mennafouda@gmail.com',style:TextStyle( fontSize: 14,color: Colors.grey  ),)
+                Text('Menna Fouda',
+                    style: AppTextStyles.font24.copyWith(
+                      fontWeight: FontWeight.bold,
+                    )),
+                const Text(
+                  'mennafouda@gmail.com',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                )
               ],
             ),
-        
-        
           ],
         ),
       ),

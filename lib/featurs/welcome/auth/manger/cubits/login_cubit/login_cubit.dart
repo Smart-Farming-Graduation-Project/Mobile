@@ -4,6 +4,7 @@ import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
+import 'package:crop_guard/core/helper/decoded_token.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/helper/show_forgot_password_dialog.dart';
@@ -40,11 +41,10 @@ class LoginCubit extends Cubit<LoginState> {
             key: ApiKeys.refreshToken,
             value: response[ApiKeys.data][ApiKeys.tokens]
                 [ApiKeys.refreshToken]);
-        final decodedToken = JwtDecoder.decode(
+
+        DecodedToken().saveDecodedToken(
             response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);
-        log(decodedToken.toString());
-        final rolesList = decodedToken["Role"] as List<dynamic>;
-        emit(SuccessState(role: rolesList[0]));
+        emit(SuccessState(role: getIt<CacheHelper>().getDataString(key: ApiKeys.role)!));
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
         emit(ErrorState(errorMessage: e.errorModel.errorMessage));

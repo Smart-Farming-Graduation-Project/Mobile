@@ -13,7 +13,7 @@ class HomeTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: AppTextStyles.textStyle20BlackBold,
+      style: AppTextStyles.font20BlackBold,
     );
   }
 }

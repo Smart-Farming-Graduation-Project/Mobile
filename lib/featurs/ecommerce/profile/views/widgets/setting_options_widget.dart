@@ -32,9 +32,7 @@ class _SettingOptionsWidgetState extends State<SettingOptionsWidget> {
               const SizedBox(
                 width: 10,
               ),
-              Text(widget.name,
-                  style: AppTextStyles.textStyle16BlackBold
-                      ),
+              Text(widget.name, style: AppTextStyles.font16BlackBold),
               const SizedBox(
                 width: 10,
               ),

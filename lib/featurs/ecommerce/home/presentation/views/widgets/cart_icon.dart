@@ -20,8 +20,7 @@ class CartIcon extends StatelessWidget {
         badgeStyle:
             const badges.BadgeStyle(badgeColor: AppColors.kPrimaryColor),
         position: badges.BadgePosition.topEnd(top: -5, end: -5),
-        badgeContent:
-            Text("4", style: AppTextStyles.textStyle12WhiteRegular),
+        badgeContent: Text("4", style: AppTextStyles.font12WhiteRegular),
         child: const Icon(Icons.shopping_cart, size: 28),
       ),
     );

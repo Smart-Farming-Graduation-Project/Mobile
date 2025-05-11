@@ -31,7 +31,7 @@ class NextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         isLastPage ? "Get Started" : "Next",
-        style: AppTextStyles.textStyle20WhiteBold,
+        style: AppTextStyles.font20WhiteBold,
       ),
     );
   }

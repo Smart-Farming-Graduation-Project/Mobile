@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/refresh_token.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_title_text.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,10 @@ class TextSection extends StatelessWidget {
             minimumSize: const Size(0, 0),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          onPressed: () {},
-          child: Text(text, style: AppTextStyles.textStyle16GreenBold),
+          onPressed: () {
+            refreshToken();
+          },
+          child: Text(text, style: AppTextStyles.font16GreenBold),
         )
       ]),
     );

@@ -42,7 +42,7 @@ class CheckoutSummary extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: "\$${state.subTotalPrice.toStringAsFixed(2)}",
-                          style: AppTextStyles.textStyle16BlackBold,
+                          style: AppTextStyles.font16BlackBold,
                         ),
                       ],
                     ),
