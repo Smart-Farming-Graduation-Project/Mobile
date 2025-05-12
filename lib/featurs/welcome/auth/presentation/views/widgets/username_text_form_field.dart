@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UsernameTextFormField extends StatelessWidget {
   const UsernameTextFormField({super.key, required this.controller});
@@ -24,11 +25,11 @@ class UsernameTextFormField extends StatelessWidget {
         ),
         labelText: 'Username',
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: const BorderSide(color: AppColors.kPrimaryColor),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
       ),
     );

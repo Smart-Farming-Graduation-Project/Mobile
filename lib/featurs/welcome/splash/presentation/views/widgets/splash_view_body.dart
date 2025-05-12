@@ -1,4 +1,7 @@
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/theme/app_colors.dart';
@@ -20,12 +23,23 @@ class SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller =
-        SplashScreenController(vsync: this, onCompleted: _navigateToOnboarding);
+        SplashScreenController(vsync: this, onCompleted: _navigateToNextPage);
     _controller.startAnimation();
   }
 
-  void _navigateToOnboarding() {
-    GoRouter.of(context).go(AppRouter.onboarding);
+  void _navigateToNextPage() {
+    if (getIt<CacheHelper>().getData(key: "isOnboardingVisited") != null) {
+      if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) == "Buyer") {
+        GoRouter.of(context).go(AppRouter.home);
+      } else if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
+          "Farmer") {
+        GoRouter.of(context).go(AppRouter.community);
+      } else {
+        GoRouter.of(context).go(AppRouter.signIn);
+      }
+    } else {
+      GoRouter.of(context).go(AppRouter.onboarding);
+    }
   }
 
   @override

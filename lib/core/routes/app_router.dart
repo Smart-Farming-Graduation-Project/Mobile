@@ -1,19 +1,25 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/featurs/community/presentation/views/community_home_screen.dart';
 import 'package:crop_guard/featurs/community/presentation/views/create_post.dart';
 import 'package:crop_guard/featurs/ecommerce/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/ecommerce/cart/views/google_map/confirm_delivery_location.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/models/category_model.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_products_screen.dart';
+import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_view.dart';
+import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/product_detailes_view.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/otp_code_view.dart';
+import 'package:crop_guard/featurs/welcome/splash/presentation/views/widgets/splash_view_body.dart';
 import 'package:go_router/go_router.dart';
 import '../../featurs/ecommerce/categories/presentation/views/category_screen.dart';
 import '../../featurs/ecommerce/home/presentation/views/home_page.dart';
 import '../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
+import 'package:flutter/material.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 
 abstract class AppRouter {
   static const String splash = '/';
@@ -28,20 +34,20 @@ abstract class AppRouter {
   static const String selectRole = '/selectRole';
   static const String cart = '/cart';
   static const String confirmDeliveryLocation = '/confirmDeliveryLocation';
+  static const String category = '/category';
   static const String categoryscreen = '/categoryscreen';
   static const String categoryProducts = '/categoryProducts';
   static const String favorites = '/favorites';
   static const String profile = '/profile';
   static const String notifications = '/notifications';
   static const String settings = '/settings';
-  static const String productdetails = '/productdetails';
+  static const String productDetails = '/productDetails';
   static const String review = '/review';
   static const String community = '/commumity';
   static const String createpost = '/createpost';
 
-
-  static final router = GoRouter(initialLocation: community, routes: [
-
+  static final router =
+      GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),
@@ -53,7 +59,7 @@ abstract class AppRouter {
     // welcome routes
     GoRoute(
       path: splash,
-      builder: (context, state) => const NotificationView(),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: onboarding,
@@ -100,19 +106,30 @@ abstract class AppRouter {
     //   // builder: (context, state) => const FavScreen(),
     // ),
     GoRoute(
+      path: category,
+      builder: (context, state) => const CategoryView(),
+    ),
+    GoRoute(
       path: categoryscreen,
       builder: (context, state) => const CategoryScreen(),
     ),
     GoRoute(
-      
-
       path: categoryProducts,
       builder: (context, state) {
         CategoryModel category = state.extra as CategoryModel;
         return CategoryProductsScreen(category: category);
       },
-
-
+    ),
+    GoRoute(
+      path: productDetails,
+      builder: (context, state) {
+        final product = state.extra as ProductModel;
+        return ProductDetailsView(product: product);
+      },
+    ),
+    GoRoute(
+      path: notifications,
+      builder: (context, state) => const NotificationView(),
     ),
   ]);
 }

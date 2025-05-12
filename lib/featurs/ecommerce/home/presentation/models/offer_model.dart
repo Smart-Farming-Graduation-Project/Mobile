@@ -4,5 +4,8 @@ class OfferModel{
 }
 List<OfferModel> offers = [
   OfferModel( imageUrl: 'assets/images/home/offer.png'),
+  OfferModel( imageUrl: 'assets/images/home/offer.png'),
+  OfferModel( imageUrl: 'assets/images/home/offer.png'),
+  OfferModel( imageUrl: 'assets/images/home/offer.png'),
 
 ];

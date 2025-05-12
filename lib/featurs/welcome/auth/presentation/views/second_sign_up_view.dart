@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
@@ -6,11 +7,12 @@ import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/reg
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_state.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_title.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/crop_guard_logo.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/name_text_form_field.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/phone_number_text_form_field.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/sign_up_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SecondSignUpView extends StatelessWidget {
@@ -41,37 +43,33 @@ class SecondSignUpView extends StatelessWidget {
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+          padding: EdgeInsets.only(top: 30.h, left: 30.w, right: 30.w),
           child: Form(
             key: cubit.formKeySecondPage,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const CropGuardLogo(),
+                  verticalSpace(85),
                   const AuthTitle(
                     title: 'Finish Sign Up',
                   ),
+                  verticalSpace(16),
+                  SignUpImage(cubit: cubit),
+                  verticalSpace(40),
                   NameTextFormField(
                     controller: cubit.firstNameController,
                     labelText: 'First Name',
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  verticalSpace(15),
                   NameTextFormField(
                     controller: cubit.lastNameController,
                     labelText: 'Last Name',
                   ),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   PhoneNumberTextFormField(
                     controller: cubit.phoneController,
                   ),
-
-                  // const TermsAndConditions(),
-                  const SizedBox(height: 15),
+                  verticalSpace(30),
                   BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       if (state is SecondSignUpLoadingState) {

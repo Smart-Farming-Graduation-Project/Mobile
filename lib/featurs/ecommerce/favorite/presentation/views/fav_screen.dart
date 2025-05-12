@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/product_item.dart';
 import 'package:crop_guard/featurs/ecommerce/favorite/manger/cubit/favorite_cubit.dart';
@@ -76,6 +78,8 @@ class FavScreen extends StatelessWidget {
                               childAspectRatio: 0.7,
                             ),
                             itemBuilder: (context, index) {
+                              log(state.favoriteProducts[index].productImages
+                                  .toString());
                               return ProductItem(
                                   product: state.favoriteProducts[index]);
                             },

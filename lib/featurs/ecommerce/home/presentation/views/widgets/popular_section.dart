@@ -1,5 +1,4 @@
 import 'package:crop_guard/core/models/product_model.dart';
-import 'package:crop_guard/core/responsive/widget_height.dart';
 import 'package:crop_guard/core/responsive/widget_width.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/product_item.dart';
@@ -11,27 +10,29 @@ class PopularSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, List<ProductModel>>(
-      builder: (context, productList) {
-        return SizedBox(
-          height: widgetHeight(context: context, height: 230),
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: productList.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(4),
-                child: SizedBox(
-                  width: widgetWidth(context: context, width: 153),
-                  child: ProductItem(product: productList[index]),
-                ),
-              );
-            },
-          ),
-        );
-      },
+    return BlocProvider(
+      create: (context) => ProductCubit(),
+      child: BlocBuilder<ProductCubit, List<ProductModel>>(
+        builder: (context, productList) {
+          return Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: productList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: SizedBox(
+                    width: widgetWidth(context: context, width: 153),
+                    child: ProductItem(product: productList[index]),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }

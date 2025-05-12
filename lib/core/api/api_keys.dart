@@ -14,8 +14,11 @@ class ApiKeys {
   static const String firstName = 'firstName';
   static const String lastName = 'lastName';
   static const String phoneNumber = 'phone';
+  static const String image = 'Image ';
+  static const String role = 'role';
   /////////////////////////Authorization  ///////////////////////////////
   static const String authorization = 'Authorization';
+  static const String userId = 'userId';
   ///////////////////////// Authentication response ////////////////////////
   static const String tokens = 'tokens';
   static const String accessToken = 'accessToken';

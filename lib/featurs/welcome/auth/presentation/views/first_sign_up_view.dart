@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/widgets/animated_loading_button.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_cubit.dart';
@@ -14,6 +15,7 @@ import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/terms
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/username_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FirstSignUpView extends StatelessWidget {
   const FirstSignUpView({super.key});
@@ -34,29 +36,27 @@ class FirstSignUpView extends StatelessWidget {
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+          padding: EdgeInsets.only(top: 30.h, left: 30.w, right: 30.w),
           child: Form(
             key: userCubit.formKeyFirstPage,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  verticalSpace(30),
                   const CropGuardLogo(),
                   const AuthTitle(title: 'Create New Account'),
                   EmailTextFormField(
                     emailController: userCubit.emailController,
                   ),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   UsernameTextFormField(
                     controller: userCubit.usernameController,
                   ),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   PasswordTextFormField(
                     passwordController: userCubit.passwordController,
                   ),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   PasswordTextFormField(
                     passwordController: userCubit.passwordController,
                     isConfirm: true,
@@ -64,7 +64,7 @@ class FirstSignUpView extends StatelessWidget {
                         userCubit.confirmPasswordController,
                   ),
                   const TermsAndConditions(),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       if (state is FirstSignUpLoadingState) {
@@ -78,16 +78,14 @@ class FirstSignUpView extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   const AuthDivider(),
                   const SocialButtons(isSignInPage: false),
-                  const SizedBox(height: 25),
+                  verticalSpace(25),
                   const NavigateToPage(
                     nextPage: 'signIn',
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  verticalSpace(30),
                 ],
               ),
             ),

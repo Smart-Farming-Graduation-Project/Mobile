@@ -4,6 +4,7 @@ import 'package:crop_guard/featurs/welcome/auth/manger/cubits/password_cubit.dar
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/password_cubit.dart/password_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PasswordTextFormField extends StatelessWidget {
   const PasswordTextFormField({
@@ -52,11 +53,11 @@ class PasswordTextFormField extends StatelessWidget {
                 },
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 borderSide: const BorderSide(color: AppColors.kPrimaryColor),
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
               ),
             ),
             obscureText: isConfirm

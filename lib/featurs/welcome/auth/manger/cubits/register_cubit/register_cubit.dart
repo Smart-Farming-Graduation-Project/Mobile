@@ -1,17 +1,22 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
+import 'package:crop_guard/core/helper/pick_image.dart';
+import 'package:crop_guard/core/helper/upload_image_to_api.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_state.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/terms_conditions_cubit/terms_and_conditions_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(AccountTypestate());
@@ -26,6 +31,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKeySecondPage = GlobalKey<FormState>();
+  File? imageFile;
   String role = '';
 
   void goToFirstSignUpPage() {
@@ -38,7 +44,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> checkEmailAndUsername() async {
-    if (formKeyFirstPage.currentState!.validate()) {
+    if (formKeyFirstPage.currentState!.validate() &&
+        getIt<TermsAndConditionsCubit>().isAccepted) {
       try {
         emit(FirstSignUpLoadingState());
         final response = await api.post(EndPoints.checkEmailAndUsername, data: {
@@ -51,22 +58,29 @@ class RegisterCubit extends Cubit<RegisterState> {
         log(e.errorModel.errorMessage);
         emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
+    } else if (!getIt<TermsAndConditionsCubit>().isAccepted) {
+      emit(FirstSignUpErrorState(
+          errorMessage: 'Please accept terms and conditions'));
+    } else {
+      emit(FirstSignUpErrorState(errorMessage: 'Please fill all fields'));
     }
   }
 
   Future<void> signUp() async {
-    if (formKeySecondPage.currentState!.validate()) {
+    if (formKeySecondPage.currentState!.validate() && imageFile != null) {
       try {
         emit(SecondSignUpLoadingState());
-        final response = await api.post(EndPoints.register, data: {
-          ApiKeys.firstName: firstNameController.text,
-          ApiKeys.lastName: lastNameController.text,
-          ApiKeys.username: usernameController.text,
-          ApiKeys.email: emailController.text,
-          ApiKeys.password: passwordController.text,
-          ApiKeys.confirmPassword: confirmPasswordController.text,
-          ApiKeys.phoneNumber: phoneController.text,
-          // ApiKeys.role: role,
+        final response =
+            await api.post(EndPoints.register, isFormData: true, data: {
+          "FirstName": firstNameController.text,
+          "LastName": lastNameController.text,
+          "Username": usernameController.text,
+          "Email": emailController.text,
+          "Password": passwordController.text,
+          "ConfirmPassword": confirmPasswordController.text,
+          "Phone": phoneController.text,
+          // "Role": role,
+          "Image": await uploadImageToApi(XFile(imageFile!.path)),
         });
         log(response.toString());
         emit(RegisterSuccessState());
@@ -74,6 +88,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         log(e.errorModel.errorMessage);
         emit(SecondSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
+    } else {
+      emit(SecondSignUpErrorState(errorMessage: 'Please Select image'));
     }
   }
 
@@ -161,5 +177,12 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void chooseFarmer() {
     selectRole('Farmer');
+  }
+
+  void pickUserImage() async {
+    imageFile = await pickImage();
+    if (imageFile != null) {
+      emit(PickUserImageState(imageFile: imageFile!));
+    }
   }
 }

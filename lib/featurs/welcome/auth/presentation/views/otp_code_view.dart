@@ -63,7 +63,7 @@ class OTPCodeView extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text('Enter Your OTP Code',
                           textAlign: TextAlign.center,
-                          style: AppTextStyles.textStyle32),
+                          style: AppTextStyles.font32),
                     ),
                     const Align(
                       alignment: Alignment.centerLeft,

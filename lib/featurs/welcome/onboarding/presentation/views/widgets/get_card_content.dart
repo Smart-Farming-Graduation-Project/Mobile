@@ -1,4 +1,6 @@
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/theme/app_text_styles.dart';
 
@@ -21,25 +23,24 @@ class GetCardsContent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image,
-            width: 300,
-            height: 300,
+          Image.asset(
+            image,
+            width: 300.w,
+            height: 300.h,
           ),
-          const SizedBox(height: 30),
+          verticalSpace(30),
           Text(
             cardContent,
-            style:
-                AppTextStyles.textStyle24.copyWith(fontWeight: FontWeight.bold),
+            style: AppTextStyles.font20BlackBold,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 15),
+          verticalSpace(15),
           Text(
             subtitle,
-            style: AppTextStyles.textStyle24.copyWith(
-                fontSize: 16, color: Colors.grey, fontWeight: FontWeight.bold),
+            style: AppTextStyles.font16GreyBold,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 70),
+          verticalSpace(50),
         ],
       ),
     );

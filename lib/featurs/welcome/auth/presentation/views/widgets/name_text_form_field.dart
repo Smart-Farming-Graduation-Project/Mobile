@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NameTextFormField extends StatelessWidget {
   const NameTextFormField(
@@ -26,11 +27,11 @@ class NameTextFormField extends StatelessWidget {
         ),
         labelText: labelText,
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: const BorderSide(color: AppColors.kPrimaryColor),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
       ),
     );

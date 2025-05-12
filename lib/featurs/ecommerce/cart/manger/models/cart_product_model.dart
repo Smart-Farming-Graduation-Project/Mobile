@@ -25,7 +25,9 @@ class CartProductModel {
       productDescription: json['productDescription'],
       productPrice: json['productPrice'],
       quantity: json['quantity'],
-      productImage: json['productImages'][0],
+      productImage: json['productImages']?.isNotEmpty == true
+          ? json['productImages'][0]
+          : 'https://i5.walmartimages.com/seo/Fresh-Slicing-Tomato-Each_a1e8e44a-2b82-48ab-9c09-b68420f6954c.04f6e0e87807fc5457f57e3ec0770061.jpeg',
     );
   }
 }

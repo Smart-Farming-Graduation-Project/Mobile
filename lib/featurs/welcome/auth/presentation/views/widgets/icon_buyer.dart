@@ -1,4 +1,6 @@
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
 class BuyerRole extends StatelessWidget {
@@ -14,10 +16,10 @@ class BuyerRole extends StatelessWidget {
         isSelected ? AppColors.kWhiteColor : AppColors.kGrayColor;
 
     return Container(
-      width: 150,
-      height: 150,
+      width: 150.w,
+      height: 150.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         color:
             isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
         boxShadow: isSelected
@@ -30,28 +32,25 @@ class BuyerRole extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              Icon(Icons.person, size: 100, color: personColor),
+              Icon(Icons.person, size: 100.r, color: personColor),
               Positioned(
-                bottom: 14,
-                right: 10,
+                bottom: 13.h,
+                right: 9.w,
                 child: CircleAvatar(
-                  radius: 18,
+                  radius: 18.r,
                   backgroundColor: containerColor,
                   child: CircleAvatar(
-                    radius: 15,
+                    radius: 15.r,
                     backgroundColor: personColor,
                     child: Icon(Icons.shopping_cart_outlined,
-                        size: 20, color: containerColor),
+                        size: 20.r, color: containerColor),
                   ),
                 ),
               )
             ],
           ),
           Text('Buyer',
-              style: TextStyle(
-                  color: personColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold)),
+              style: AppTextStyles.font20Bold.copyWith(color: personColor)),
         ],
       ),
     );

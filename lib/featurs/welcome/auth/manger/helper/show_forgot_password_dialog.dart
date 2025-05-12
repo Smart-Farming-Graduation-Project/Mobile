@@ -26,7 +26,7 @@ void showForgotPasswordDialog(BuildContext context) {
               title: Align(
                 alignment: Alignment.center,
                 child: Text('Forgot Password',
-                    style: AppTextStyles.textStyle24.copyWith(
+                    style: AppTextStyles.font24.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.kDangerColor)),
               ),
@@ -41,7 +41,7 @@ void showForgotPasswordDialog(BuildContext context) {
                   ),
                   Text(
                     getIt<CacheHelper>().getData(key: ApiKeys.email),
-                    style: AppTextStyles.textStyle22,
+                    style: AppTextStyles.font22,
                   ),
                   Row(
                     children: [

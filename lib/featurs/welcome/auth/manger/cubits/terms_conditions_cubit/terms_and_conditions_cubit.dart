@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TermsAndConditionsCubit extends Cubit<TermsAndConditionsState>{
   TermsAndConditionsCubit():super(TermsAndConditionsState(isAccepted: false));
+  bool isAccepted = false;
   void toggleAcceptance(){
-    emit(TermsAndConditionsState(isAccepted: !state.isAccepted));
+    isAccepted = !isAccepted;
+    emit(TermsAndConditionsState(isAccepted: isAccepted));
   }
 }

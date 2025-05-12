@@ -3,10 +3,8 @@ import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/manger/category_cubit/product_cubit.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/manger/helper/sellers_list.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/add_to_cart_button.dart';
-import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/price_display.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/product_detail_expansion.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/product_title.dart';
-import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/quantity_selector.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/widgets/review_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,34 +13,12 @@ import 'widgets/info_box.dart';
 import 'widgets/product_image_details.dart';
 import 'widgets/seller_info.dart';
 
-class ProductDetailsPage extends StatefulWidget {
-  final ProductModel product;
-
-  const ProductDetailsPage({
+class ProductDetailsView extends StatelessWidget {
+  const ProductDetailsView({
     super.key,
     required this.product,
   });
-
-  @override
-  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
-}
-
-class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  int quantity = 1;
-
-  void incrementQuantity() {
-    setState(() {
-      quantity++;
-    });
-  }
-
-  void decrementQuantity() {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-  }
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +62,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ProductImageDetails(
-                            image: widget.product.productImages[0]),
+                          image: product.productImages.isNotEmpty
+                              ? product.productImages[0]
+                              : "https://i5.walmartimages.com/seo/Fresh-Slicing-Tomato-Each_a1e8e44a-2b82-48ab-9c09-b68420f6954c.04f6e0e87807fc5457f57e3ec0770061.jpeg",
+                        ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
                             ProductTitle(
-                                name: widget.product.productName,
-                                category: widget.product.categoryName!),
+                                name: product.productName,
+                                category: product.categoryName!),
                             const Spacer(),
                             // FavoriteIcon(product: widget.product),
                           ],
@@ -100,24 +79,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         const SizedBox(height: 18),
                         const InfoBoxDetails(),
                         const SizedBox(height: 18),
-                        Row(
-                          children: [
-                            QuantitySelector(
-                              quantity: quantity,
-                              onIncrement: incrementQuantity,
-                              onDecrement: decrementQuantity,
-                            ),
-                            const Spacer(),
-                            PriceDisplay(price: widget.product.productPrice),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     QuantitySelector(
+                        //       quantity: quantity,
+                        //       onIncrement: incrementQuantity,
+                        //       onDecrement: decrementQuantity,
+                        //     ),
+                        //     const Spacer(),
+                        //     PriceDisplay(price: product.productPrice),
+                        //   ],
+                        // ),
                         const SizedBox(height: 10),
                         ProductDetailExpansion(
-                            description: widget.product.productDescription),
+                            description: product.productDescription),
                         const SizedBox(height: 10),
                         ReviewStars(
-                          productId: widget.product.productId,
-                          rating: widget.product.productRating ?? 0.0,
+                          productId: product.productId,
+                          rating: product.productRating ?? 0.0,
                         ),
                         const SizedBox(height: 10),
                         Row(
