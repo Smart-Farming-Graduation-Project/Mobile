@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
 class BuyerRole extends StatelessWidget {
@@ -32,16 +33,16 @@ class BuyerRole extends StatelessWidget {
             children: [
               Icon(Icons.person, size: 100, color: personColor),
               Positioned(
-                bottom: 14,
-                right: 10,
+                bottom: 14.h,
+                right: 10.w,
                 child: CircleAvatar(
-                  radius: 18,
+                  radius: 18.r,
                   backgroundColor: containerColor,
                   child: CircleAvatar(
-                    radius: 15,
+                    radius: 15.r,
                     backgroundColor: personColor,
                     child: Icon(Icons.shopping_cart_outlined,
-                        size: 20, color: containerColor),
+                        size: 20.r, color: containerColor),
                   ),
                 ),
               )
