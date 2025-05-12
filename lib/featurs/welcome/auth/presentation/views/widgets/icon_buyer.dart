@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/theme/app_colors.dart';
@@ -49,10 +50,7 @@ class BuyerRole extends StatelessWidget {
             ],
           ),
           Text('Buyer',
-              style: TextStyle(
-                  color: personColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold)),
+              style: AppTextStyles.font20Bold.copyWith(color: personColor)),
         ],
       ),
     );

@@ -62,6 +62,11 @@ abstract class AppTextStyles {
     fontWeight: FontWeightHelper.regular,
   );
 
+  static TextStyle font20Bold = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.bold,
+  );
+
   static TextStyle font20BlackBold = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.bold,
