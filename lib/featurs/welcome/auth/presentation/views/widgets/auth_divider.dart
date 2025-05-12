@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AuthDivider extends StatelessWidget {
@@ -12,14 +13,14 @@ class AuthDivider extends StatelessWidget {
         Expanded(
           child: Divider(
             thickness: 1,
-            color: Colors.grey,
+            color: AppColors.kGrayColor,
           ),
         ),
         Text('Or'),
         Expanded(
           child: Divider(
             thickness: 1,
-            color: Colors.grey,
+            color: AppColors.kGrayColor,
           ),
         ),
       ],

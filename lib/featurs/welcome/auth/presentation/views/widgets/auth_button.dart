@@ -16,7 +16,7 @@ class AuthButton extends StatelessWidget {
       onTap: onTap,
       child: ButtonDecoration(
         buttoncolor: AppColors.kPrimaryColor,
-        buttonheight: 60,
+        buttonheight: 50,
         buttonwidth: double.infinity,
         buttontext: text,
         textcolor: Colors.white,

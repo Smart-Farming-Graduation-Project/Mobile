@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/theme/assets_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GoogleIcon extends StatelessWidget {
   const GoogleIcon({super.key, required this.onPressed});
@@ -11,7 +12,7 @@ class GoogleIcon extends StatelessWidget {
         onPressed: onPressed,
         icon: Image.asset(
           AssetsData.google,
-          height: 50,
+          height: 50.h,
         ));
   }
 }

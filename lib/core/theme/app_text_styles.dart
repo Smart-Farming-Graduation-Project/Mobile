@@ -28,6 +28,12 @@ abstract class AppTextStyles {
     color: AppColors.kBlackColor,
   );
 
+  static TextStyle font14BlackRegular = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: AppColors.kBlackColor,
+  );
+
   static TextStyle font16GreenBold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
@@ -76,6 +82,17 @@ abstract class AppTextStyles {
   static const TextStyle font24 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeightHelper.regular,
+  );
+
+  static const TextStyle font26 = TextStyle(
+    fontSize: 26,
+    fontWeight: FontWeightHelper.regular,
+  );
+
+  static TextStyle font28BlackBold = TextStyle(
+    fontSize: 28.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: AppColors.kBlackColor,
   );
 
   static const TextStyle font32 = TextStyle(

@@ -15,7 +15,6 @@ import 'package:go_router/go_router.dart';
 Future<void> refreshToken() async {
   final api = getIt<DioConsumer>();
   try {
-    log(getIt<CacheHelper>().getData(key: ApiKeys.accessToken).toString());
     final response = await api.post(
       EndPoints.refreshToken,
       data: {
@@ -27,7 +26,6 @@ Future<void> refreshToken() async {
         },
       },
     );
-    log(response.toString());
     getIt<CacheHelper>().saveData(
         key: ApiKeys.accessToken,
         value: response[ApiKeys.data][ApiKeys.accessToken]);

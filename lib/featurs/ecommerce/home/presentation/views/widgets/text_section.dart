@@ -1,7 +1,8 @@
-import 'package:crop_guard/core/helper/refresh_token.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_title_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TextSection extends StatelessWidget {
   const TextSection({
@@ -23,7 +24,7 @@ class TextSection extends StatelessWidget {
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
           onPressed: () {
-            refreshToken();
+            GoRouter.of(context).push(AppRouter.category);
           },
           child: Text(text, style: AppTextStyles.font16GreenBold),
         )

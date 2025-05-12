@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/app_colors.dart';
 
@@ -24,9 +25,9 @@ class ButtonDecoration extends StatelessWidget {
       padding: const EdgeInsets.all(0),
       child: Container(
           decoration: BoxDecoration(
-              color: buttoncolor, borderRadius: BorderRadius.circular(10)),
-          width: buttonwidth,
-          height: buttonheight,
+              color: buttoncolor, borderRadius: BorderRadius.circular(10.r)),
+          width: buttonwidth.w,
+          height: buttonheight.h,
           child: Center(
               child: Text(buttontext,
                   style: AppTextStyles.font16Bold
