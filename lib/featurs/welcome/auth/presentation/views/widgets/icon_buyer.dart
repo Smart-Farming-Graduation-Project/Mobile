@@ -16,10 +16,10 @@ class BuyerRole extends StatelessWidget {
         isSelected ? AppColors.kWhiteColor : AppColors.kGrayColor;
 
     return Container(
-      width: 150,
-      height: 150,
+      width: 150.w,
+      height: 150.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         color:
             isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
         boxShadow: isSelected
@@ -32,10 +32,10 @@ class BuyerRole extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              Icon(Icons.person, size: 100, color: personColor),
+              Icon(Icons.person, size: 100.r, color: personColor),
               Positioned(
-                bottom: 14.h,
-                right: 10.w,
+                bottom: 13.h,
+                right: 9.w,
                 child: CircleAvatar(
                   radius: 18.r,
                   backgroundColor: containerColor,

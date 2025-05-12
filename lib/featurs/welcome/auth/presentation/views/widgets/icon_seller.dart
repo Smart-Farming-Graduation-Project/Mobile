@@ -1,4 +1,6 @@
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/theme/app_colors.dart';
 
 class FarmerRole extends StatelessWidget {
@@ -8,16 +10,21 @@ class FarmerRole extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color containerColor = isSelected ? AppColors.kPrimaryColor : AppColors.kWhiteColor;
-    final Color personColor = isSelected ? AppColors.kWhiteColor : AppColors.kGrayColor;
+    final Color containerColor =
+        isSelected ? AppColors.kPrimaryColor : AppColors.kWhiteColor;
+    final Color personColor =
+        isSelected ? AppColors.kWhiteColor : AppColors.kGrayColor;
 
     return Container(
-      width: 150,
-      height: 150,
+      width: 150.w,
+      height: 150.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-          color: isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
-        boxShadow: isSelected ? [const BoxShadow(color: Colors.black26, blurRadius: 5)] : [],
+        borderRadius: BorderRadius.circular(15.r),
+        color:
+            isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
+        boxShadow: isSelected
+            ? [const BoxShadow(color: Colors.black26, blurRadius: 5)]
+            : [],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,23 +32,26 @@ class FarmerRole extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              Icon(Icons.person, size: 100, color: personColor),
+              Icon(Icons.person, size: 100.r, color: personColor),
               Positioned(
-                bottom: 14,
-                right: 10,
+                bottom: 13.h,
+                right: 9.w,
                 child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor:containerColor,
-
-                child: CircleAvatar(
-                  radius: 15,
-                  backgroundColor:personColor ,
-                  child:  Icon(Icons.agriculture_outlined, size: 20,  color:containerColor),
+                  radius: 18.r,
+                  backgroundColor: containerColor,
+                  child: CircleAvatar(
+                    radius: 15.r,
+                    backgroundColor: personColor,
+                    child: Icon(Icons.agriculture_outlined,
+                        size: 20.r, color: containerColor),
+                  ),
                 ),
-              ),
-              )],
+              )
+            ],
           ),
-          Text('Farmer', style: TextStyle(color:personColor , fontSize: 20, fontWeight: FontWeight.bold)),
+          Text('Farmer',
+              style:
+                  AppTextStyles.font20BlackBold.copyWith(color: personColor)),
         ],
       ),
     );
