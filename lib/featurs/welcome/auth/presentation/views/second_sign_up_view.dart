@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
@@ -8,8 +9,10 @@ import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/auth_title.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/name_text_form_field.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/phone_number_text_form_field.dart';
+import 'package:crop_guard/featurs/welcome/auth/presentation/views/widgets/sign_up_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SecondSignUpView extends StatelessWidget {
@@ -40,91 +43,33 @@ class SecondSignUpView extends StatelessWidget {
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+          padding: EdgeInsets.only(top: 30.h, left: 30.w, right: 30.w),
           child: Form(
             key: cubit.formKeySecondPage,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 80,
-                  ),
-                  // const CropGuardLogo(),
+                  verticalSpace(85),
                   const AuthTitle(
                     title: 'Finish Sign Up',
                   ),
-                  const SizedBox(height: 20),
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          cubit.pickUserImage();
-                        },
-                        child: BlocBuilder<RegisterCubit, RegisterState>(
-                          builder: (context, state) {
-                            return Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[200], 
-                                image: cubit.imageFile != null
-                                    ? DecorationImage(
-                                        image: FileImage(cubit.imageFile!),
-                                        fit: BoxFit.cover,
-                                      )
-                                    : null,
-                              ),
-                              child: cubit.imageFile != null
-                                  ? null
-                                  : const Icon(
-                                      Icons.person,
-                                      size: 70,
-                                      color: Colors.grey,
-                                    ),
-                            );
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                          color: AppColors.kGreenColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            cubit.pickUserImage();
-                          },
-                          child: const Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 50),
+                  verticalSpace(16),
+                  SignUpImage(cubit: cubit),
+                  verticalSpace(40),
                   NameTextFormField(
                     controller: cubit.firstNameController,
                     labelText: 'First Name',
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  verticalSpace(15),
                   NameTextFormField(
                     controller: cubit.lastNameController,
                     labelText: 'Last Name',
                   ),
-                  const SizedBox(height: 15),
+                  verticalSpace(15),
                   PhoneNumberTextFormField(
                     controller: cubit.phoneController,
                   ),
-
-                  // const TermsAndConditions(),
-                  const SizedBox(height: 30),
+                  verticalSpace(30),
                   BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       if (state is SecondSignUpLoadingState) {
