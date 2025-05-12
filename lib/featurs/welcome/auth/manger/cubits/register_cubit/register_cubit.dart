@@ -9,6 +9,7 @@ import 'package:crop_guard/core/helper/upload_image_to_api.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/featurs/welcome/auth/manger/cubits/register_cubit/register_state.dart';
+import 'package:crop_guard/featurs/welcome/auth/manger/cubits/terms_conditions_cubit/terms_and_conditions_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> checkEmailAndUsername() async {
-    if (formKeyFirstPage.currentState!.validate()) {
+    if (formKeyFirstPage.currentState!.validate() &&
+        getIt<TermsAndConditionsCubit>().isAccepted) {
       try {
         emit(FirstSignUpLoadingState());
         final response = await api.post(EndPoints.checkEmailAndUsername, data: {
@@ -56,6 +58,11 @@ class RegisterCubit extends Cubit<RegisterState> {
         log(e.errorModel.errorMessage);
         emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
+    } else if (!getIt<TermsAndConditionsCubit>().isAccepted) {
+      emit(FirstSignUpErrorState(
+          errorMessage: 'Please accept terms and conditions'));
+    } else {
+      emit(FirstSignUpErrorState(errorMessage: 'Please fill all fields'));
     }
   }
 

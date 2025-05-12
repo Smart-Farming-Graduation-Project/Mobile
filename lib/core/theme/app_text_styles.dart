@@ -52,6 +52,12 @@ abstract class AppTextStyles {
     color: AppColors.kGrayColor,
   );
 
+  static TextStyle font16BlackRegular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: AppColors.kBlackColor,
+  );
+
   static TextStyle font16Bold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
