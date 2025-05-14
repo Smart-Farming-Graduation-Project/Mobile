@@ -21,7 +21,7 @@ class BuyerRole extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.r),
         color:
-            isSelected ? AppColors.kPrimaryColor : Colors.black.withAlpha(15),
+            isSelected ? AppColors.kPrimaryColor : AppColors.kLightBlackColor,
         boxShadow: isSelected
             ? [const BoxShadow(color: Colors.black26, blurRadius: 5)]
             : [],
