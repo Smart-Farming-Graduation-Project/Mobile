@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/category_model.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({super.key, required this.category});
@@ -24,7 +25,7 @@ class CategoryCard extends StatelessWidget {
               width: 100.w,
               height: 50.h,
               decoration: BoxDecoration(
-                color: Colors.black.withAlpha(15),
+                color: AppColors.kLightBlackColor,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ClipRRect(
