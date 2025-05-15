@@ -9,34 +9,38 @@ class QuickCard extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
+    required this.onTap,
   });
 
   final IconData icon;
   final String title;
-
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        height: 100.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.kPrimaryColor, width: 2.w),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 40.sp,
-              color: AppColors.kYellowColor,
-            ),
-            verticalSpace(10),
-            Text(
-              title,
-              style: AppTextStyles.font18BlackBold,
-            ),
-          ],
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 100.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(color: AppColors.kPrimaryColor, width: 2.w),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 40.sp,
+                color: AppColors.kYellowColor,
+              ),
+              verticalSpace(10),
+              Text(
+                title,
+                style: AppTextStyles.font18BlackBold,
+              ),
+            ],
+          ),
         ),
       ),
     );

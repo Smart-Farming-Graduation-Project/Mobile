@@ -1,7 +1,9 @@
 import 'package:crop_guard/core/helper/spacing.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/featurs/farmer/home/widgets/quick_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class ChatBotAndSoilInfoRow extends StatelessWidget {
   const ChatBotAndSoilInfoRow({super.key});
@@ -10,9 +12,20 @@ class ChatBotAndSoilInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const QuickCard(icon: FontAwesomeIcons.robot, title: 'Chat Bot'),
+        QuickCard(
+          icon: FontAwesomeIcons.robot,
+          title: 'Chat Bot',
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.chatBot);
+          },
+        ),
         horizontalSpace(16),
-        const QuickCard(icon: FontAwesomeIcons.chartLine, title: 'Soil Info'),
+        QuickCard(
+            icon: FontAwesomeIcons.chartLine,
+            title: 'Soil Info',
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.soilInfo);
+            }),
       ],
     );
   }
