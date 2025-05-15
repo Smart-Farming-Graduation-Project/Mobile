@@ -15,7 +15,7 @@ class MarketAndPestDetectionRow extends StatelessWidget {
           icon: Icons.store,
           title: 'Market',
           onTap: () {
-            GoRouter.of(context).push(AppRouter.market);
+            GoRouter.of(context).push(AppRouter.home);
           },
         ),
         horizontalSpace(16),

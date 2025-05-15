@@ -1,5 +1,5 @@
-import 'package:crop_guard/featurs/community/manger/cubit/vote_cubit.dart';
-import 'package:crop_guard/featurs/community/manger/cubit/vote_state.dart';
+import 'package:crop_guard/featurs/farmer/community/manger/cubit/vote_cubit.dart';
+import 'package:crop_guard/featurs/farmer/community/manger/cubit/vote_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

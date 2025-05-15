@@ -1,6 +1,7 @@
 import 'package:crop_guard/core/models/product_model.dart';
-import 'package:crop_guard/featurs/community/presentation/views/community_home_screen.dart';
-import 'package:crop_guard/featurs/community/presentation/views/create_post.dart';
+import 'package:crop_guard/featurs/farmer/chat_bot/presentation/views/chat_bot_view.dart';
+import 'package:crop_guard/featurs/farmer/community/presentation/views/community_home_screen.dart';
+import 'package:crop_guard/featurs/farmer/community/presentation/views/create_post.dart';
 import 'package:crop_guard/featurs/ecommerce/cart/views/cart_view.dart';
 import 'package:crop_guard/featurs/ecommerce/cart/views/google_map/confirm_delivery_location.dart';
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/models/category_model.dart';
@@ -10,7 +11,10 @@ import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/produ
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
 import 'package:crop_guard/featurs/farmer/home/farmer_home.dart';
+import 'package:crop_guard/featurs/farmer/market/presentation/views/market_view.dart';
 import 'package:crop_guard/featurs/farmer/pest_detection/views/pest_detection_view.dart';
+import 'package:crop_guard/featurs/farmer/rover_control/presentation/views/rover_control_view.dart';
+import 'package:crop_guard/featurs/farmer/soil_info/presentation/views/soil_info_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
@@ -150,5 +154,22 @@ abstract class AppRouter {
           path: pestDetection,
           builder: (context, state) => const PestDetectionView(),
         ),
+        GoRoute(
+          path: roverControl,
+          builder: (context, state) => const RoverControlView(),
+        ),
+        GoRoute(
+          path: chatBot,
+          builder: (context, state) => const ChatBotView(),
+        ),
+        GoRoute(
+          path: soilInfo,
+          builder: (context, state) => const SoilInfoView(),
+        ),
+        GoRoute(
+          path: market,
+          builder: (context, state) => const MarketView(),
+        ),
+      
       ]);
 }

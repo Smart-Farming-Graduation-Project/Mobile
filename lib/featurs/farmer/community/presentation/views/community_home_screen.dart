@@ -1,6 +1,6 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/featurs/community/post_cubit/create_post_cubit.dart';
-import 'package:crop_guard/featurs/community/post_cubit/create_post_state.dart';
+import 'package:crop_guard/featurs/farmer/community/post_cubit/create_post_cubit.dart';
+import 'package:crop_guard/featurs/farmer/community/post_cubit/create_post_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
