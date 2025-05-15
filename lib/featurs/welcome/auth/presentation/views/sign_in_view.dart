@@ -38,7 +38,7 @@ class SignInView extends StatelessWidget {
             if (state.role == "Buyer") {
               GoRouter.of(context).go(AppRouter.home);
             } else {
-              GoRouter.of(context).go(AppRouter.community);
+              GoRouter.of(context).go(AppRouter.farmerHome);
             }
           } else if (state is ErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
