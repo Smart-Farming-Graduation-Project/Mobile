@@ -50,6 +50,10 @@ abstract class AppRouter {
   static const String community = '/commumity';
   static const String createpost = '/createpost';
   static const String pestDetection = '/pestDetection';
+  static const String roverControl = '/roverControl';
+  static const String chatBot = '/chatBot';
+  static const String soilInfo = '/soilInfo';
+  static const String market = '/market';
 
   static final router = GoRouter(
       navigatorKey: getIt<GlobalKey<NavigatorState>>(),
