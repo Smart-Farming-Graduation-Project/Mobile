@@ -33,7 +33,7 @@ class SplashScreenState extends State<SplashScreen>
         GoRouter.of(context).go(AppRouter.home);
       } else if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
           "Farmer") {
-        GoRouter.of(context).go(AppRouter.community);
+        GoRouter.of(context).go(AppRouter.farmerHome);
       } else {
         GoRouter.of(context).go(AppRouter.signIn);
       }

@@ -57,7 +57,6 @@ abstract class AppRouter {
 
   static final router = GoRouter(
       navigatorKey: getIt<GlobalKey<NavigatorState>>(),
-      initialLocation: farmerHome,
       routes: [
         GoRoute(
           path: community,
