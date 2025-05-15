@@ -9,6 +9,7 @@ import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/categ
 import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/product_detailes_view.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
 import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
+import 'package:crop_guard/featurs/farmer/home/farmer_home.dart';
 import 'package:crop_guard/featurs/farmer/pest_detection/views/pest_detection_view.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
@@ -44,13 +45,15 @@ abstract class AppRouter {
   static const String settings = '/settings';
   static const String productDetails = '/productDetails';
   static const String review = '/review';
+  //farmer routes
+  static const String farmerHome = '/farmerHome';
   static const String community = '/commumity';
   static const String createpost = '/createpost';
   static const String pestDetection = '/pestDetection';
 
   static final router = GoRouter(
       navigatorKey: getIt<GlobalKey<NavigatorState>>(),
-      initialLocation: pestDetection,
+      initialLocation: farmerHome,
       routes: [
         GoRoute(
           path: community,
@@ -134,6 +137,11 @@ abstract class AppRouter {
         GoRoute(
           path: notifications,
           builder: (context, state) => const NotificationView(),
+        ),
+        //farmer routes
+        GoRoute(
+          path: farmerHome,
+          builder: (context, state) => const FarmerHomeScreen(),
         ),
         GoRoute(
           path: pestDetection,

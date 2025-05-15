@@ -1,9 +1,9 @@
 import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/notification_icon.dart';
 import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'home_header_icons.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
@@ -20,7 +20,7 @@ class HomeAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          horizontalSpace(10),
+          horizontalSpace(16),
           const UserImage(
             radius: 24,
           ),
@@ -42,7 +42,8 @@ class HomeAppBar extends StatelessWidget {
           const Spacer(
             flex: 1,
           ),
-          const HomeHeaderIcons(),
+          const NotificationIcon(),
+          horizontalSpace(16),
         ],
       ),
     );
