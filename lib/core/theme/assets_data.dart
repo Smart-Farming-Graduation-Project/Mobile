@@ -3,5 +3,5 @@ class AssetsData{
   static const emptyCart='assets/images/cart/empty_cart.gif';
   static const greenlogo='assets/images/splash/green_logo.png';
   static const google='assets/images/auth/google.png';
-
+  static const lightbulb='assets/images/farmerHome/lightbulb.png';
 }
