@@ -1,31 +1,32 @@
 import 'package:crop_guard/core/models/product_model.dart';
-import 'package:crop_guard/featurs/farmer/chat_bot/presentation/views/chat_bot_view.dart';
-import 'package:crop_guard/featurs/farmer/community/presentation/views/community_home_screen.dart';
-import 'package:crop_guard/featurs/farmer/community/presentation/views/create_post.dart';
-import 'package:crop_guard/featurs/ecommerce/cart/views/cart_view.dart';
-import 'package:crop_guard/featurs/ecommerce/cart/views/google_map/confirm_delivery_location.dart';
-import 'package:crop_guard/featurs/ecommerce/categories/presentation/models/category_model.dart';
-import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_products_screen.dart';
-import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/category_view.dart';
-import 'package:crop_guard/featurs/ecommerce/categories/presentation/views/product_detailes_view.dart';
-import 'package:crop_guard/featurs/ecommerce/home/presentation/views/widgets/home_content.dart';
-import 'package:crop_guard/featurs/ecommerce/notification/views/notification_view.dart';
-import 'package:crop_guard/featurs/farmer/home/farmer_home.dart';
-import 'package:crop_guard/featurs/farmer/market/presentation/views/market_view.dart';
-import 'package:crop_guard/featurs/farmer/pest_detection/views/pest_detection_view.dart';
-import 'package:crop_guard/featurs/farmer/rover_control/presentation/views/rover_control_view.dart';
-import 'package:crop_guard/featurs/farmer/soil_info/presentation/views/soil_info_view.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/main_sign_up.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/reset_password_view.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/sign_in_view.dart';
-import 'package:crop_guard/featurs/welcome/auth/presentation/views/otp_code_view.dart';
-import 'package:crop_guard/featurs/welcome/splash/presentation/views/widgets/splash_view_body.dart';
-import 'package:go_router/go_router.dart';
-import '../../featurs/ecommerce/categories/presentation/views/category_screen.dart';
-import '../../featurs/ecommerce/home/presentation/views/home_page.dart';
-import '../../featurs/welcome/onboarding/presentation/views/onboarding_view.dart';
+import 'package:crop_guard/features/ecommerce/cart/presentation/views/cart_view.dart';
+import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_view.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_screen.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_products_screen.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/views/product_detailes_view.dart';
+import 'package:crop_guard/features/ecommerce/google_map/presentation/views/confirm_delivery_location.dart';
+import 'package:crop_guard/features/ecommerce/home/presentation/views/home_page.dart';
+import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_content.dart';
+import 'package:crop_guard/features/ecommerce/notification/presentation/views/notification_view.dart';
+import 'package:crop_guard/features/farmer/chat_bot/presentation/views/chat_bot_view.dart';
+import 'package:crop_guard/features/farmer/community/presentation/views/community_home_screen.dart';
+import 'package:crop_guard/features/farmer/community/presentation/views/create_post.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/farmer_home.dart';
+import 'package:crop_guard/features/farmer/market/presentation/views/market_view.dart';
+import 'package:crop_guard/features/farmer/pest_detection/presentation/views/pest_detection_view.dart';
+import 'package:crop_guard/features/farmer/rover_control/presentation/views/rover_control_view.dart';
+import 'package:crop_guard/features/farmer/soil_info/presentation/views/soil_info_view.dart';
+import 'package:crop_guard/features/welcome/auth/presentation/views/main_sign_up.dart';
+import 'package:crop_guard/features/welcome/auth/presentation/views/otp_code_view.dart';
+import 'package:crop_guard/features/welcome/auth/presentation/views/reset_password_view.dart';
+import 'package:crop_guard/features/welcome/auth/presentation/views/sign_in_view.dart';
+import 'package:crop_guard/features/welcome/onboarding/presentation/views/onboarding_view.dart';
+import 'package:crop_guard/features/welcome/splash/presentation/views/widgets/splash_view_body.dart';
+
 import 'package:flutter/material.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
+import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static const String splash = '/';
@@ -59,117 +60,115 @@ abstract class AppRouter {
   static const String soilInfo = '/soilInfo';
   static const String market = '/market';
 
-  static final router = GoRouter(
-      navigatorKey: getIt<GlobalKey<NavigatorState>>(),
-      routes: [
-        GoRoute(
-          path: community,
-          builder: (context, state) => const CommunityHomeScreen(),
-        ),
-        GoRoute(
-          path: createpost,
-          builder: (context, state) => const CreatePost(),
-        ),
-        // welcome routes
-        GoRoute(
-          path: splash,
-          builder: (context, state) => const SplashScreen(),
-        ),
-        GoRoute(
-          path: onboarding,
-          builder: (context, state) => const OnboardingView(),
-        ),
-        // GoRoute(
-        //   path: selectRole,
-        //   builder: (context, state) => const AccountType(),
-        // ),
-        GoRoute(
-          path: signIn,
-          builder: (context, state) => const SignInView(),
-        ),
-        GoRoute(
-          path: oTP,
-          builder: (context, state) => const OTPCodeView(),
-        ),
-        GoRoute(
-          path: resetPassword,
-          builder: (context, state) => const ResetPasswordView(),
-        ),
-        GoRoute(
-          path: signUp,
-          builder: (context, state) => const MainSignUp(),
-        ),
-        GoRoute(
-          path: cart,
-          builder: (context, state) => const CartView(),
-        ),
-        GoRoute(
-          path: confirmDeliveryLocation,
-          builder: (context, state) => const ConfirmDeliveryLocationView(),
-        ),
-        GoRoute(
-          path: home,
-          builder: (context, state) => const HomePage(),
-        ),
-        GoRoute(
-          path: homeContent,
-          builder: (context, state) => const HomeContent(),
-        ),
-        // GoRoute(
-        //   path: favorites,
-        //   // builder: (context, state) => const FavScreen(),
-        // ),
-        GoRoute(
-          path: category,
-          builder: (context, state) => const CategoryView(),
-        ),
-        GoRoute(
-          path: categoryscreen,
-          builder: (context, state) => const CategoryScreen(),
-        ),
-        GoRoute(
-          path: categoryProducts,
-          builder: (context, state) {
-            CategoryModel category = state.extra as CategoryModel;
-            return CategoryProductsScreen(category: category);
-          },
-        ),
-        GoRoute(
-          path: productDetails,
-          builder: (context, state) {
-            final product = state.extra as ProductModel;
-            return ProductDetailsView(product: product);
-          },
-        ),
-        GoRoute(
-          path: notifications,
-          builder: (context, state) => const NotificationView(),
-        ),
-        //farmer routes
-        GoRoute(
-          path: farmerHome,
-          builder: (context, state) => const FarmerHomeScreen(),
-        ),
-        GoRoute(
-          path: pestDetection,
-          builder: (context, state) => const PestDetectionView(),
-        ),
-        GoRoute(
-          path: roverControl,
-          builder: (context, state) => const RoverControlView(),
-        ),
-        GoRoute(
-          path: chatBot,
-          builder: (context, state) => const ChatBotView(),
-        ),
-        GoRoute(
-          path: soilInfo,
-          builder: (context, state) => const SoilInfoView(),
-        ),
-        GoRoute(
-          path: market,
-          builder: (context, state) => const MarketView(),
-        ),
-      
-      ]);
+  static final router =
+      GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
+    GoRoute(
+      path: community,
+      builder: (context, state) => const CommunityHomeScreen(),
+    ),
+    GoRoute(
+      path: createpost,
+      builder: (context, state) => const CreatePost(),
+    ),
+    // welcome routes
+    GoRoute(
+      path: splash,
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: onboarding,
+      builder: (context, state) => const OnboardingView(),
+    ),
+    // GoRoute(
+    //   path: selectRole,
+    //   builder: (context, state) => const AccountType(),
+    // ),
+    GoRoute(
+      path: signIn,
+      builder: (context, state) => const SignInView(),
+    ),
+    GoRoute(
+      path: oTP,
+      builder: (context, state) => const OTPCodeView(),
+    ),
+    GoRoute(
+      path: resetPassword,
+      builder: (context, state) => const ResetPasswordView(),
+    ),
+    GoRoute(
+      path: signUp,
+      builder: (context, state) => const MainSignUp(),
+    ),
+    GoRoute(
+      path: cart,
+      builder: (context, state) => const CartView(),
+    ),
+    GoRoute(
+      path: confirmDeliveryLocation,
+      builder: (context, state) => const ConfirmDeliveryLocationView(),
+    ),
+    GoRoute(
+      path: home,
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: homeContent,
+      builder: (context, state) => const HomeContent(),
+    ),
+    // GoRoute(
+    //   path: favorites,
+    //   // builder: (context, state) => const FavScreen(),
+    // ),
+    GoRoute(
+      path: category,
+      builder: (context, state) => const CategoryView(),
+    ),
+    GoRoute(
+      path: categoryscreen,
+      builder: (context, state) => const CategoryScreen(),
+    ),
+    GoRoute(
+      path: categoryProducts,
+      builder: (context, state) {
+        CategoryModel category = state.extra as CategoryModel;
+        return CategoryProductsScreen(category: category);
+      },
+    ),
+    GoRoute(
+      path: productDetails,
+      builder: (context, state) {
+        final product = state.extra as ProductModel;
+        return ProductDetailsView(product: product);
+      },
+    ),
+    GoRoute(
+      path: notifications,
+      builder: (context, state) => const NotificationView(),
+    ),
+    //farmer routes
+    GoRoute(
+      path: farmerHome,
+      builder: (context, state) => const FarmerHomeScreen(),
+    ),
+    GoRoute(
+      path: pestDetection,
+      builder: (context, state) => const PestDetectionView(),
+    ),
+    GoRoute(
+      path: roverControl,
+      builder: (context, state) => const RoverControlView(),
+    ),
+    GoRoute(
+      path: chatBot,
+      builder: (context, state) => const ChatBotView(),
+    ),
+    GoRoute(
+      path: soilInfo,
+      builder: (context, state) => const SoilInfoView(),
+    ),
+    GoRoute(
+      path: market,
+      builder: (context, state) => const MarketView(),
+    ),
+  ]);
 }
