@@ -30,8 +30,7 @@ class ButtonDecoration extends StatelessWidget {
           height: buttonheight.h,
           child: Center(
               child: Text(buttontext,
-                  style: AppTextStyles.font16Bold
-                      .copyWith(color: textcolor)))),
+                  style: AppTextStyles.font16Bold.copyWith(color: textcolor)))),
     );
   }
 }

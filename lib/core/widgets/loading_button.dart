@@ -10,18 +10,15 @@ class LoadingButton extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: Container(
           decoration: BoxDecoration(
-              color: AppColors.kPrimaryColor ,
-              borderRadius: BorderRadius.circular(10)
-          ),
+              color: AppColors.kPrimaryColor,
+              borderRadius: BorderRadius.circular(10)),
           width: double.infinity,
           height: 50,
           child: const Center(
               child: CircularProgressIndicator(
-                color: AppColors.kWhiteColor,
-                strokeWidth: 3.5,
-              )
-          )
-      ),
+            color: AppColors.kWhiteColor,
+            strokeWidth: 3.5,
+          ))),
     );
   }
 }

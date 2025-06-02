@@ -67,7 +67,7 @@ class DioConsumer extends ApiConsumer {
 
   @override
   Future put(
-    String path, {  
+    String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
     bool isFormData = false,

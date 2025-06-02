@@ -50,5 +50,4 @@ class CacheHelper {
   Future<bool> clearData({required String key}) async {
     return sharedPreferences.clear();
   }
-
 }

@@ -1,2 +1,1 @@
-class SignInResponseModel {
-}
+class SignInResponseModel {}
