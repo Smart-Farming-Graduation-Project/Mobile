@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 /// Picks an image from the gallery or camera
-/// 
+///
 /// Returns a [File] object of the picked image or null if no image was picked
 /// Allowed image formats are JPG, JPEG, and PNG
 Future<File?> pickImage({ImageSource source = ImageSource.gallery}) async {
@@ -17,7 +17,7 @@ Future<File?> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (pickedFile != null) {
       final File imageFile = File(pickedFile.path);
       final String extension = pickedFile.path.split('.').last.toLowerCase();
-      
+
       // Check if the file is a valid image format
       if (extension == 'jpg' || extension == 'jpeg' || extension == 'png') {
         return imageFile;

@@ -21,7 +21,7 @@ class EndPoints {
       'Authentication/register-with-third-party';
   static const String loginWithThirdParty =
       '/Authentication/login-with-third-party';
-      static const String checkEmailAndUsername = 'User/IsValidUserNameAndEmail';
+  static const String checkEmailAndUsername = 'User/IsValidUserNameAndEmail';
 
   //Authorization
   static const String getRoles = 'Authorization/GetRoles';
@@ -29,10 +29,11 @@ class EndPoints {
 
   // Cart
   static const String getCart = 'Cart/GetCart';
-  static String addToCart(int id){
-      return 'Cart/AddProduct/$id';
+  static String addToCart(int id) {
+    return 'Cart/AddProduct/$id';
   }
-  static String removeFromCart(int id){
+
+  static String removeFromCart(int id) {
     return 'Cart/RemoveProduct/$id';
   }
 
@@ -47,6 +48,7 @@ class EndPoints {
   static String addToFavorites(int id) {
     return 'Wishlist/AddProduct/$id';
   }
+
   static String removeFromFavorites(int id) {
     return 'Wishlist/RemoveProduct/$id';
   }

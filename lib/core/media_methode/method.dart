@@ -19,7 +19,8 @@ void showMediaOptions(BuildContext context, {required bool isImage}) {
             title: Text(isImage ? 'Take Photo' : 'Record Video'),
             onTap: () async {
               Navigator.pop(context);
-              final file = await pickMedia(source: ImageSource.camera, isImage: isImage);
+              final file =
+                  await pickMedia(source: ImageSource.camera, isImage: isImage);
               if (file != null) {
                 log('Selected file: ${file.path}');
               }
@@ -30,7 +31,8 @@ void showMediaOptions(BuildContext context, {required bool isImage}) {
             title: Text(isImage ? 'Choose from Gallery' : 'Pick from Gallery'),
             onTap: () async {
               Navigator.pop(context);
-              final file = await pickMedia(source: ImageSource.gallery, isImage: isImage);
+              final file = await pickMedia(
+                  source: ImageSource.gallery, isImage: isImage);
               if (file != null) {
                 log('Selected file: ${file.path}');
               }
