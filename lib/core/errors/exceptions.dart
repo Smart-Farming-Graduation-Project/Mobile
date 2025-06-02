@@ -20,30 +20,30 @@ void handleDioExceptions(DioException e) {
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.receiveTimeout:
-          log(e.response!.data.toString());
+      log(e.response!.data.toString());
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.badCertificate:
-          log(e.response!.data.toString());
+      log(e.response!.data.toString());
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.cancel:
-          log(e.response!.data.toString());
+      log(e.response!.data.toString());
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.connectionError:
-          log(e.response!.data.toString());
+      log(e.response!.data.toString());
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.unknown:
-          log(e.response!.data.toString());
+      log(e.response!.data.toString());
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
 
     case DioExceptionType.badResponse:
       switch (e.response?.statusCode) {
         case 400: //Bad request
-              log(e.response!.data.toString());
+          log(e.response!.data.toString());
 
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));

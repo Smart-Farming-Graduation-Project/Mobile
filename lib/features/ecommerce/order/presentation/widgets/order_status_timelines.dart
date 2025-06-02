@@ -4,10 +4,14 @@ class OrderStatusTimeline extends StatelessWidget {
   const OrderStatusTimeline({super.key});
 
   final List<_OrderStatus> _statuses = const [
-    _OrderStatus("Order Placed", "19 Dec 2023, 11:25 PM", Icons.shopping_cart, isActive: true),
-    _OrderStatus("In Progress", "19 Dec 2023, 12:25 PM", Icons.sync, isActive: true),
-    _OrderStatus("Shipped", "19 Dec 2023, 01:05 PM", Icons.local_shipping, isActive: false),
-    _OrderStatus("Delivered", "19 Dec 2023, 06:00 PM", Icons.home, isActive: false),
+    _OrderStatus("Order Placed", "19 Dec 2023, 11:25 PM", Icons.shopping_cart,
+        isActive: true),
+    _OrderStatus("In Progress", "19 Dec 2023, 12:25 PM", Icons.sync,
+        isActive: true),
+    _OrderStatus("Shipped", "19 Dec 2023, 01:05 PM", Icons.local_shipping,
+        isActive: false),
+    _OrderStatus("Delivered", "19 Dec 2023, 06:00 PM", Icons.home,
+        isActive: false),
   ];
 
   @override
@@ -22,7 +26,7 @@ class OrderStatusTimeline extends StatelessWidget {
         if (status.isActive && status.title == "Order Placed") {
           iconColor = Colors.green;
           iconSize = 12.0;
-        } else if(status.isActive && status.title == "In Progress" ) {
+        } else if (status.isActive && status.title == "In Progress") {
           iconColor = Colors.yellow.shade500;
           iconSize = 22.0;
         } else {

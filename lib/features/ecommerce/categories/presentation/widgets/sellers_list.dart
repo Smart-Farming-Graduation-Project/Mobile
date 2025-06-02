@@ -30,23 +30,28 @@ const List<SellerModel> sellersList = [
     name: "Noha",
     image: "assets/images/home/profile.png",
     description: "Experts in growing roses and aromatic plants.",
-  ),SellerModel(
+  ),
+  SellerModel(
     name: "Noha",
     image: "assets/images/home/profile.png",
     description: "Experts in growing roses and aromatic plants.",
-  ),SellerModel(
+  ),
+  SellerModel(
     name: "Noha",
     image: "assets/images/home/profile.png",
     description: "Experts in growing roses and aromatic plants.",
-  ),SellerModel(
+  ),
+  SellerModel(
     name: "Noha",
     image: "assets/images/home/profile.png",
     description: "Experts in growing roses and aromatic plants.",
-  ),SellerModel(
+  ),
+  SellerModel(
     name: "Noha",
     image: "assets/images/home/profile.png",
     description: "Experts in growing roses and aromatic plants.",
-  ),SellerModel(
+  ),
+  SellerModel(
     name: "Noha",
     image: "assets/images/home/profile.png",
     description: "Experts in growing roses and aromatic plants.",

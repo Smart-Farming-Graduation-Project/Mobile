@@ -1,4 +1,3 @@
-
 class PasswordState {
   final bool isPasswordObscure;
   final bool isConfirmPasswordObscure;

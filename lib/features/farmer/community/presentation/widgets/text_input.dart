@@ -8,7 +8,6 @@ class PostTitleInput extends StatelessWidget {
     return TextField(
       maxLength: 300,
       decoration: InputDecoration(
-
         labelText: 'Title',
         labelStyle: const TextStyle(color: Colors.green),
         border: OutlineInputBorder(

@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_cubit.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_state.dart';
 import 'package:flutter/material.dart';

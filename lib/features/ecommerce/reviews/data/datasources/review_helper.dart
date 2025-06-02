@@ -9,7 +9,6 @@ class ApiService {
     try {
       final response = await _dio.get('/GetReviews/$productId');
 
-
       if (response.statusCode == 200 && response.data["data"] != null) {
         final List<dynamic> data = response.data["data"];
         return data.map((json) => ReviewModel.fromJson(json)).toList();

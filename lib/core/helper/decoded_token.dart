@@ -4,8 +4,8 @@ import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+
 class DecodedToken {
-  
   void saveDecodedToken(String token) {
     log(token);
     final tokenData = JwtDecoder.decode(token);

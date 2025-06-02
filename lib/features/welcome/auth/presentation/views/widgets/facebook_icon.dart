@@ -8,7 +8,7 @@ class FacebookIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onPressed,
-      icon:  Icon(
+      icon: Icon(
         Icons.facebook,
         color: const Color(0xFF0866FF),
         size: 50.h,

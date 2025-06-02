@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/categories_list.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/category_card.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/home_cubit.dart';
@@ -11,8 +10,7 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-    BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is CategoriesLoading) {
           return const Center(

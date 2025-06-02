@@ -9,7 +9,8 @@ class DeliveryInfoHeader extends StatelessWidget {
       children: [
         const CircleAvatar(
           radius: 25,
-          backgroundImage: AssetImage('assets/images/home/profile.png'), // Replace with your asset
+          backgroundImage: AssetImage(
+              'assets/images/home/profile.png'), // Replace with your asset
         ),
         const SizedBox(width: 12),
         const Expanded(

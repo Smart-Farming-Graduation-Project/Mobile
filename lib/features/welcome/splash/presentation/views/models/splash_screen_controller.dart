@@ -8,10 +8,11 @@ class SplashScreenController {
     required TickerProvider vsync,
     required VoidCallback onCompleted,
   }) : animationController = AnimationController(
-    vsync: vsync,
-    duration: const Duration(seconds: 3),
-  ) {
-    imageAnimation = _createAnimation(0.0, 0.5, Curves.easeOutBack, -100.0, 0.0);
+          vsync: vsync,
+          duration: const Duration(seconds: 3),
+        ) {
+    imageAnimation =
+        _createAnimation(0.0, 0.5, Curves.easeOutBack, -100.0, 0.0);
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) onCompleted();
     });

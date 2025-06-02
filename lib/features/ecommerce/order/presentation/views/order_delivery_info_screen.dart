@@ -15,19 +15,20 @@ class OrderDeliveryInfoScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.arrow_back_ios,
-              color: Colors.white,),),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+          ),
           backgroundColor: Colors.green,
           centerTitle: true,
-          title: const Text("Delivery Info",
+          title: const Text(
+            "Delivery Info",
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
-
             ),
-
-
           )),
       body: const Padding(
         padding: EdgeInsets.all(12.0),
@@ -45,7 +46,6 @@ class OrderDeliveryInfoScreen extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Center(child: ProcessTimeline()),
-
           ],
         ),
       ),

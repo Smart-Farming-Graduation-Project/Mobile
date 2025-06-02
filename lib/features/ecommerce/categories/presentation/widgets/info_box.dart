@@ -9,7 +9,11 @@ class InfoBox extends StatelessWidget {
   final String text;
   final Color iconColor;
 
-  const InfoBox({required this.icon, required this.text, required this.iconColor, super.key});
+  const InfoBox(
+      {required this.icon,
+      required this.text,
+      required this.iconColor,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +33,13 @@ class InfoBox extends StatelessWidget {
     );
   }
 }
+
 class InfoBoxDetails extends StatelessWidget {
   const InfoBoxDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
       child: Container(
         width: widgetWidth(context: context, width: 250),
         padding: const EdgeInsets.all(10),
@@ -46,7 +51,6 @@ class InfoBoxDetails extends StatelessWidget {
               blurRadius: 8,
               spreadRadius: 3,
               color: Colors.grey.shade300,
-
             ),
           ],
         ),
@@ -55,9 +59,18 @@ class InfoBoxDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 25,
           children: [
-            InfoBox(icon: Icons.local_shipping, text: "\$2.00", iconColor: AppColors.kOrangeColor),
-            InfoBox(icon: Icons.location_on, text: "2.4 km", iconColor: AppColors.kPrimaryColor),
-            InfoBox(icon: Iconsax.money5, text: "No Offer", iconColor:AppColors.kDangerColor),
+            InfoBox(
+                icon: Icons.local_shipping,
+                text: "\$2.00",
+                iconColor: AppColors.kOrangeColor),
+            InfoBox(
+                icon: Icons.location_on,
+                text: "2.4 km",
+                iconColor: AppColors.kPrimaryColor),
+            InfoBox(
+                icon: Iconsax.money5,
+                text: "No Offer",
+                iconColor: AppColors.kDangerColor),
           ],
         ),
       ),

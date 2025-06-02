@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/core/responsive/widget_width.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/user_image.dart';
@@ -11,25 +10,28 @@ class ComunnityHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5,),
+      padding: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+      ),
       child: Row(
         children: [
-          const UserImage(radius: 25,),
+          const UserImage(
+            radius: 25,
+          ),
           const SizedBox(
             width: 10,
           ),
-
           GestureDetector(
             onTap: () {
-             GoRouter.of(context).push(AppRouter.createpost);
+              GoRouter.of(context).push(AppRouter.createpost);
             },
             child: Container(
-              width:widgetWidth(context: context, width: 290 ),
+              width: widgetWidth(context: context, width: 290),
               height: 55,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.green.shade500,
-                width: 1.8),
+                border: Border.all(color: Colors.green.shade500, width: 1.8),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -48,7 +50,6 @@ class ComunnityHeader extends StatelessWidget {
               ),
             ),
           )
-
         ],
       ),
     );

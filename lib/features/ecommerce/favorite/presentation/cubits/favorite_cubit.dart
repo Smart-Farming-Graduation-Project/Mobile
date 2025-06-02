@@ -9,25 +9,26 @@ import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FavoriteCubit extends Cubit<FavoriteState>{
+class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitial());
   final api = getIt<DioConsumer>();
   List<ProductModel> favoriteProducts = [];
-  void addToFavorites(ProductModel product) async{
+  void addToFavorites(ProductModel product) async {
     favoriteProducts.add(product);
-    final response = await api.post(EndPoints.addToFavorites(product.productId));
+    final response =
+        await api.post(EndPoints.addToFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
       favoriteProducts.remove(product);
       emit(FavoriteError(response[ApiKeys.errorMessage]));
     } else {
       emit(FavoriteSuccess(favoriteProducts));
     }
-
   }
-  
+
   void removeFromFavorites(ProductModel product) async {
     favoriteProducts.remove(product);
-    final response = await api.delete(EndPoints.removeFromFavorites(product.productId));
+    final response =
+        await api.delete(EndPoints.removeFromFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
       favoriteProducts.add(product);
       emit(FavoriteError(response[ApiKeys.errorMessage]));
@@ -35,13 +36,14 @@ class FavoriteCubit extends Cubit<FavoriteState>{
       loadFavorites();
     }
   }
+
   Future<void> loadFavorites() async {
     try {
       favoriteProducts.clear(); // Clear any previous data
-    emit(FavoriteLoading());
-    final response = await api.get(EndPoints.getFavorites);
+      emit(FavoriteLoading());
+      final response = await api.get(EndPoints.getFavorites);
 
-   // Check if the response has data before proceeding
+      // Check if the response has data before proceeding
       if (response[ApiKeys.data] != null &&
           response[ApiKeys.data][ApiKeys.favoriteProducts] != null) {
         // Add all products to the list

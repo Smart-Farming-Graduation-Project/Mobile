@@ -13,8 +13,7 @@ class ProductSummary extends StatelessWidget {
       shadowColor: Colors.grey.withValues(alpha: 0.3),
       child: InkWell(
         borderRadius: BorderRadius.circular(16.0),
-        onTap: () {
-        },
+        onTap: () {},
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

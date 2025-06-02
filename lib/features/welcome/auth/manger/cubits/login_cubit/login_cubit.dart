@@ -44,7 +44,8 @@ class LoginCubit extends Cubit<LoginState> {
 
         DecodedToken().saveDecodedToken(
             response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);
-        emit(SuccessState(role: getIt<CacheHelper>().getDataString(key: ApiKeys.role)!));
+        emit(SuccessState(
+            role: getIt<CacheHelper>().getDataString(key: ApiKeys.role)!));
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
         emit(ErrorState(errorMessage: e.errorModel.errorMessage));

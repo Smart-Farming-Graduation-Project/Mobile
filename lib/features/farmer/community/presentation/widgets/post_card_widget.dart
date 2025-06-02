@@ -43,13 +43,16 @@ class PostCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PostHeader(subreddit: subreddit, ),
+                  PostHeader(
+                    subreddit: subreddit,
+                  ),
                   const SizedBox(height: 12),
                   PostBody(title: title, body: body),
                   const SizedBox(height: 16),
                   PostActionsRow(
                     commentsCount: commentsCount,
-                    state: state, timeAgo: timeAgo,
+                    state: state,
+                    timeAgo: timeAgo,
                   ),
                 ],
               ),

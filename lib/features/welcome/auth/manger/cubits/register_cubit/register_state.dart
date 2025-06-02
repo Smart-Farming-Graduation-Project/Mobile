@@ -7,22 +7,29 @@ class RegisterRoleSelectedState extends RegisterState {
   RegisterRoleSelectedState(this.selectedRole);
 }
 
- class AccountTypestate extends RegisterState {}
- class FirstSignUpState extends RegisterState {}
- class FirstSignUpErrorState extends RegisterState {
+class AccountTypestate extends RegisterState {}
+
+class FirstSignUpState extends RegisterState {}
+
+class FirstSignUpErrorState extends RegisterState {
   final String errorMessage;
   FirstSignUpErrorState({required this.errorMessage});
- }
- class FirstSignUpLoadingState extends RegisterState {}
- class SecondSignUpState extends RegisterState {}
- class SecondSignUpErrorState extends RegisterState {
+}
+
+class FirstSignUpLoadingState extends RegisterState {}
+
+class SecondSignUpState extends RegisterState {}
+
+class SecondSignUpErrorState extends RegisterState {
   final String errorMessage;
   SecondSignUpErrorState({required this.errorMessage});
- }
- class SecondSignUpLoadingState extends RegisterState {}
- class RegisterSuccessState extends RegisterState {}
- class PickUserImageState extends RegisterState {
+}
+
+class SecondSignUpLoadingState extends RegisterState {}
+
+class RegisterSuccessState extends RegisterState {}
+
+class PickUserImageState extends RegisterState {
   final File imageFile;
   PickUserImageState({required this.imageFile});
- }
- 
+}

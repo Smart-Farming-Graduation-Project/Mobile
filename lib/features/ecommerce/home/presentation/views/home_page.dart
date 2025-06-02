@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/features/ecommerce/favorite/presentation/views/fav_screen.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/home_cubit.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/home_state.dart';
@@ -23,12 +22,10 @@ class HomePage extends StatelessWidget {
               ? state.pageIndex
               : 0; // Default to 0 if state is not HomeLoaded
           final List<Widget> pages = [
-
             const HomeContent(),
             const FavScreen(),
             const TrackOrderScreen(),
             const ProfileView(),
-
           ];
 
           return Scaffold(
@@ -36,12 +33,10 @@ class HomePage extends StatelessWidget {
             bottomNavigationBar: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: BottomNavigationBar(
-
                   currentIndex: selectedIndex,
                   onTap: (index) {
                     context.read<HomeCubit>().changePage(index);

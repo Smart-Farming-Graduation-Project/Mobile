@@ -2,16 +2,11 @@ import '../../domain/entities/chat_message.dart';
 
 class ChatMessageModel extends ChatMessage {
   const ChatMessageModel({
-    required String id,
-    required String content,
-    required bool isUser,
-    required DateTime timestamp,
-  }) : super(
-          id: id,
-          content: content,
-          isUser: isUser,
-          timestamp: timestamp,
-        );
+    required super.id,
+    required super.content,
+    required super.isUser,
+    required super.timestamp,
+  });
 
   factory ChatMessageModel.fromJson(Map<String, dynamic> json) {
     return ChatMessageModel(

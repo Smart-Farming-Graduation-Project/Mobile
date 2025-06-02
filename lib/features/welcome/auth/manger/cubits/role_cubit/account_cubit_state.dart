@@ -1,4 +1,4 @@
- class AccountState {
+class AccountState {
   final String selectRole;
 
   AccountState({

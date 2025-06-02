@@ -7,18 +7,22 @@ class VoteCubit extends Cubit<VoteState> {
 
   void upvote() {
     if (state.voteStatus == VoteStatus.upvoted) {
-      emit(state.copyWith(votes: state.votes - 1, voteStatus: VoteStatus.neutral));
+      emit(state.copyWith(
+          votes: state.votes - 1, voteStatus: VoteStatus.neutral));
     } else {
-      int newVotes = state.votes + (state.voteStatus == VoteStatus.downvoted ? 1 : 1);
+      int newVotes =
+          state.votes + (state.voteStatus == VoteStatus.downvoted ? 1 : 1);
       emit(state.copyWith(votes: newVotes, voteStatus: VoteStatus.upvoted));
     }
   }
 
   void downvote() {
     if (state.voteStatus == VoteStatus.downvoted) {
-      emit(state.copyWith(votes: state.votes + 1, voteStatus: VoteStatus.neutral));
+      emit(state.copyWith(
+          votes: state.votes + 1, voteStatus: VoteStatus.neutral));
     } else {
-      int newVotes = state.votes - (state.voteStatus == VoteStatus.upvoted ? 1 : 1);
+      int newVotes =
+          state.votes - (state.voteStatus == VoteStatus.upvoted ? 1 : 1);
       emit(state.copyWith(votes: newVotes, voteStatus: VoteStatus.downvoted));
     }
   }

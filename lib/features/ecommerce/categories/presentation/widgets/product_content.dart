@@ -18,28 +18,26 @@ class ProductContent extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('${product.productPrice} EGP',
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-         GestureDetector(
-           onTap: () {},
-           child: Container(
-             height: 40,
-             width: 40,
-             margin: const EdgeInsets.only(left: 10),
-             decoration: BoxDecoration(
-               color: AppColors.kPrimaryColor,
-               borderRadius: BorderRadius.circular(12),
-             ),
-             child: const Icon(Icons.add,
-                      color: AppColors.kWhiteColor, size: 26),
-           ),
-         ),
-
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 40,
+                width: 40,
+                margin: const EdgeInsets.only(left: 10),
+                decoration: BoxDecoration(
+                  color: AppColors.kPrimaryColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.add,
+                    color: AppColors.kWhiteColor, size: 26),
+              ),
+            ),
           ],
         ),
       ],

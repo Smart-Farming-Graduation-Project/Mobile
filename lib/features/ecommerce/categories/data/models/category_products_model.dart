@@ -13,7 +13,7 @@ class CategoryProductsModel {
     required this.productImage,
     required this.productPrice,
     required this.isFavorite,
-    });
+  });
 
   factory CategoryProductsModel.fromJson(Map<String, dynamic> json) {
     return CategoryProductsModel(

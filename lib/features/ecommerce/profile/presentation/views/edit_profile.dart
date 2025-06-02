@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crop_guard/core/widgets/button_decoration.dart';
 
-
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 

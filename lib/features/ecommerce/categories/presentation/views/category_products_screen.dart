@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/cubits/category_cubit.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/cubits/category_state.dart';
@@ -10,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import '../../../../../core/theme/app_colors.dart';
 
-
 class CategoryProductsScreen extends StatelessWidget {
   const CategoryProductsScreen({super.key, required this.category});
   final CategoryModel category;
@@ -18,7 +16,8 @@ class CategoryProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CategoryCubit()..loadCategoriesProducts(category.categoryId),
+      create: (context) =>
+          CategoryCubit()..loadCategoriesProducts(category.categoryId),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -91,12 +90,16 @@ class CategoryProductsScreen extends StatelessWidget {
                             const SizedBox(height: 16),
                             ElevatedButton(
                               onPressed: () {
-                                context.read<CategoryCubit>().loadCategoriesProducts(category.categoryId);
+                                context
+                                    .read<CategoryCubit>()
+                                    .loadCategoriesProducts(
+                                        category.categoryId);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.kPrimaryColor,
                               ),
-                              child: const Text('Retry', style: TextStyle(color: Colors.white)),
+                              child: const Text('Retry',
+                                  style: TextStyle(color: Colors.white)),
                             ),
                           ],
                         ),
@@ -106,7 +109,8 @@ class CategoryProductsScreen extends StatelessWidget {
                       return GridView.builder(
                         padding: const EdgeInsets.all(12.0),
                         itemCount: products.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 20,
@@ -139,7 +143,7 @@ class CategoryProductsScreen extends StatelessWidget {
                         ),
                       );
                     }
-                    
+
                     // Handle any unexpected states
                     return const Center(
                       child: Column(

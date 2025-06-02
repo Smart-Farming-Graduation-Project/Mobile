@@ -59,14 +59,13 @@ class ProcessTimeline extends StatelessWidget {
                       color: step.isCompleted
                           ? Colors.green
                           : isCurrent
-                          ? Colors.orange
-                          : Colors.black54,
+                              ? Colors.orange
+                              : Colors.black54,
                     ),
                   ),
                 ],
               ),
-              if (isLast)
-                const SizedBox(width: 16),
+              if (isLast) const SizedBox(width: 16),
             ],
           );
         },

@@ -1,6 +1,5 @@
 import 'package:crop_guard/features/farmer/community/data/models/post_model.dart';
 
-
 abstract class PostState {}
 
 class PostInitial extends PostState {}

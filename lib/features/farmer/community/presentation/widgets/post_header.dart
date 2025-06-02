@@ -13,7 +13,9 @@ class PostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        UserImage(radius: 12,),
+        UserImage(
+          radius: 12,
+        ),
         SizedBox(width: 8),
         // Text(
         //   subreddit,

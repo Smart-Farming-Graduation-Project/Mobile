@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_screen.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/home_cubit.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_title_text.dart';
@@ -19,7 +18,7 @@ class HomeContent extends StatelessWidget {
     return SafeArea(
       child: BlocProvider(
         create: (context) => HomeCubit()..getCategories(),
-        child:  Scaffold(
+        child: Scaffold(
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(

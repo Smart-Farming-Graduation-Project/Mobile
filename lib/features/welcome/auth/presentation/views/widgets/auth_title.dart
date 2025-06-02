@@ -13,8 +13,7 @@ class AuthTitle extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 35.h),
       child: Text(title,
-          textAlign: TextAlign.center,
-          style: AppTextStyles.font28BlackBold),
+          textAlign: TextAlign.center, style: AppTextStyles.font28BlackBold),
     );
   }
 }

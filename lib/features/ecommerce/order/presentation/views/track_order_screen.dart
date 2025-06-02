@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'order_delivery_info_screen.dart';
 
-
 class TrackOrderScreen extends StatelessWidget {
   const TrackOrderScreen({super.key});
 
@@ -43,12 +42,11 @@ class TrackOrderScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-             const OrderStatusTimeline(),
+            const OrderStatusTimeline(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-
               onPressed: () {
                 Navigator.push(
                   context,
@@ -56,7 +54,8 @@ class TrackOrderScreen extends StatelessWidget {
                       builder: (context) => const OrderDeliveryInfoScreen()),
                 );
               },
-              child: const Text("More Details",
+              child: const Text(
+                "More Details",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,

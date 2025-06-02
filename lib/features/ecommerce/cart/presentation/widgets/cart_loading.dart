@@ -8,21 +8,21 @@ class CartLoading extends StatelessWidget {
   const CartLoading({super.key});
 
   @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Skeletonizer(
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 5, // Simulating 5 loading items
-                    itemBuilder: (context, index) => CartItemWidget(
-                      cartItem: cartProducts[0], 
-                    ),
-                  ),
-                ),
-                const CheckoutSummary(), // Will also be skeletonized
-              ],
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: 5, // Simulating 5 loading items
+              itemBuilder: (context, index) => CartItemWidget(
+                cartItem: cartProducts[0],
+              ),
             ),
-          );
+          ),
+          const CheckoutSummary(), // Will also be skeletonized
+        ],
+      ),
+    );
   }
 }

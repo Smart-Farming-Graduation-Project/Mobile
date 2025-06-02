@@ -33,5 +33,4 @@ class ProductCubit extends Cubit<List<ProductModel>> {
   List<ProductModel> getFavoriteProducts() {
     return allProducts.where((product) => product.isFavorite).toList();
   }
-
 }

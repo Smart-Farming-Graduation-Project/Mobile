@@ -16,8 +16,7 @@ class OtpCubit extends Cubit<OtpState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   //! reset password with sending OTP code to email
-  Future<void> resetPasswordUsingOTP(
-      {required String otpCode}) async {
+  Future<void> resetPasswordUsingOTP({required String otpCode}) async {
     log(getIt<CacheHelper>().getData(key: ApiKeys.email));
     try {
       emit(OtpLoadingState());
@@ -26,7 +25,7 @@ class OtpCubit extends Cubit<OtpState> {
         ApiKeys.code: otpCode,
       });
       log(response['message']);
-        emit(OtpSuccessState());
+      emit(OtpSuccessState());
 
       getIt<CacheHelper>()
           .saveData(key: ApiKeys.token, value: response['message']);

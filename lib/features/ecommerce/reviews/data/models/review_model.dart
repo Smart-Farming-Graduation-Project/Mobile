@@ -22,28 +22,28 @@ class ReviewModel {
   });
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) => ReviewModel(
-    reviewID: json["reviewID"] ?? 0,
-    userID: json["userID"] ?? "",
-    firstName: json["firstName"] ?? "",
-    lastName: json["lastName"] ?? "",
-    headline: json["headline"] ?? "",
-    rating: (json["rating"] ).toDouble() ?? 0.0,
-    reviewText: json["reviewText"] ?? "",
-    reviewDate: json["reviewDate"] != null
-        ? DateTime.parse(json["reviewDate"])
-        : DateTime.now(),
-    productId: json["productId"] ?? 0,
-  );
+        reviewID: json["reviewID"] ?? 0,
+        userID: json["userID"] ?? "",
+        firstName: json["firstName"] ?? "",
+        lastName: json["lastName"] ?? "",
+        headline: json["headline"] ?? "",
+        rating: (json["rating"]).toDouble() ?? 0.0,
+        reviewText: json["reviewText"] ?? "",
+        reviewDate: json["reviewDate"] != null
+            ? DateTime.parse(json["reviewDate"])
+            : DateTime.now(),
+        productId: json["productId"] ?? 0,
+      );
 
   Map<String, dynamic> toJson() => {
-    "reviewID": reviewID,
-    "userID": userID,
-    "firstName": firstName,
-    "lastName": lastName,
-    "headline": headline,
-    "rating": rating,
-    "reviewText": reviewText,
-    "reviewDate": reviewDate.toIso8601String(),
-    "productId": productId,
-  };
+        "reviewID": reviewID,
+        "userID": userID,
+        "firstName": firstName,
+        "lastName": lastName,
+        "headline": headline,
+        "rating": rating,
+        "reviewText": reviewText,
+        "reviewDate": reviewDate.toIso8601String(),
+        "productId": productId,
+      };
 }

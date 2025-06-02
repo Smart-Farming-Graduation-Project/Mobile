@@ -34,7 +34,6 @@ class ApiKeys {
   ///////////////////////// Category ////////////////////////
   static const String categoryId = 'categoryId';
   static const String categoryName = 'categoryName';
-  
 
   /////////////////////// Product ////////////////////////
   static const String products = 'products';
@@ -50,6 +49,4 @@ class ApiKeys {
 
   ///////////////// favorite ////////////////////////
   static const String favoriteProducts = 'wishlistItems';
-
-
 }

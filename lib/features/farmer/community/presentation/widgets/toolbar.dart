@@ -11,7 +11,6 @@ class PostToolbar extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.link, color: AppColors.kPrimaryColor),
           onPressed: () {},
-
           tooltip: 'Insert Link',
         ),
         IconButton(
@@ -20,7 +19,7 @@ class PostToolbar extends StatelessWidget {
           tooltip: 'Add Image',
         ),
         IconButton(
-          icon: const Icon(Icons.videocam, color:AppColors.kPrimaryColor),
+          icon: const Icon(Icons.videocam, color: AppColors.kPrimaryColor),
           onPressed: () => showMediaOptions(context, isImage: false),
           tooltip: 'Add Video',
         ),

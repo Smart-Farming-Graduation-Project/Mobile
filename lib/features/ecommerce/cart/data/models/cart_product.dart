@@ -36,7 +36,6 @@ class CartProduct {
   }
 }
 
-
 //demo data for cart
 List<CartProduct> cartProducts = [
   CartProduct(

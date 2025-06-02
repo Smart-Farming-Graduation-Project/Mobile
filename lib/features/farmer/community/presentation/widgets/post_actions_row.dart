@@ -1,4 +1,3 @@
-
 import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_cubit.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_state.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ class PostActionsRow extends StatelessWidget {
     required this.commentsCount,
     required this.state,
     required this.timeAgo,
-
   });
 
   @override
@@ -31,8 +29,7 @@ class PostActionsRow extends StatelessWidget {
               size: 24),
         ),
         const SizedBox(width: 4),
-        Text('${state.votes}',
-            style: const TextStyle(color: Colors.white)),
+        Text('${state.votes}', style: const TextStyle(color: Colors.white)),
         const SizedBox(width: 4),
         GestureDetector(
           onTap: cubit.downvote,
@@ -45,18 +42,17 @@ class PostActionsRow extends StatelessWidget {
         const SizedBox(width: 16),
         const Icon(Icons.comment_outlined, color: Colors.white, size: 24),
         const SizedBox(width: 6),
-        Text("$commentsCount",
-            style: const TextStyle(color: Colors.white)),
+        Text("$commentsCount", style: const TextStyle(color: Colors.white)),
         const SizedBox(width: 10),
         const Icon(Icons.share_sharp, color: Colors.white, size: 24),
         const SizedBox(width: 3),
-        const Text("Share", style: TextStyle(color: Colors.white, fontSize: 12)),
+        const Text("Share",
+            style: TextStyle(color: Colors.white, fontSize: 12)),
         const Spacer(),
         Text(
           ' $timeAgo',
           style: const TextStyle(color: Colors.white, fontSize: 12),
         ),
-
       ],
     );
   }

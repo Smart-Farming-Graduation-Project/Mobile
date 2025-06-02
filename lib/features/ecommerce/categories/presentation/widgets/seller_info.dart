@@ -13,7 +13,8 @@ class SellerInfoTile extends StatelessWidget {
       width: widgetWidth(context: context, width: 180),
       child: Card(
         child: ExpansionTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           title: Row(
             children: [
               CircleAvatar(
@@ -24,7 +25,8 @@ class SellerInfoTile extends StatelessWidget {
               Expanded(
                 child: Text(
                   seller.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
             ],
@@ -34,7 +36,11 @@ class SellerInfoTile extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 seller.description,
-                style: const TextStyle(fontSize: 12, color: Colors.grey, height: 1.5,fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    height: 1.5,
+                    fontWeight: FontWeight.w500),
                 textAlign: TextAlign.start,
               ),
             ),

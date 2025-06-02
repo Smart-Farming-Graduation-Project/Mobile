@@ -1,8 +1,9 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class LocationState {
-}
+class LocationState {}
+
 class LocationInitial extends LocationState {}
+
 class LocationLoading extends LocationState {}
 
 class LocationLoaded extends LocationState {
@@ -34,5 +35,3 @@ class LocationError extends LocationState {}
 //     );
 //   }
 // }
-
-

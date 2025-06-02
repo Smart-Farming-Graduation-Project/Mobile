@@ -6,13 +6,14 @@ class ApiService {
 
   ApiService(this.dio);
 
-
   /// Get all reviews for a specific product
   Future<List<ReviewModel>> fetchReviews(int productId) async {
     try {
       final response = await dio.get('/api/Reviews/GetReviews/$productId');
 
-      if (response.statusCode == 200 && response.data != null && response.data['data'] != null) {
+      if (response.statusCode == 200 &&
+          response.data != null &&
+          response.data['data'] != null) {
         final data = response.data['data'] as List;
         return data.map((json) {
           json['productId'] = productId; // Manually assign productId
@@ -43,7 +44,8 @@ class ApiService {
     try {
       final response = await dio.post('/api/Reviews/CreateReview', data: body);
       if (response.statusCode != 201) {
-        throw Exception("Failed to create review. Status Code: ${response.statusCode}");
+        throw Exception(
+            "Failed to create review. Status Code: ${response.statusCode}");
       }
     } catch (e) {
       throw Exception("Error adding review: ${e.toString()}");
@@ -59,9 +61,11 @@ class ApiService {
       "reviewText": review.reviewText,
     };
     try {
-      final response = await dio.put('/api/Reviews/UpdateReview/${review.reviewID}', data: body);
+      final response = await dio
+          .put('/api/Reviews/UpdateReview/${review.reviewID}', data: body);
       if (response.statusCode != 200) {
-        throw Exception("Failed to update review. Status Code: ${response.statusCode}");
+        throw Exception(
+            "Failed to update review. Status Code: ${response.statusCode}");
       }
     } catch (e) {
       throw Exception("Error updating review: ${e.toString()}");
@@ -73,9 +77,11 @@ class ApiService {
     try {
       final response = await dio.delete('/api/Reviews/DeleteReview/$reviewID');
       if (response.statusCode != 200) {
-        throw Exception("Failed to delete review. Status Code: ${response.statusCode}");
+        throw Exception(
+            "Failed to delete review. Status Code: ${response.statusCode}");
       }
     } catch (e) {
       throw Exception("Error deleting review: ${e.toString()}");
     }
-  }}
+  }
+}
