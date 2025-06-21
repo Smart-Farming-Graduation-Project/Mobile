@@ -9,30 +9,28 @@ class AddProductButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 12.h),
-        decoration: BoxDecoration(
-          color: AppColors.kPrimaryColor,
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.kPrimaryColor),
+    return SizedBox(
+      width: double.infinity,
+      height: 54.h,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.kPrimaryColor,
+          foregroundColor: AppColors.kCardWhite,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(),
-            const Icon(
-              Icons.add,
-              color: AppColors.kWhiteColor,
-            ),
-            horizontalSpace(10),
+            Icon(Icons.add, size: 20.sp),
+            horizontalSpace(8),
             Text(
               'Add Product',
-              style: AppTextStyles.font20WhiteBold,
+              style: AppTextStyles.font16WhiteSemiBold,
             ),
-            const Spacer(),
           ],
         ),
       ),

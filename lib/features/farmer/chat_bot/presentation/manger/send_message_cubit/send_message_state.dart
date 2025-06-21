@@ -1,6 +1,7 @@
 import 'package:crop_guard/features/farmer/chat_bot/domain/entities/chat_message.dart';
 
 class SendMessageState {}
+
 class ChatBotInitial extends SendMessageState {
   final String message = 'Hello, how can I help you today?';
 }

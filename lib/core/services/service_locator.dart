@@ -19,6 +19,6 @@ void setupServiceLocator() {
       GlobalKey<NavigatorState>());
   getIt.registerSingleton<TermsAndConditionsCubit>(TermsAndConditionsCubit());
   getIt.registerSingleton<ChatBotRepositoryImpl>(ChatBotRepositoryImpl(
-              ChatBotRemoteDataSourceImpl(api: getIt<DioConsumer>())));
+      ChatBotRemoteDataSourceImpl(api: getIt<DioConsumer>())));
   getIt.registerLazySingleton<ApiService>(() => ApiService(getIt<Dio>()));
 }

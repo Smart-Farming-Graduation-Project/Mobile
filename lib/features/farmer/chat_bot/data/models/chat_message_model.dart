@@ -1,6 +1,6 @@
 import 'package:crop_guard/features/farmer/chat_bot/domain/entities/chat_message.dart';
 
-class ChatMessageModel extends ChatMessage  {
+class ChatMessageModel extends ChatMessage {
   int? statusCode;
   bool? succeeded;
   String? message;

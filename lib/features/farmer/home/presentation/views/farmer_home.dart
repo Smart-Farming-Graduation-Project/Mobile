@@ -1,11 +1,11 @@
 import 'package:crop_guard/core/helper/spacing.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/add_product_button.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/chat_bot_and_soil_info_row.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/community_and_rover_row.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/home_app_bar.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/market_and_pest_detection_row.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/products_and_weather_row.dart';
-import 'package:crop_guard/features/farmer/home/presentation/widgets/tip_card.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/widgets/add_product_button.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/widgets/features_grid.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/widgets/header_section.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/widgets/products_card.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/widgets/tip_card.dart';
+import 'package:crop_guard/features/farmer/home/presentation/views/widgets/weather_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,33 +14,27 @@ class FarmerHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            verticalSpace(10),
-            const HomeAppBar(userName: 'Noha Ahmed'),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(16.w),
-                child: Column(
-                  children: [
-                    const ProductsAndWeatherRow(),
-                    verticalSpace(20),
-                    const TipCard(),
-                    verticalSpace(20),
-                    const CommunityAndRoverRow(),
-                    verticalSpace(16),
-                    const MarketAndPestDetectionRow(),
-                    verticalSpace(16),
-                    const ChatBotAndSoilInfoRow(),
-                    verticalSpace(25),
-                    const AddProductButton(),
-                  ],
-                ),
-              ),
-            ),
-          ],
+    return Scaffold(
+      backgroundColor: AppColors.kBackgroundGray,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HeaderSection(),
+              verticalSpace(22),
+              const TipCard(),
+              verticalSpace(14),
+              const WeatherCard(),
+              verticalSpace(14),
+              const ProductsCard(),
+              verticalSpace(18),
+              const FeaturesGrid(),
+              verticalSpace(14),
+              const AddProductButton(),
+            ],
+          ),
         ),
       ),
     );

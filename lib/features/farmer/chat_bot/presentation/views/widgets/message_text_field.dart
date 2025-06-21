@@ -12,12 +12,13 @@ class MessageTextField extends StatefulWidget {
 class _MessageTextFieldState extends State<MessageTextField> {
   final TextEditingController controller = TextEditingController();
 
-    void sendMessage() {
+  void sendMessage() {
     if (controller.text.trim().isNotEmpty) {
       widget.onSendMessage(controller.text.trim());
       controller.clear();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -18,27 +18,33 @@ class NetworkException implements Exception {
 void handleDioExceptions(DioException e) {
   switch (e.type) {
     case DioExceptionType.connectionTimeout:
-    if (e.response != null) {
+      if (e.response != null) {
         log(e.response!.data.toString());
-        throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
+        throw ServerException(
+            errorModel: ErrorModel.fromJson(e.response!.data));
       } else {
-        throw NetworkException(message: 'please check your internet connection');
+        throw NetworkException(
+            message: 'please check your internet connection');
       }
 
     case DioExceptionType.sendTimeout:
       if (e.response != null) {
         log(e.response!.data.toString());
-        throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
+        throw ServerException(
+            errorModel: ErrorModel.fromJson(e.response!.data));
       } else {
-        throw NetworkException(message: 'please check your internet connection');
+        throw NetworkException(
+            message: 'please check your internet connection');
       }
 
     case DioExceptionType.receiveTimeout:
       if (e.response != null) {
         log(e.response!.data.toString());
-        throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
+        throw ServerException(
+            errorModel: ErrorModel.fromJson(e.response!.data));
       } else {
-        throw NetworkException(message: 'please check your internet connection');
+        throw NetworkException(
+            message: 'please check your internet connection');
       }
 
     case DioExceptionType.badCertificate:
