@@ -1,3 +1,7 @@
+import 'package:crop_guard/core/api/api_consumer.dart';
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/api/end_points.dart';
+
 import '../models/chat_message_model.dart';
 
 abstract class ChatBotRemoteDataSource {
@@ -7,17 +11,16 @@ abstract class ChatBotRemoteDataSource {
 }
 
 class ChatBotRemoteDataSourceImpl implements ChatBotRemoteDataSource {
-  // TODO: Implement actual API calls here
+  final ApiConsumer api;
+  ChatBotRemoteDataSourceImpl({required this.api});
+
   @override
   Future<ChatMessageModel> sendMessage(String message) async {
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 1));
-    return ChatMessageModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      content: 'This is a simulated response to: $message',
-      isUser: false,
-      timestamp: DateTime.now(),
+    final response = await api.post(
+      EndPoints.chat,
+      data: {ApiKeys.prompt: message},
     );
+    return ChatMessageModel.fromJson(response);
   }
 
   @override

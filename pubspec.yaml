@@ -47,6 +47,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.3
   flutter_slidable: ^4.0.0
+  flutter_svg: ^2.2.0
   font_awesome_flutter: ^10.8.0
   geocoding: ^3.0.0
   geolocator: ^14.0.0
@@ -100,6 +101,7 @@ flutter:
     - assets/animations/
     - assets/images/community/
     - assets/images/farmerHome/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
