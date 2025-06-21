@@ -58,4 +58,8 @@ class EndPoints {
   static String getProductDetails(String id) {
     return 'Product/product/$id';
   }
+
+  // ChatBot
+  static const String chat = 'ChatBot/Chat';
+  static const String getChatHistory = 'ChatBot/ChatHistory';
 }

@@ -5,6 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 abstract class PestDetectionRepo {
-  Future<Either<FailureModel, PestDetectionImageEntity>> getPestDetectionImage(MultipartFile image);
-  Future<Either<FailureModel, PestDetectionInfoEntity>> getPestDetectionInfo(int imageId);
+  Future<Either<FailureModel, PestDetectionImageEntity>> getPestDetectionImage(
+      MultipartFile image);
+  Future<Either<FailureModel, PestDetectionInfoEntity>> getPestDetectionInfo(
+      int imageId);
 }
