@@ -49,4 +49,7 @@ class ApiKeys {
 
   ///////////////// favorite ////////////////////////
   static const String favoriteProducts = 'wishlistItems';
+
+  /////////////////////// ChatBot ////////////////////////
+  static const String prompt = 'prompt';
 }

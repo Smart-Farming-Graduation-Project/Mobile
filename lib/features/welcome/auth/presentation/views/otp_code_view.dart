@@ -59,7 +59,7 @@ class OTPCodeView extends StatelessWidget {
                       height: 30,
                     ),
                     const CropGuardLogo(),
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text('Enter Your OTP Code',
                           textAlign: TextAlign.center,

@@ -9,20 +9,44 @@ class ServerException implements Exception {
   ServerException({required this.errorModel});
 }
 
+class NetworkException implements Exception {
+  final String message;
+
+  NetworkException({required this.message});
+}
+
 void handleDioExceptions(DioException e) {
   switch (e.type) {
     case DioExceptionType.connectionTimeout:
-      log(e.response!.data.toString());
+      if (e.response != null) {
+        log(e.response!.data.toString());
+        throw ServerException(
+            errorModel: ErrorModel.fromJson(e.response!.data));
+      } else {
+        throw NetworkException(
+            message: 'please check your internet connection');
+      }
 
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.sendTimeout:
-      log(e.response!.data.toString());
+      if (e.response != null) {
+        log(e.response!.data.toString());
+        throw ServerException(
+            errorModel: ErrorModel.fromJson(e.response!.data));
+      } else {
+        throw NetworkException(
+            message: 'please check your internet connection');
+      }
 
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.receiveTimeout:
-      log(e.response!.data.toString());
+      if (e.response != null) {
+        log(e.response!.data.toString());
+        throw ServerException(
+            errorModel: ErrorModel.fromJson(e.response!.data));
+      } else {
+        throw NetworkException(
+            message: 'please check your internet connection');
+      }
 
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.badCertificate:
       log(e.response!.data.toString());
 
