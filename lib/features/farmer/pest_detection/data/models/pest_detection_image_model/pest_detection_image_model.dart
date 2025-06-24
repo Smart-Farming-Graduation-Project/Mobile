@@ -2,7 +2,7 @@ import 'package:crop_guard/features/farmer/pest_detection/domain/entities/pest_d
 
 import 'data.dart';
 
-class PestDetectionImageModel extends PestDetectionImageEntity{
+class PestDetectionImageModel extends PestDetectionImageEntity {
   int? statusCode;
   bool? succeeded;
   String? message;
