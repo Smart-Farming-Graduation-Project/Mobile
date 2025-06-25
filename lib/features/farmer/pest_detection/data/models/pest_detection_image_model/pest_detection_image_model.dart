@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crop_guard/features/farmer/pest_detection/domain/entities/pest_detection_image_entity.dart';
 
 import 'data.dart';
@@ -18,6 +20,7 @@ class PestDetectionImageModel extends PestDetectionImageEntity {
   }) : super(
           imagePath: data?.imageUrl ?? '',
           imageId: data?.imageId ?? '',
+          imageFile: data?.imageFile ?? File(''),
         );
 
   factory PestDetectionImageModel.fromJson(Map<String, dynamic> json) {

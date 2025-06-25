@@ -16,7 +16,7 @@ class ErrorModel {
 
   factory ErrorModel.fromJson(Map<String, dynamic> json) {
     return ErrorModel(
-        errorMessage: json[ApiKeys.errorMessage],
+        errorMessage: json[ApiKeys.message],
         statusCode: json[ApiKeys.statusCode],
         succeeded: json[ApiKeys.succeeded],
         data: json[ApiKeys.data],

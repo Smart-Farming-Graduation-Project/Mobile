@@ -1,7 +1,7 @@
 class ApiKeys {
   ////////////// errorModel ///////////////////////
   static const String statusCode = 'statusCode';
-  static const String errorMessage = 'message';
+  static const String message = 'message';
   static const String succeeded = 'succeeded';
   static const String data = 'data';
   static const String meta = 'meta';

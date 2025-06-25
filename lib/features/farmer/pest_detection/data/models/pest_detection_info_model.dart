@@ -1,9 +1,18 @@
-class PestDetectionInfoModel {
+import 'package:crop_guard/features/farmer/pest_detection/domain/entities/pest_detection_info_entity.dart';
+
+class PestDetectionInfoModel extends PestDetectionInfoEntity {
   String? modelId;
   String? disease;
   String? solution;
 
-  PestDetectionInfoModel({this.modelId, this.disease, this.solution});
+  PestDetectionInfoModel({
+    this.modelId,
+    this.disease,
+    this.solution,
+  }) : super(
+          diseaseName: disease ?? '',
+          diseaseSolution: solution ?? '',
+        );
 
   factory PestDetectionInfoModel.fromJson(Map<String, dynamic> json) {
     return PestDetectionInfoModel(

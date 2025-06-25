@@ -54,7 +54,7 @@ class EndPoints {
   }
 
   // Products
-  static const String getProducts = 'Product/ProductList';
+  static const String getProducts = 'Product/ProductsList';
   static String getProductDetails(String id) {
     return 'Product/product/$id';
   }
