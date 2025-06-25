@@ -54,7 +54,7 @@ class EndPoints {
   }
 
   // Products
-  static const String getProducts = 'Product/ProductList';
+  static const String getProducts = 'Product/ProductsList';
   static String getProductDetails(String id) {
     return 'Product/product/$id';
   }
@@ -62,4 +62,10 @@ class EndPoints {
   // ChatBot
   static const String chat = 'ChatBot/Chat';
   static const String getChatHistory = 'ChatBot/ChatHistory';
+
+  // Pest Detection
+  static const String pestDetectionImage = 'AIModel/predict';
+  static String pestDetectionImageInfo(String imageId) {
+    return 'AIModel/feedback/$imageId';
+  }
 }

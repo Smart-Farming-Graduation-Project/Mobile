@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PestDetectionImageResult extends StatelessWidget {
-  const PestDetectionImageResult({super.key});
-
+  const PestDetectionImageResult({super.key, required this.imageUrl});
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,8 +17,8 @@ class PestDetectionImageResult extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.r),
         child: Image.network(
-          'https://cdn.pixabay.com/photo/2015/04/27/15/01/vegetables-742095_1280.jpg',
-          fit: BoxFit.cover,
+          imageUrl,
+          fit: BoxFit.fill,
         ),
       ),
     );

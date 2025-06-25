@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_cubit.dart';
-import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,14 +12,10 @@ class FavoriteIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteCubit, FavoriteState>(
-      builder: (context, state) {
-        final isFavorite = state is FavoriteSuccess &&
-            state.favoriteProducts.any((p) => p.productId == product.productId);
-
+    
         return GestureDetector(
           onTap: () {
-            if (isFavorite) {
+            if (product.isFavorite) {
               log('Remove from favorites');
               context.read<FavoriteCubit>().removeFromFavorites(product);
             } else {
@@ -29,11 +24,9 @@ class FavoriteIcon extends StatelessWidget {
             }
           },
           child: Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_border,
+            product.isFavorite ? Icons.favorite : Icons.favorite_border,
             color: Colors.red,
-          ),
-        );
-      },
+      ),
     );
   }
 }

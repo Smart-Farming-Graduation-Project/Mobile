@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
 
 class HomeState {}
@@ -54,4 +55,20 @@ class HomeError extends HomeState {
 
 class HomeEmpty extends HomeState {
   HomeEmpty();
+}
+
+class ProductsLoading extends HomeState {}
+
+class ProductsLoaded extends HomeState {
+  final List<ProductModel> products;
+  ProductsLoaded(this.products);
+}
+
+class ProductsEmpty extends HomeState {
+  ProductsEmpty();
+}
+
+class ProductsError extends HomeState {
+  final String errorMessage;
+  ProductsError(this.errorMessage);
 }
