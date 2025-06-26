@@ -72,6 +72,7 @@ void handleDioExceptions(DioException e) {
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));
         case 401: //Unauthorized
+          log(e.response!.data.toString());
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));
         case 403: //Forbidden
@@ -88,7 +89,15 @@ void handleDioExceptions(DioException e) {
               errorModel: ErrorModel.fromJson(e.response!.data));
         case 500: //Internal server error
           throw ServerException(
-              errorModel: ErrorModel.fromJson(e.response!.data));
+              errorModel: ErrorModel.fromJson({
+                "errorMessage": "server error please try again later",
+                "statusCode": 500,
+                "succeeded": false,
+                "data": {
+                  "message": "server error please try again later",
+                },
+                "meta": null
+              }));
         default: //Something went wrong
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));

@@ -15,8 +15,10 @@ class PopularSection extends StatelessWidget {
       child: BlocBuilder<ProductsCubit, ProductsState>(
         builder: (context, state) {
           if (state is ProductsLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
           if (state is ProductsLoaded) {

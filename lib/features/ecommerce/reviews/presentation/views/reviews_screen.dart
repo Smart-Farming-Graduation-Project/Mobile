@@ -1,8 +1,7 @@
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/features/ecommerce/reviews/data/datasources/review_helper.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_cubit.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_state.dart';
-import 'package:crop_guard/features/ecommerce/reviews/data/models/review_model.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/widgets/review_card_widget.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/widgets/review_input_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ class ReviewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController reviewController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -46,53 +44,35 @@ class ReviewsScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (context) => ReviewCubit(ApiService())..loadReviews(productId),
-        child: BlocBuilder<ReviewCubit, ReviewState>(
-          builder: (context, state) {
-            if (state is ReviewsLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ReviewsLoaded) {
-              return Column(
-                children: [
-                  ReviewInputWidget(
-                    controller: reviewController,
-                    onSubmit: () {
-                      final reviewText = reviewController.text.trim();
-                      if (reviewText.isNotEmpty) {
-                        context.read<ReviewCubit>().submitReview(
-                              ReviewModel(
-                                reviewID: 0,
-                                userID: '6',
-                                firstName: "User",
-                                lastName: "Test",
-                                headline: 'Review',
-                                rating: 5,
-                                reviewText: reviewText,
-                                reviewDate: DateTime.now(),
-                                productId: productId,
-                              ),
-                            );
-                        reviewController.clear();
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
+        create: (context) => getIt<ReviewCubit>()..loadReviews(productId),
+        child: Column(
+          children: [
+            ReviewInputWidget(      
+              productId: productId,
+            ),
+                
+            const SizedBox(height: 10),
+            BlocBuilder<ReviewCubit, ReviewState>(
+              builder: (context, state) {
+                if (state is ReviewsLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is ReviewsLoaded) {
+                  return Expanded(
                     child: ListView.builder(
                       itemCount: state.reviews.length,
                       itemBuilder: (context, index) {
                         return ReviewCard(review: state.reviews[index]);
                       },
                     ),
-                  ),
-                ],
-              );
-            } else if (state is ReviewError) {
-              debugPrint(state.message);
-              return Center(child: Text(state.message));
-            }
-            return const Center(child: Text("No reviews available"));
-          },
+                  );
+                } else if (state is ReviewError) {
+                  debugPrint(state.message);
+                  return Center(child: Text(state.message));
+                }
+                return const Center(child: Text("No reviews available"));
+              },
+            ),
+          ],
         ),
       ),
     );

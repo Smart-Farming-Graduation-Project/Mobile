@@ -36,14 +36,9 @@ class ReviewModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "reviewID": reviewID,
-        "userID": userID,
-        "firstName": firstName,
-        "lastName": lastName,
         "headline": headline,
         "rating": rating,
         "reviewText": reviewText,
-        "reviewDate": reviewDate.toIso8601String(),
         "productId": productId,
       };
 }
