@@ -1,6 +1,7 @@
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/add_to_cart_button.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/favorite_icon.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/info_box.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_detail_expansion.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_image_details.dart';
@@ -69,13 +70,12 @@ class ProductDetailsView extends StatelessWidget {
                               name: product.productName,
                               category: product.categoryName!),
                           const Spacer(),
-                          // FavoriteIcon(product: widget.product),
+                          FavoriteIcon(product: product),
                         ],
                       ),
                       const SizedBox(height: 18),
                       const InfoBoxDetails(),
                       const SizedBox(height: 18),
-    
                       const SizedBox(height: 10),
                       ProductDetailExpansion(
                           description: product.productDescription),

@@ -41,7 +41,7 @@ class ReviewCubit extends Cubit<ReviewState> {
       log("titleController: ${titleController.text}");
       log("reviewController: ${reviewController.text}");
       log("productId: $productId");
-      final response = await api.post(EndPoints.addReview, data: {
+      await api.post(EndPoints.addReview, data: {
         "productId": productId,
         "headline": titleController.text,
         "rating": rating.toInt(),
