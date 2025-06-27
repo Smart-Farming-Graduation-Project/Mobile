@@ -1,0 +1,85 @@
+import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class SoilChart extends StatelessWidget {
+  const SoilChart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 120.h,
+      child: LineChart(
+        LineChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: FlTitlesData(
+            leftTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                interval: 1,
+                getTitlesWidget: (value, meta) {
+                  final days = [
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    '10'
+                  ];
+                  if (value >= 0 && value < days.length) {
+                    return Text(days[value.toInt()],
+                        style: AppTextStyles.font12BlackBold);
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
+          ),
+          borderData: FlBorderData(show: false),
+          minX: 0,
+          maxX: 9,
+          minY: 0,
+          maxY: 100,
+          lineBarsData: [
+            LineChartBarData(
+              spots: [
+                const FlSpot(0, 95),
+                const FlSpot(1, 75),
+                const FlSpot(2, 80),
+                const FlSpot(3, 50),
+                const FlSpot(4, 85),
+                const FlSpot(5, 100),
+                const FlSpot(6, 88),
+                const FlSpot(7, 92),
+                const FlSpot(8, 0),
+                const FlSpot(9, 93),
+              ],
+              isCurved: true,
+              color: AppColors.kPrimaryColor,
+              barWidth: 3,
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(show: false),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

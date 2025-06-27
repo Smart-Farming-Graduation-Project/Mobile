@@ -64,6 +64,12 @@ abstract class AppTextStyles {
     color: AppColors.kPrimaryColor,
   );
 
+  static TextStyle font16GreenRegular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: AppColors.kPrimaryColor,
+  );
+
   static TextStyle font16BlackBold = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
@@ -168,11 +174,17 @@ abstract class AppTextStyles {
     fontWeight: FontWeightHelper.regular,
   );
 
-  static TextStyle font24 = TextStyle(
+  static TextStyle font24BlackRegular = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: AppColors.kBlackColor,
+  );
+
+ static TextStyle font24 = TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeightHelper.regular,
   );
-
+  
   static TextStyle font26 = TextStyle(
     fontSize: 26.sp,
     fontWeight: FontWeightHelper.regular,
@@ -184,7 +196,13 @@ abstract class AppTextStyles {
     color: AppColors.kBlackColor,
   );
 
-  static TextStyle font32 = TextStyle(
+  static TextStyle font32BlackBold = TextStyle(
+    fontSize: 32.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: AppColors.kBlackColor,
+  );
+
+ static TextStyle font32 = TextStyle(
     fontSize: 32.sp,
     fontWeight: FontWeightHelper.regular,
   );
