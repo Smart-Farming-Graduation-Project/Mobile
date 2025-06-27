@@ -1,11 +1,11 @@
 import 'package:crop_guard/core/responsive/widget_width.dart';
-import 'package:crop_guard/features/ecommerce/categories/data/models/seller_model.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/sellers_list.dart';
 import 'package:flutter/material.dart';
 
 class SellerInfoTile extends StatelessWidget {
-  final SellerModel seller;
+  final String sellerName;
 
-  const SellerInfoTile({super.key, required this.seller});
+  const SellerInfoTile({super.key, required this.sellerName});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class SellerInfoTile extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                child: Image.asset(seller.image),
+                child: Image.asset(sellersList[0].image),
               ),
               const SizedBox(width: 15),
               Expanded(
                 child: Text(
-                  seller.name,
+                  sellerName,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
@@ -35,7 +35,7 @@ class SellerInfoTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                seller.description,
+                sellersList[0].description,
                 style: const TextStyle(
                     fontSize: 12,
                     color: Colors.grey,

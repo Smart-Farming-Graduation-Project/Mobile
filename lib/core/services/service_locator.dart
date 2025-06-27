@@ -1,6 +1,7 @@
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/features/ecommerce/reviews/data/datasources/review_service.dart';
+import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/data/datasources/chat_bot_remote_data_source.dart';
 import 'package:crop_guard/features/farmer/chat_bot/data/repositories/chat_bot_repository_impl.dart';
 import 'package:crop_guard/features/farmer/pest_detection/data/datasources/pest_detection_remote_data_source.dart';
@@ -17,6 +18,7 @@ void setupServiceLocator() {
   getIt.registerSingleton<DioConsumer>(DioConsumer(dio: Dio()));
   getIt.registerSingleton<CacheHelper>(CacheHelper());
   getIt.registerSingleton<RegisterCubit>(RegisterCubit());
+  getIt.registerSingleton<ReviewCubit>(ReviewCubit());
   getIt.registerSingleton<GlobalKey<NavigatorState>>(
       GlobalKey<NavigatorState>());
   getIt.registerSingleton<TermsAndConditionsCubit>(TermsAndConditionsCubit());

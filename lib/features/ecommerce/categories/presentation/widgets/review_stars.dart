@@ -1,11 +1,7 @@
-import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/features/ecommerce/reviews/data/datasources/review_helper.dart';
-import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_cubit.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/views/reviews_screen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReviewStars extends StatelessWidget {
   final int productId;
@@ -48,11 +44,8 @@ class ReviewStars extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => ReviewCubit(getIt<ApiService>()),
-                    child: ReviewsScreen(
-                      productId: productId,
-                    ),
+                  builder: (context) => ReviewsScreen(
+                    productId: productId,
                   ),
                 ),
               );

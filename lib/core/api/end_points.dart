@@ -59,6 +59,13 @@ class EndPoints {
     return 'Product/product/$id';
   }
 
+  // Reviews
+  static String getReviews(String productId) {
+    return 'Reviews/GetReviews/$productId';
+  }
+
+  static const String addReview = 'Reviews/CreateReview';
+
   // ChatBot
   static const String chat = 'ChatBot/Chat';
   static const String getChatHistory = 'ChatBot/ChatHistory';

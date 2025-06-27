@@ -12,6 +12,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Fresh organic broccoli directly from the farm.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -24,6 +25,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Organic avocado with rich taste and high quality.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -36,6 +38,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Fresh farm tomatoes with vibrant color and taste.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -48,6 +51,7 @@ final List<ProductModel> productsList = [
     categoryName: 'Fruits',
     productId: 4,
     productDescription: 'Crisp and juicy organic apples.',
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -60,6 +64,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Crunchy and sweet organic carrots.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -72,6 +77,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Crisp and juicy organic apples.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -84,6 +90,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Crisp and juicy organic apples.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -96,6 +103,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Crisp and juicy organic apples.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -108,6 +116,7 @@ final List<ProductModel> productsList = [
     productDescription: 'Crisp and juicy organic apples.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
   ProductModel(
     productImages: [
@@ -120,5 +129,6 @@ final List<ProductModel> productsList = [
     productDescription: 'Crisp and juicy organic apples.',
     productAvailability: 'available',
     isFavorite: false,
+    sellerName: 'John Doe',
   ),
 ];

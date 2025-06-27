@@ -26,7 +26,7 @@ void showForgotPasswordDialog(BuildContext context) {
               title: Align(
                 alignment: Alignment.center,
                 child: Text('Forgot Password',
-                    style: AppTextStyles.font24.copyWith(
+                    style: AppTextStyles.font24BlackRegular.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.kDangerColor)),
               ),

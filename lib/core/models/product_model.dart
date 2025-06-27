@@ -7,6 +7,7 @@ class ProductModel {
   final String productDescription;
   final double productPrice;
   final String productAvailability;
+  final String sellerName;
   final double? productRating;
   bool isFavorite;
   final List<String> productImages;
@@ -18,6 +19,7 @@ class ProductModel {
       required this.productDescription,
       required this.productPrice,
       required this.productAvailability,
+      required this.sellerName,
       this.productRating,
       required this.isFavorite,
       required this.productImages});
@@ -30,6 +32,7 @@ class ProductModel {
           json[ApiKeys.productDescription] ?? "productDescription",
       productPrice: json[ApiKeys.productPrice] ?? 0.0,
       productAvailability: json[ApiKeys.productAvailability] ?? "available",
+      sellerName: json[ApiKeys.sellerName] ?? "sellerName",
       productRating: json[ApiKeys.productRating]?.toDouble(),
       isFavorite: json[ApiKeys.isFavorite] ?? false,
       productImages: List<String>.from(json[ApiKeys.productImages] ?? []),
