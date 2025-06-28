@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/widgets/soil_chart.dart';
@@ -24,8 +25,8 @@ class SoilQualityCard extends StatelessWidget {
             children: [
               Text('Soil Quality', style: AppTextStyles.font16BlackRegular),
               Text('Good', style: AppTextStyles.font32BlackBold),
-              Text('Last 10 days', style: AppTextStyles.font16GreenRegular),
-              SizedBox(height: 16.h),
+              Text('Last 7 days', style: AppTextStyles.font16GreenRegular),
+              verticalSpace(16),
               const SoilChart(),
             ],
           ),

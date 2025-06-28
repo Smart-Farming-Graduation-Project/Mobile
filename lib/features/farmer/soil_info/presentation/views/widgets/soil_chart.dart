@@ -12,7 +12,7 @@ class SoilChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120.h,
+      height: 140.h,
       child: LineChart(
         LineChartData(
           gridData: const FlGridData(show: false),
@@ -29,23 +29,24 @@ class SoilChart extends StatelessWidget {
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
+                reservedSize: 30.h,
                 interval: 1,
                 getTitlesWidget: (value, meta) {
                   final days = [
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5',
-                    '6',
-                    '7',
-                    '8',
-                    '9',
-                    '10'
+                    'Mon',
+                    'Tue',
+                    'Wed',
+                    'Thu',
+                    'Fri',
+                    'Sat',
+                    'Sun',
                   ];
-                  if (value >= 0 && value < days.length) {
-                    return Text(days[value.toInt()],
-                        style: AppTextStyles.font12BlackBold);
+                  if (value >= 0 && value < days.length && value % 1 == 0) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 10.h),
+                      child: Text(days[value.toInt()],
+                          style: AppTextStyles.font12BlackBold),
+                    );
                   }
                   return const SizedBox.shrink();
                 },
@@ -54,7 +55,7 @@ class SoilChart extends StatelessWidget {
           ),
           borderData: FlBorderData(show: false),
           minX: 0,
-          maxX: 9,
+          maxX: 6,
           minY: 0,
           maxY: 100,
           lineBarsData: [
@@ -67,9 +68,6 @@ class SoilChart extends StatelessWidget {
                 const FlSpot(4, 85),
                 const FlSpot(5, 100),
                 const FlSpot(6, 88),
-                const FlSpot(7, 92),
-                const FlSpot(8, 0),
-                const FlSpot(9, 93),
               ],
               isCurved: true,
               color: AppColors.kPrimaryColor,

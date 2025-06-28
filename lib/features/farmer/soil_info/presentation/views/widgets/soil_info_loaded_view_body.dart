@@ -1,3 +1,4 @@
+import 'package:crop_guard/features/farmer/soil_info/presentation/views/widgets/soil_analysis_components.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/widgets/soil_quality_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,10 +10,14 @@ class SoilInfoLoadedViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: const Column(
-        children: [
-          SoilQualityCard(),
-        ],
+      child: const SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SoilQualityCard(),
+            SoilAnalysisComponents(),
+          ],
+        ),
       ),
     );
   }
