@@ -30,6 +30,7 @@ void setupServiceLocator() {
       pestDetectionRemoteDataSource:
           PestDetectionRemoteDataSourceImpl(api: getIt<DioConsumer>())));
   getIt.registerSingleton<SensorInfoRepoImpl>(SensorInfoRepoImpl(
-      remoteDataSource: SoilInfoRemoteDataSourceImpl(api: getIt<DioConsumer>())));
+      remoteDataSource:
+          SoilInfoRemoteDataSourceImpl(api: getIt<DioConsumer>())));
   getIt.registerLazySingleton<ApiService>(() => ApiService(getIt<Dio>()));
 }

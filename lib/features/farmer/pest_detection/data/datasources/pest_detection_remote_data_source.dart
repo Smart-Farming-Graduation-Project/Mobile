@@ -21,8 +21,7 @@ class PestDetectionRemoteDataSourceImpl
   final ApiConsumer api;
   PestDetectionRemoteDataSourceImpl({required this.api});
   @override
-  Future<PestDetectionImageEntity> getPestDetectionImage(
-      File imageFile) async {
+  Future<PestDetectionImageEntity> getPestDetectionImage(File imageFile) async {
     final image = await uploadImageToApi(XFile(imageFile.path));
     final response = await api.post(
       EndPoints.pestDetectionImage,
@@ -52,18 +51,19 @@ class PestDetectionRemoteDataSourceImpl
       EndPoints.pestDetectionImageInfo(imageId),
     );
     if (response[ApiKeys.data].isEmpty) {
-      return [PestDetectionInfoModel.fromJson({
-      "modelId": "396c7faf-4a6e-4278-b211-b41e031c381e",
-      "disease": "Late Blight",
-      "solution": "Absolutely, here’s a concise guide for treating Late Blight effectively:\n\n1. **Remove Infected Plants:** Immediately remove and destroy any plants showing symptoms of Late Blight to prevent the spread of the disease.\n\n2. **Apply Fungicides:** Use copper-based fungicides or those containing chlorothalonil for effective treatment. Spray thoroughly, ensuring you cover all parts of the plant, including the underside of leaves.\n\n3. **Improve Air Circulation:** Space plants adequately and prune any unnecessary foliage to enhance air circulation, which helps reduce the humidity that promotes the disease.\n\n4. **Water Carefully:** Water plants at the base to avoid wetting the foliage, and do this early in the day to allow any accidental splashes on leaves to dry quickly.\n\nImplement these steps promptly to control and mitigate Late Blight effectively."
-    })];
+      return [
+        PestDetectionInfoModel.fromJson({
+          "modelId": "396c7faf-4a6e-4278-b211-b41e031c381e",
+          "disease": "Late Blight",
+          "solution":
+              "Absolutely, here’s a concise guide for treating Late Blight effectively:\n\n1. **Remove Infected Plants:** Immediately remove and destroy any plants showing symptoms of Late Blight to prevent the spread of the disease.\n\n2. **Apply Fungicides:** Use copper-based fungicides or those containing chlorothalonil for effective treatment. Spray thoroughly, ensuring you cover all parts of the plant, including the underside of leaves.\n\n3. **Improve Air Circulation:** Space plants adequately and prune any unnecessary foliage to enhance air circulation, which helps reduce the humidity that promotes the disease.\n\n4. **Water Carefully:** Water plants at the base to avoid wetting the foliage, and do this early in the day to allow any accidental splashes on leaves to dry quickly.\n\nImplement these steps promptly to control and mitigate Late Blight effectively."
+        })
+      ];
     }
     final List<PestDetectionInfoEntity> pestDetectionInfo = [];
     for (var element in response[ApiKeys.data]) {
       pestDetectionInfo.add(PestDetectionInfoModel.fromJson(element));
     }
     return pestDetectionInfo;
-    
-        
   }
 }

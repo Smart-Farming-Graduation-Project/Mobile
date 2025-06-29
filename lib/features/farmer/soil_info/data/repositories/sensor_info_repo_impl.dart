@@ -38,4 +38,4 @@ class SensorInfoRepoImpl implements SensorInfoRepo {
       return Left(FailureModel(message: e.toString()));
     }
   }
-} 
+}

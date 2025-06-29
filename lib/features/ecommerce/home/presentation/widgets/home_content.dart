@@ -18,11 +18,10 @@ class HomeContent extends StatelessWidget {
     return SafeArea(
       child: BlocProvider(
         create: (context) {
-           final cubit = HomeCubit();
+          final cubit = HomeCubit();
           // cubit.getCategories();
           // cubit.getAllProducts();
           return cubit;
-        
         },
         child: Scaffold(
           body: Padding(
