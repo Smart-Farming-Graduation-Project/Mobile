@@ -26,14 +26,18 @@ Future<void> refreshToken() async {
         },
       },
     );
+    log(response.toString());
     getIt<CacheHelper>().saveData(
         key: ApiKeys.accessToken,
         value: response[ApiKeys.data][ApiKeys.accessToken]);
+    log(response[ApiKeys.data][ApiKeys.accessToken].toString());
     getIt<CacheHelper>().saveData(
         key: ApiKeys.refreshToken,
         value: response[ApiKeys.data][ApiKeys.refreshToken]);
+    log(response[ApiKeys.data][ApiKeys.refreshToken].toString());
     DecodedToken()
         .saveDecodedToken(response[ApiKeys.data][ApiKeys.accessToken]);
+    log("access token saved");
   } on ServerException catch (e) {
     getIt<CacheHelper>().removeData(key: ApiKeys.accessToken);
     getIt<CacheHelper>().removeData(key: ApiKeys.refreshToken);

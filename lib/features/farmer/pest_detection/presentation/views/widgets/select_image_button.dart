@@ -1,7 +1,9 @@
 import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/features/farmer/pest_detection/presentation/cubits/pest_detection_cubit/pest_detection_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelectImageButton extends StatelessWidget {
@@ -12,7 +14,9 @@ class SelectImageButton extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          context.read<PestDetectionCubit>().getImage();
+        },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           decoration: BoxDecoration(

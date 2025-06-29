@@ -1,4 +1,4 @@
-import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
+
 
 class HomeState {}
 
@@ -18,24 +18,6 @@ class HomeHeaderLoaded extends HomeState {
 class HomeHeaderError extends HomeState {
   final String errorMessage;
   HomeHeaderError(this.errorMessage);
-}
-
-class CategoriesLoading extends HomeState {
-  CategoriesLoading();
-}
-
-class CategoriesLoaded extends HomeState {
-  final List<CategoryModel> categories;
-  CategoriesLoaded(this.categories);
-}
-
-class CategoriesError extends HomeState {
-  final String errorMessage;
-  CategoriesError(this.errorMessage);
-}
-
-class CategoriesEmpty extends HomeState {
-  CategoriesEmpty();
 }
 
 class HomeLoading extends HomeState {

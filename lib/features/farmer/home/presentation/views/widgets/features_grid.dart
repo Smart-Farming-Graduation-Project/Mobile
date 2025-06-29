@@ -32,7 +32,7 @@ class FeaturesGrid extends StatelessWidget {
               icon: "shop",
               title: 'Market',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.market);
+                GoRouter.of(context).push(AppRouter.home);
               }),
           QuickCard(
               icon: "bug",

@@ -54,12 +54,29 @@ class EndPoints {
   }
 
   // Products
-  static const String getProducts = 'Product/ProductList';
+  static const String getProducts = 'Product/ProductsList';
   static String getProductDetails(String id) {
     return 'Product/product/$id';
   }
 
+  // Reviews
+  static String getReviews(String productId) {
+    return 'Reviews/GetReviews/$productId';
+  }
+
+  static const String addReview = 'Reviews/CreateReview';
+
   // ChatBot
   static const String chat = 'ChatBot/Chat';
   static const String getChatHistory = 'ChatBot/ChatHistory';
+
+  // Pest Detection
+  static const String pestDetectionImage = 'AIModel/predict';
+  static String pestDetectionImageInfo(String imageId) {
+    return 'AIModel/feedback/$imageId';
+  }
+
+  // Soil Info
+  static const String soilChartData = 'IoT/latest-reading';
+  static const String soilAnalysisData = 'IoT/Get-Last-Reading';
 }

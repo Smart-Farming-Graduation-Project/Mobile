@@ -17,7 +17,13 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocProvider(
-        create: (context) => HomeCubit()..getCategories(),
+        create: (context) {
+           final cubit = HomeCubit();
+          // cubit.getCategories();
+          // cubit.getAllProducts();
+          return cubit;
+        
+        },
         child: Scaffold(
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),

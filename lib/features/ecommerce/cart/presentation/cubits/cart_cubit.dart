@@ -4,6 +4,7 @@ import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
+import 'package:crop_guard/core/helper/add_product_to_cart.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/ecommerce/cart/data/models/cart_product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_state.dart';
@@ -33,8 +34,7 @@ class CartCubit extends Cubit<CartState> {
   Future<void> addToCart(int productId) async {
     try {
       emit(CartLoadingState());
-      final response = await api.post(EndPoints.addToCart(productId),
-          queryParameters: {ApiKeys.quantity: 1});
+      final response = await addProductToCart(productId);
       log(response.toString());
       fetchCartProducts();
     } on ServerException catch (e) {
@@ -89,4 +89,5 @@ class CartCubit extends Cubit<CartState> {
     }
     return subTotalPrice;
   }
+  
 }

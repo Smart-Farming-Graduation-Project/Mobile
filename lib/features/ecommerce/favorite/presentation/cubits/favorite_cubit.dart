@@ -19,7 +19,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         await api.post(EndPoints.addToFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
       favoriteProducts.remove(product);
-      emit(FavoriteError(response[ApiKeys.errorMessage]));
+      emit(FavoriteError(response[ApiKeys.message]));
     } else {
       emit(FavoriteSuccess(favoriteProducts));
     }
@@ -31,7 +31,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         await api.delete(EndPoints.removeFromFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
       favoriteProducts.add(product);
-      emit(FavoriteError(response[ApiKeys.errorMessage]));
+      emit(FavoriteError(response[ApiKeys.message]));
     } else {
       loadFavorites();
     }

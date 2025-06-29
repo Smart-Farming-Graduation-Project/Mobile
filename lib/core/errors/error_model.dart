@@ -2,9 +2,9 @@ import 'package:crop_guard/core/api/api_keys.dart';
 
 class ErrorModel {
   final dynamic errorMessage;
-  final int statusCode;
+  final num statusCode;
   final bool succeeded;
-  final Map<String, dynamic>? data;
+  final dynamic data;
   final dynamic meta;
 
   ErrorModel(
@@ -16,7 +16,7 @@ class ErrorModel {
 
   factory ErrorModel.fromJson(Map<String, dynamic> json) {
     return ErrorModel(
-        errorMessage: json[ApiKeys.errorMessage],
+        errorMessage: json[ApiKeys.message],
         statusCode: json[ApiKeys.statusCode],
         succeeded: json[ApiKeys.succeeded],
         data: json[ApiKeys.data],

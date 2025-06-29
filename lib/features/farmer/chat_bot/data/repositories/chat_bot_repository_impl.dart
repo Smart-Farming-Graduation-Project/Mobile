@@ -17,7 +17,7 @@ class ChatBotRepositoryImpl implements ChatBotRepository {
       final response = await remoteDataSource.sendMessage(message);
       return Right(response);
     } on ServerException catch (e) {
-      return Left(FailureModel(message: e.errorModel.errorMessage));
+      return Left(FailureModel(message: e.errorModel.errorMessage.toString()));
     } on NetworkException catch (e) {
       return Left(FailureModel(message: e.message));
     }

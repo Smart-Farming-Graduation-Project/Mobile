@@ -6,6 +6,10 @@ class ReviewInitial extends ReviewState {}
 
 class ReviewsLoading extends ReviewState {}
 
+class ReviewSubmitted extends ReviewState {}
+
+class ReviewSubmittedFailed extends ReviewState {}
+
 class ReviewsLoaded extends ReviewState {
   final List<ReviewModel> reviews;
 
