@@ -1,22 +1,20 @@
 import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
-import 'package:crop_guard/features/farmer/soil_info/presentation/manger/cubits/soil_quality_card_cubit/soil_quality_card_cubit.dart';
-import 'package:crop_guard/features/farmer/soil_info/presentation/manger/cubits/soil_quality_card_cubit/soil_quality_card_state.dart';
+import 'package:crop_guard/features/farmer/soil_info/domain/entities/soil_chart_entity.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/widgets/soil_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SoilQualityCard extends StatelessWidget {
   const SoilQualityCard(
-      {super.key, });
+      {super.key, required this.soilChart, required this.status});
+      final List<SoilChartEntity> soilChart;
+      final String status;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SoilQualityCardCubit, SoilQualityCardState>(
-      builder: (context, state) {
-        if (state is SoilQualityCardLoaded) {
+    
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 24.h),
           child: Container(
@@ -31,22 +29,15 @@ class SoilQualityCard extends StatelessWidget {
                 spacing: 8.h,
                 children: [
                   Text('Soil Quality', style: AppTextStyles.font16BlackRegular),
-                  Text(state.status, style: AppTextStyles.font32BlackBold),
+                  Text(status, style: AppTextStyles.font32BlackBold),
                   Text('Last 7 days', style: AppTextStyles.font16GreenRegular),
                   verticalSpace(16),
-                  SoilChart(soilChart: state.soilChart),
+                  SoilChart(soilChart: soilChart),
                 ],
               ),
             ),
-            ),
-          );
-        }else if (state is SoilQualityCardLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is SoilQualityCardError) {
-          return Center(child: Text(state.message));
-        }
-        return const SizedBox.shrink();
-      },
-    );
+          ),
+        );
+      
   }
 }
