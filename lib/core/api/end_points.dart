@@ -75,4 +75,8 @@ class EndPoints {
   static String pestDetectionImageInfo(String imageId) {
     return 'AIModel/feedback/$imageId';
   }
+
+  // Soil Info
+  static const String soilChartData = 'IoT/latest-reading';
+  static const String soilAnalysisData = 'IoT/Get-Last-Reading';
 }
