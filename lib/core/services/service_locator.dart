@@ -6,6 +6,8 @@ import 'package:crop_guard/features/farmer/chat_bot/data/datasources/chat_bot_re
 import 'package:crop_guard/features/farmer/chat_bot/data/repositories/chat_bot_repository_impl.dart';
 import 'package:crop_guard/features/farmer/pest_detection/data/datasources/pest_detection_remote_data_source.dart';
 import 'package:crop_guard/features/farmer/pest_detection/data/repositories/pest_detection_repo_impl.dart';
+import 'package:crop_guard/features/farmer/soil_info/data/datasources/soil_info_remote_datasource.dart';
+import 'package:crop_guard/features/farmer/soil_info/data/repositories/sensor_info_repo_impl.dart';
 import 'package:crop_guard/features/welcome/auth/manger/cubits/register_cubit/register_cubit.dart';
 import 'package:crop_guard/features/welcome/auth/manger/cubits/terms_conditions_cubit/terms_and_conditions_cubit.dart';
 import 'package:dio/dio.dart';
@@ -27,5 +29,7 @@ void setupServiceLocator() {
   getIt.registerSingleton<PestDetectionRepoImpl>(PestDetectionRepoImpl(
       pestDetectionRemoteDataSource:
           PestDetectionRemoteDataSourceImpl(api: getIt<DioConsumer>())));
+  getIt.registerSingleton<SensorInfoRepoImpl>(SensorInfoRepoImpl(
+      remoteDataSource: SoilInfoRemoteDataSourceImpl(api: getIt<DioConsumer>())));
   getIt.registerLazySingleton<ApiService>(() => ApiService(getIt<Dio>()));
 }

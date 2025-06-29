@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/features/farmer/soil_info/domain/entities/soil_chart_entity.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SoilChart extends StatelessWidget {
   const SoilChart({
     super.key,
+    required this.soilChart,
   });
 
+  final List<SoilChartEntity> soilChart;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,13 +36,13 @@ class SoilChart extends StatelessWidget {
                 interval: 1,
                 getTitlesWidget: (value, meta) {
                   final days = [
-                    'Mon',
-                    'Tue',
-                    'Wed',
-                    'Thu',
-                    'Fri',
-                    'Sat',
-                    'Sun',
+                    soilChart[6].day,
+                    soilChart[5].day,
+                    soilChart[4].day,
+                    soilChart[3].day,
+                    soilChart[2].day,
+                    soilChart[1].day,
+                    soilChart[0].day,
                   ];
                   if (value >= 0 && value < days.length && value % 1 == 0) {
                     return Padding(
@@ -61,13 +64,13 @@ class SoilChart extends StatelessWidget {
           lineBarsData: [
             LineChartBarData(
               spots: [
-                const FlSpot(0, 95),
-                const FlSpot(1, 75),
-                const FlSpot(2, 80),
-                const FlSpot(3, 50),
-                const FlSpot(4, 85),
-                const FlSpot(5, 100),
-                const FlSpot(6, 88),
+                FlSpot(0, soilChart[6].healthPercentage),
+                FlSpot(1, soilChart[5].healthPercentage),
+                FlSpot(2, soilChart[4].healthPercentage),
+                FlSpot(3, soilChart[3].healthPercentage),
+                FlSpot(4, soilChart[2].healthPercentage),
+                FlSpot(5, soilChart[1].healthPercentage),
+                FlSpot(6, soilChart[0].healthPercentage),
               ],
               isCurved: true,
               color: AppColors.kPrimaryColor,

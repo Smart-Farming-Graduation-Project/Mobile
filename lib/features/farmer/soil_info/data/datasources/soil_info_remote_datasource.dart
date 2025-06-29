@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crop_guard/core/api/api_consumer.dart';
 import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/api/end_points.dart';
@@ -19,8 +21,10 @@ class SoilInfoRemoteDataSourceImpl implements SoilInfoRemoteDataSource {
   Future<List<SoilChartEntity>> getChartData() async {
     final response = await api.get(EndPoints.soilChartData);
     final data = response[ApiKeys.data];
+    log(data.toString());
     final List<SensorDataModel> models =
-        data.map((e) => SensorDataModel.fromJson(e)).toList();
+        data.map<SensorDataModel>((e) => SensorDataModel.fromJson(e)).toList();
+    log(models.toString());
     List<SoilChartEntity> soilChartEntities = [];
     for (int i = 0; i < models.length; i++) {
       final soilChartEntity = SoilChartEntity(
