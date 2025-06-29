@@ -11,9 +11,9 @@ class SensorDataCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.value,
-    required this.unit,
-    this.isOk = false,
+    this.unit = '',
     this.safeRange,
+    required this.isOk,
   });
 
   final String title;
@@ -42,7 +42,7 @@ class SensorDataCard extends StatelessWidget {
               unit: unit,
               isOk: isOk,
             ),
-            if (title != 'Flame' && safeRange != null)
+            if (safeRange != null)
               SensorSafeRange(
                 safeRange: safeRange!,
                 unit: unit,

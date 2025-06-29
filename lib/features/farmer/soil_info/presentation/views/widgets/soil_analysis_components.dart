@@ -40,7 +40,6 @@ class SoilAnalysisComponents extends StatelessWidget {
         SensorDataCard(
           title: 'Flame',
           value: 'No Flame',
-          unit: '',
           isOk: true,
         ),
       ],
