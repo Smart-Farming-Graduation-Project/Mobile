@@ -1,6 +1,8 @@
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/farmer/soil_info/data/repositories/sensor_info_repo_impl.dart';
+import 'package:crop_guard/features/farmer/soil_info/domain/usecases/get_soil_analysis_data_usecase.dart';
 import 'package:crop_guard/features/farmer/soil_info/domain/usecases/get_soil_chart_data_usecase.dart';
+import 'package:crop_guard/features/farmer/soil_info/presentation/manger/cubits/soil_analysis_components_cubit/soil_analysis_components_cubit.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/manger/cubits/soil_quality_card_cubit/soil_quality_card_cubit.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/widgets/soil_analysis_components.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/widgets/soil_quality_card.dart';
@@ -25,7 +27,12 @@ class SoilInfoLoadedViewBody extends StatelessWidget {
                       GetSoilChartDataUsecase(getIt<SensorInfoRepoImpl>()))..getSoilChartData(),
               child: const SoilQualityCard(),
             ),
-            const SoilAnalysisComponents(),
+            BlocProvider(
+              create: (context) => SoilAnalysisComponentsCubit(
+                  getSoilAnalysisDataUsecase:
+                      GetSoilAnalysisDataUsecase(getIt<SensorInfoRepoImpl>()))..getSoilAnalysisData(),
+              child: const SoilAnalysisComponents(),
+            ),
           ],
         ),
       ),

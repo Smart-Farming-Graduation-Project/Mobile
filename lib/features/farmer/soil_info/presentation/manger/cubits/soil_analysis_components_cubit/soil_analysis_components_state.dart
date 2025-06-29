@@ -1,10 +1,19 @@
-part of 'soil_analysis_components_cubit.dart';
+import 'package:crop_guard/features/farmer/soil_info/domain/entities/soil_analysis_entity.dart';
 
-sealed class SoilAnalysisComponentsState extends Equatable {
-  const SoilAnalysisComponentsState();
+sealed class SoilAnalysisComponentsState {}
 
-  @override
-  List<Object> get props => [];
+class SoilAnalysisComponentsInitial extends SoilAnalysisComponentsState {}
+
+class SoilAnalysisComponentsLoading extends SoilAnalysisComponentsState {}
+
+class SoilAnalysisComponentsLoaded extends SoilAnalysisComponentsState {
+  final SoilAnalysisEntity soilAnalysisEntity;
+
+  SoilAnalysisComponentsLoaded({required this.soilAnalysisEntity});
 }
 
-final class SoilAnalysisComponentsInitial extends SoilAnalysisComponentsState {}
+class SoilAnalysisComponentsError extends SoilAnalysisComponentsState {
+  final String message;
+
+  SoilAnalysisComponentsError({required this.message});
+}
