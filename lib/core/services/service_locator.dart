@@ -2,6 +2,11 @@ import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/features/ecommerce/reviews/data/datasources/review_service.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_cubit.dart';
+import 'package:crop_guard/features/farmer/add_products/data/datasources/product_remote_data_source.dart';
+import 'package:crop_guard/features/farmer/add_products/data/repositories/product_repository_impl.dart';
+import 'package:crop_guard/features/farmer/add_products/domain/repositories/product_repository.dart';
+import 'package:crop_guard/features/farmer/add_products/domain/usecases/add_product.dart';
+import 'package:crop_guard/features/farmer/add_products/presentation/cubits/add_product_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/data/datasources/chat_bot_remote_data_source.dart';
 import 'package:crop_guard/features/farmer/chat_bot/data/repositories/chat_bot_repository_impl.dart';
 import 'package:crop_guard/features/farmer/pest_detection/data/datasources/pest_detection_remote_data_source.dart';
@@ -32,5 +37,21 @@ void setupServiceLocator() {
   getIt.registerSingleton<SensorInfoRepoImpl>(SensorInfoRepoImpl(
       remoteDataSource:
           SoilInfoRemoteDataSourceImpl(api: getIt<DioConsumer>())));
+
+  // Add Product dependencies
+  getIt.registerLazySingleton<ProductRemoteDataSource>(
+    () => ProductRemoteDataSourceImpl(api: getIt<DioConsumer>()),
+  );
+  getIt.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(
+        remoteDataSource: getIt<ProductRemoteDataSource>()),
+  );
+  getIt.registerLazySingleton<AddProduct>(
+    () => AddProduct(getIt<ProductRepository>()),
+  );
+  getIt.registerLazySingleton<AddProductCubit>(
+    () => AddProductCubit(addProductUseCase: getIt<AddProduct>()),
+  );
+
   getIt.registerLazySingleton<ApiService>(() => ApiService(getIt<Dio>()));
 }

@@ -44,23 +44,22 @@ class CommunityHomeScreen extends StatelessWidget {
             if (state is PostLoading) {
               return Center(
                   child: Skeletonizer(
-                      child: Expanded(
-                child: ListView.separated(
-                    itemCount: 8,
-                    separatorBuilder: (_, __) => const SizedBox(height: 12),
-                    itemBuilder: (context, index) {
-                      if (index == 0) return const SizedBox();
-                      if (index == 1) return const ComunnityHeader();
-                      return const PostCardWidget(
-                        title: 'Loading...',
-                        body: 'Loading...',
-                        initialVotes: 0,
-                        commentsCount: 0,
-                        subreddit: 'Loading...',
-                        timeAgo: 'Loading...',
-                      );
-                    }),
-              )));
+                      child: ListView.separated(
+                          itemCount: 8,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 12),
+                          itemBuilder: (context, index) {
+                            if (index == 0) return const SizedBox();
+                            if (index == 1) return const ComunnityHeader();
+                            return const PostCardWidget(
+                              title: 'Loading...',
+                              body: 'Loading...',
+                              initialVotes: 0,
+                              commentsCount: 0,
+                              subreddit: 'Loading...',
+                              timeAgo: 'Loading...',
+                            );
+                          })));
             } else if (state is PostLoaded) {
               final posts = state.posts;
               return ListView.separated(
