@@ -4,13 +4,15 @@ import 'package:crop_guard/features/farmer/pest_detection/domain/entities/pest_d
 import 'package:crop_guard/features/farmer/pest_detection/domain/repositories/pest_detection_repo.dart';
 import 'package:dartz/dartz.dart';
 
-class PestDetectionInfoUseCase extends UseCase<List<PestDetectionInfoEntity>, String> {
+class PestDetectionInfoUseCase
+    extends UseCase<List<PestDetectionInfoEntity>, String> {
   final PestDetectionRepo pestDetectionRepo;
 
   PestDetectionInfoUseCase({required this.pestDetectionRepo});
 
   @override
-  Future<Either<FailureModel, List<PestDetectionInfoEntity>>> call(String imageId) {
+  Future<Either<FailureModel, List<PestDetectionInfoEntity>>> call(
+      String imageId) {
     return pestDetectionRepo.getPestDetectionInfo(imageId);
   }
 }

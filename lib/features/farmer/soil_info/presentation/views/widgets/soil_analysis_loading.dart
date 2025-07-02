@@ -11,17 +11,20 @@ class SoilAnalysisLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
-      child: SoilAnalysisComponents(soilAnalysisEntity: SoilAnalysisEntity(
-        moistureValue: 0,
-        moistureStatus: false,
-        humidityValue: 0,
-        humidityStatus: false,
-        temperatureValue: 0,
-        temperatureStatus: false, lightIntensityValue: 0,
-        lightIntensityStatus: false,
-        flameValue: '',
-        flameStatus: false,
-      ),),
+      child: SoilAnalysisComponents(
+        soilAnalysisEntity: SoilAnalysisEntity(
+          moistureValue: 0,
+          moistureStatus: false,
+          humidityValue: 0,
+          humidityStatus: false,
+          temperatureValue: 0,
+          temperatureStatus: false,
+          lightIntensityValue: 0,
+          lightIntensityStatus: false,
+          flameValue: '',
+          flameStatus: false,
+        ),
+      ),
     );
   }
 }

@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PestDetectionFailureView extends StatelessWidget {
-  const PestDetectionFailureView({super.key, required this.image,});
+  const PestDetectionFailureView({
+    super.key,
+    required this.image,
+  });
   final File image;
 
   @override
@@ -18,7 +21,7 @@ class PestDetectionFailureView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           SelectedImage(image: image),
+          SelectedImage(image: image),
           verticalSpace(30),
           Text.rich(
             TextSpan(

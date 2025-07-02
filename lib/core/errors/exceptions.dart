@@ -90,14 +90,14 @@ void handleDioExceptions(DioException e) {
         case 500: //Internal server error
           throw ServerException(
               errorModel: ErrorModel.fromJson({
-                "errorMessage": "server error please try again later",
-                "statusCode": 500,
-                "succeeded": false,
-                "data": {
-                  "message": "server error please try again later",
-                },
-                "meta": null
-              }));
+            "errorMessage": "server error please try again later",
+            "statusCode": 500,
+            "succeeded": false,
+            "data": {
+              "message": "server error please try again later",
+            },
+            "meta": null
+          }));
         default: //Something went wrong
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));

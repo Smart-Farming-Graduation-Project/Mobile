@@ -18,20 +18,25 @@ class PestDetectionCubit extends Cubit<PestDetectionState> {
     final image = await pickImage();
     if (image != null) {
       emit(PestDetectionImageSelected(image: image));
-    }
-    else {
-      emit(PestDetectionFailure(message: 'No image selected',));
+    } else {
+      emit(PestDetectionFailure(
+        message: 'No image selected',
+      ));
     }
   }
+
   Future<void> getPestDetectionImage(File image) async {
     emit(PestDetectionLoading(image: image));
     final pestDetectionImage = await pestDetectionImageUseCase.call(image);
     pestDetectionImage.fold(
-      (failure) => emit(PestDetectionFailure(message: failure.message, image: image)),
+      (failure) =>
+          emit(PestDetectionFailure(message: failure.message, image: image)),
       (pestDetectionImage) async {
         final result =
             await pestDetectionInfoUseCase.call(pestDetectionImage.imageId);
-        result.fold((failure) => emit(PestDetectionFailure(message: failure.message, image: image)),
+        result.fold(
+            (failure) => emit(
+                PestDetectionFailure(message: failure.message, image: image)),
             (pestDetectionInfo) {
           emit(PestDetectionLoaded(
               pestDetectionImage: pestDetectionImage,

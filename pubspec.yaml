@@ -29,7 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   badges: ^3.1.2
-  camera: ^0.11.1
+  cached_network_image: ^3.4.1
+  camera: ^0.10.5+9
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
   curved_navigation_bar: ^1.0.6
@@ -72,6 +73,7 @@ dependencies:
   path: ^1.9.1
   path_provider: ^2.1.5
   pinput: ^5.0.1
+  provider: ^6.1.5
   rename: ^3.0.2
   shared_preferences: ^2.5.2
   skeletonizer: ^1.4.3

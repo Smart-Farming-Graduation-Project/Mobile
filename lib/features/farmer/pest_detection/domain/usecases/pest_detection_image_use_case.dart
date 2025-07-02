@@ -13,8 +13,7 @@ class PestDetectionImageUseCase
   PestDetectionImageUseCase({required this.pestDetectionRepo});
 
   @override
-  Future<Either<FailureModel, PestDetectionImageEntity>> call(
-      File params) {
+  Future<Either<FailureModel, PestDetectionImageEntity>> call(File params) {
     return pestDetectionRepo.getPestDetectionImage(params);
   }
 }

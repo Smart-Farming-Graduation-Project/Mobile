@@ -10,7 +10,10 @@ class SoilQualityCardLoaded extends SoilQualityCardState {
   final List<SoilChartEntity> soilChart;
   final String status;
 
-  SoilQualityCardLoaded({required this.soilChart, required this.status,});
+  SoilQualityCardLoaded({
+    required this.soilChart,
+    required this.status,
+  });
 }
 
 class SoilQualityCardError extends SoilQualityCardState {

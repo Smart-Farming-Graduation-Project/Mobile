@@ -89,5 +89,4 @@ class CartCubit extends Cubit<CartState> {
     }
     return subTotalPrice;
   }
-  
 }

@@ -21,7 +21,8 @@ class PestDetectionLoaded extends PestDetectionState {
   final PestDetectionImageEntity pestDetectionImage;
   final PestDetectionInfoEntity pestDetectionInfo;
 
-  PestDetectionLoaded({required this.pestDetectionImage, required this.pestDetectionInfo});
+  PestDetectionLoaded(
+      {required this.pestDetectionImage, required this.pestDetectionInfo});
 }
 
 class PestDetectionFailure extends PestDetectionState {
