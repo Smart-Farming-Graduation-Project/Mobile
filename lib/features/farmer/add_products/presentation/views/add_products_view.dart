@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
@@ -43,7 +44,7 @@ class _AddProductsViewState extends State<AddProductsView> {
 
     final product = _formController.createProductEntity();
     if (product != null) {
-      context.read<AddProductCubit>().addProduct(product);
+      getIt<AddProductCubit>().addProduct(product);
     }
   }
 

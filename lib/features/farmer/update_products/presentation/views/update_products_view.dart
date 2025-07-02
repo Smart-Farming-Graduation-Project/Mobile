@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/farmer/my_products/domain/entities/my_product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,7 @@ class _UpdateProductsViewState extends State<UpdateProductsView> {
 
     final product = _formController.createUpdateProductEntity();
     if (product != null) {
-      context.read<UpdateProductCubit>().updateProduct(product);
+      getIt<UpdateProductCubit>().updateProduct(product);
     }
   }
 

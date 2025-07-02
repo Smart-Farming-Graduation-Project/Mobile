@@ -35,13 +35,12 @@ class UpdateProductModel extends UpdateProductEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
       'price': price,
       'quantity': quantity,
       'categoryName': category,
-      'availability': isAvailable ? 'Sale' : 'NotAvailable',
+      'availability': isAvailable ? 'Sale' : 'Lease',
       'images': existingImageUrls,
     };
   }

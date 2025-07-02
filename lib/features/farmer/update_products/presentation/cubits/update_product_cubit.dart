@@ -12,16 +12,32 @@ class UpdateProductCubit extends Cubit<UpdateProductState> {
       : super(UpdateProductInitial());
 
   Future<void> updateProduct(UpdateProductEntity product) async {
-    emit(UpdateProductLoading());
+    // Check if cubit is still active before emitting
+    if (!isClosed) {
+      emit(UpdateProductLoading());
+    }
 
-    final result = await updateProductUseCase(product);
-    result.fold(
-      (failure) => emit(UpdateProductError(failure.message)),
-      (success) => emit(UpdateProductSuccess(success)),
-    );
+    try {
+      final result = await updateProductUseCase(product);
+
+      // Check if cubit is still active before emitting result
+      if (!isClosed) {
+        result.fold(
+          (failure) => emit(UpdateProductError(failure.message)),
+          (success) => emit(UpdateProductSuccess(success)),
+        );
+      }
+    } catch (e) {
+      // Check if cubit is still active before emitting error
+      if (!isClosed) {
+        emit(UpdateProductError(e.toString()));
+      }
+    }
   }
 
   void resetState() {
-    emit(UpdateProductInitial());
+    if (!isClosed) {
+      emit(UpdateProductInitial());
+    }
   }
 }

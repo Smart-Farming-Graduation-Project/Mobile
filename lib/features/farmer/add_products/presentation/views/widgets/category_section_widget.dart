@@ -37,11 +37,13 @@ class CategorySectionWidget extends StatelessWidget {
             child: Row(
               children: [
                 if (selectedCategory != null) ...[
-                  Image.asset(
+                  Image.network(
                     selectedCategory!.image,
                     width: 24.w,
                     height: 24.h,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.error),
                   ),
                   horizontalSpace(12),
                   Expanded(

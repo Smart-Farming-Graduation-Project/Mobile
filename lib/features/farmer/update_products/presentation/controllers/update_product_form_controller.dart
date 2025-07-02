@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:crop_guard/core/helper/pick_image.dart';
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/categories_list.dart';
 import 'package:crop_guard/features/farmer/update_products/domain/entities/update_product_entity.dart';
 import 'package:crop_guard/features/farmer/update_products/domain/entities/product_image_entity.dart';
 
@@ -65,12 +66,24 @@ class UpdateProductFormController extends ChangeNotifier {
     quantityController.text = quantity.toString();
     isAvailable = availability;
 
+    // Set the selected category based on the category name
+    _setCategoryFromName(category);
+
     // Convert existing image URLs to ProductImageEntity
     images = (existingImages ?? [])
         .map((url) => ProductImageEntity.fromUrl(url))
         .toList();
 
     _safeNotifyListeners();
+  }
+
+  // Helper method to set category from category name
+  void _setCategoryFromName(String categoryName) {
+    selectedCategory = categoriesList.firstWhere(
+      (category) => category.categoryName == categoryName,
+      orElse: () =>
+          categoriesList.first, // Default to first category if not found
+    );
   }
 
   // Enhanced image handling with hot reload optimization
@@ -130,6 +143,10 @@ class UpdateProductFormController extends ChangeNotifier {
     _safeNotifyListeners();
   }
 
+  // Get selected category name
+  String get selectedCategoryName =>
+      selectedCategory?.categoryName ?? 'Select Category';
+
   // Availability handling
   void setAvailability(bool value) {
     isAvailable = value;
@@ -181,6 +198,11 @@ class UpdateProductFormController extends ChangeNotifier {
       return false;
     }
 
+    // Check if at least one image is present (either existing or new)
+    if (images.isEmpty) {
+      return false;
+    }
+
     return true;
   }
 
@@ -190,6 +212,10 @@ class UpdateProductFormController extends ChangeNotifier {
 
     if (selectedCategory == null) {
       errors.add('Please select a category');
+    }
+
+    if (images.isEmpty) {
+      errors.add('Please select at least one image');
     }
 
     return errors;

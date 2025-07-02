@@ -47,29 +47,41 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (formKeyFirstPage.currentState!.validate() &&
         getIt<TermsAndConditionsCubit>().isAccepted) {
       try {
-        emit(FirstSignUpLoadingState());
+        if (!isClosed) {
+          emit(FirstSignUpLoadingState());
+        }
         final response = await api.post(EndPoints.checkEmailAndUsername, data: {
           ApiKeys.email: emailController.text,
           ApiKeys.username: usernameController.text,
         });
         log(response.toString());
-        emit(SecondSignUpState());
+        if (!isClosed) {
+          emit(SecondSignUpState());
+        }
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
-        emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
+        if (!isClosed) {
+          emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
+        }
       }
     } else if (!getIt<TermsAndConditionsCubit>().isAccepted) {
-      emit(FirstSignUpErrorState(
-          errorMessage: 'Please accept terms and conditions'));
+      if (!isClosed) {
+        emit(FirstSignUpErrorState(
+            errorMessage: 'Please accept terms and conditions'));
+      }
     } else {
-      emit(FirstSignUpErrorState(errorMessage: 'Please fill all fields'));
+      if (!isClosed) {
+        emit(FirstSignUpErrorState(errorMessage: 'Please fill all fields'));
+      }
     }
   }
 
   Future<void> signUp() async {
     if (formKeySecondPage.currentState!.validate() && imageFile != null) {
       try {
-        emit(SecondSignUpLoadingState());
+        if (!isClosed) {
+          emit(SecondSignUpLoadingState());
+        }
         final response =
             await api.post(EndPoints.register, isFormData: true, data: {
           "FirstName": firstNameController.text,
@@ -83,13 +95,19 @@ class RegisterCubit extends Cubit<RegisterState> {
           "Image": await uploadImageToApi(XFile(imageFile!.path)),
         });
         log(response.toString());
-        emit(RegisterSuccessState());
+        if (!isClosed) {
+          emit(RegisterSuccessState());
+        }
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
-        emit(SecondSignUpErrorState(errorMessage: e.errorModel.errorMessage));
+        if (!isClosed) {
+          emit(SecondSignUpErrorState(errorMessage: e.errorModel.errorMessage));
+        }
       }
     } else {
-      emit(SecondSignUpErrorState(errorMessage: 'Please Select image'));
+      if (!isClosed) {
+        emit(SecondSignUpErrorState(errorMessage: 'Please Select image'));
+      }
     }
   }
 
@@ -157,7 +175,9 @@ class RegisterCubit extends Cubit<RegisterState> {
       required String accessToken,
       required String provider}) async {
     try {
-      emit(FirstSignUpLoadingState());
+      if (!isClosed) {
+        emit(FirstSignUpLoadingState());
+      }
       final response = await api.post(EndPoints.registerWithThirdParty, data: {
         ApiKeys.firstName: firstName,
         ApiKeys.lastName: lastName,
@@ -167,7 +187,9 @@ class RegisterCubit extends Cubit<RegisterState> {
       log(response.toString());
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
-      emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
+      if (!isClosed) {
+        emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
+      }
     }
   }
 
@@ -181,7 +203,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void pickUserImage() async {
     imageFile = await pickImage();
-    if (imageFile != null) {
+    if (imageFile != null && !isClosed) {
       emit(PickUserImageState(imageFile: imageFile!));
     }
   }

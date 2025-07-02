@@ -1,3 +1,4 @@
+import 'package:crop_guard/features/farmer/add_products/presentation/views/widgets/submit_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
@@ -45,7 +46,7 @@ class AddProductFormWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final category = categoriesList[index];
                   return ListTile(
-                    leading: Image.asset(
+                    leading: Image.network(
                       category.image,
                       width: 40.w,
                       height: 40.h,
@@ -149,26 +150,10 @@ class AddProductFormWidget extends StatelessWidget {
                 verticalSpace(32),
 
                 // Submit Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    onPressed: onSubmit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.kGreenColor,
-                      foregroundColor: AppColors.kWhiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                    ),
-                    child: Text(
-                      'Add Product',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                SubmitButtonWidget(
+                  buttonText: 'Add Product',
+                  onPressed: onSubmit ?? () {},
+                  isLoading: false,
                 ),
               ],
             ),

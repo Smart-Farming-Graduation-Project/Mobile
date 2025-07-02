@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/core/helper/spacing.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/categories_list.dart';
 import 'package:crop_guard/features/farmer/update_products/presentation/controllers/update_product_form_controller.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/views/widgets/custom_text_field_widget.dart';
 import 'package:crop_guard/features/farmer/update_products/presentation/views/widgets/unified_image_section_widget.dart';
@@ -15,6 +19,56 @@ class UpdateProductFormWidget extends StatelessWidget {
     required this.controller,
     this.onSubmit,
   });
+
+  void _showCategoryPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) => Container(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              controller.selectedCategoryName,
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.kBlackColor,
+              ),
+            ),
+            verticalSpace(16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: categoriesList.length,
+                itemBuilder: (context, index) {
+                  final category = categoriesList[index];
+                  return ListTile(
+                    leading: Image.network(
+                      category.image,
+                      width: 40.w,
+                      height: 40.h,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.error),
+                    ),
+                    title: Text(category.categoryName),
+                    subtitle: Text(category.categoryDescription),
+                    onTap: () {
+                      controller.setSelectedCategory(category);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +143,7 @@ class UpdateProductFormWidget extends StatelessWidget {
                 // Category Section
                 CategorySectionWidget(
                   selectedCategory: controller.selectedCategory,
-                  onTap: () {
-                    // TODO: Show category selection dialog
-                  },
+                  onTap: () => _showCategoryPicker(context),
                 ),
 
                 const SizedBox(height: 24),
@@ -106,6 +158,7 @@ class UpdateProductFormWidget extends StatelessWidget {
 
                 // Submit Button
                 SubmitButtonWidget(
+                  buttonText: 'Update Product',
                   onPressed: onSubmit ?? () {},
                   isLoading: false,
                 ),

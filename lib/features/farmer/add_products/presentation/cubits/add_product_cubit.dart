@@ -12,16 +12,29 @@ class AddProductCubit extends Cubit<AddProductState> {
       : super(AddProductInitial());
 
   Future<void> addProduct(ProductEntity product) async {
-    emit(AddProductLoading());
+    if (!isClosed) {
+      emit(AddProductLoading());
+    }
 
-    final result = await addProductUseCase(product);
-    result.fold(
-      (failure) => emit(AddProductError(failure.message)),
-      (success) => emit(AddProductSuccess(success)),
-    );
+    try {
+      final result = await addProductUseCase(product);
+
+      if (!isClosed) {
+        result.fold(
+          (failure) => emit(AddProductError(failure.message)),
+          (success) => emit(AddProductSuccess(success)),
+        );
+      }
+    } catch (e) {
+      if (!isClosed) {
+        emit(AddProductError(e.toString()));
+      }
+    }
   }
 
   void resetState() {
-    emit(AddProductInitial());
+    if (!isClosed) {
+      emit(AddProductInitial());
+    }
   }
 }

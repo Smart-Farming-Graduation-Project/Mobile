@@ -14,11 +14,27 @@ class SendMessageCubit extends Cubit<SendMessageState> {
       isUser: true,
       timestamp: DateTime.now(),
     );
-    emit(SendMessageSuccess(message: chatMessage));
-    final response = await sendMessageUseCase.call(message);
-    response.fold(
-      (l) => emit(ChatBotResponseError(error: l.message)),
-      (r) => emit(ChatBotResponseLoaded(response: r)),
-    );
+
+    // Check if cubit is still active before emitting
+    if (!isClosed) {
+      emit(SendMessageSuccess(message: chatMessage));
+    }
+
+    try {
+      final response = await sendMessageUseCase.call(message);
+
+      // Check if cubit is still active before emitting result
+      if (!isClosed) {
+        response.fold(
+          (l) => emit(ChatBotResponseError(error: l.message)),
+          (r) => emit(ChatBotResponseLoaded(response: r)),
+        );
+      }
+    } catch (e) {
+      // Check if cubit is still active before emitting error
+      if (!isClosed) {
+        emit(ChatBotResponseError(error: e.toString()));
+      }
+    }
   }
 }

@@ -5,12 +5,13 @@ import 'package:crop_guard/core/theme/app_text_styles.dart';
 
 class SubmitButtonWidget extends StatelessWidget {
   final bool isLoading;
+  final String buttonText;
   final VoidCallback onPressed;
 
   const SubmitButtonWidget({
     super.key,
     required this.isLoading,
-    required this.onPressed,
+    required this.onPressed, required this.buttonText,
   });
 
   @override
@@ -37,7 +38,7 @@ class SubmitButtonWidget extends StatelessWidget {
                 ),
               )
             : Text(
-                'Add Product',
+                buttonText,
                 style: AppTextStyles.font16WhiteBold,
               ),
       ),

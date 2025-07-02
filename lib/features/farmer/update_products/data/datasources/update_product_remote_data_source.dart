@@ -22,15 +22,26 @@ class UpdateProductRemoteDataSourceImpl
 
     // Add only new images to form data map
     final newImages = product.newImages;
-    for (int i = 0; i < newImages.length; i++) {
-      log(newImages[i].path);
-      formDataMap['Images'] = await MultipartFile.fromFile(
-        newImages[i].path,
-        filename: 'product_image_$i.jpg',
-        contentType: DioMediaType('image', 'jpeg'),
-      );
+
+    // Check if we have any images (new or existing)
+    final existingImages = product.existingImageUrls;
+    if (newImages.isEmpty && existingImages.isEmpty) {
+      throw Exception('Images: At least one image is required');
     }
 
+    // Add new images to form data map with proper indexing
+    if (newImages.isNotEmpty) {
+      for (int i = 0; i < newImages.length; i++) {
+        log(newImages[i].path);
+        formDataMap['Images'] = await MultipartFile.fromFile(
+          newImages[i].path,
+          filename: 'product_image_$i.jpg',
+          contentType: DioMediaType('image', 'jpeg'),
+        );
+      }
+    }
+
+    log("product id: ${product.id}");
     // Create query parameters for product data, including id
     final queryParameters = {
       'Id': product.id,
@@ -38,7 +49,7 @@ class UpdateProductRemoteDataSourceImpl
       'Description': product.description,
       'Price': product.price.toString(),
       'CategoryName': product.category,
-      'Availability': product.isAvailable ? 'Sale' : 'NotAvailable',
+      'Availability': product.isAvailable ? 'Sale' : 'Lease',
     };
 
     final response = await api.put(
