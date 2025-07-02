@@ -35,12 +35,11 @@ class MyProductsError extends MyProductsState {
 class DeleteProductLoading extends MyProductsState {}
 
 class DeleteProductSuccess extends MyProductsState {
-  final int deletedProductId;
 
-  const DeleteProductSuccess(this.deletedProductId);
+  const DeleteProductSuccess();
 
   @override
-  List<Object?> get props => [deletedProductId];
+  List<Object?> get props => [];
 }
 
 class DeleteProductError extends MyProductsState {

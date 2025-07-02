@@ -44,7 +44,7 @@ class _MyProductsViewState extends State<MyProductsView> {
     }
   }
 
-  void _handleDeleteSuccess(int deletedProductId) {
+  void _handleDeleteSuccess() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Product deleted successfully!'),
@@ -52,7 +52,7 @@ class _MyProductsViewState extends State<MyProductsView> {
       ),
     );
     // Refresh the products list
-    context.read<MyProductsCubit>().getMyProducts();
+    getIt<MyProductsCubit>().getMyProducts();
   }
 
   void _handleError(String message) {
@@ -65,7 +65,7 @@ class _MyProductsViewState extends State<MyProductsView> {
   }
 
   void _navigateToAddProduct() {
-    GoRouter.of(context).push('/farmer/add-products');
+    GoRouter.of(context).push(AppRouter.addProduct);
   }
 
   void _navigateToUpdateProduct(MyProductEntity product) {
@@ -98,7 +98,7 @@ class _MyProductsViewState extends State<MyProductsView> {
       body: BlocListener<MyProductsCubit, MyProductsState>(
         listener: (context, state) {
           if (state is DeleteProductSuccess) {
-            _handleDeleteSuccess(state.deletedProductId);
+            _handleDeleteSuccess();
           } else if (state is DeleteProductError) {
             _handleError(state.message);
           } else if (state is MyProductsError) {
@@ -179,7 +179,7 @@ class _MyProductsViewState extends State<MyProductsView> {
                     verticalSpace(16),
                     ElevatedButton(
                       onPressed: () {
-                        context.read<MyProductsCubit>().getMyProducts();
+                        getIt<MyProductsCubit>().getMyProducts();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.kGreenColor,
@@ -219,9 +219,9 @@ class _MyProductsViewState extends State<MyProductsView> {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              getIt<MyProductsCubit>().deleteProduct(productId);
+            onPressed: () async {
+              GoRouter.of(context).pop();
+              await getIt<MyProductsCubit>().deleteProduct(productId);
             },
             style: TextButton.styleFrom(
               foregroundColor: AppColors.kDangerColor,

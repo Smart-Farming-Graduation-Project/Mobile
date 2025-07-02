@@ -64,7 +64,9 @@ class MyProductsCubit extends Cubit<MyProductsState> {
     final result = await deleteMyProductUseCase(productId);
     result.fold(
       (failure) => emit(DeleteProductError(failure.message)),
-      (success) => emit(DeleteProductSuccess(productId)),
+      (success) {
+        getMyProducts(pageNumber: 1, pageSize: 10);
+      },
     );
   }
 
