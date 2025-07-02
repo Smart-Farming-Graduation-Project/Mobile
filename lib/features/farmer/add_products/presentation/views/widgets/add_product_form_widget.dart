@@ -84,6 +84,7 @@ class AddProductFormWidget extends StatelessWidget {
                   selectedImages: controller.selectedImages,
                   onPickImage: controller.pickImages,
                   onRemoveImage: controller.removeImage,
+                  isImageLoading: controller.isImageLoading,
                 ),
                 verticalSpace(24),
 

@@ -1,19 +1,21 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:crop_guard/core/helper/pick_image.dart';
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
-import 'package:crop_guard/features/farmer/add_products/domain/entities/product_entity.dart';
+import 'package:crop_guard/features/farmer/update_products/domain/entities/update_product_entity.dart';
+import 'package:crop_guard/features/farmer/update_products/domain/entities/product_image_entity.dart';
 
-class AddProductFormController extends ChangeNotifier {
+class UpdateProductFormController extends ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
 
-  List<File> selectedImages = [];
+  List<ProductImageEntity> images = [];
   CategoryModel? selectedCategory;
   bool isAvailable = true;
+  String? productId;
 
   // Image selection states
   bool isImageLoading = false;
@@ -45,10 +47,36 @@ class AddProductFormController extends ChangeNotifier {
     }
   }
 
+  // Initialize form with existing product data
+  void initializeWithProduct({
+    required String id,
+    required String name,
+    required String description,
+    required double price,
+    required int quantity,
+    required String category,
+    required bool availability,
+    List<String>? existingImages,
+  }) {
+    productId = id;
+    nameController.text = name;
+    descriptionController.text = description;
+    priceController.text = price.toString();
+    quantityController.text = quantity.toString();
+    isAvailable = availability;
+
+    // Convert existing image URLs to ProductImageEntity
+    images = (existingImages ?? [])
+        .map((url) => ProductImageEntity.fromUrl(url))
+        .toList();
+
+    _safeNotifyListeners();
+  }
+
   // Enhanced image handling with hot reload optimization
   Future<void> pickImages() async {
     // Check if we can add more images
-    if (selectedImages.length >= 5) {
+    if (images.length >= 5) {
       return;
     }
 
@@ -68,7 +96,7 @@ class AddProductFormController extends ChangeNotifier {
           return;
         }
 
-        selectedImages.add(image);
+        images.add(ProductImageEntity.fromFile(image));
 
         // Immediate UI update
         _safeNotifyListeners();
@@ -82,8 +110,8 @@ class AddProductFormController extends ChangeNotifier {
   }
 
   void removeImage(int index) {
-    if (index >= 0 && index < selectedImages.length) {
-      selectedImages.removeAt(index);
+    if (index >= 0 && index < images.length) {
+      images.removeAt(index);
 
       // Immediate UI update
       _safeNotifyListeners();
@@ -91,10 +119,10 @@ class AddProductFormController extends ChangeNotifier {
   }
 
   // Get total image count
-  int get totalImageCount => selectedImages.length;
+  int get totalImageCount => images.length;
 
   // Check if can add more images
-  bool get canAddMoreImages => selectedImages.length < 5;
+  bool get canAddMoreImages => images.length < 5;
 
   // Category handling
   void setSelectedCategory(CategoryModel category) {
@@ -149,10 +177,6 @@ class AddProductFormController extends ChangeNotifier {
       return false;
     }
 
-    if (selectedImages.isEmpty) {
-      return false;
-    }
-
     if (selectedCategory == null) {
       return false;
     }
@@ -164,10 +188,6 @@ class AddProductFormController extends ChangeNotifier {
   List<String> getValidationErrors() {
     List<String> errors = [];
 
-    if (selectedImages.isEmpty) {
-      errors.add('Please select at least one image');
-    }
-
     if (selectedCategory == null) {
       errors.add('Please select a category');
     }
@@ -175,19 +195,20 @@ class AddProductFormController extends ChangeNotifier {
     return errors;
   }
 
-  // Create product entity
-  ProductEntity? createProductEntity() {
-    if (!validateForm()) {
+  // Create update product entity
+  UpdateProductEntity? createUpdateProductEntity() {
+    if (!validateForm() || productId == null) {
       return null;
     }
 
-    return ProductEntity(
+    return UpdateProductEntity(
+      id: productId!,
       name: nameController.text,
       description: descriptionController.text,
       price: double.parse(priceController.text),
       quantity: int.parse(quantityController.text),
       category: selectedCategory!.categoryName,
-      images: selectedImages,
+      images: images,
       isAvailable: isAvailable,
     );
   }
@@ -198,9 +219,10 @@ class AddProductFormController extends ChangeNotifier {
     descriptionController.clear();
     priceController.clear();
     quantityController.clear();
-    selectedImages.clear();
+    images.clear();
     selectedCategory = null;
     isAvailable = true;
+    productId = null;
     isImageLoading = false;
 
     _safeNotifyListeners();

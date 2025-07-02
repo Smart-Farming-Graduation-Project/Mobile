@@ -16,9 +16,14 @@ import 'package:crop_guard/features/farmer/community/presentation/views/communit
 import 'package:crop_guard/features/farmer/community/presentation/views/create_post.dart';
 import 'package:crop_guard/features/farmer/home/presentation/views/farmer_home.dart';
 import 'package:crop_guard/features/farmer/market/presentation/views/market_view.dart';
+import 'package:crop_guard/features/farmer/my_products/domain/entities/my_product_entity.dart';
+import 'package:crop_guard/features/farmer/my_products/presentation/cubits/my_products_cubit.dart';
+import 'package:crop_guard/features/farmer/my_products/presentation/views/my_products_view.dart';
 import 'package:crop_guard/features/farmer/pest_detection/presentation/views/pest_detection_view.dart';
 import 'package:crop_guard/features/farmer/rover_control/presentation/views/rover_control_view.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/soil_info_view.dart';
+import 'package:crop_guard/features/farmer/update_products/presentation/cubits/update_product_cubit.dart';
+import 'package:crop_guard/features/farmer/update_products/presentation/views/update_products_view.dart';
 import 'package:crop_guard/features/welcome/auth/presentation/views/main_sign_up.dart';
 import 'package:crop_guard/features/welcome/auth/presentation/views/otp_code_view.dart';
 import 'package:crop_guard/features/welcome/auth/presentation/views/reset_password_view.dart';
@@ -63,6 +68,8 @@ abstract class AppRouter {
   static const String soilInfo = '/soilInfo';
   static const String market = '/market';
   static const String addProduct = '/addProduct';
+  static const String myProducts = '/myProducts';
+  static const String updateProduct = '/updateProduct';
 
   static final router =
       GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
@@ -180,6 +187,23 @@ abstract class AppRouter {
         create: (context) => getIt<AddProductCubit>(),
         child: const AddProductsView(),
       ),
+    ),
+    GoRoute(
+      path: myProducts,
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<MyProductsCubit>(),
+        child: const MyProductsView(),
+      ),
+    ),
+    GoRoute(
+      path: updateProduct,
+      builder: (context, state) {
+        final product = state.extra as MyProductEntity;
+        return BlocProvider(
+          create: (context) => getIt<UpdateProductCubit>(),
+          child: UpdateProductsView(productData: product),
+        );
+      },
     ),
   ]);
 }
