@@ -54,5 +54,5 @@ class ApiKeys {
   static const String prompt = 'prompt';
 
   /////////////////////// Stripe ////////////////////////
-  static const String stripeSecretKey = 'stripeSecretKey';
+  static const String stripeSecretKey = 'sk_test_51RghLPQ8ryXlRMVN5mu7INrSrMTHKlgVTbBdkpIWdYlWRz8HSekckG6GJcHRLQzDIKJHHLXKgV29ilyLLFih47NT00XteDYiaM';
 }
