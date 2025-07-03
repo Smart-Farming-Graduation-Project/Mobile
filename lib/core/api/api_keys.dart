@@ -1,5 +1,7 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiKeys {
-  ////////////// errorModel ///////////////////////
+  //////////////// errorModel ///////////////////////
   static const String statusCode = 'statusCode';
   static const String message = 'message';
   static const String succeeded = 'succeeded';
@@ -54,5 +56,5 @@ class ApiKeys {
   static const String prompt = 'prompt';
 
   /////////////////////// Stripe ////////////////////////
-  static const String stripeSecretKey = 'sk_test_51RghLPQ8ryXlRMVN5mu7INrSrMTHKlgVTbBdkpIWdYlWRz8HSekckG6GJcHRLQzDIKJHHLXKgV29ilyLLFih47NT00XteDYiaM';
+  static String get stripeSecretKey => dotenv.env['STRIPE_SECRET_KEY'] ?? '';
 }
