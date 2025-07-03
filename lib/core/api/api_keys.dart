@@ -52,4 +52,7 @@ class ApiKeys {
 
   /////////////////////// ChatBot ////////////////////////
   static const String prompt = 'prompt';
+
+  /////////////////////// Stripe ////////////////////////
+  static const String stripeSecretKey = 'stripeSecretKey';
 }

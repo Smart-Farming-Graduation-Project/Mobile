@@ -102,7 +102,6 @@ class PostWidget extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.comment),
                   onPressed: () {
-                    // TODO: Navigate to comments
                   },
                 ),
                 Text('${post.comments}'),

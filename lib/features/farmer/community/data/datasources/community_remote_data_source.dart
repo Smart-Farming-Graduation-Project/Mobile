@@ -8,7 +8,6 @@ abstract class CommunityRemoteDataSource {
 }
 
 class CommunityRemoteDataSourceImpl implements CommunityRemoteDataSource {
-  // TODO: Implement actual API calls here
   @override
   Stream<List<PostModel>> getPosts() async* {
     // Simulate API call
