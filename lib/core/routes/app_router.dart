@@ -9,6 +9,7 @@ import 'package:crop_guard/features/ecommerce/google_map/presentation/views/conf
 import 'package:crop_guard/features/ecommerce/home/presentation/views/home_page.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_content.dart';
 import 'package:crop_guard/features/ecommerce/notification/presentation/views/notification_view.dart';
+import 'package:crop_guard/features/ecommerce/payment/presentation/views/payment_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/views/add_products_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/cubits/add_product_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/presentation/views/chat_bot_view.dart';
@@ -48,6 +49,7 @@ abstract class AppRouter {
   static const String homeContent = '/homeContent';
   static const String selectRole = '/selectRole';
   static const String cart = '/cart';
+  static const String payment = '/payment';
   static const String confirmDeliveryLocation = '/confirmDeliveryLocation';
   static const String category = '/category';
   static const String categoryscreen = '/categoryscreen';
@@ -113,6 +115,10 @@ abstract class AppRouter {
     GoRoute(
       path: cart,
       builder: (context, state) => const CartView(),
+    ),
+    GoRoute(
+      path: payment,
+      builder: (context, state) => const PaymentView(),
     ),
     GoRoute(
       path: confirmDeliveryLocation,
