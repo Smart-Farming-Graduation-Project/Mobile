@@ -1,0 +1,133 @@
+My Product Feature Documentation
+
+1. Executive Summary
+
+The My Product feature in the CropGuard mobile application allows farmers to view, manage, and interact with the list of products they have added to the marketplace. This feature provides a centralized dashboard for product management, enabling farmers to monitor inventory, update product details, and remove products as needed, ensuring their offerings remain current and relevant.
+
+2. User Experience and Flow
+
+- The farmer logs into our app and navigates to the "My Products" section from the dashboard or menu.
+- The My Products screen displays a list of all products the farmer has added, showing key details such as name, image, price, quantity, and availability status.
+- The user can:
+  - Tap a product to view its details.
+  - Edit a product, which opens the Update Product screen with pre-filled data.
+  - Delete a product, with a confirmation prompt to prevent accidental removal.
+- The list updates in real time after any add, update, or delete action.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: ListView or GridView displaying product cards with images and details.
+- State Management: Provider/Bloc/Riverpod for managing product list state and updates.
+- API Integration: Service class (e.g., ApiConsumer) for fetching, updating, and deleting products.
+
+Backend:
+- RESTful API endpoints for fetching the user's products, updating, and deleting products.
+- Database queries to retrieve, update, or remove product records associated with the user.
+- Responds with JSON data for product lists and operation results.
+
+Architecture Flow:
+
+User (Farmer App)
+   ↓
+My Products Screen (Product List & Actions)
+   ↓
+API Service (HTTP GET/PUT/DELETE)
+   ↓
+Backend API (Fetch, Update, Delete)
+   ↓
+Database
+   ↓
+API Response (Product List/Success/Error)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Fetching My Products (my_products_cubit.dart)
+------------------------------------------------
+Future<void> fetchMyProducts() async {
+  emit(MyProductsLoading());
+  try {
+    final products = await myProductsRepository.getMyProducts();
+    emit(MyProductsLoaded(products));
+  } catch (e) {
+    emit(MyProductsError(e.toString()));
+  }
+}
+
+B. Displaying Product List (my_products_view.dart)
+--------------------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<MyProductsCubit, MyProductsState>(
+    builder: (context, state) {
+      if (state is MyProductsLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is MyProductsLoaded) {
+        return ListView.builder(
+          itemCount: state.products.length,
+          itemBuilder: (context, index) {
+            final product = state.products[index];
+            return ProductCard(
+              product: product,
+              onEdit: () => _editProduct(product),
+              onDelete: () => _deleteProduct(product.id),
+            );
+          },
+        );
+      } else if (state is MyProductsError) {
+        return Center(child: Text('Error: ${state.message}'));
+      }
+      return Container();
+    },
+  );
+}
+
+C. Deleting a Product (my_products_cubit.dart)
+----------------------------------------------
+Future<void> deleteProduct(int productId) async {
+  emit(MyProductsLoading());
+  try {
+    await myProductsRepository.deleteProduct(productId);
+    await fetchMyProducts(); // Refresh list
+  } catch (e) {
+    emit(MyProductsError(e.toString()));
+  }
+}
+
+D. Repository Implementation (my_products_repository_impl.dart)
+--------------------------------------------------------------
+@override
+Future<List<ProductEntity>> getMyProducts() async {
+  final response = await api.get(EndPoints.getMyProducts);
+  return (response[ApiKeys.data] as List)
+      .map((json) => ProductModel.fromJson(json))
+      .toList();
+}
+
+@override
+Future<void> deleteProduct(int productId) async {
+  await api.delete(EndPoints.deleteMyProduct(productId));
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User opens My Products screen"] --> B["App fetches user's products from backend"]
+    B --> C["Product list displayed"]
+    C --> D{"User action?"}
+    D -- "Edit" --> E["Open Update Product screen"]
+    D -- "Delete" --> F["Show confirmation dialog"]
+    F --> G{"Confirm?"}
+    G -- "Yes" --> H["Send delete request to backend"]
+    H --> I["Backend deletes product"]
+    I --> J["Refresh product list"]
+    G -- "No" --> C
+    D -- "View Details" --> K["Show product details"]
+```
+
+6. Summary
+
+The My Product feature provides farmers with a centralized dashboard to manage their marketplace offerings. In our code, the flow is: UI product list → user actions (view, edit, delete) → API calls → backend processing → UI updates, ensuring efficient and user-friendly product management. 
