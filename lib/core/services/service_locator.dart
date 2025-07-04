@@ -1,5 +1,7 @@
 import 'package:crop_guard/core/api/dio_consumer.dart';
+import 'package:crop_guard/core/api/multi_base_api_consumer.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/payment/stripe_service.dart';
 import 'package:crop_guard/features/farmer/my_products/data/datasources/my_products_remote_data_source.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_cubit.dart';
 import 'package:crop_guard/features/farmer/add_products/data/datasources/product_remote_data_source.dart';
@@ -32,7 +34,10 @@ import 'package:flutter/material.dart';
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
-  getIt.registerSingleton<DioConsumer>(DioConsumer(dio: Dio()));
+  getIt.registerSingleton<Dio>(Dio());
+  getIt.registerSingleton<DioConsumer>(DioConsumer(dio: getIt<Dio>()));
+  getIt.registerSingleton<MultiBaseApiConsumer>(
+      MultiBaseApiConsumer(dio: getIt<Dio>()));
   getIt.registerSingleton<CacheHelper>(CacheHelper());
   getIt.registerSingleton<RegisterCubit>(RegisterCubit());
   getIt.registerSingleton<ReviewCubit>(ReviewCubit());
@@ -103,6 +108,12 @@ void setupServiceLocator() {
       getIt<DeleteMyProduct>(),
       getMyProductsUseCase: getIt<GetMyProducts>(),
       deleteMyProductUseCase: getIt<DeleteMyProduct>(),
+    ),
+  );
+  // stripe
+  getIt.registerSingleton<StripeService>(
+    StripeService(
+      api: getIt<MultiBaseApiConsumer>(),
     ),
   );
 }
