@@ -1,5 +1,4 @@
-class ProductItemState {
-}
+class ProductItemState {}
 
 class ProductItemInitial extends ProductItemState {}
 

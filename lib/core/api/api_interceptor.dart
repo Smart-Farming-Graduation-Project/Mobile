@@ -24,37 +24,37 @@ class ApiInterceptor extends Interceptor {
   @override
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
-         final options = err.requestOptions;
+    final options = err.requestOptions;
     if (err.response?.statusCode == 401) {
       //to call the same request again after token is refreshed
       // final requestOptions = err.requestOptions;
       if (!isRefreshing) {
-      isRefreshing = true;
-      refreshCompleter = Completer<void>();
-      try {
-        await refreshToken();
-        refreshCompleter?.complete();
-      } catch (e) {
-        refreshCompleter?.completeError(e);
-      } finally {
-        isRefreshing = false;
+        isRefreshing = true;
+        refreshCompleter = Completer<void>();
+        try {
+          await refreshToken();
+          refreshCompleter?.complete();
+        } catch (e) {
+          refreshCompleter?.completeError(e);
+        } finally {
+          isRefreshing = false;
+        }
+      } else {
+        await refreshCompleter?.future;
       }
-    } else {
-      await refreshCompleter?.future;
+
+      // بعد ما نحدث التوكن بنجاح، نعيد إرسال نفس الطلب
+      try {
+        final newToken = getIt<CacheHelper>().getData(key: ApiKeys.accessToken);
+        options.headers[ApiKeys.authorization] = 'Bearer $newToken';
+
+        final response = await getIt<DioConsumer>().dio.fetch(options);
+        return handler.resolve(response);
+      } catch (e) {
+        return handler.reject(err);
+      }
     }
 
-    // بعد ما نحدث التوكن بنجاح، نعيد إرسال نفس الطلب
-    try {
-      final newToken = getIt<CacheHelper>().getData(key: ApiKeys.accessToken);
-      options.headers[ApiKeys.authorization] = 'Bearer $newToken';
-
-      final response = await getIt<DioConsumer>().dio.fetch(options);
-      return handler.resolve(response);
-    } catch (e) {
-      return handler.reject(err);
-    }
+    return super.onError(err, handler);
   }
-
-  return super.onError(err, handler);
-}
 }

@@ -18,7 +18,6 @@ class ReviewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.kPrimaryColor,
@@ -47,10 +46,9 @@ class ReviewsScreen extends StatelessWidget {
         create: (context) => getIt<ReviewCubit>()..loadReviews(productId),
         child: Column(
           children: [
-            ReviewInputWidget(      
+            ReviewInputWidget(
               productId: productId,
             ),
-                
             const SizedBox(height: 10),
             BlocBuilder<ReviewCubit, ReviewState>(
               builder: (context, state) {

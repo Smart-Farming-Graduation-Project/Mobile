@@ -20,7 +20,9 @@ class ResetPasswordCubit extends Cubit<ResetPasswordSatate> {
   //! reset password
   Future<void> resetPassword() async {
     if (formKey.currentState!.validate()) {
-      emit(ResetPasswordLoading());
+      if (!isClosed) {
+        emit(ResetPasswordLoading());
+      }
       try {
         final response = await api.put(EndPoints.resetPassword, data: {
           ApiKeys.token: getIt<CacheHelper>().getData(key: ApiKeys.token),
@@ -29,10 +31,14 @@ class ResetPasswordCubit extends Cubit<ResetPasswordSatate> {
           ApiKeys.confirmPassword: confirmPasswordController.text,
         });
         log(response.toString());
-        emit(ResetPasswordSuccess());
+        if (!isClosed) {
+          emit(ResetPasswordSuccess());
+        }
       } on ServerException catch (e) {
         log(e.errorModel.errorMessage);
-        emit(ResetPasswordError(errorMessage: e.errorModel.errorMessage));
+        if (!isClosed) {
+          emit(ResetPasswordError(errorMessage: e.errorModel.errorMessage));
+        }
       }
     }
   }

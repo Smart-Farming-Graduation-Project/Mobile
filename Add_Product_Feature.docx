@@ -1,0 +1,315 @@
+Add Product Feature Documentation
+
+1. Executive Summary
+
+The Add Product feature is a core component of the CropGuard mobile application, designed to empower farmers to list and manage their products in the digital marketplace. This feature streamlines the process of adding new products, ensuring a seamless experience from data entry to product publication. It is essential for maintaining an up-to-date and diverse product catalog, directly contributing to the platform's vibrancy and utility.
+
+2. User Experience and Flow
+
+- The farmer logs into our app and navigates to the dashboard, selecting "Add Products."
+- The Add Product screen presents a form with fields for product name, description, category, price, quantity, unit, images, and availability.
+- The user fills out the form and selects at least one image. Validation ensures all fields are completed and correct.
+- On tapping "Add Product," the app shows a loading indicator and sends the data to our backend.
+- The backend validates, stores the product and image(s), and responds with success or error.
+- The app displays a confirmation or error message and updates the product list accordingly.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Form with text fields, dropdowns, image picker (using image_picker package), and availability toggle.
+- State Management: Provider/Bloc/Riverpod for managing form state and feedback.
+- API Integration: Service class (e.g., ApiConsumer) for HTTP requests.
+
+Backend:
+- RESTful API endpoint (e.g., POST /api/products/add).
+- Handles multipart/form-data for image upload.
+- Validates and stores product data and images.
+- Responds with JSON indicating success or failure.
+
+Architecture Flow:
+
+User (Farmer App)
+   ↓
+Add Product Screen (Form & Validation)
+   ↓
+API Service (HTTP POST, multipart/form-data)
+   ↓
+Backend API (Validation, Storage)
+   ↓
+Database & Image Storage
+   ↓
+API Response (Success/Error)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. UI Layer: Add Product Screen (add_products_view.dart)
+--------------------------------------------------------
+void _handleSubmit() {
+  final validationErrors = _formController.getValidationErrors();
+
+  if (validationErrors.isNotEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(validationErrors.first),
+        backgroundColor: AppColors.kDangerColor,
+      ),
+    );
+    return;
+  }
+
+  final product = _formController.createProductEntity();
+  if (product != null) {
+    getIt<AddProductCubit>().addProduct(product);
+  }
+}
+
+B. Form Controller (add_product_form_controller.dart)
+-----------------------------------------------------
+ProductEntity? createProductEntity() {
+  if (!validateForm()) {
+    return null;
+  }
+
+  return ProductEntity(
+    name: nameController.text,
+    description: descriptionController.text,
+    price: double.parse(priceController.text),
+    quantity: int.parse(quantityController.text),
+    category: selectedCategory!.categoryName,
+    images: selectedImages,
+    isAvailable: isAvailable,
+  );
+}
+
+C. Cubit Logic (add_product_cubit.dart)
+---------------------------------------
+Future<void> addProduct(ProductEntity product) async {
+  if (!isClosed) {
+    emit(AddProductLoading());
+  }
+
+  try {
+    final result = await addProductUseCase(product);
+
+    if (!isClosed) {
+      result.fold(
+        (failure) => emit(AddProductError(failure.message)),
+        (success) => emit(AddProductSuccess(success)),
+      );
+    }
+  } catch (e) {
+    if (!isClosed) {
+      emit(AddProductError(e.toString()));
+    }
+  }
+}
+
+D. Repository Implementation (product_repository_impl.dart)
+-----------------------------------------------------------
+@override
+Future<Either<FailureModel, String>> addProduct(ProductEntity product) async {
+  try {
+    final productModel = ProductModel(
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      quantity: product.quantity,
+      category: product.category,
+      images: product.images,
+      isAvailable: product.isAvailable,
+    );
+
+    final result = await remoteDataSource.addProduct(productModel);
+
+    return Right(result);
+  } on ServerException catch (e) {
+    return Left(FailureModel(message: e.errorModel.errorMessage.toString()));
+  } on NetworkException catch (e) {
+    return Left(FailureModel(message: e.message.toString()));
+  } catch (e) {
+    return Left(FailureModel(message: e.toString()));
+  }
+}
+
+E. Remote Data Source (product_remote_data_source.dart)
+------------------------------------------------------
+@override
+Future<String> addProduct(ProductModel product) async {
+  final Map<String, dynamic> formDataMap = {};
+
+  for (int i = 0; i < product.images.length; i++) {
+    formDataMap['Images'] = await MultipartFile.fromFile(
+      product.images[i].path,
+      filename: 'product_image_$i.jpg',
+      contentType: DioMediaType('image', 'jpeg'),
+    );
+  }
+
+  final queryParameters = {
+    'Name': product.name,
+    'Description': product.description,
+    'Price': product.price.toString(),
+    'CategoryName': product.category,
+    'Availability': product.isAvailable ? 'Sale' : 'NotAvailable',
+  };
+
+  final response = await api.post(
+    EndPoints.addProduct,
+    data: formDataMap,
+    queryParameters: queryParameters,
+    isFormData: true,
+  );
+
+  return response[ApiKeys.data];
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User opens Add Product screen"] --> B["Fills out all form fields and picks an image"]
+    B --> C["Taps 'Add Product'"]
+    C --> D{"Form validation in app"}
+    D -- "Fail" --> E["Show error"]
+    D -- "Pass" --> F["Show loading indicator"]
+    F --> G["Send data & image to backend API"]
+    G --> H{"Backend validation & storage"}
+    H -- "Fail" --> I["Show error"]
+    H -- "Pass" --> J["Show success, update product list"]
+```
+
+6. Summary
+
+The Add Product feature is a guided, step-by-step process with clear feedback. In our code, the flow is: UI input → local validation → data packaging → API call → backend processing → user feedback, with robust error handling and state management at each step.
+
+2. User Manual (Step-by-Step Guide)
+
+How to Add a Product:
+
+1. Access the Feature:
+   - From the farmer dashboard, tap on the "Add Products" button.
+2. Enter Product Information:
+   - **Product Name:** Enter a clear, descriptive name (e.g., "Organic Tomatoes").
+   - **Description:** Provide details about the product, such as quality, origin, or special features.
+   - **Category:** Select the appropriate category (e.g., Vegetables, Fruits, Grains) from a dropdown menu.
+   - **Price:** Input the price per unit (e.g., per kg, per item).
+   - **Quantity/Unit:** Specify the available quantity and the unit of measurement.
+   - **Images:** Upload one or more images using the image picker. You can take a new photo or select from your gallery.
+3. Review and Submit:
+   - Double-check all entered information.
+   - Tap the "Submit" button to send your product for listing.
+4. Confirmation and Feedback:
+   - If successful, a confirmation message appears, and the product is added to your product list.
+   - If there are errors (e.g., missing fields), the app will highlight them and prompt for correction.
+
+3. Technical Documentation (In-Depth)
+
+### 3.1 Frontend Architecture (Flutter)
+
+- **UI Components:**
+  - Utilizes a `Form` widget containing multiple `TextFormField` widgets for product name, description, price, and quantity.
+  - A dropdown or selection widget for category.
+  - An image picker widget for uploading product images (supports camera and gallery sources).
+  - A submit button with loading indicator.
+
+- **State Management:**
+  - Uses a state management solution (e.g., Provider, Bloc, or Riverpod) to manage form state, loading status, and error messages.
+
+- **Validation:**
+  - Each field includes validators to ensure required fields are filled, and data types are correct (e.g., numeric for price/quantity).
+  - Image selection is required before submission.
+
+- **Data Packaging and Submission:**
+  - On successful validation, the form data is encapsulated into a `Product` model.
+  - Data is serialized (including image files) and sent to the backend via an HTTP POST request using a service class (e.g., `ApiConsumer`).
+
+- **User Feedback:**
+  - Displays loading indicators during submission.
+  - Shows success or error messages based on the backend response.
+
+### 3.2 Backend Architecture
+
+- **API Endpoint:**
+  - Exposes a RESTful endpoint (e.g., `POST /api/products/add`) to receive product data and images.
+
+- **Request Handling:**
+  - Parses multipart/form-data requests to extract product fields and image files.
+  - Validates all fields for completeness, correct types, and business logic (e.g., price > 0, valid category).
+
+- **Image Processing:**
+  - Stores uploaded images in a cloud storage or local server directory.
+  - Generates URLs for each image and associates them with the product entry.
+
+- **Database Storage:**
+  - Saves product details in the products table, including references to the farmer (user ID) and image URLs.
+  - Ensures atomicity: if any part of the process fails, the product is not saved.
+
+- **Response:**
+  - Returns a JSON response with status (success/failure), product ID, and error messages if applicable.
+
+### 3.3 Data Flow Diagram (Textual)
+
+1. User fills out the Add Product form and submits.
+2. App validates input locally.
+3. App sends product data and images to backend API.
+4. Backend validates and stores data, processes images.
+5. Backend responds with success or error.
+6. App displays feedback to the user.
+
+### 3.4 API Contract Example
+
+**Endpoint:** `POST /api/products/add`
+
+**Request (multipart/form-data):**
+- `name`: string (required)
+- `description`: string (required)
+- `category`: string (required)
+- `price`: float (required)
+- `quantity`: int (required)
+- `unit`: string (required)
+- `images[]`: file (one or more, required)
+
+
+### 3.5 Error Handling
+
+- **Frontend:**
+  - Highlights missing or invalid fields before submission.
+  - Shows network error messages if the API call fails.
+  - Prevents duplicate submissions by disabling the submit button during processing.
+
+- **Backend:**
+  - Returns appropriate HTTP status codes and error messages for invalid data or server errors.
+  - Ensures incomplete product entries are not saved if any validation fails.
+
+### 3.6 Example Flutter Code Snippet
+
+```dart
+void _submitProduct() async {
+  if (_formKey.currentState!.validate() && _selectedImage != null) {
+    final product = Product(
+      name: _nameController.text,
+      description: _descriptionController.text,
+      price: double.parse(_priceController.text),
+      quantity: int.parse(_quantityController.text),
+      unit: _unitController.text,
+      category: _selectedCategory,
+      images: [_selectedImage],
+    );
+    setState(() => _isLoading = true);
+    final result = await apiService.addProduct(product);
+    setState(() => _isLoading = false);
+    if (result.success) {
+      showSuccessMessage();
+    } else {
+      showError(result.errorMessage);
+    }
+  } else {
+    showError('Please fill all fields and select an image.');
+  }
+}
+```
+
+---
+

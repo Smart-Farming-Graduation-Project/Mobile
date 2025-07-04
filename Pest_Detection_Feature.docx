@@ -1,0 +1,102 @@
+Pest Detection Feature Documentation
+
+1. Executive Summary
+
+The Pest Detection feature in the CropGuard mobile application empowers farmers to identify crop pests using AI-powered image analysis. By leveraging machine learning models, this feature helps farmers detect potential pest infestations early, enabling timely intervention and reducing crop loss. The feature is designed for ease of use, requiring only a photo of the affected crop to provide instant feedback and recommendations.
+
+2. User Experience and Flow
+
+- The farmer logs into our app and navigates to the "Pest Detection" section from the dashboard or menu.
+- The Pest Detection screen prompts the user to capture a new photo or select an existing image of the affected crop area.
+- The user uploads the image and taps the "Detect Pest" button.
+- The app shows a loading indicator while the image is analyzed.
+- The backend AI model processes the image and returns the detection result, including pest type (if found) and suggested actions.
+- The app displays the result, including pest name, confidence score, and recommendations. The user can save the result or try again with another image.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Image picker/camera integration, result display, and feedback options.
+- State Management: Provider/Bloc/Riverpod for managing detection state and results.
+- API Integration: Service class (e.g., ApiConsumer) for sending images and receiving results.
+
+Backend:
+- RESTful API endpoint for pest detection (e.g., POST /api/pest-detection).
+- AI/ML model for image classification and pest identification.
+- Returns JSON with pest type, confidence, and recommendations.
+
+Architecture Flow:
+
+User (Farmer App)
+   ↓
+Pest Detection Screen (Image Upload)
+   ↓
+API Service (HTTP POST, multipart/form-data)
+   ↓
+Backend API (AI Model Inference)
+   ↓
+ML Model & Database
+   ↓
+API Response (Detection Result)
+   ↓
+App Feedback (Result Display)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Image Selection and Submission (pest_detection_view.dart)
+-----------------------------------------------------------
+Future<void> _detectPest() async {
+  if (_selectedImage == null) return;
+  setState(() => _isLoading = true);
+  final result = await pestDetectionCubit.detectPest(_selectedImage!);
+  setState(() => _isLoading = false);
+  if (result != null) {
+    setState(() => _detectionResult = result);
+  } else {
+    // Show error
+  }
+}
+
+B. Cubit Logic (pest_detection_cubit.dart)
+------------------------------------------
+Future<PestDetectionResult?> detectPest(File image) async {
+  emit(PestDetectionLoading());
+  try {
+    final result = await pestDetectionRepository.detectPest(image);
+    emit(PestDetectionSuccess(result));
+    return result;
+  } catch (e) {
+    emit(PestDetectionError(e.toString()));
+    return null;
+  }
+}
+
+C. Repository Implementation (pest_detection_repository_impl.dart)
+------------------------------------------------------------------
+@override
+Future<PestDetectionResult> detectPest(File image) async {
+  final response = await api.post(
+    EndPoints.pestDetectionImage,
+    data: {'image': await MultipartFile.fromFile(image.path)},
+    isFormData: true,
+  );
+  return PestDetectionResult.fromJson(response[ApiKeys.data]);
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User opens Pest Detection screen"] --> B["User selects or captures image"]
+    B --> C["Taps 'Detect Pest'"]
+    C --> D["Show loading indicator"]
+    D --> E["Send image to backend AI API"]
+    E --> F["AI model analyzes image"]
+    F --> G{"Pest detected?"}
+    G -- "Yes" --> H["Show pest type, confidence, recommendations"]
+    G -- "No" --> I["Show 'No pest detected' message"]
+```
+
+6. Summary
+
+The Pest Detection feature brings AI-driven crop protection to farmers' fingertips. In our code, the flow is: UI image selection → API call → backend AI inference → result display, providing actionable insights for timely pest management. 

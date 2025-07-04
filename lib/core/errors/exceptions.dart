@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:crop_guard/core/errors/error_model.dart';
+import 'package:crop_guard/core/failure/failure_model.dart';
 import 'package:dio/dio.dart';
 
 class ServerException implements Exception {
@@ -13,6 +14,12 @@ class NetworkException implements Exception {
   final String message;
 
   NetworkException({required this.message});
+}
+
+class MultiBaseApiException implements Exception {
+  final FailureModel failureModel;
+
+  MultiBaseApiException({required this.failureModel});
 }
 
 void handleDioExceptions(DioException e) {
@@ -90,17 +97,47 @@ void handleDioExceptions(DioException e) {
         case 500: //Internal server error
           throw ServerException(
               errorModel: ErrorModel.fromJson({
-                "errorMessage": "server error please try again later",
-                "statusCode": 500,
-                "succeeded": false,
-                "data": {
-                  "message": "server error please try again later",
-                },
-                "meta": null
-              }));
+            "errorMessage": "server error please try again later",
+            "statusCode": 500,
+            "succeeded": false,
+            "data": {
+              "message": "server error please try again later",
+            },
+            "meta": null
+          }));
         default: //Something went wrong
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));
       }
   }
+}
+
+void handleMultiBaseDioExceptions(DioException e) {
+  String message = 'An unknown error occurred';
+  if (e.response != null && e.response?.data != null) {
+    if (e.response?.data is Map && e.response?.data['message'] != null) {
+      message = e.response?.data['message']?.toString() ??
+          'An unknown error occurred';
+    } else if (e.response?.data is String) {
+      message = e.response?.data.toString() ?? 'An unknown error occurred';
+    }
+  }
+  message = e.message?.toString() ?? message;
+
+  switch (e.type) {
+    case DioExceptionType.connectionTimeout:
+    case DioExceptionType.sendTimeout:
+    case DioExceptionType.receiveTimeout:
+      message = 'Please check your internet connection';
+      break;
+    case DioExceptionType.badCertificate:
+    case DioExceptionType.cancel:
+    case DioExceptionType.connectionError:
+    case DioExceptionType.unknown:
+    case DioExceptionType.badResponse:
+      // message already set above if possible
+      break;
+  }
+  message = message.isNotEmpty ? message : 'An unknown error occurred';
+  throw MultiBaseApiException(failureModel: FailureModel(message: message));
 }

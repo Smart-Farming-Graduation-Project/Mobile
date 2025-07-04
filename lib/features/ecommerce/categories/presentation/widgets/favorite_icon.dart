@@ -12,20 +12,19 @@ class FavoriteIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-        return GestureDetector(
-          onTap: () {
-            if (product.isFavorite) {
-              log('Remove from favorites');
-              context.read<FavoriteCubit>().removeFromFavorites(product);
-            } else {
-              log('Add to favorites');
-              context.read<FavoriteCubit>().addToFavorites(product);
-            }
-          },
-          child: Icon(
-            product.isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: Colors.red,
+    return GestureDetector(
+      onTap: () {
+        if (product.isFavorite) {
+          log('Remove from favorites');
+          context.read<FavoriteCubit>().removeFromFavorites(product);
+        } else {
+          log('Add to favorites');
+          context.read<FavoriteCubit>().addToFavorites(product);
+        }
+      },
+      child: Icon(
+        product.isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.red,
       ),
     );
   }

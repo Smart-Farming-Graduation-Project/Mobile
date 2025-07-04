@@ -8,6 +8,6 @@ import 'package:dartz/dartz.dart';
 abstract class PestDetectionRepo {
   Future<Either<FailureModel, PestDetectionImageEntity>> getPestDetectionImage(
       File image);
-  Future<Either<FailureModel, List<PestDetectionInfoEntity>>> getPestDetectionInfo(
-      String imageId);
+  Future<Either<FailureModel, List<PestDetectionInfoEntity>>>
+      getPestDetectionInfo(String imageId);
 }

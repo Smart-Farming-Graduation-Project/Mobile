@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PestDetectionSuccess extends StatelessWidget {
-  const PestDetectionSuccess({super.key, required this.pestDetectionImageEntity, required this.pestDetectionInfoEntity});
+  const PestDetectionSuccess(
+      {super.key,
+      required this.pestDetectionImageEntity,
+      required this.pestDetectionInfoEntity});
   final PestDetectionImageEntity pestDetectionImageEntity;
   final PestDetectionInfoEntity pestDetectionInfoEntity;
 
@@ -25,7 +28,8 @@ class PestDetectionSuccess extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    SelectedImage(height: 150, image: pestDetectionImageEntity.imageFile),
+                    SelectedImage(
+                        height: 150, image: pestDetectionImageEntity.imageFile),
                     verticalSpace(10),
                     Text(
                       'Original Image',
@@ -38,7 +42,8 @@ class PestDetectionSuccess extends StatelessWidget {
               Expanded(
                   child: Column(
                 children: [
-                  PestDetectionImageResult(imageUrl: pestDetectionImageEntity.imagePath),
+                  PestDetectionImageResult(
+                      imageUrl: pestDetectionImageEntity.imagePath),
                   verticalSpace(10),
                   Text(
                     'Result Image',

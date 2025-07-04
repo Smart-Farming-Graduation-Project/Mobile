@@ -22,20 +22,18 @@ class PestDetectionView extends StatelessWidget {
       appBar: buildAppBar(context, title: 'Pest Detection'),
       body: BlocProvider(
         create: (context) => PestDetectionCubit(
-            PestDetectionImageUseCase(
-                pestDetectionRepo: getIt<PestDetectionRepoImpl>()),
-            PestDetectionInfoUseCase(
-                pestDetectionRepo: getIt<PestDetectionRepoImpl>()),
+          PestDetectionImageUseCase(
+              pestDetectionRepo: getIt<PestDetectionRepoImpl>()),
+          PestDetectionInfoUseCase(
+              pestDetectionRepo: getIt<PestDetectionRepoImpl>()),
         ),
         child: BlocBuilder<PestDetectionCubit, PestDetectionState>(
           builder: (context, state) {
             if (state is PestDetectionInitial) {
               return const InitialPestDetection();
-            }
-            else if (state is PestDetectionImageSelected) {
+            } else if (state is PestDetectionImageSelected) {
               return ImageSelectedPestDetection(image: state.image);
-            }
-            else if (state is PestDetectionLoading) {
+            } else if (state is PestDetectionLoading) {
               return PestDetectionLoadingView(image: state.image);
             } else if (state is PestDetectionLoaded) {
               return PestDetectionSuccess(

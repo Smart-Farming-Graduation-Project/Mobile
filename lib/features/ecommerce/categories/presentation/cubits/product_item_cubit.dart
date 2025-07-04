@@ -12,7 +12,7 @@ class ProductItemCubit extends Cubit<ProductItemState> {
     try {
       final response = await addProductToCart(productId);
       emit(AddingProductToCartSuccess(message: response[ApiKeys.data]));
-    }  on ServerException catch (e){
+    } on ServerException catch (e) {
       emit(AddingProductToCartFailed(message: e.errorModel.errorMessage));
     }
   }

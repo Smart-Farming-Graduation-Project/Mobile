@@ -3,12 +3,18 @@
 // import '../repositories/product_repository.dart';
 // import '../../../../core/error/failures.dart';
 
-// class AddProduct {
-//   final ProductRepository repository;
+import 'package:crop_guard/core/failure/failure_model.dart';
+import 'package:dartz/dartz.dart';
 
-//   AddProduct(this.repository);
+import '../../domain/entities/product_entity.dart';
+import '../../domain/repositories/product_repository.dart';
 
-//   Future<Either<Failure, Product>> call(Product product) async {
-//     return await repository.addProduct(product);
-//   }
-// }
+class AddProduct {
+  final ProductRepository repository;
+
+  AddProduct(this.repository);
+
+  Future<Either<FailureModel, String>> call(ProductEntity product) async {
+    return await repository.addProduct(product);
+  }
+}

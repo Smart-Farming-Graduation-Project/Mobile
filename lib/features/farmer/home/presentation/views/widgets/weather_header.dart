@@ -1,8 +1,10 @@
 import 'package:crop_guard/core/helper/spacing.dart';
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class WeatherHeader extends StatelessWidget {
   const WeatherHeader({super.key});
@@ -26,9 +28,14 @@ class WeatherHeader extends StatelessWidget {
             ),
           ],
         ),
-        Text(
-          'Details',
-          style: AppTextStyles.font14GreenSemiBold,
+        GestureDetector(
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.payment);
+          },
+          child: Text(
+            'Details',
+            style: AppTextStyles.font14GreenSemiBold,
+          ),
         ),
       ],
     );
