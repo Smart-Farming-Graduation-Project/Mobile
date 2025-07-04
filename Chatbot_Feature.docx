@@ -1,0 +1,100 @@
+Chatbot Feature Documentation
+
+1. Executive Summary
+
+The Chatbot feature in the CropGuard mobile application provides farmers with instant, AI-powered assistance for agricultural queries, guidance, and support. By leveraging natural language processing, the chatbot helps users get answers to common farming questions, receive recommendations, and access resources, all through a conversational interface. This feature enhances user engagement and provides 24/7 support without the need for human intervention.
+
+2. User Experience and Flow
+
+- The farmer logs into our app and navigates to the "Chatbot" section from the dashboard or menu.
+- The Chatbot screen displays a chat interface where the user can type or speak their question.
+- The user submits a message; the app displays the user's message in the chat history.
+- The app sends the message to the backend AI chatbot service.
+- The backend processes the query using NLP and returns a relevant response.
+- The app displays the chatbot's reply in the chat interface. The user can continue the conversation or ask new questions.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Chat interface with message bubbles, input field, send button, and optional voice input.
+- State Management: Provider/Bloc/Riverpod for managing chat state and message history.
+- API Integration: Service class (e.g., ApiConsumer) for sending/receiving chat messages.
+
+Backend:
+- RESTful API endpoint for chatbot interaction (e.g., POST /api/chatbot/chat).
+- NLP/AI model for understanding and generating responses.
+- Returns JSON with the chatbot's reply and optional resources/links.
+
+Architecture Flow:
+
+User (Farmer App)
+   ↓
+Chatbot Screen (Message Input & Display)
+   ↓
+API Service (HTTP POST)
+   ↓
+Backend API (NLP/AI Processing)
+   ↓
+AI Model & Knowledge Base
+   ↓
+API Response (Chatbot Reply)
+   ↓
+App Feedback (Chat Display)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Sending a Message (chatbot_view.dart)
+----------------------------------------
+Future<void> _sendMessage() async {
+  if (_messageController.text.isEmpty) return;
+  final userMessage = _messageController.text;
+  setState(() => _isSending = true);
+  chatbotCubit.addUserMessage(userMessage);
+  final botReply = await chatbotCubit.sendMessage(userMessage);
+  setState(() => _isSending = false);
+  if (botReply != null) {
+    chatbotCubit.addBotMessage(botReply);
+  }
+}
+
+B. Cubit Logic (chatbot_cubit.dart)
+-----------------------------------
+Future<String?> sendMessage(String message) async {
+  emit(ChatbotLoading());
+  try {
+    final reply = await chatbotRepository.sendMessage(message);
+    emit(ChatbotSuccess(reply));
+    return reply;
+  } catch (e) {
+    emit(ChatbotError(e.toString()));
+    return null;
+  }
+}
+
+C. Repository Implementation (chatbot_repository_impl.dart)
+----------------------------------------------------------
+@override
+Future<String> sendMessage(String message) async {
+  final response = await api.post(
+    EndPoints.chat,
+    data: {'message': message},
+  );
+  return response[ApiKeys.data]['reply'];
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User opens Chatbot screen"] --> B["User types or speaks a message"]
+    B --> C["Taps 'Send'"]
+    C --> D["Show user message in chat"]
+    D --> E["Send message to backend AI API"]
+    E --> F["AI model processes message"]
+    F --> G["Receive chatbot reply"]
+    G --> H["Show chatbot reply in chat"]
+```
+
+6. Summary
+
+The Chatbot feature delivers instant, AI-driven support to farmers. In our code, the flow is: UI message input → API call → backend NLP/AI processing → reply display, providing conversational assistance and resources for better farming decisions. 

@@ -35,7 +35,6 @@ class MyProductsError extends MyProductsState {
 class DeleteProductLoading extends MyProductsState {}
 
 class DeleteProductSuccess extends MyProductsState {
-
   const DeleteProductSuccess();
 
   @override

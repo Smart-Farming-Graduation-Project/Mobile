@@ -1,0 +1,119 @@
+Favorite Feature Documentation
+
+1. Executive Summary
+
+The Favorite feature in the CropGuard mobile application allows users to save and manage a personalized list of preferred products. By marking products as favorites, users can quickly access and review items of interest, streamlining their shopping experience and supporting future purchasing decisions.
+
+2. User Experience and Flow
+
+- The user browses products throughout the app (e.g., home, categories, search results).
+- The user taps a heart or favorite icon on a product card or detail page to add or remove it from their favorites list.
+- The app visually updates the icon to reflect the favorite status.
+- The user can access the Favorites screen from the dashboard or menu to view all saved products.
+- On the Favorites screen, users can:
+  - View product details.
+  - Remove products from favorites.
+  - Add products to the cart directly.
+- The favorites list updates in real time as the user adds or removes items.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Favorite icons on product cards, Favorites screen with product list/grid.
+- State Management: Provider/Bloc/Riverpod for managing favorite state and updates.
+- API Integration: Service class (e.g., ApiConsumer) for adding/removing favorites and fetching the favorites list.
+
+Backend:
+- RESTful API endpoints for adding/removing favorites and fetching the user's favorites list.
+- Database tables to store user-product favorite relationships.
+- Responds with JSON data for favorite operations and product lists.
+
+Architecture Flow:
+
+User (App)
+   ↓
+Product Card/Detail (Favorite Icon)
+   ↓
+API Service (HTTP POST/DELETE/GET)
+   ↓
+Backend API (Add/Remove/Get Favorites)
+   ↓
+Database
+   ↓
+API Response (Success/Favorites List)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Adding/Removing Favorite (favorite_cubit.dart)
+-------------------------------------------------
+Future<void> toggleFavorite(int productId, bool isFavorite) async {
+  emit(FavoriteLoading());
+  try {
+    if (isFavorite) {
+      await favoriteRepository.removeFavorite(productId);
+    } else {
+      await favoriteRepository.addFavorite(productId);
+    }
+    await fetchFavorites();
+  } catch (e) {
+    emit(FavoriteError(e.toString()));
+  }
+}
+
+B. Fetching Favorites (favorite_cubit.dart)
+-------------------------------------------
+Future<void> fetchFavorites() async {
+  emit(FavoriteLoading());
+  try {
+    final favorites = await favoriteRepository.getFavorites();
+    emit(FavoriteLoaded(favorites));
+  } catch (e) {
+    emit(FavoriteError(e.toString()));
+  }
+}
+
+C. Displaying Favorites (favorite_view.dart)
+--------------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<FavoriteCubit, FavoriteState>(
+    builder: (context, state) {
+      if (state is FavoriteLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is FavoriteLoaded) {
+        return ListView.builder(
+          itemCount: state.favorites.length,
+          itemBuilder: (context, index) {
+            final product = state.favorites[index];
+            return ProductCard(product: product);
+          },
+        );
+      } else if (state is FavoriteError) {
+        return Center(child: Text('Error: ${state.message}'));
+      }
+      return Container();
+    },
+  );
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User browses products"] --> B["Taps favorite icon"]
+    B --> C{"Is product already favorite?"}
+    C -- "Yes" --> D["Remove from favorites"]
+    C -- "No" --> E["Add to favorites"]
+    D --> F["Update backend & UI"]
+    E --> F
+    F --> G["Favorites screen shows updated list"]
+    G --> H{"User taps product?"}
+    H -- "Yes" --> I["Show product details"]
+    H -- "No" --> G
+```
+
+6. Summary
+
+The Favorite feature enables users to curate a personalized product list for quick access and future purchases. In our code, the flow is: UI favorite toggle → API call → backend update → UI refresh, ensuring a seamless and responsive user experience. 

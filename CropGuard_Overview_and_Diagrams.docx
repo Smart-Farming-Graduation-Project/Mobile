@@ -1,0 +1,84 @@
+CropGuard Mobile Application – Overview
+
+CropGuard is a comprehensive mobile application designed to empower farmers and consumers by providing a seamless platform for agricultural commerce, community engagement, and smart farming tools. The app integrates a variety of features, including an e-commerce marketplace for agricultural products, real-time weather updates, pest detection using AI, soil information, and a chatbot for instant support. CropGuard also offers a robust farmer dashboard for product management, order tracking, and community forums, fostering knowledge sharing and collaboration among users.
+
+The application is built using Flutter, ensuring cross-platform compatibility across Android, iOS, web, and desktop environments. It leverages modern architectural patterns, including clean architecture and modular design, to ensure scalability, maintainability, and ease of testing. The backend integration supports secure authentication, real-time notifications, and payment processing, making CropGuard a one-stop solution for modern agriculture.
+
+---
+
+Mermaid Diagrams
+
+1. High-Level Module Overview
+
+```mermaid
+graph TD
+  A["User"] --> B["Mobile App (Flutter)"]
+  B --> C["E-commerce"]
+  B --> D["Farmer Dashboard"]
+  B --> E["Community"]
+  B --> F["Smart Tools"]
+  C --> C1["Cart"]
+  C --> C2["Categories"]
+  C --> C3["Orders"]
+  C --> C4["Payment"]
+  D --> D1["Add Products"]
+  D --> D2["My Products"]
+  D --> D3["Update Products"]
+  D --> D4["Market"]
+  E --> E1["Forums"]
+  E --> E2["Notifications"]
+  F --> F1["Weather"]
+  F --> F2["Pest Detection"]
+  F --> F3["Soil Info"]
+  F --> F4["Chat Bot"]
+```
+
+2. Clean Architecture Layers
+
+```mermaid
+graph LR
+  A["Presentation Layer"] --> B["Domain Layer"]
+  B --> C["Data Layer"]
+  C --> D["External Services (APIs, Firebase, etc.)"]
+```
+
+3. Feature Example: E-commerce Module
+
+```mermaid
+graph TD
+  A["E-commerce"] --> B["Cart"]
+  A --> C["Categories"]
+  A --> D["Orders"]
+  A --> E["Payment"]
+  B --> F["Add/Remove Products"]
+  D --> G["Order Tracking"]
+  E --> H["Payment Gateway"]
+```
+
+User Roles and Flows
+
+```mermaid
+graph TD
+  A["Authentication"] --> B["Farmer"]
+  A --> C["Buyer"]
+
+  %% Farmer Flows
+  B --> B1["Add Products"]
+  B --> B2["Update Products"]
+  B --> B3["My Products"]
+  B --> D["Community"]
+  B --> F["Chat Bot"]
+  B --> E["Notifications"]
+  B --> M["Market"]
+  B --> P["Profile"]
+
+  %% Buyer Flows
+  C --> E
+  C --> M
+  C --> P
+  M --> C1["Browse Categories"]
+  M --> C2["Add to Cart"]
+  M --> C3["Place Orders"]
+  M --> C4["Make Payments"]
+  M --> C5["Order Status"]
+``` 

@@ -44,11 +44,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.0.0
+  flutter_dotenv: ^5.0.2
   flutter_facebook_auth: ^7.1.1
   flutter_polyline_points: ^2.1.0
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.3
   flutter_slidable: ^4.0.0
+  flutter_stripe: ^11.5.0
   flutter_svg: ^2.2.0
   font_awesome_flutter: ^10.8.0
   geocoding: ^3.0.0

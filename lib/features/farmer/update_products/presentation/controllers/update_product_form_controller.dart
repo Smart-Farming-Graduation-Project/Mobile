@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:crop_guard/core/helper/pick_image.dart';
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/categories_list.dart';
