@@ -2,6 +2,7 @@ import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_cu
 import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostActionsRow extends StatelessWidget {
   final int commentsCount;
@@ -25,33 +26,33 @@ class PostActionsRow extends StatelessWidget {
           child: Icon(Icons.arrow_upward_sharp,
               color: state.voteStatus == VoteStatus.upvoted
                   ? Colors.lightGreenAccent
-                  : Colors.white,
+                  : Colors.black,
               size: 24),
         ),
         const SizedBox(width: 4),
-        Text('${state.votes}', style: const TextStyle(color: Colors.white)),
+        Text('${state.votes}', style: const TextStyle(color: Colors.black)),
         const SizedBox(width: 4),
         GestureDetector(
           onTap: cubit.downvote,
           child: Icon(Icons.arrow_downward_sharp,
               color: state.voteStatus == VoteStatus.downvoted
                   ? Colors.red
-                  : Colors.white,
+                  : Colors.black,
               size: 24),
         ),
         const SizedBox(width: 16),
-        const Icon(Icons.comment_outlined, color: Colors.white, size: 24),
+        const Icon(Icons.comment_outlined, color: Colors.black, size: 24),
         const SizedBox(width: 6),
-        Text("$commentsCount", style: const TextStyle(color: Colors.white)),
+        Text("$commentsCount", style: const TextStyle(color: Colors.black)),
         const SizedBox(width: 10),
-        const Icon(Icons.share_sharp, color: Colors.white, size: 24),
+        const Icon(FontAwesomeIcons.share, color: Colors.black, size: 24),
         const SizedBox(width: 3),
         const Text("Share",
-            style: TextStyle(color: Colors.white, fontSize: 12)),
+            style: TextStyle(color: Colors.black, fontSize: 12)),
         const Spacer(),
         Text(
           ' $timeAgo',
-          style: const TextStyle(color: Colors.white, fontSize: 12),
+          style: const TextStyle(color: Colors.black, fontSize: 12),
         ),
       ],
     );

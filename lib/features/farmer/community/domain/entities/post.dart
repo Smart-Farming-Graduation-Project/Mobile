@@ -5,7 +5,6 @@ class Post {
   final String userId;
   final String content;
   final DateTime timestamp;
-  final List<String> images;
   final int votes;
   final int comments;
 
@@ -14,7 +13,6 @@ class Post {
     required this.userId,
     required this.content,
     required this.timestamp,
-    this.images = const [],
     this.votes = 0,
     this.comments = 0,
   });
