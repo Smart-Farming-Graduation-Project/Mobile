@@ -27,6 +27,7 @@ class CommunityRemoteDataSourceImpl implements CommunityRemoteDataSource {
       createdAt: DateTime.now(),
       title: '',
       voteCount: 0,
+      userVoteStatus: 0,
     );
   }
 

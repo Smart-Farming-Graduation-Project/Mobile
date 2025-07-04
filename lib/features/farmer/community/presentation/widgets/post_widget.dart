@@ -54,25 +54,6 @@ class PostWidget extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             Text(post.content),
-            if (post.images.isNotEmpty) ...[
-              const SizedBox(height: 8.0),
-              SizedBox(
-                height: 200.0,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: post.images.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Image.network(
-                        post.images[index],
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
             const SizedBox(height: 8.0),
             Row(
               children: [

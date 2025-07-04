@@ -45,7 +45,6 @@ class CommunityCubit extends Cubit<CommunityState> {
             userId: post.userId,
             content: post.content,
             timestamp: post.timestamp,
-            images: post.images,
             votes: post.votes + voteChange,
             comments: post.comments,
           );

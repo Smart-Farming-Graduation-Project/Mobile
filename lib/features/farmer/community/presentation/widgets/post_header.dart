@@ -11,21 +11,19 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    final isLoading = subreddit == 'Loading...';
+
+    return Row(
       children: [
-        UserImage(
-          radius: 12,
+        if (!isLoading)
+          const UserImage(radius: 12)
+        else
+          const CircleAvatar(radius: 12, backgroundColor: Colors.grey),
+        const SizedBox(width: 8),
+        Text(
+          isLoading ? 'Loading...' : subreddit,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        SizedBox(width: 8),
-        // Text(
-        //   subreddit,
-        //   overflow: TextOverflow.ellipsis,
-        //   maxLines: 1,
-        //   softWrap: true,
-        //   style: const TextStyle(color: Colors.white, fontSize: 18,
-        //
-        //     ),
-        // ),
       ],
     );
   }
