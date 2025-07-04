@@ -1,10 +1,10 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/features/farmer/community/data/models/post_model.dart';
+import 'package:crop_guard/features/farmer/community/models/post_model.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_cubit.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_state.dart';
-import 'package:crop_guard/features/farmer/community/presentation/widgets/post_actions_row.dart';
-import 'package:crop_guard/features/farmer/community/presentation/widgets/post_body.dart';
-import 'package:crop_guard/features/farmer/community/presentation/widgets/post_header.dart';
+import 'package:crop_guard/features/farmer/community/presentation/views/widgets/post_actions_row.dart';
+import 'package:crop_guard/features/farmer/community/presentation/views/widgets/post_body.dart';
+import 'package:crop_guard/features/farmer/community/presentation/views/widgets/post_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

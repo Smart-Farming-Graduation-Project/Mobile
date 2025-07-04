@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:crop_guard/features/farmer/community/data/models/post_model.dart';
+import 'package:crop_guard/features/farmer/community/models/post_model.dart';
 import 'create_post_state.dart';
 
 class PostCubit extends Cubit<PostState> {
