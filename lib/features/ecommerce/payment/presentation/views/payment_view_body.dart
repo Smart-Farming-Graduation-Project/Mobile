@@ -162,7 +162,7 @@ class PaymentViewBody extends StatelessWidget {
               )) {
             PaymentIntentInputModel paymentIntentInputModel =
                 PaymentIntentInputModel(
-              amount: '1000',
+              amount: '100',
               currency: 'usd',
             );
             log('valid');

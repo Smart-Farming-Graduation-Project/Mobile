@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/models/payment_intent_input_model.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/models/payment_intent_model/payment_intent_model.dart';
 import 'package:dio/dio.dart';
@@ -28,7 +31,9 @@ class StripeService {
             'Authorization': 'Bearer ${ApiKeys.stripeSecretKey}',
           },
         ));
-    return PaymentIntentModel.fromJson(response.data);
+    return PaymentIntentModel.fromJson(
+      Map<String, dynamic>.from(response.data),
+    );
   }
 
   /// Initializes the Stripe payment sheet with the provided client secret
@@ -38,13 +43,23 @@ class StripeService {
   /// the payment sheet to the specific payment intent.
   ///
   /// [clientSecret] - The client secret from the payment intent, used to identify the payment
-  Future initPaymentSheet({required String clientSecret}) async {
-    Stripe.instance.initPaymentSheet(
-      paymentSheetParameters: SetupPaymentSheetParameters(
-        paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: 'Crop Guard',
-      ),
-    );
+  Future<void> initPaymentSheet({required String clientSecret}) async {
+    try {
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: clientSecret,
+          merchantDisplayName: 'Crop Guard',
+          appearance: const PaymentSheetAppearance(
+            colors: PaymentSheetAppearanceColors(
+              primary: AppColors.kPrimaryColor,
+            ),
+          ),
+        ),
+      );
+    } catch (e) {
+      log('Error initializing payment sheet: $e');
+      rethrow;
+    }
   }
 
   /// Displays the initialized payment sheet to the user
@@ -55,7 +70,12 @@ class StripeService {
   /// Throws an exception if the payment sheet hasn't been initialized or if
   /// the user cancels the payment process.
   Future<void> displayPaymentSheet() async {
-    await Stripe.instance.presentPaymentSheet();
+    try {
+      await Stripe.instance.presentPaymentSheet();
+    } catch (e) {
+      log('Error presenting payment sheet: $e');
+      rethrow;
+    }
   }
 
   /// Complete payment flow that combines all payment steps
@@ -69,13 +89,18 @@ class StripeService {
   ///
   /// This is the main method that should be called to process a payment
   Future<void> makePayment({required PaymentIntentInputModel input}) async {
-    // Step 1: Create payment intent on Stripe servers
-    var paymentIntent = await createPaymentIntent(input);
+    try {
+      // Step 1: Create payment intent on Stripe servers
+      var paymentIntent = await createPaymentIntent(input);
 
-    // Step 2: Initialize payment sheet with the client secret
-    await initPaymentSheet(clientSecret: paymentIntent.clientSecret ?? '');
+      // Step 2: Initialize payment sheet with the client secret
+      await initPaymentSheet(clientSecret: paymentIntent.clientSecret!);
 
-    // Step 3: Display payment sheet to user
-    await displayPaymentSheet();
+      // Step 3: Display payment sheet to user
+      await displayPaymentSheet();
+    } catch (e) {
+      log('Error in makePayment: $e');
+      rethrow;
+    }
   }
 }
