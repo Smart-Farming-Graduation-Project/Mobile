@@ -10,6 +10,8 @@ import 'package:crop_guard/features/ecommerce/home/presentation/views/home_page.
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_content.dart';
 import 'package:crop_guard/features/ecommerce/notification/presentation/views/notification_view.dart';
 import 'package:crop_guard/features/ecommerce/payment/presentation/views/payment_view.dart';
+import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
+import 'package:crop_guard/features/ecommerce/profile/presentation/views/edit_profile.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/views/add_products_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/cubits/add_product_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/presentation/views/chat_bot_view.dart';
@@ -72,6 +74,7 @@ abstract class AppRouter {
   static const String addProduct = '/addProduct';
   static const String myProducts = '/myProducts';
   static const String updateProduct = '/updateProduct';
+  static const String editProfile = '/editProfile';
 
   static final router =
       GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
@@ -209,6 +212,13 @@ abstract class AppRouter {
           create: (context) => getIt<UpdateProductCubit>(),
           child: UpdateProductsView(productData: product),
         );
+      },
+    ),
+    GoRoute(
+      path: editProfile,
+      builder: (context, state) {
+        final profile = state.extra as ProfileModel;
+        return EditProfile(profile: profile);
       },
     ),
   ]);
