@@ -18,6 +18,8 @@ class ApiKeys {
   static const String phoneNumber = 'phone';
   static const String image = 'Image ';
   static const String role = 'role';
+  static const String address = 'address';
+  static const String profileImage = 'profileImage';
   /////////////////////////Authorization  ///////////////////////////////
   static const String authorization = 'Authorization';
   static const String userId = 'userId';
