@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:crop_guard/core/services/service_locator.dart';
+import 'package:crop_guard/features/ecommerce/payment/data/models/payment_intent_input_model.dart';
 import 'package:crop_guard/features/ecommerce/payment/presentation/manger/cubits/stripe_payment_cubit/stripe_payment_cubit.dart';
 import 'package:crop_guard/features/ecommerce/payment/presentation/manger/cubits/stripe_payment_cubit/stripe_payment_state.dart';
 import 'package:crop_guard/features/ecommerce/payment/presentation/manger/helper/show_processing_message.dart';
@@ -159,7 +160,15 @@ class PaymentViewBody extends StatelessWidget {
                     .cardholderNameController
                     .text,
               )) {
+            PaymentIntentInputModel paymentIntentInputModel =
+                PaymentIntentInputModel(
+              amount: '1000',
+              currency: 'usd',
+            );
             log('valid');
+            getIt<StripePaymentCubit>().makePayment(
+              input: paymentIntentInputModel,
+            );
           } else {
             log('invalid');
           }

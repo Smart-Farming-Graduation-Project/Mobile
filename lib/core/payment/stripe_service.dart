@@ -1,7 +1,7 @@
 import 'package:crop_guard/core/api/api_keys.dart';
-import 'package:crop_guard/core/api/multi_base_api_consumer.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/models/payment_intent_input_model.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/models/payment_intent_model/payment_intent_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 /// Service class for handling Stripe payment operations
@@ -9,10 +9,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 /// and process payments using Stripe's payment infrastructure
 class StripeService {
   /// API consumer instance for making HTTP requests to Stripe API
-  final MultiBaseApiConsumer api;
-
-  /// Constructor that requires an API consumer instance
-  StripeService({required this.api});
+  final Dio dio = Dio();
 
   /// Creates a payment intent on Stripe's servers
   ///
@@ -23,15 +20,15 @@ class StripeService {
   /// Returns a [PaymentIntentModel] with the created payment intent data
   Future<PaymentIntentModel> createPaymentIntent(
       PaymentIntentInputModel input) async {
-    final response = await api.post(
-      'https://api.stripe.com/v1/payment_intents',
-      data: input.toJson(),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ${ApiKeys.stripeSecretKey}',
-      },
-    );
-    return PaymentIntentModel.fromJson(response);
+    final response = await dio.post('https://api.stripe.com/v1/payment_intents',
+        data: input.toJson(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ${ApiKeys.stripeSecretKey}',
+          },
+        ));
+    return PaymentIntentModel.fromJson(response.data);
   }
 
   /// Initializes the Stripe payment sheet with the provided client secret

@@ -1,5 +1,4 @@
 import 'package:crop_guard/core/api/dio_consumer.dart';
-import 'package:crop_guard/core/api/multi_base_api_consumer.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/payment/stripe_service.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/repos/checkout_repo.dart';
@@ -37,10 +36,7 @@ import 'package:flutter/material.dart';
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
-  getIt.registerSingleton<Dio>(Dio());
-  getIt.registerSingleton<DioConsumer>(DioConsumer(dio: getIt<Dio>()));
-  getIt.registerSingleton<MultiBaseApiConsumer>(
-      MultiBaseApiConsumer(dio: getIt<Dio>()));
+  getIt.registerSingleton<DioConsumer>(DioConsumer(dio: Dio()));
   getIt.registerSingleton<CacheHelper>(CacheHelper());
   getIt.registerSingleton<RegisterCubit>(RegisterCubit());
   getIt.registerSingleton<ReviewCubit>(ReviewCubit());
@@ -116,7 +112,6 @@ void setupServiceLocator() {
   // stripe
   getIt.registerSingleton<StripeService>(
     StripeService(
-      api: getIt<MultiBaseApiConsumer>(),
     ),
   );
   getIt.registerLazySingleton<CheckoutRepo>(
