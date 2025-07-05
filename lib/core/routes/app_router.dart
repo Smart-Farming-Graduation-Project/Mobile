@@ -121,11 +121,17 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: payment,
-      builder: (context, state) => const PaymentView(),
+      builder: (context, state) {
+        final subtotalPrice = state.extra as double;
+        return PaymentView(subtotalPrice: subtotalPrice);
+      },
     ),
     GoRoute(
       path: confirmDeliveryLocation,
-      builder: (context, state) => const ConfirmDeliveryLocationView(),
+      builder: (context, state) {
+        final subtotalPrice = state.extra as double;
+        return ConfirmDeliveryLocationView(subtotalPrice: subtotalPrice);
+      },
     ),
     GoRoute(
       path: home,

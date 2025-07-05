@@ -7,19 +7,19 @@ import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PaymentView extends StatelessWidget {
-  const PaymentView({super.key});
-  
+  const PaymentView({super.key, required this.subtotalPrice});
+
+  final double subtotalPrice;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: AppColors.kBackgroundGray,
-    appBar: buildAppBar(context, title: 'Payment'),
-    body: BlocProvider(
-      create: (context) => getIt<StripePaymentCubit>(),
-      child: const PaymentViewBody(),
-    ),
-  );
+      backgroundColor: AppColors.kBackgroundGray,
+      appBar: buildAppBar(context, title: 'Payment'),
+      body: BlocProvider(
+        create: (context) => getIt<StripePaymentCubit>(),
+        child: PaymentViewBody(subtotalPrice: subtotalPrice),
+      ),
+    );
   }
-
 }
-

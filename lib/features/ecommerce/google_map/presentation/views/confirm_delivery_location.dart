@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConfirmDeliveryLocationView extends StatelessWidget {
-  const ConfirmDeliveryLocationView({super.key});
+  const ConfirmDeliveryLocationView({super.key, required this.subtotalPrice});
+  final double subtotalPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +21,13 @@ class ConfirmDeliveryLocationView extends StatelessWidget {
               return ConfirmDeliveryLocationViewBody(
                 position: state.position,
                 address: state.address,
+                subtotalPrice: subtotalPrice,
               );
             } else if (state is LocationUpdated) {
               return ConfirmDeliveryLocationViewBody(
                 position: state.position,
                 address: state.address,
+                subtotalPrice: subtotalPrice,
               );
             } else if (state is LocationError) {
               return const Center(child: Text('Failed to get location'));

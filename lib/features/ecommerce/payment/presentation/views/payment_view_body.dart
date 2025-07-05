@@ -22,7 +22,10 @@ import 'package:crop_guard/features/ecommerce/payment/presentation/views/widgets
 class PaymentViewBody extends StatelessWidget {
   const PaymentViewBody({
     super.key,
+    required this.subtotalPrice,
   });
+
+  final double subtotalPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +165,7 @@ class PaymentViewBody extends StatelessWidget {
               )) {
             PaymentIntentInputModel paymentIntentInputModel =
                 PaymentIntentInputModel(
-              amount: '100',
+              amount: (subtotalPrice * 100).toInt().toString(),
               currency: 'usd',
             );
             log('valid');

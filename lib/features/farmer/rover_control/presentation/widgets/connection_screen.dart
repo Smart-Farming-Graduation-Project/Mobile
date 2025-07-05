@@ -1,6 +1,8 @@
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/responsive/widget_height.dart';
@@ -65,6 +67,14 @@ class ConnectionScreenState extends State<ConnectionScreen> {
           'Rover Control',
           style: AppTextStyles.font20WhiteBold,
         ),
+        centerTitle: true,
+        leading: IconButton(
+          color: AppColors.kWhiteColor,
+          onPressed: () {
+            GoRouter.of(context).go(AppRouter.home);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        ),
         elevation: 0,
       ),
       body: Padding(
@@ -92,8 +102,8 @@ class ConnectionScreenState extends State<ConnectionScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.r),
-                  borderSide:
-                      const BorderSide(color: AppColors.kPrimaryColor, width: 2),
+                  borderSide: const BorderSide(
+                      color: AppColors.kPrimaryColor, width: 2),
                 ),
                 filled: true,
                 fillColor: AppColors.kCardWhite,
@@ -118,8 +128,8 @@ class ConnectionScreenState extends State<ConnectionScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.r),
-                  borderSide:
-                      const BorderSide(color: AppColors.kPrimaryColor, width: 2),
+                  borderSide: const BorderSide(
+                      color: AppColors.kPrimaryColor, width: 2),
                 ),
                 filled: true,
                 fillColor: AppColors.kCardWhite,

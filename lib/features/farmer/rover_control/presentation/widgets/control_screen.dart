@@ -74,7 +74,7 @@ class ControlScreenState extends State<ControlScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Not connected'),
           backgroundColor: AppColors.kDangerColor,
         ),
