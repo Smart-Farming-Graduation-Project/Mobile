@@ -69,6 +69,7 @@ class LoginCubit extends Cubit<LoginState> {
         );
       }
     } catch (e) {
+      GoogleSignIn().signOut();
       log(e.toString());
     }
   }
@@ -88,6 +89,7 @@ class LoginCubit extends Cubit<LoginState> {
         );
       }
     } catch (e) {
+      FacebookAuth.instance.logOut();
       log(e.toString());
     }
   }
