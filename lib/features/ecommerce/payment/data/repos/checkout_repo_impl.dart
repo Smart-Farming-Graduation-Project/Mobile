@@ -1,13 +1,14 @@
 
 import 'package:crop_guard/core/failure/failure_model.dart';
 import 'package:crop_guard/core/payment/stripe_service.dart';
-import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/models/payment_intent_input_model.dart';
 import 'package:crop_guard/features/ecommerce/payment/data/repos/checkout_repo.dart';
 import 'package:dartz/dartz.dart';
 
 class CheckoutRepoImpl extends CheckoutRepo {
-  final StripeService stripeService = getIt<StripeService>();
+  final StripeService stripeService;
+
+  CheckoutRepoImpl({required this.stripeService});
 
   @override
   Future<Either<FailureModel, void>> makePayment({required PaymentIntentInputModel input}) async {
