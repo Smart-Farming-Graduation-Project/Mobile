@@ -18,21 +18,23 @@ class RoleIcons extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                context.read<RegisterCubit>().chooseBuyer();
+                // context.read<RegisterCubit>().chooseBuyer();
               },
-              child: BuyerRole(
-                isSelected: state is RegisterRoleSelectedState &&
-                    state.selectedRole == 'Buyer',
+              child: const BuyerRole(
+                isSelected: true,
+                // isSelected: state is RegisterRoleSelectedState &&
+                //     state.selectedRole == 'Buyer',
               ),
             ),
             horizontalSpace(5),
             GestureDetector(
               onTap: () {
-                context.read<RegisterCubit>().chooseFarmer();
+                // context.read<RegisterCubit>().chooseFarmer();
               },
-              child: FarmerRole(
-                isSelected: state is RegisterRoleSelectedState &&
-                    state.selectedRole == 'Farmer',
+              child: const FarmerRole(
+                isSelected: true,
+                  // isSelected: state is RegisterRoleSelectedState &&
+                  //     state.selectedRole == 'Farmer',
               ),
             ),
           ],

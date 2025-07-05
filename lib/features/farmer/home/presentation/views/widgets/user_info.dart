@@ -1,3 +1,6 @@
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +17,8 @@ class UserInfo extends StatelessWidget {
           style: AppTextStyles.font15TextGrayRegular,
         ),
         Text(
-          'Ahmed Nada',
+          getIt<CacheHelper>().getDataString(key: ApiKeys.username) ??
+              'unknown user',
           style: AppTextStyles.font18BlackSemiBold,
         ),
       ],

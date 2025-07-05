@@ -19,7 +19,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(AccountTypestate());
+  RegisterCubit() : super(FirstSignUpState());
   final api = getIt<DioConsumer>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -38,10 +38,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(FirstSignUpState());
   }
 
-  void selectRole(String selectedRole) {
-    role = selectedRole;
-    emit(RegisterRoleSelectedState(role));
-  }
+  // void selectRole(String selectedRole) {
+  //   role = selectedRole;
+  //   emit(RegisterRoleSelectedState(role));
+  // }
 
   Future<void> checkEmailAndUsername() async {
     if (formKeyFirstPage.currentState!.validate() &&
@@ -131,17 +131,17 @@ class RegisterCubit extends Cubit<RegisterState> {
         log(firstName);
         log(lastName);
         log(accessToken);
-        await signUpWithThirdParty(
-            firstName: firstName,
-            lastName: lastName,
-            email: googleUser.email,
-            address: 'Zagazig',
-            accessToken: accessToken,
-            userId: userId,
-            provider: 'google',
-            profileImage: googleUser.photoUrl ?? '');
         if (context.mounted) {
-          GoRouter.of(context).go(AppRouter.home);
+          await signUpWithThirdParty(
+              firstName: firstName,
+              lastName: lastName,
+              email: googleUser.email,
+              address: 'Zagazig',
+              accessToken: accessToken,
+              userId: userId,
+              provider: 'google',
+              profileImage: googleUser.photoUrl ?? '',
+              context: context);
         }
       }
     } catch (e) {
@@ -165,17 +165,17 @@ class RegisterCubit extends Cubit<RegisterState> {
         log(firstName);
         log(lastName);
         log(accessToken);
-        await signUpWithThirdParty(
-            firstName: firstName,
-            lastName: lastName,
-            email: userData['email'] ?? '',
-            address: 'Zagazig',
-            accessToken: accessToken,
-            userId: userData['id'] ?? '',
-            provider: 'facebook',
-            profileImage: userData['picture']?['data']?['url'] ?? '');
         if (context.mounted) {
-          GoRouter.of(context).go(AppRouter.home);
+          await signUpWithThirdParty(
+              firstName: firstName,
+              lastName: lastName,
+              email: userData['email'] ?? '',
+              address: 'Zagazig',
+              accessToken: accessToken,
+              userId: userData['id'] ?? '',
+              provider: 'facebook',
+              profileImage: userData['picture']?['data']?['url'] ?? '',
+              context: context);
         }
       }
     } catch (e) {
@@ -193,7 +193,8 @@ class RegisterCubit extends Cubit<RegisterState> {
       required String accessToken,
       required String userId,
       required String provider,
-      required String profileImage}) async {
+      required String profileImage,
+      required BuildContext context}) async {
     try {
       if (!isClosed) {
         emit(FirstSignUpLoadingState());
@@ -209,21 +210,25 @@ class RegisterCubit extends Cubit<RegisterState> {
         ApiKeys.profileImage: profileImage,
       });
       log(response.toString());
+      if (context.mounted) {
+        GoRouter.of(context).go(AppRouter.home);
+      }
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
       if (!isClosed) {
+        log("errorMessage: ${e.errorModel.errorMessage}");
         emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
     }
   }
 
-  void chooseBuyer() {
-    selectRole('Buyer');
-  }
+  // void chooseBuyer() {
+  //   selectRole('Buyer');
+  // }
 
-  void chooseFarmer() {
-    selectRole('Farmer');
-  }
+  // void chooseFarmer() {
+  //   selectRole('Farmer');
+  // }
 
   void pickUserImage() async {
     imageFile = await pickImage();
