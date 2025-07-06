@@ -1,0 +1,123 @@
+Authentication Feature Documentation
+
+1. Executive Summary
+
+The Authentication feature in the CropGuard mobile application provides secure user registration, login, and session management. This feature ensures that only authorized users can access the platform, protecting user data and enabling personalized experiences. It supports multiple authentication methods including email/password, social media integration, and token-based session management.
+
+2. User Experience and Flow
+
+- **Registration Flow:**
+  - New users tap "Sign Up" and are presented with a registration form.
+  - Users enter their email, password, name, and other required information.
+  - The app validates the input and sends the data to the backend.
+  - Upon successful registration, users receive a confirmation email or are automatically logged in.
+  - Users can also register using social media accounts (Google, Facebook, etc.).
+
+- **Login Flow:**
+  - Existing users tap "Sign In" and enter their credentials.
+  - The app validates the input and sends authentication request to the backend.
+  - Upon successful authentication, users receive an access token and are redirected to the appropriate dashboard (Farmer/Buyer).
+  - Failed login attempts show appropriate error messages.
+
+- **Session Management:**
+  - The app stores authentication tokens securely and automatically refreshes them.
+  - Users remain logged in until they explicitly log out or their session expires.
+  - The app handles token expiration gracefully by prompting re-authentication.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Login/Registration forms, social media buttons, and authentication state management.
+- State Management: Provider/Bloc/Riverpod for managing authentication state and user sessions.
+- API Integration: Service class (e.g., ApiConsumer) for authentication requests and token management.
+
+Backend:
+- RESTful API endpoints for user registration, login, token refresh, and logout.
+- JWT token generation and validation for secure session management.
+- Database storage for user accounts and authentication data.
+- Responds with JSON data containing authentication tokens and user information.
+
+Architecture Flow:
+
+User (App)
+   ↓
+Authentication Screen (Login/Register)
+   ↓
+API Service (HTTP POST)
+   ↓
+Backend API (Validate & Authenticate)
+   ↓
+Database & JWT Service
+   ↓
+API Response (Tokens/User Data)
+   ↓
+App Feedback (Dashboard/Error)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. User Login (auth_cubit.dart)
+--------------------------------
+Future<void> login(String email, String password) async {
+  emit(AuthLoading());
+  try {
+    final result = await authRepository.login(email, password);
+    emit(AuthSuccess(result.user, result.token));
+    // Store token securely
+    await secureStorage.write(key: 'auth_token', value: result.token);
+  } catch (e) {
+    emit(AuthError(e.toString()));
+  }
+}
+
+B. User Registration (auth_cubit.dart)
+--------------------------------------
+Future<void> register(UserRegistrationData data) async {
+  emit(AuthLoading());
+  try {
+    final result = await authRepository.register(data);
+    emit(AuthSuccess(result.user, result.token));
+    await secureStorage.write(key: 'auth_token', value: result.token);
+  } catch (e) {
+    emit(AuthError(e.toString()));
+  }
+}
+
+C. Token Management (auth_service.dart)
+---------------------------------------
+Future<String?> getStoredToken() async {
+  return await secureStorage.read(key: 'auth_token');
+}
+
+Future<void> refreshToken() async {
+  try {
+    final refreshToken = await secureStorage.read(key: 'refresh_token');
+    final newToken = await authRepository.refreshToken(refreshToken!);
+    await secureStorage.write(key: 'auth_token', value: newToken);
+  } catch (e) {
+    // Handle token refresh failure
+    await logout();
+  }
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User opens app"] --> B{"User logged in?"}
+    B -- "No" --> C["Show login/register screen"]
+    B -- "Yes" --> D["Navigate to appropriate dashboard"]
+    C --> E{"User action?"}
+    E -- "Login" --> F["Validate credentials"]
+    E -- "Register" --> G["Create new account"]
+    F --> H{"Valid credentials?"}
+    H -- "Yes" --> I["Generate JWT token"]
+    H -- "No" --> J["Show error message"]
+    G --> I
+    I --> K["Store token securely"]
+    K --> D
+    J --> C
+```
+
+6. Summary
+
+The Authentication feature provides secure and seamless user access to the CropGuard platform. In our code, the flow is: UI authentication forms → API calls → backend validation → token generation → secure storage, ensuring protected access and personalized user experiences. 
