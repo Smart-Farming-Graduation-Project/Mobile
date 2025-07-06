@@ -1,6 +1,7 @@
 import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/features/ecommerce/cart/data/models/cart_product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_cubit.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_state.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/widgets/add_address_button.dart';
@@ -11,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartProductsView extends StatelessWidget {
-  const CartProductsView({super.key});
+  const CartProductsView({super.key, required this.cartProductsList});
+  final List<CartProductModel> cartProductsList;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,39 @@ class CartProductsView extends StatelessWidget {
                 child: AddressButton(
                   isAddressSelected: false,
                   subtotalPrice: state.subTotalPrice,
+                ),
+              ),
+              verticalSpace(16),
+            ],
+          );
+        }
+        if (state is CartInitialState) {
+          return Column(
+            children: [
+              _buildCartHeader(cartProductsList.length),
+              verticalSpace(16),
+              Expanded(
+                child: ListView.separated(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  itemCount: cartProductsList.length,
+                  separatorBuilder: (context, index) => verticalSpace(12),
+                  itemBuilder: (context, index) => CartItemWidget(
+                    cartItem: cartProductsList[index],
+                  ),
+                ),
+              ),
+              verticalSpace(16),
+              _buildSubtotalSection(context
+                  .read<CartCubit>()
+                  .calculateSubTotalPrice(cartProducts)),
+              verticalSpace(16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: AddressButton(
+                  isAddressSelected: false,
+                  subtotalPrice: context
+                      .read<CartCubit>()
+                      .calculateSubTotalPrice(cartProductsList),
                 ),
               ),
               verticalSpace(16),

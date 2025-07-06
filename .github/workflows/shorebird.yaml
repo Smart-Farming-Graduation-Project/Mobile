@@ -20,4 +20,4 @@ jobs:
       - name: 🚀 Shorebird Patch Update
         run: shorebird patch android --force
         env:
-          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+          SHOREBIRD_TOKEN: ${ secrets.SHOREBIRD_TOKEN }

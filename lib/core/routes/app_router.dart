@@ -1,17 +1,20 @@
 import 'dart:io';
 
 import 'package:crop_guard/core/models/product_model.dart';
+import 'package:crop_guard/features/ecommerce/cart/data/models/cart_product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/views/cart_view.dart';
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_view.dart';
-import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_screen.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_section.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_products_screen.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/views/product_detailes_view.dart';
+import 'package:crop_guard/features/ecommerce/google_map/models/checkout_data.dart';
 import 'package:crop_guard/features/ecommerce/google_map/presentation/views/confirm_delivery_location.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/views/home_page.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_content.dart';
 import 'package:crop_guard/features/ecommerce/notification/presentation/views/notification_view.dart';
 import 'package:crop_guard/features/ecommerce/payment/presentation/views/payment_view.dart';
+import 'package:crop_guard/features/ecommerce/popular_products/presentation/views/popular_products_view.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/views/edit_profile.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/views/add_products_view.dart';
@@ -61,6 +64,7 @@ abstract class AppRouter {
   static const String categoryscreen = '/categoryscreen';
   static const String categoryProducts = '/categoryProducts';
   static const String favorites = '/favorites';
+  static const String popularProducts = '/popularProducts';
   static const String profile = '/profile';
   static const String notifications = '/notifications';
   static const String settings = '/settings';
@@ -123,13 +127,16 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: cart,
-      builder: (context, state) => const CartView(),
+      builder: (context, state) {
+        final cartProductsList = state.extra as List<CartProductModel>;
+        return CartView(cartProductsList: cartProductsList);
+      },
     ),
     GoRoute(
       path: payment,
       builder: (context, state) {
-        final subtotalPrice = state.extra as double;
-        return PaymentView(subtotalPrice: subtotalPrice);
+        final checkoutData = state.extra as CheckoutData;
+        return PaymentView(checkoutData: checkoutData);
       },
     ),
     GoRoute(
@@ -147,6 +154,10 @@ abstract class AppRouter {
       path: homeContent,
       builder: (context, state) => const HomeContent(),
     ),
+    GoRoute(
+      path: popularProducts,
+      builder: (context, state) => const PopularProductsView(),
+    ),
     // GoRoute(
     //   path: favorites,
     //   // builder: (context, state) => const FavScreen(),
@@ -157,7 +168,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: categoryscreen,
-      builder: (context, state) => const CategoryScreen(),
+      builder: (context, state) => const CategorySection(),
     ),
     GoRoute(
       path: categoryProducts,

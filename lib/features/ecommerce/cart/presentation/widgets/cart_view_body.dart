@@ -1,3 +1,4 @@
+import 'package:crop_guard/features/ecommerce/cart/data/models/cart_product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_cubit.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_state.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/widgets/cart_loading.dart';
@@ -8,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class CartViewBody extends StatelessWidget {
-  const CartViewBody({super.key});
+  const CartViewBody({super.key, required this.cartProductsList});
+  final List<CartProductModel> cartProductsList;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class CartViewBody extends StatelessWidget {
         builder: (context, state) {
           if (state is CartLoadingState) {
             return const CartLoading();
-          } else if (state is CartLoadedState) {
-            return const CartProductsView();
+          } else if (state is CartInitialState || state is CartLoadedState) {
+            return CartProductsView(cartProductsList: cartProductsList);
           } else if (state is CartEmptyState) {
             return const EmptyCart();
           } else if (state is CartErrorState) {

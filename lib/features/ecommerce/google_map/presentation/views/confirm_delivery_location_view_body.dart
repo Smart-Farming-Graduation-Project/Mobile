@@ -1,5 +1,7 @@
+import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/features/ecommerce/google_map/models/checkout_data.dart';
 import 'package:crop_guard/features/ecommerce/google_map/presentation/cubits/location_cubit.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/search_filter_bar.dart';
 
@@ -119,7 +121,11 @@ class ConfirmDeliveryLocationViewBody extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          context.push('/payment', extra: subtotalPrice);
+                          GoRouter.of(context).push(AppRouter.payment,
+                              extra: CheckoutData(
+                                address: address,
+                                subtotalPrice: subtotalPrice,
+                              ));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.kPrimaryColor,
