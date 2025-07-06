@@ -2,7 +2,7 @@ name: Patch an APK using Shorebird
 
 on:
   push:
-    branches: [staging]
+    branches: main
 
 jobs:
   patch-apk:
