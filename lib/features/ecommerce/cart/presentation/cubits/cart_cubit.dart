@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitialState());
   final api = getIt<DioConsumer>();
+  List<CartProductModel> cartProductsList = [];
 
   Future<void> loadCart() async {
     emit(CartLoadingState());
@@ -21,10 +22,9 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> removeFromCart(int productId) async {
     try {
-      emit(CartLoadingState());
       final response = await api.delete(EndPoints.removeFromCart(productId));
       log(response.toString());
-      loadCart();
+      fetchCartProducts();
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
       emit(CartErrorState(errorMessage: e.errorModel.errorMessage));
@@ -61,8 +61,7 @@ class CartCubit extends Cubit<CartState> {
         EndPoints.getCart,
       );
       log(response['data']['cartItems'].toString());
-
-      List<CartProductModel> cartProductsList = [];
+      cartProductsList.clear();
       for (var product in response['data']['cartItems']) {
         cartProductsList.add(CartProductModel.fromJson(product));
       }

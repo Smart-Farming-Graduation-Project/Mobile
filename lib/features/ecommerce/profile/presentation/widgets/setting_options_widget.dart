@@ -1,63 +1,48 @@
-import 'package:crop_guard/features/ecommerce/profile/presentation/views/edit_profile.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_text_styles.dart';
 
-class SettingOptionsWidget extends StatefulWidget {
+class SettingOptionsWidget extends StatelessWidget {
   const SettingOptionsWidget(
-      {super.key, required this.name, required this.iconName});
+      {super.key, required this.name, required this.iconName, required this.onPressed});
   final String name;
   final IconData iconName;
-
-  @override
-  State<SettingOptionsWidget> createState() => _SettingOptionsWidgetState();
-}
-
-class _SettingOptionsWidgetState extends State<SettingOptionsWidget> {
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 18,
+        return Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 18,
+                  ),
+                  Icon(
+                    iconName,
+                    color: Colors.black,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(name, style: AppTextStyles.font16BlackBold),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                ],
               ),
-              Icon(
-                widget.iconName,
-                color: Colors.black,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(widget.name, style: AppTextStyles.font16BlackBold),
-              const SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
-        ),
-        const Spacer(
-          flex: 1,
-        ),
-        IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const EditProfile();
-                  },
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.navigate_next,
-              color: Colors.black,
-              size: 35,
-            ))
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+            IconButton(
+                onPressed: onPressed,
+                icon: const Icon(
+                  Icons.navigate_next,
+                  color: Colors.black,
+                  size: 35,
+                ))
       ],
     );
   }

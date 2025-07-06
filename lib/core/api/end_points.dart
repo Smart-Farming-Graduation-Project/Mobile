@@ -59,6 +59,8 @@ class EndPoints {
     return 'Product/product/$id';
   }
 
+  static const String getPopularProducts = 'Product/paginatedList';
+
   static const String getMyProducts = 'Product/ProductsByUserId';
   static const String addProduct = 'Product/Product/Create';
   static const String updateProduct = 'Product/Product/Update';
@@ -86,4 +88,9 @@ class EndPoints {
   // Soil Info
   static const String soilChartData = 'IoT/latest-reading';
   static const String soilAnalysisData = 'IoT/Get-Last-Reading';
+
+  // Profile
+  static String getProfile(String id) {
+    return 'User/GetById/$id';
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/add_to_cart_button.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/favorite_icon.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/info_box.dart';
@@ -7,9 +9,9 @@ import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/pr
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_image_details.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_title.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/review_stars.dart';
-import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/seller_info.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductDetailsView extends StatelessWidget {
@@ -22,15 +24,14 @@ class ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.kBackgroundGray,
       appBar: AppBar(
         backgroundColor: AppColors.kPrimaryColor,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Product Details',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-            color: Colors.white,
+          style: AppTextStyles.font20WhiteBold.copyWith(
+            fontSize: 22.sp,
           ),
         ),
         centerTitle: true,
@@ -38,10 +39,16 @@ class ProductDetailsView extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
-            size: 28,
+            color: AppColors.kWhiteColor,
+            size: 24.sp,
+          ),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.r),
+            bottomRight: Radius.circular(20.r),
           ),
         ),
       ),
@@ -53,45 +60,139 @@ class ProductDetailsView extends StatelessWidget {
                 minHeight: constraints.maxHeight,
               ),
               child: IntrinsicHeight(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.kBackgroundGray,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ProductImageDetails(
-                        image: product.productImages.isNotEmpty
-                            ? product.productImages[0]
-                            : "https://i5.walmartimages.com/seo/Fresh-Slicing-Tomato-Each_a1e8e44a-2b82-48ab-9c09-b68420f6954c.04f6e0e87807fc5457f57e3ec0770061.jpeg",
+                      // Product Image Section
+                      Container(
+                        margin: EdgeInsets.all(16.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          boxShadow: [
+                            const BoxShadow(
+                              color: AppColors.kShadowColor,
+                              blurRadius: 15,
+                              spreadRadius: 0,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.r),
+                          child: ProductImageDetails(
+                            image: product.productImages.isNotEmpty
+                                ? product.productImages[0]
+                                : "https://i5.walmartimages.com/seo/Fresh-Slicing-Tomato-Each_a1e8e44a-2b82-48ab-9c09-b68420f6954c.04f6e0e87807fc5457f57e3ec0770061.jpeg",
+                          ),
+                        ),
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          ProductTitle(
-                              name: product.productName,
-                              category: product.categoryName!),
-                          const Spacer(),
-                          FavoriteIcon(product: product),
-                        ],
+
+                      // Product Info Section
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16.w),
+                        padding: EdgeInsets.all(20.w),
+                        decoration: BoxDecoration(
+                          color: AppColors.kCardWhite,
+                          borderRadius: BorderRadius.circular(16.r),
+                          boxShadow: [
+                            const BoxShadow(
+                              color: AppColors.kShadowColor,
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Product Title and Favorite
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: ProductTitle(
+                                    name: product.productName,
+                                    category: product.categoryName!,
+                                  ),
+                                ),
+                                horizontalSpace(12),
+                                FavoriteIcon(product: product),
+                              ],
+                            ),
+
+                            verticalSpace(20),
+
+                            // Info Box
+                            Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.kSensorCardGradientStart,
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(
+                                  color: AppColors.kSensorCardBorderGreen,
+                                  width: 1,
+                                ),
+                              ),
+                              child: const InfoBoxDetails(),
+                            ),
+
+                            verticalSpace(20),
+
+                            // Product Description
+                            Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.kBackgroundGray,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: ProductDetailExpansion(
+                                description: product.productDescription,
+                              ),
+                            ),
+
+                            verticalSpace(20),
+
+                            // Reviews Section
+                            Container(
+                              padding: EdgeInsets.all(16.w),
+                              decoration: BoxDecoration(
+                                color: AppColors.kSensorCardGradientStart,
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(
+                                  color: AppColors.kSensorCardBorderGreen
+                                      .withValues(alpha:0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Customer Reviews',
+                                    style: AppTextStyles.font16BlackSemiBold,
+                                  ),
+                                  verticalSpace(12),
+                                  ReviewStars(
+                                    productId: product.productId,
+                                    rating: product.productRating ?? 0.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            verticalSpace(20),
+
+                            // Seller Info and Add to Cart
+                            const AddToCartButton(),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 18),
-                      const InfoBoxDetails(),
-                      const SizedBox(height: 18),
-                      const SizedBox(height: 10),
-                      ProductDetailExpansion(
-                          description: product.productDescription),
-                      const SizedBox(height: 10),
-                      ReviewStars(
-                        productId: product.productId,
-                        rating: product.productRating ?? 0.0,
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SellerInfoTile(sellerName: product.sellerName),
-                          const Spacer(),
-                          const AddToCartButton(),
-                        ],
-                      ),
+
+                      // Bottom spacing
+                      verticalSpace(20),
                     ],
                   ),
                 ),

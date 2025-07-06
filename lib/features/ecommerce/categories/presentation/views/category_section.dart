@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/categories_cubit.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/categories_state.dart';
 
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+class CategorySection extends StatelessWidget {
+  const CategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {

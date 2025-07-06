@@ -26,6 +26,7 @@ class StripeService {
     final response = await dio.post('https://api.stripe.com/v1/payment_intents',
         data: input.toJson(),
         options: Options(
+          
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer ${ApiKeys.stripeSecretKey}',

@@ -1,0 +1,124 @@
+Review Feature Documentation
+
+1. Executive Summary
+
+The Review feature in the CropGuard mobile application enables users to share their experiences and feedback about products they have purchased. This feature fosters transparency and trust within the marketplace by allowing buyers to rate products, write detailed reviews, and help other users make informed purchasing decisions.
+
+2. User Experience and Flow
+
+- The user navigates to a product details page and scrolls to the reviews section.
+- The Reviews section displays existing reviews with ratings, comments, and user information.
+- The user can:
+  - Read existing reviews and ratings.
+  - Filter reviews by rating (e.g., 5-star, 4-star, etc.).
+  - Sort reviews by date, rating, or helpfulness.
+- If the user has purchased the product, they can:
+  - Tap "Write a Review" to add their own review.
+  - Rate the product (1-5 stars).
+  - Write a detailed comment about their experience.
+  - Submit the review for moderation and display.
+- The review appears in the product's review list after approval.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Reviews list, review form, rating system, and filtering options.
+- State Management: Provider/Bloc/Riverpod for managing reviews state and user interactions.
+- API Integration: Service class (e.g., ApiConsumer) for fetching, adding, and managing reviews.
+
+Backend:
+- RESTful API endpoints for fetching product reviews, adding new reviews, and managing review data.
+- Database tables to store review information, ratings, and user relationships.
+- Responds with JSON data for reviews and review operations.
+
+Architecture Flow:
+
+User (App)
+   ↓
+Reviews Section (List/Form)
+   ↓
+API Service (HTTP GET/POST)
+   ↓
+Backend API (Fetch/Add Reviews)
+   ↓
+Database
+   ↓
+API Response (Reviews/Confirmation)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Fetching Reviews (reviews_cubit.dart)
+----------------------------------------
+Future<void> fetchReviews(String productId) async {
+  emit(ReviewsLoading());
+  try {
+    final reviews = await reviewsRepository.getReviews(productId);
+    emit(ReviewsLoaded(reviews));
+  } catch (e) {
+    emit(ReviewsError(e.toString()));
+  }
+}
+
+B. Adding a Review (reviews_cubit.dart)
+---------------------------------------
+Future<void> addReview(Review review) async {
+  emit(ReviewsLoading());
+  try {
+    await reviewsRepository.addReview(review);
+    await fetchReviews(review.productId);
+  } catch (e) {
+    emit(ReviewsError(e.toString()));
+  }
+}
+
+C. Displaying Reviews (reviews_view.dart)
+-----------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<ReviewsCubit, ReviewsState>(
+    builder: (context, state) {
+      if (state is ReviewsLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is ReviewsLoaded) {
+        return Column(
+          children: [
+            ReviewSummary(reviews: state.reviews),
+            ReviewFilters(onFilterChanged: _handleFilter),
+            ListView.builder(
+              itemCount: state.reviews.length,
+              itemBuilder: (context, index) {
+                final review = state.reviews[index];
+                return ReviewCard(review: review);
+              },
+            ),
+          ],
+        );
+      } else if (state is ReviewsError) {
+        return Center(child: Text('Error: ${state.message}'));
+      }
+      return Container();
+    },
+  );
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User views product details"] --> B["Scroll to reviews section"]
+    B --> C["Display existing reviews"]
+    C --> D{"User action?"}
+    D -- "Read Reviews" --> E["Show review details"]
+    D -- "Write Review" --> F["Open review form"]
+    F --> G["User rates and writes review"]
+    G --> H["Submit review to backend"]
+    H --> I["Backend processes and stores review"]
+    I --> J["Update reviews list"]
+    J --> K["Show success message"]
+```
+
+6. Summary
+
+The Review feature enhances marketplace transparency and user trust through community-driven feedback. In our code, the flow is: UI reviews display → API calls for reviews → backend processing → UI updates, supporting informed purchasing decisions and community engagement. 
