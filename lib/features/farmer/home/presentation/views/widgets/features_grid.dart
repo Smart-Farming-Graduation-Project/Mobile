@@ -26,7 +26,7 @@ class FeaturesGrid extends StatelessWidget {
               icon: "GameController",
               title: 'Rover Control',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.roverControl);
+                GoRouter.of(context).push(AppRouter.connectionScreen);
               }),
           QuickCard(
               icon: "shop",

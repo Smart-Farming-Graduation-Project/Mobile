@@ -63,9 +63,11 @@ class SelectAddressSheet extends StatelessWidget {
                       state.addressIndex == -1
                           ? const AddressButton(
                               isAddressSelected: false,
+                              subtotalPrice: 0,
                             )
                           : const AddressButton(
                               isAddressSelected: true,
+                              subtotalPrice: 0,
                             ),
                     ],
                   );

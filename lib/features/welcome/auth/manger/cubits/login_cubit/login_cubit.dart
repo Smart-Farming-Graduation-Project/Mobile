@@ -61,13 +61,15 @@ class LoginCubit extends Cubit<LoginState> {
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
-
+        final String userId = googleUser.id;
         await signInWithThirdParty(
+          userId: userId,
           accessToken: googleAuth.accessToken!,
           provider: 'google',
         );
       }
     } catch (e) {
+      GoogleSignIn().signOut();
       log(e.toString());
     }
   }
@@ -78,12 +80,16 @@ class LoginCubit extends Cubit<LoginState> {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
         final String accessToken = result.accessToken!.tokenString;
+        final userData = await FacebookAuth.instance.getUserData();
+        final String userId = userData['id'] ?? '';
         await signInWithThirdParty(
+          userId: userId,
           accessToken: accessToken,
           provider: 'facebook',
         );
       }
     } catch (e) {
+      FacebookAuth.instance.logOut();
       log(e.toString());
     }
   }
@@ -92,11 +98,16 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> signInWithThirdParty({
     required String accessToken,
     required String provider,
+    required String userId,
   }) async {
     try {
       emit(LoadingState());
       final response = await api.post(EndPoints.loginWithThirdParty,
-          data: {ApiKeys.accessToken: accessToken, ApiKeys.provider: provider});
+          data: {
+            ApiKeys.accessToken: accessToken,
+            ApiKeys.provider: provider,
+            ApiKeys.userId: userId,
+          });
       log(response.toString());
       final decodedToken = JwtDecoder.decode(
           response[ApiKeys.data][ApiKeys.tokens][ApiKeys.accessToken]);

@@ -1,17 +1,14 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/widgets/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crop_guard/core/widgets/button_decoration.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+class EditProfile extends StatelessWidget {
+  const EditProfile({super.key, required this.profile});
+  final ProfileModel profile;
 
-  @override
-  State<EditProfile> createState() => _EditProfileState();
-}
-
-class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +39,10 @@ class _EditProfileState extends State<EditProfile> {
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 60,
-                          backgroundImage: AssetImage(
-                            'assets/images/home/profile.png',
+                          backgroundImage: NetworkImage(
+                            profile.profileImage,
                           ),
                         ),
                       ),
@@ -81,19 +78,21 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
             ),
-            const TextBox1(name: 'Name'),
+            TextBox1(
+                name: 'Name',
+                initialValue: '${profile.firstName} ${profile.lastName}'),
             const SizedBox(
               height: 15,
             ),
-            const TextBox1(name: 'Email Address'),
+            TextBox1(name: 'Email Address', initialValue: profile.email),
             const SizedBox(
               height: 15,
             ),
-            const TextBox1(name: 'Mobile Number'),
+            TextBox1(name: 'Mobile Number', initialValue: profile.phone),
             const SizedBox(
               height: 15,
             ),
-            const TextBox1(name: 'Enter Address'),
+            TextBox1(name: 'Enter Address', initialValue: profile.address),
             const SizedBox(
               height: 100,
             ),

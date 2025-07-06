@@ -1,0 +1,156 @@
+Cart Feature Documentation
+
+1. Executive Summary
+
+The Cart feature in the CropGuard mobile application enables users to collect and manage products they intend to purchase. This feature provides a centralized shopping cart where users can review selected items, adjust quantities, remove products, and proceed to checkout. It enhances the shopping experience by allowing users to make multiple selections before completing their purchase.
+
+2. User Experience and Flow
+
+- The user adds products to their cart from various screens (product details, product lists, etc.).
+- The cart icon in the app header shows the number of items in the cart.
+- Users can access the Cart screen from the main navigation or by tapping the cart icon.
+- The Cart screen displays:
+  - List of added products with images, names, prices, and quantities.
+  - Individual product subtotals and the overall cart total.
+  - Options to increase/decrease quantities or remove items.
+  - A "Proceed to Checkout" button.
+- Users can:
+  - Modify product quantities using +/- buttons.
+  - Remove products from the cart.
+  - View product details by tapping on items.
+  - Continue shopping or proceed to checkout.
+- The cart updates in real time as users make changes.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Cart list, quantity controls, total calculation, and checkout button.
+- State Management: Provider/Bloc/Riverpod for managing cart state and updates.
+- API Integration: Service class (e.g., ApiConsumer) for cart operations and synchronization.
+
+Backend:
+- RESTful API endpoints for adding/removing items, updating quantities, and fetching cart contents.
+- Database tables to store user cart data and product relationships.
+- Responds with JSON data for cart operations and cart contents.
+
+Architecture Flow:
+
+User (App)
+   ↓
+Cart Screen (List & Controls)
+   ↓
+API Service (HTTP GET/POST/PUT/DELETE)
+   ↓
+Backend API (Cart Operations)
+   ↓
+Database
+   ↓
+API Response (Cart Data/Confirmation)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Adding to Cart (cart_cubit.dart)
+-----------------------------------
+Future<void> addToCart(int productId, int quantity) async {
+  emit(CartLoading());
+  try {
+    await cartRepository.addToCart(productId, quantity);
+    await fetchCart();
+  } catch (e) {
+    emit(CartError(e.toString()));
+  }
+}
+
+B. Fetching Cart (cart_cubit.dart)
+----------------------------------
+Future<void> fetchCart() async {
+  emit(CartLoading());
+  try {
+    final cartItems = await cartRepository.getCart();
+    emit(CartLoaded(cartItems));
+  } catch (e) {
+    emit(CartError(e.toString()));
+  }
+}
+
+C. Updating Quantity (cart_cubit.dart)
+--------------------------------------
+Future<void> updateQuantity(int productId, int newQuantity) async {
+  emit(CartLoading());
+  try {
+    if (newQuantity <= 0) {
+      await cartRepository.removeFromCart(productId);
+    } else {
+      await cartRepository.updateQuantity(productId, newQuantity);
+    }
+    await fetchCart();
+  } catch (e) {
+    emit(CartError(e.toString()));
+  }
+}
+
+D. Displaying Cart (cart_view.dart)
+-----------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<CartCubit, CartState>(
+    builder: (context, state) {
+      if (state is CartLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is CartLoaded) {
+        if (state.cartItems.isEmpty) {
+          return EmptyCartWidget();
+        }
+        return Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: state.cartItems.length,
+                itemBuilder: (context, index) {
+                  final item = state.cartItems[index];
+                  return CartItemWidget(
+                    item: item,
+                    onQuantityChanged: (quantity) => 
+                      context.read<CartCubit>().updateQuantity(item.productId, quantity),
+                    onRemove: () => 
+                      context.read<CartCubit>().removeFromCart(item.productId),
+                  );
+                },
+              ),
+            ),
+            CartSummary(
+              total: state.total,
+              onCheckout: () => _proceedToCheckout(),
+            ),
+          ],
+        );
+      } else if (state is CartError) {
+        return Center(child: Text('Error: ${state.message}'));
+      }
+      return Container();
+    },
+  );
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User adds product to cart"] --> B["Cart icon updates with count"]
+    B --> C["User opens cart screen"]
+    C --> D["Display cart items with quantities"]
+    D --> E{"User action?"}
+    E -- "Update quantity" --> F["Send update to backend"]
+    E -- "Remove item" --> G["Remove from cart"]
+    E -- "Proceed to checkout" --> H["Navigate to checkout"]
+    F --> I["Update cart total"]
+    G --> I
+    I --> D
+    H --> J["Complete purchase flow"]
+```
+
+6. Summary
+
+The Cart feature provides a seamless shopping experience by allowing users to collect and manage their intended purchases. In our code, the flow is: UI cart operations → API calls → backend cart management → UI updates, ensuring real-time synchronization and a smooth shopping experience. 

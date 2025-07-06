@@ -1,0 +1,163 @@
+Profile Feature Documentation
+
+1. Executive Summary
+
+The Profile feature in the CropGuard mobile application allows users to manage their personal information, account settings, and preferences. This feature provides a centralized location for users to view and update their profile data, manage account security, and customize their app experience. It serves both farmers and buyers, offering role-specific settings and information management capabilities.
+
+2. User Experience and Flow
+
+- Users access the Profile screen from the main navigation or settings menu.
+- The Profile screen displays:
+  - User's profile picture, name, email, and contact information.
+  - Account type (Farmer/Buyer) and associated details.
+  - Settings for notifications, privacy, and app preferences.
+  - Account management options (change password, delete account).
+  - Order history and activity summary.
+- Users can:
+  - Edit their personal information and profile picture.
+  - Update contact details and address information.
+  - Change account password and security settings.
+  - Manage notification preferences.
+  - View their order history and activity.
+  - Log out or delete their account.
+- Changes are saved automatically or require confirmation for sensitive operations.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Profile information display, edit forms, settings toggles, and account management options.
+- State Management: Provider/Bloc/Riverpod for managing profile state and user data.
+- API Integration: Service class (e.g., ApiConsumer) for fetching and updating profile information.
+
+Backend:
+- RESTful API endpoints for fetching user profile data, updating information, and managing account settings.
+- Database tables to store user profiles, preferences, and account information.
+- Responds with JSON data for profile information and account operations.
+
+Architecture Flow:
+
+User (App)
+   ↓
+Profile Screen (Information & Settings)
+   ↓
+API Service (HTTP GET/PUT)
+   ↓
+Backend API (Profile Management)
+   ↓
+Database
+   ↓
+API Response (Profile Data/Confirmation)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Fetching Profile Data (profile_cubit.dart)
+---------------------------------------------
+Future<void> fetchProfile() async {
+  emit(ProfileLoading());
+  try {
+    final profile = await profileRepository.getProfile();
+    emit(ProfileLoaded(profile));
+  } catch (e) {
+    emit(ProfileError(e.toString()));
+  }
+}
+
+B. Updating Profile (profile_cubit.dart)
+----------------------------------------
+Future<void> updateProfile(UserProfile updatedProfile) async {
+  emit(ProfileLoading());
+  try {
+    await profileRepository.updateProfile(updatedProfile);
+    await fetchProfile(); // Refresh profile data
+    emit(ProfileUpdateSuccess('Profile updated successfully'));
+  } catch (e) {
+    emit(ProfileError(e.toString()));
+  }
+}
+
+C. Profile Display (profile_view.dart)
+--------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<ProfileCubit, ProfileState>(
+    builder: (context, state) {
+      if (state is ProfileLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is ProfileLoaded) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              ProfileHeader(
+                user: state.profile,
+                onEditPhoto: () => _editProfilePhoto(),
+              ),
+              ProfileInfoSection(
+                profile: state.profile,
+                onEdit: () => _editProfile(),
+              ),
+              SettingsSection(
+                onNotificationSettings: () => _openNotificationSettings(),
+                onPrivacySettings: () => _openPrivacySettings(),
+                onSecuritySettings: () => _openSecuritySettings(),
+              ),
+              AccountActionsSection(
+                onLogout: () => _logout(),
+                onDeleteAccount: () => _showDeleteAccountDialog(),
+              ),
+            ],
+          ),
+        );
+      } else if (state is ProfileError) {
+        return Center(child: Text('Error: ${state.message}'));
+      }
+      return Container();
+    },
+  );
+}
+
+D. Profile Editing (profile_edit_view.dart)
+-------------------------------------------
+Future<void> _saveProfile() async {
+  if (_formKey.currentState!.validate()) {
+    final updatedProfile = UserProfile(
+      name: _nameController.text,
+      email: _emailController.text,
+      phone: _phoneController.text,
+      address: _addressController.text,
+      // Add other fields as needed
+    );
+    
+    await context.read<ProfileCubit>().updateProfile(updatedProfile);
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Profile updated successfully')),
+    );
+    
+    Navigator.pop(context);
+  }
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User opens Profile screen"] --> B["Load user profile data"]
+    B --> C["Display profile information and settings"]
+    C --> D{"User action?"}
+    D -- "Edit profile" --> E["Open edit form"]
+    D -- "Change settings" --> F["Update app preferences"]
+    D -- "Change password" --> G["Open password change form"]
+    D -- "Logout" --> H["Clear session and redirect to login"]
+    E --> I["Save changes to backend"]
+    F --> I
+    G --> I
+    I --> J["Update UI with new data"]
+    H --> K["Return to authentication screen"]
+    J --> C
+```
+
+6. Summary
+
+The Profile feature provides comprehensive user account management and personalization capabilities. In our code, the flow is: UI profile display → API calls for profile data → backend profile management → UI updates, ensuring users have full control over their account information and app preferences. 

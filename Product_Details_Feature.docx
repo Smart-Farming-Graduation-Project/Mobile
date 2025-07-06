@@ -1,0 +1,132 @@
+Product Details Feature Documentation
+
+1. Executive Summary
+
+The Product Details feature in the CropGuard mobile application provides users with comprehensive information about individual products, including images, descriptions, pricing, availability, and seller information. This feature serves as a crucial touchpoint for both buyers and farmers, enabling informed purchasing decisions and detailed product management.
+
+2. User Experience and Flow
+
+- The user navigates to a product details page from various entry points (e.g., product lists, search results, favorites).
+- The Product Details screen displays:
+  - Product images in a carousel or gallery format.
+  - Product name, description, and category.
+  - Price, quantity, and availability status.
+  - Seller information and contact details.
+  - Add to cart and favorite buttons.
+  - Reviews and ratings (if available).
+- The user can:
+  - View product images by swiping or tapping.
+  - Add the product to their cart.
+  - Mark the product as a favorite.
+  - View seller details or contact the seller.
+  - Read reviews and ratings.
+  - Share the product with others.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Product details layout with image carousel, product information, action buttons, and reviews section.
+- State Management: Provider/Bloc/Riverpod for managing product details state and user actions.
+- API Integration: Service class (e.g., ApiConsumer) for fetching product details and handling user actions.
+
+Backend:
+- RESTful API endpoint for fetching detailed product information.
+- Database queries to retrieve product data, seller information, and reviews.
+- Responds with JSON data containing comprehensive product details.
+
+Architecture Flow:
+
+User (App)
+   ↓
+Product Details Screen
+   ↓
+API Service (HTTP GET)
+   ↓
+Backend API (Fetch Product Details)
+   ↓
+Database
+   ↓
+API Response (Product Details)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Fetching Product Details (product_details_cubit.dart)
+-------------------------------------------------------
+Future<void> fetchProductDetails(String productId) async {
+  emit(ProductDetailsLoading());
+  try {
+    final product = await productDetailsRepository.getProductDetails(productId);
+    emit(ProductDetailsLoaded(product));
+  } catch (e) {
+    emit(ProductDetailsError(e.toString()));
+  }
+}
+
+B. Displaying Product Details (product_details_view.dart)
+--------------------------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+    builder: (context, state) {
+      if (state is ProductDetailsLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is ProductDetailsLoaded) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              ImageCarousel(images: state.product.images),
+              ProductInfo(product: state.product),
+              SellerInfo(seller: state.product.seller),
+              ActionButtons(
+                onAddToCart: () => _addToCart(state.product),
+                onFavorite: () => _toggleFavorite(state.product),
+              ),
+              ReviewsSection(reviews: state.product.reviews),
+            ],
+          ),
+        );
+      } else if (state is ProductDetailsError) {
+        return Center(child: Text('Error: ${state.message}'));
+      }
+      return Container();
+    },
+  );
+}
+
+C. Adding to Cart (product_details_view.dart)
+---------------------------------------------
+Future<void> _addToCart(Product product) async {
+  try {
+    await cartCubit.addToCart(product.id);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Product added to cart!')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to add to cart: ${e.toString()}')),
+    );
+  }
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["User navigates to product details"] --> B["Fetch product details from backend"]
+    B --> C["Display product information, images, seller details"]
+    C --> D{"User action?"}
+    D -- "Add to Cart" --> E["Add product to cart"]
+    D -- "Favorite" --> F["Toggle favorite status"]
+    D -- "View Seller" --> G["Show seller details"]
+    D -- "Read Reviews" --> H["Display reviews section"]
+    E --> I["Show success/error message"]
+    F --> I
+    G --> I
+    H --> I
+```
+
+6. Summary
+
+The Product Details feature provides users with comprehensive product information and seamless interaction capabilities. In our code, the flow is: UI product details → API call → backend data retrieval → UI display, supporting informed purchasing decisions and enhanced user engagement. 

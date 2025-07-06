@@ -78,7 +78,8 @@ void handleDioExceptions(DioException e) {
 
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));
-        case 401: //Unauthorized
+        case 401: 
+        //Unauthorized
           log(e.response!.data.toString());
           throw ServerException(
               errorModel: ErrorModel.fromJson(e.response!.data));

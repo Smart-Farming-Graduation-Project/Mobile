@@ -1,4 +1,4 @@
-import 'package:crop_guard/core/responsive/widget_width.dart';
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 
@@ -7,7 +7,7 @@ class AddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widgetWidth(context: context, width: 150),
+      width: double.infinity,
       height: 60,
       child: ElevatedButton(
         onPressed: () {},
@@ -16,12 +16,13 @@ class AddToCartButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        child: const Row(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add_shopping_cart_rounded,
+            const Icon(Icons.add_shopping_cart_rounded,
                 color: Colors.white, size: 20),
-            SizedBox(width: 10),
-            Text("Add To Cart",
+            horizontalSpace(10),
+            const Text("Add To Cart",
                 style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,

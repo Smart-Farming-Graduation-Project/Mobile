@@ -25,7 +25,8 @@ class ApiInterceptor extends Interceptor {
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
     final options = err.requestOptions;
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401 &&
+        getIt<CacheHelper>().getData(key: ApiKeys.accessToken) != null) {
       //to call the same request again after token is refreshed
       // final requestOptions = err.requestOptions;
       if (!isRefreshing) {

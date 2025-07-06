@@ -37,23 +37,24 @@ class AccountType extends StatelessWidget {
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () {
-                    if (state is RegisterRoleSelectedState) {
-                      context.read<RegisterCubit>().goToFirstSignUpPage();
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please select a role'),
-                          backgroundColor: AppColors.kDangerColor,
-                        ),
-                      );
-                    }
+                    // if (state is RegisterRoleSelectedState) {
+                    //   context.read<RegisterCubit>().goToFirstSignUpPage();
+                    // } else {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     const SnackBar(
+                    //       content: Text('Please select a role'),
+                    //       backgroundColor: AppColors.kDangerColor,
+                    //     ),
+                    //   );
+                    // }
                   },
-                  child: ButtonDecoration(
+                  child: const ButtonDecoration(
                     buttonwidth: 130,
                     buttontext: 'Next',
-                    buttoncolor: state is RegisterRoleSelectedState
-                        ? AppColors.kPrimaryColor
-                        : AppColors.kGrayColor,
+                    // buttoncolor: state is RegisterRoleSelectedState
+                    //     ? AppColors.kPrimaryColor
+                    //     : AppColors.kGrayColor,
+                    buttoncolor: AppColors.kPrimaryColor,
                   ),
                 );
               },

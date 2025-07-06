@@ -7,7 +7,7 @@ class TemperatureDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '10°C',
+      '25°C',
       style: AppTextStyles.font46BlackBold,
     );
   }

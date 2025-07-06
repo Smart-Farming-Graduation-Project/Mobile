@@ -86,4 +86,9 @@ class EndPoints {
   // Soil Info
   static const String soilChartData = 'IoT/latest-reading';
   static const String soilAnalysisData = 'IoT/Get-Last-Reading';
+
+  // Profile
+  static String getProfile(String id) {
+    return 'User/GetById/$id';
+  }
 }

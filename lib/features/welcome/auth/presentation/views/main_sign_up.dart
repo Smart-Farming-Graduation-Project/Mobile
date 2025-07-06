@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/welcome/auth/manger/cubits/register_cubit/register_cubit.dart';
 import 'package:crop_guard/features/welcome/auth/manger/cubits/register_cubit/register_state.dart';
-import 'package:crop_guard/features/welcome/auth/presentation/views/account_type.dart';
 import 'package:crop_guard/features/welcome/auth/presentation/views/first_sign_up_view.dart';
 import 'package:crop_guard/features/welcome/auth/presentation/views/second_sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +18,7 @@ class MainSignUp extends StatelessWidget {
       child: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
           log(state.toString());
-          if (state is AccountTypestate || state is RegisterRoleSelectedState) {
-            return const AccountType();
-          } else if (state is FirstSignUpState ||
+          if (state is FirstSignUpState ||
               state is FirstSignUpErrorState ||
               state is FirstSignUpLoadingState) {
             return const FirstSignUpView();

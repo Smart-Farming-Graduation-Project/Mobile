@@ -1,58 +1,65 @@
+import 'package:crop_guard/core/helper/spacing.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class AddressButton extends StatelessWidget {
   const AddressButton({
     super.key,
     required this.isAddressSelected,
+    required this.subtotalPrice,
   });
   final bool isAddressSelected;
+  final double subtotalPrice;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      width: double.infinity,
+      height: 56.h,
       child: ElevatedButton(
         onPressed: () {
           if (isAddressSelected) return;
-          GoRouter.of(context).push(AppRouter.confirmDeliveryLocation);
+          GoRouter.of(context)
+              .push(AppRouter.confirmDeliveryLocation, extra: subtotalPrice);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.kPrimaryColor,
-          minimumSize: const Size(double.infinity, 50),
+          foregroundColor: AppColors.kWhiteColor,
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12.r),
           ),
         ),
         child: isAddressSelected
-            ? const Text(
-                'Proceed to Payment',
-                style: TextStyle(color: AppColors.kWhiteColor, fontSize: 18),
-              )
-            : const Row(
+            ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Spacer(
-                    flex: 8,
-                  ),
                   Icon(
-                    Icons.add_rounded,
-                    color: AppColors.kWhiteColor,
-                    size: 22,
+                    Icons.payment_outlined,
+                    size: 20.sp,
                   ),
-                  Spacer(
-                    flex: 1,
-                  ),
+                  horizontalSpace(8),
                   Text(
-                    "Add New Address",
-                    style: TextStyle(
-                      color: AppColors.kWhiteColor,
-                      fontSize: 18,
-                    ),
+                    'Proceed to Payment',
+                    style: AppTextStyles.font16WhiteSemiBold,
                   ),
-                  Spacer(
-                    flex: 8,
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 20.sp,
+                  ),
+                  horizontalSpace(8),
+                  Text(
+                    "Select your address",
+                    style: AppTextStyles.font16WhiteSemiBold,
                   ),
                 ],
               ),
