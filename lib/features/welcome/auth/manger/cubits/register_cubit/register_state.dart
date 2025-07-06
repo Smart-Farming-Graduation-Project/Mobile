@@ -2,12 +2,6 @@ import 'dart:io';
 
 abstract class RegisterState {}
 
-class RegisterRoleSelectedState extends RegisterState {
-  final String selectedRole;
-  RegisterRoleSelectedState(this.selectedRole);
-}
-
-class AccountTypestate extends RegisterState {}
 
 class FirstSignUpState extends RegisterState {}
 

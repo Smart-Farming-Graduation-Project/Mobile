@@ -11,8 +11,8 @@ class ProfileAvatar extends StatelessWidget {
       radius: 24.r,
       backgroundColor: AppColors.kPrimaryColor,
       child: ClipOval(
-        child: Image.asset(
-          'assets/images/home/profile.png',
+        child: Image.network(
+          'https://via.placeholder.com/150',
           width: 48.w,
           height: 48.h,
           fit: BoxFit.cover,
