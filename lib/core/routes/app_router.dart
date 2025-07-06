@@ -13,6 +13,7 @@ import 'package:crop_guard/features/ecommerce/payment/presentation/views/payment
 import 'package:crop_guard/features/farmer/add_products/presentation/views/add_products_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/cubits/add_product_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/presentation/views/chat_bot_view.dart';
+import 'package:crop_guard/features/farmer/community/presentation/cubits/create_post_cubit.dart';
 import 'package:crop_guard/features/farmer/community/presentation/views/community_home_screen.dart';
 import 'package:crop_guard/features/farmer/community/presentation/views/create_post.dart';
 import 'package:crop_guard/features/farmer/home/presentation/views/farmer_home.dart';
@@ -73,17 +74,23 @@ abstract class AppRouter {
   static const String myProducts = '/myProducts';
   static const String updateProduct = '/updateProduct';
 
+
   static final router =
       GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),
     ),
-    GoRoute(
-      path: createpost,
-      builder: (context, state) => const CreatePost(),
-    ),
-    // welcome routes
+        // في app_router.dart
+        // في app_router.dart
+        GoRoute(
+          path: createpost,
+          builder: (context, state) => BlocProvider(
+            create: (context) => PostCubit(),
+            child: const CreatePost(),
+          ),
+        ),
+        // welcome routes
     GoRoute(
       path: splash,
       builder: (context, state) => const SplashScreen(),

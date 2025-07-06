@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/features/farmer/community/models/post_model.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/create_post_cubit.dart';
 
-class CreatePost extends StatefulWidget {
-  const CreatePost({super.key});
+class EditPostScreen extends StatefulWidget {
+  final PostModel post;
+
+  const EditPostScreen({super.key, required this.post});
 
   @override
-  State<CreatePost> createState() => _CreatePostState();
+  State<EditPostScreen> createState() => _EditPostScreenState();
 }
 
-class _CreatePostState extends State<CreatePost> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _contentController = TextEditingController();
-  bool _isPosting = false;
+class _EditPostScreenState extends State<EditPostScreen> {
+  late TextEditingController _titleController;
+  late TextEditingController _contentController;
+  bool _isUpdating = false;
 
-  void _submitPost() async {
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.post.title);
+    _contentController = TextEditingController(text: widget.post.content);
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _contentController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _updatePost() async {
     final title = _titleController.text.trim();
     final content = _contentController.text.trim();
 
@@ -26,21 +43,20 @@ class _CreatePostState extends State<CreatePost> {
       return;
     }
 
-    setState(() => _isPosting = true);
+    setState(() => _isUpdating = true);
 
     try {
-      final postCubit = context.read<PostCubit>();
-      await postCubit.createPost(
+      await context.read<PostCubit>().updatePost(
+        id: widget.post.id,
         title: title,
         content: content,
-        sharedPostId: 0,
       );
 
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Post created successfully!"),
+            content: Text("Post updated successfully!"),
             backgroundColor: Colors.green,
           ),
         );
@@ -49,68 +65,49 @@ class _CreatePostState extends State<CreatePost> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Failed to create post: $e"),
+            content: Text("Failed to update post: $e"),
             backgroundColor: Colors.red,
           ),
         );
       }
     } finally {
-      if (mounted) {
-        setState(() => _isPosting = false);
-      }
+      if (mounted) setState(() => _isUpdating = false);
     }
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _contentController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF9),
-    appBar: AppBar(
-    title: const Text(
-    'Create Post',
-    style: TextStyle(
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-    ),
-    ),
-    iconTheme: const IconThemeData(color: Colors.black),
-    ),
-
-      body: SingleChildScrollView(
+      appBar: AppBar(
+        title: const Text("Edit Post"),
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            _buildInputField("Title", _titleController),
+            _buildInput("Title", _titleController),
             const SizedBox(height: 16),
-            _buildInputField("Write something...", _contentController, height: 160),
+            _buildInput("Content", _contentController, height: 160),
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-                onPressed: _isPosting ? null : _submitPost,
+                onPressed: _isUpdating ? null : _updatePost,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.kGreenColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  elevation: 3,
                 ),
-                child: _isPosting
+                child: _isUpdating
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text(
-                  'Post',
+                  'Save',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -121,20 +118,14 @@ class _CreatePostState extends State<CreatePost> {
     );
   }
 
-  Widget _buildInputField(String hint, TextEditingController controller, {double? height}) {
+  Widget _buildInput(String hint, TextEditingController controller,
+      {double? height}) {
     return Container(
       height: height,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.green.shade200),
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.08),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: TextField(
@@ -144,8 +135,6 @@ class _CreatePostState extends State<CreatePost> {
         decoration: InputDecoration(
           hintText: hint,
           border: InputBorder.none,
-          hintStyle: const TextStyle(color: Colors.grey),
-          counterText: '',
         ),
       ),
     );

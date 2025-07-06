@@ -9,7 +9,7 @@ class PostBody extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
-    this.maxLines = 5,
+    this.maxLines = 3,
   });
 
   @override
@@ -20,21 +20,19 @@ class PostBody extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 6),
         Text(
           body,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[800],
+          ),
           maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            height: 1.4,
-          ),
         ),
       ],
     );
