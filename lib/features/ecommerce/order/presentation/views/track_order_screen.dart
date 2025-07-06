@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/build_app_bar.dart';
 import 'package:crop_guard/features/ecommerce/order/presentation/widgets/order_detail_tile.dart';
 import 'package:crop_guard/features/ecommerce/order/presentation/widgets/order_status_timelines.dart';
 import 'package:crop_guard/features/ecommerce/order/presentation/widgets/product_summary.dart';
@@ -11,18 +12,7 @@ class TrackOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        centerTitle: true,
-        title: const Text(
-          "Track Order",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      appBar: buildAppBar(context, title: "Track Order"),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

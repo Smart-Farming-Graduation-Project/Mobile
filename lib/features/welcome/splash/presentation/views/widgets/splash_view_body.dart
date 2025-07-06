@@ -30,7 +30,7 @@ class SplashScreenState extends State<SplashScreen>
   void _navigateToNextPage() {
     if (getIt<CacheHelper>().getData(key: "isOnboardingVisited") != null) {
       if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) == "Buyer") {
-        GoRouter.of(context).go(AppRouter.home);
+        GoRouter.of(context).go(AppRouter.buyerHome);
       } else if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
           "Farmer") {
         GoRouter.of(context).go(AppRouter.farmerHome);

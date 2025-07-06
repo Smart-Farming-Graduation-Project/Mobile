@@ -1,14 +1,16 @@
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/cubits/product_item_cubit.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/cubits/product_item_state.dart';
+import 'package:crop_guard/features/ecommerce/favorite/presentation/models/favorite_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../../core/theme/app_colors.dart';
 
 class ProductContent extends StatelessWidget {
-  const ProductContent({super.key, required this.product});
+  const ProductContent({super.key, this.product, this.favoriteProduct});
 
-  final ProductModel product;
+  final ProductModel? product;
+  final FavoriteProductModel? favoriteProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class ProductContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(product.productName,
+          Text(product?.productName ?? favoriteProduct?.productName ?? "No product name",
               style: const TextStyle(
                   color: AppColors.kPrimaryColor,
                   fontSize: 18,
@@ -42,12 +44,13 @@ class ProductContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('${product.productPrice} EGP',
+              Text('${product?.productPrice ?? favoriteProduct?.productPrice} EGP',
                   style: const TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
               GestureDetector(
                 onTap: () {
-                  context.read<ProductItemCubit>().addToCart(product.productId);
+                  context.read<ProductItemCubit>().addToCart(
+                      product?.productId ?? favoriteProduct?.productId ?? 0);
                 },
                 child: BlocBuilder<ProductItemCubit, ProductItemState>(
                   builder: (context, state) {

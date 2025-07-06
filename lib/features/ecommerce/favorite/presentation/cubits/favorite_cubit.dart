@@ -7,18 +7,19 @@ import 'package:crop_guard/core/errors/exceptions.dart';
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_state.dart';
+import 'package:crop_guard/features/ecommerce/favorite/presentation/models/favorite_product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitial());
   final api = getIt<DioConsumer>();
-  List<ProductModel> favoriteProducts = [];
+  List<FavoriteProductModel> favoriteProducts = [];
   void addToFavorites(ProductModel product) async {
-    favoriteProducts.add(product);
+    favoriteProducts.add(FavoriteProductModel.fromJson(product.toJson()));
     final response =
         await api.post(EndPoints.addToFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
-      favoriteProducts.remove(product);
+      favoriteProducts.remove(FavoriteProductModel.fromJson(product.toJson()));
       emit(FavoriteError(response[ApiKeys.message]));
     } else {
       emit(FavoriteSuccess(favoriteProducts));
@@ -26,11 +27,11 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   void removeFromFavorites(ProductModel product) async {
-    favoriteProducts.remove(product);
+    favoriteProducts.remove(FavoriteProductModel.fromJson(product.toJson()));
     final response =
         await api.delete(EndPoints.removeFromFavorites(product.productId));
     if (response[ApiKeys.succeeded] == false) {
-      favoriteProducts.add(product);
+      favoriteProducts.add(FavoriteProductModel.fromJson(product.toJson()));
       emit(FavoriteError(response[ApiKeys.message]));
     } else {
       loadFavorites();
@@ -48,7 +49,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
           response[ApiKeys.data][ApiKeys.favoriteProducts] != null) {
         // Add all products to the list
         for (var element in response[ApiKeys.data][ApiKeys.favoriteProducts]) {
-          favoriteProducts.add(ProductModel.fromJson(element));
+          favoriteProducts.add(FavoriteProductModel.fromJson(element));
         }
         if (favoriteProducts.isEmpty) {
           emit(FavoriteEmpty("No products found."));

@@ -17,6 +17,7 @@ import 'package:crop_guard/features/ecommerce/payment/presentation/views/payment
 import 'package:crop_guard/features/ecommerce/popular_products/presentation/views/popular_products_view.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/views/edit_profile.dart';
+import 'package:crop_guard/features/ecommerce/profile/presentation/views/profile_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/views/add_products_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/cubits/add_product_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/presentation/views/chat_bot_view.dart';
@@ -54,7 +55,7 @@ abstract class AppRouter {
   static const String oTP = '/oTP';
   static const String resetPassword = '/resetPassword';
   static const String signUp = '/signUp';
-  static const String home = '/home';
+  static const String buyerHome = '/buyerHome';
   static const String homeContent = '/homeContent';
   static const String selectRole = '/selectRole';
   static const String cart = '/cart';
@@ -72,13 +73,13 @@ abstract class AppRouter {
   static const String review = '/review';
   //farmer routes
   static const String farmerHome = '/farmerHome';
+  static const String farmerMarket = '/farmerMarket';
   static const String community = '/commumity';
   static const String createpost = '/createpost';
   static const String pestDetection = '/pestDetection';
   static const String roverControl = '/roverControl';
   static const String chatBot = '/chatBot';
   static const String soilInfo = '/soilInfo';
-  static const String market = '/market';
   static const String addProduct = '/addProduct';
   static const String myProducts = '/myProducts';
   static const String updateProduct = '/updateProduct';
@@ -147,7 +148,7 @@ abstract class AppRouter {
       },
     ),
     GoRoute(
-      path: home,
+      path: buyerHome,
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
@@ -210,7 +211,7 @@ abstract class AppRouter {
       builder: (context, state) => const SoilInfoView(),
     ),
     GoRoute(
-      path: market,
+      path: farmerMarket,
       builder: (context, state) => const MarketView(),
     ),
     GoRoute(
@@ -236,6 +237,10 @@ abstract class AppRouter {
           child: UpdateProductsView(productData: product),
         );
       },
+    ),
+    GoRoute(
+      path: profile,
+      builder: (context, state) => const ProfileView(),
     ),
     GoRoute(
       path: editProfile,

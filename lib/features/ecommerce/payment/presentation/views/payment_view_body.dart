@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/ecommerce/google_map/models/checkout_data.dart';
@@ -33,7 +35,13 @@ class PaymentViewBody extends StatelessWidget {
     return BlocListener<StripePaymentCubit, StripePaymentState>(
       listener: (context, state) {
         if (state is StripePaymentSuccess) {
-          GoRouter.of(context).go(AppRouter.home);
+          if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
+              "Buyer") {
+            GoRouter.of(context).go(AppRouter.buyerHome);
+          } else if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
+              "Farmer") {
+            GoRouter.of(context).go(AppRouter.farmerHome);
+          }
           showSuccessMessage(context);
         } else if (state is StripePaymentFailure) {
           showErrorMessage(context, state.message);

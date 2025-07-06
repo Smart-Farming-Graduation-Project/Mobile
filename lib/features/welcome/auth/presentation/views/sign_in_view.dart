@@ -36,7 +36,7 @@ class SignInView extends StatelessWidget {
               ),
             );
             if (state.role == "Buyer") {
-              GoRouter.of(context).go(AppRouter.home);
+              GoRouter.of(context).go(AppRouter.buyerHome);
             } else {
               GoRouter.of(context).go(AppRouter.farmerHome);
             }

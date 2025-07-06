@@ -41,7 +41,7 @@ void showForgotPasswordDialog(BuildContext context) {
                   ),
                   Text(
                     getIt<CacheHelper>().getData(key: ApiKeys.email),
-                    style: AppTextStyles.font22,
+                    style: AppTextStyles.font16BlackBold,
                   ),
                   Row(
                     children: [

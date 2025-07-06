@@ -30,7 +30,7 @@ class WeatherHeader extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            GoRouter.of(context).push(AppRouter.payment);
+            GoRouter.of(context).push(AppRouter.resetPassword);
           },
           child: Text(
             'Details',

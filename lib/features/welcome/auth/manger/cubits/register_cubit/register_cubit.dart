@@ -211,7 +211,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       });
       log(response.toString());
       if (context.mounted) {
-        GoRouter.of(context).go(AppRouter.home);
+        GoRouter.of(context).go(AppRouter.buyerHome);
       }
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
