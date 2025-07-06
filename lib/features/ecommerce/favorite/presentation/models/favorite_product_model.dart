@@ -1,7 +1,7 @@
 import 'package:crop_guard/core/api/api_keys.dart';
 
-class ProductModel {
-  final int productId;
+class FavoriteProductModel {
+  int productId;
   final String productName;
   final String? categoryName;
   final String productDescription;
@@ -12,7 +12,7 @@ class ProductModel {
   bool isFavorite;
   final List<String> productImages;
 
-  ProductModel(
+  FavoriteProductModel(
       {required this.productId,
       required this.productName,
       this.categoryName,
@@ -23,8 +23,8 @@ class ProductModel {
       this.productRating,
       required this.isFavorite,
       required this.productImages});
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory FavoriteProductModel.fromJson(Map<String, dynamic> json) {
+    return FavoriteProductModel(
       productId: json[ApiKeys.productId] ?? 0,
       productName: json[ApiKeys.productName] ?? "productName",
       categoryName: json[ApiKeys.categoryName] ?? "categoryName",
@@ -34,21 +34,8 @@ class ProductModel {
       productAvailability: json[ApiKeys.productAvailability] ?? "available",
       sellerName: json[ApiKeys.sellerName] ?? "sellerName",
       productRating: json[ApiKeys.productRating]?.toDouble(),
-      isFavorite: json[ApiKeys.isFavorite] ?? false,
+      isFavorite: json[ApiKeys.isFavorite] ?? true,
       productImages: List<String>.from(json[ApiKeys.productImages] ?? []),
     );
-  }
-  Map<String, dynamic> toJson() {
-    return {
-      ApiKeys.productId: productId,
-      ApiKeys.productName: productName,
-      ApiKeys.categoryName: categoryName,
-      ApiKeys.productDescription: productDescription,
-      ApiKeys.productPrice: productPrice,
-      ApiKeys.productAvailability: productAvailability,
-      ApiKeys.sellerName: sellerName,
-      ApiKeys.productRating: productRating,
-      ApiKeys.productImages: productImages,
-    };
   }
 }
