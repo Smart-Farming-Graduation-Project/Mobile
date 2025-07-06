@@ -1,0 +1,184 @@
+Farmer Market Feature Documentation
+
+1. Executive Summary
+
+The Farmer Market feature in the CropGuard mobile application provides farmers with a comprehensive marketplace interface to browse, purchase, and manage agricultural supplies, equipment, and services. This feature enables farmers to access a wide range of farming resources, compare prices, and make informed purchasing decisions to improve their agricultural operations.
+
+2. User Experience and Flow
+
+- Farmers access the Market screen from their dashboard or main navigation.
+- The Market screen displays:
+  - Categories of agricultural products (seeds, fertilizers, tools, equipment).
+  - Featured products and special offers.
+  - Search functionality with filters (price, brand, rating).
+  - Shopping cart and order history.
+- Farmers can:
+  - Browse products by category or search for specific items.
+  - View detailed product information, specifications, and reviews.
+  - Compare prices and features across different suppliers.
+  - Add items to cart and proceed to checkout.
+  - Track orders and view purchase history.
+  - Save favorite products for future reference.
+- The market updates in real time with new products, price changes, and availability.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Product catalog, search interface, product details, and shopping cart.
+- State Management: Provider/Bloc/Riverpod for managing market state and shopping experience.
+- API Integration: Service class (e.g., ApiConsumer) for fetching products and processing orders.
+
+Backend:
+- RESTful API endpoints for product catalog, search, and order management.
+- Database queries to retrieve product information, supplier details, and pricing.
+- Responds with JSON data for products, categories, and order confirmations.
+
+Architecture Flow:
+
+Farmer (App)
+   ↓
+Market Screen (Product Catalog)
+   ↓
+API Service (HTTP GET)
+   ↓
+Backend API (Product Management)
+   ↓
+Database
+   ↓
+API Response (Products & Categories)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Fetching Market Products (farmer_market_cubit.dart)
+-----------------------------------------------------
+Future<void> fetchMarketProducts({String? category, String? search}) async {
+  emit(FarmerMarketLoading());
+  try {
+    final products = await farmerMarketRepository.getProducts(
+      category: category,
+      search: search,
+    );
+    emit(FarmerMarketLoaded(products));
+  } catch (e) {
+    emit(FarmerMarketError(e.toString()));
+  }
+}
+
+B. Product Search (farmer_market_cubit.dart)
+-------------------------------------------
+Future<void> searchProducts(String query) async {
+  emit(FarmerMarketLoading());
+  try {
+    final results = await farmerMarketRepository.searchProducts(query);
+    emit(FarmerMarketLoaded(results));
+  } catch (e) {
+    emit(FarmerMarketError(e.toString()));
+  }
+}
+
+C. Market Display (farmer_market_view.dart)
+-------------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<FarmerMarketCubit, FarmerMarketState>(
+    builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Agricultural Market'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () => Navigator.pushNamed(context, '/cart'),
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            // Search bar
+            SearchBar(
+              onSearch: (query) => context.read<FarmerMarketCubit>().searchProducts(query),
+            ),
+            // Category filters
+            CategoryFilter(
+              categories: ['Seeds', 'Fertilizers', 'Tools', 'Equipment'],
+              onCategorySelected: (category) => 
+                context.read<FarmerMarketCubit>().fetchMarketProducts(category: category),
+            ),
+            // Product grid
+            Expanded(
+              child: state is FarmerMarketLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : state is FarmerMarketLoaded
+                      ? GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.75,
+                          ),
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            final product = state.products[index];
+                            return ProductCard(
+                              product: product,
+                              onTap: () => _showProductDetails(product),
+                              onAddToCart: () => _addToCart(product),
+                            );
+                          },
+                        )
+                      : Center(child: Text('No products found')),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+D. Product Details (product_details_view.dart)
+----------------------------------------------
+void _showProductDetails(Product product) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ProductDetailsScreen(product: product),
+    ),
+  );
+}
+
+Future<void> _addToCart(Product product) async {
+  try {
+    await context.read<CartCubit>().addToCart(product.id, 1);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${product.name} added to cart')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to add to cart: ${e.toString()}')),
+    );
+  }
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["Farmer opens Market"] --> B["Load product categories and featured items"]
+    B --> C["Display product catalog"]
+    C --> D{"Farmer action?"}
+    D -- "Search products" --> E["Filter products by search query"]
+    D -- "Browse category" --> F["Filter products by category"]
+    D -- "View product details" --> G["Show detailed product information"]
+    D -- "Add to cart" --> H["Add item to shopping cart"]
+    E --> I["Update product list"]
+    F --> I
+    G --> J["Navigate to product details"]
+    H --> K["Update cart and show confirmation"]
+    I --> C
+    J --> L["Product details screen"]
+    K --> C
+```
+
+6. Summary
+
+The Farmer Market feature provides farmers with easy access to agricultural supplies and equipment. In our code, the flow is: UI market interface → product search/filtering → API calls → backend product management → UI updates, enabling farmers to efficiently source the resources they need for their agricultural operations. 
