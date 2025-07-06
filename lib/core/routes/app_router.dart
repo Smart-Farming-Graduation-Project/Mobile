@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/views/cart_view.dart';
 import 'package:crop_guard/features/ecommerce/categories/data/models/category_model.dart';
@@ -24,6 +26,8 @@ import 'package:crop_guard/features/farmer/my_products/presentation/cubits/my_pr
 import 'package:crop_guard/features/farmer/my_products/presentation/views/my_products_view.dart';
 import 'package:crop_guard/features/farmer/pest_detection/presentation/views/pest_detection_view.dart';
 import 'package:crop_guard/features/farmer/rover_control/presentation/views/rover_control_view.dart';
+import 'package:crop_guard/features/farmer/rover_control/presentation/widgets/connection_screen.dart';
+import 'package:crop_guard/features/farmer/rover_control/presentation/widgets/control_screen.dart';
 import 'package:crop_guard/features/farmer/soil_info/presentation/views/soil_info_view.dart';
 import 'package:crop_guard/features/farmer/update_products/presentation/cubits/update_product_cubit.dart';
 import 'package:crop_guard/features/farmer/update_products/presentation/views/update_products_view.dart';
@@ -75,6 +79,8 @@ abstract class AppRouter {
   static const String myProducts = '/myProducts';
   static const String updateProduct = '/updateProduct';
   static const String editProfile = '/editProfile';
+  static const String connectionScreen = '/connectionScreen';
+  static const String controlScreen = '/controlScreen';
 
   static final router =
       GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
@@ -225,6 +231,17 @@ abstract class AppRouter {
       builder: (context, state) {
         final profile = state.extra as ProfileModel;
         return EditProfile(profile: profile);
+      },
+    ),
+    GoRoute(
+      path: connectionScreen,
+      builder: (context, state) => const ConnectionScreen(),
+    ),
+    GoRoute(
+      path: controlScreen,
+      builder: (context, state) {
+        final socket = state.extra as Socket;
+        return ControlScreen(socket: socket);
       },
     ),
   ]);

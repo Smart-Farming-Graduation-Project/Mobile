@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/responsive/widget_height.dart';
@@ -28,7 +31,7 @@ class ControlScreenState extends State<ControlScreen> {
     startKeepAlive();
     widget.socket.listen(
       (data) {
-        print('Received data: ${String.fromCharCodes(data)}');
+        log('Received data: ${String.fromCharCodes(data)}');
       },
       onError: (error) {
         disconnect();
@@ -45,7 +48,7 @@ class ControlScreenState extends State<ControlScreen> {
         try {
           widget.socket.write('K');
         } catch (e) {
-          print('Error in keep-alive: $e');
+          log('Error in keep-alive: $e');
           disconnect();
         }
       } else {
@@ -61,7 +64,9 @@ class ControlScreenState extends State<ControlScreen> {
     });
     keepAliveTimer?.cancel();
     widget.socket.close();
-    Future.microtask(() => Navigator.pop(context));
+    if (mounted) {
+      GoRouter.of(context).pop();
+    }
   }
 
   void sendCommand(String command) {
@@ -69,7 +74,7 @@ class ControlScreenState extends State<ControlScreen> {
       try {
         widget.socket.write(command);
       } catch (e) {
-        print('Error sending command: $e');
+        log('Error sending command: $e');
         disconnect();
       }
     } else {
@@ -106,6 +111,14 @@ class ControlScreenState extends State<ControlScreen> {
             'Rover Control',
             style: AppTextStyles.font20WhiteBold,
           ),
+          centerTitle: true,
+          leading: IconButton(
+            color: AppColors.kWhiteColor,
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          ),
           elevation: 0,
           actions: [
             Padding(
@@ -123,134 +136,282 @@ class ControlScreenState extends State<ControlScreen> {
         body: Center(
           child: Padding(
             padding: EdgeInsets.all(16.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: widgetHeight(context: context, height: 100)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(width: widgetWidth(context: context, width: 80)),
-                    DirectionButton(
-                      icon: Icons.arrow_upward,
-                      onPressed: () => sendCommand('F'),
-                      onReleased: () => sendCommand('S'),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Rover Control Section
+                  Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.kWhiteColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.kGrayColor.withValues(alpha: 0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: widgetWidth(context: context, width: 80)),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DirectionButton(
-                      icon: Icons.arrow_back,
-                      onPressed: () => sendCommand('L'),
-                      onReleased: () => sendCommand('S'),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Rover Control',
+                          style: AppTextStyles.font16BlackBold,
+                        ),
+                        SizedBox(
+                            height: widgetHeight(context: context, height: 15)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 80)),
+                            DirectionButton(
+                              icon: Icons.arrow_upward,
+                              onPressed: () => sendCommand('F'),
+                              onReleased: () => sendCommand('S'),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 80)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            DirectionButton(
+                              icon: Icons.arrow_back,
+                              onPressed: () => sendCommand('L'),
+                              onReleased: () => sendCommand('S'),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 80)),
+                            DirectionButton(
+                              icon: Icons.arrow_forward,
+                              onPressed: () => sendCommand('R'),
+                              onReleased: () => sendCommand('S'),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 80)),
+                            DirectionButton(
+                              icon: Icons.arrow_downward,
+                              onPressed: () => sendCommand('B'),
+                              onReleased: () => sendCommand('S'),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 80)),
+                          ],
+                        ),
+                      ],
                     ),
-                    SizedBox(width: widgetWidth(context: context, width: 80)),
-                    DirectionButton(
-                      icon: Icons.arrow_forward,
-                      onPressed: () => sendCommand('R'),
-                      onReleased: () => sendCommand('S'),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(width: widgetWidth(context: context, width: 80)),
-                    DirectionButton(
-                      icon: Icons.arrow_downward,
-                      onPressed: () => sendCommand('B'),
-                      onReleased: () => sendCommand('S'),
-                    ),
-                    SizedBox(width: widgetWidth(context: context, width: 80)),
-                  ],
-                ),
-                SizedBox(height: widgetHeight(context: context, height: 35)),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Speed Control',
-                        style: AppTextStyles.font16BlackSemiBold,
-                      ),
-                      SizedBox(height: 10.h),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: AppColors.kPrimaryColor,
-                          inactiveTrackColor: AppColors.kGrayColor,
-                          thumbColor: AppColors.kPrimaryColor,
-                          overlayColor:
-                              AppColors.kPrimaryColor.withOpacity(0.2),
-                          valueIndicatorColor: AppColors.kPrimaryColor,
-                          valueIndicatorTextStyle:
-                              AppTextStyles.font14BlackBold.copyWith(
-                            color: AppColors.kWhiteColor,
+                  ),
+                  SizedBox(height: widgetHeight(context: context, height: 30)),
+                  // Speed Control Section
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Speed Control',
+                          style: AppTextStyles.font16BlackSemiBold,
+                        ),
+                        SizedBox(height: 10.h),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            activeTrackColor: AppColors.kPrimaryColor,
+                            inactiveTrackColor: AppColors.kGrayColor,
+                            thumbColor: AppColors.kPrimaryColor,
+                            overlayColor:
+                                AppColors.kPrimaryColor.withValues(alpha: 0.2),
+                            valueIndicatorColor: AppColors.kPrimaryColor,
+                            valueIndicatorTextStyle:
+                                AppTextStyles.font14BlackBold.copyWith(
+                              color: AppColors.kWhiteColor,
+                            ),
+                          ),
+                          child: Slider(
+                            value: speed,
+                            min: 0,
+                            max: 5,
+                            divisions: 5,
+                            label: speed.round().toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                speed = value;
+                              });
+                            },
                           ),
                         ),
-                        child: Slider(
-                          value: speed,
-                          min: 0,
-                          max: 5,
-                          divisions: 5,
-                          label: speed.round().toString(),
-                          onChanged: (value) {
-                            setState(() {
-                              speed = value;
-                            });
-                          },
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  SizedBox(
+                    width: widgetWidth(context: context, width: 150),
+                    height: widgetHeight(context: context, height: 45),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        sendCommand(speed.round().toString());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.kPrimaryColor,
+                        foregroundColor: AppColors.kWhiteColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: Text(
+                        'Set Speed',
+                        style: AppTextStyles.font16WhiteBold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: widgetHeight(context: context, height: 25)),
+                  // Camera Control Section
+                  Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.kWhiteColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.kGrayColor.withValues(alpha: 0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Camera Control',
+                          style: AppTextStyles.font16BlackBold,
+                        ),
+                        SizedBox(
+                            height: widgetHeight(context: context, height: 15)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 60)),
+                            DirectionButton(
+                              icon: Icons.keyboard_arrow_up,
+                              onPressed: () => sendCommand('U'),
+                              onReleased: () => sendCommand('T'),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 60)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            DirectionButton(
+                              icon: Icons.keyboard_arrow_left,
+                              onPressed: () => sendCommand('O'),
+                              onReleased: () => sendCommand('T'),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 30)),
+                            Container(
+                              width: widgetWidth(context: context, width: 50),
+                              height:
+                                  widgetHeight(context: context, height: 50),
+                              decoration: BoxDecoration(
+                                color: AppColors.kPrimaryColor,
+                                borderRadius: BorderRadius.circular(25.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.kPrimaryColor
+                                        .withValues(alpha: 0.3),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () => sendCommand('C'),
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  color: AppColors.kWhiteColor,
+                                  size: 25.w,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 30)),
+                            DirectionButton(
+                              icon: Icons.keyboard_arrow_right,
+                              onPressed: () => sendCommand('J'),
+                              onReleased: () => sendCommand('T'),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 60)),
+                            DirectionButton(
+                              icon: Icons.keyboard_arrow_down,
+                              onPressed: () => sendCommand('D'),
+                              onReleased: () => sendCommand('T'),
+                            ),
+                            SizedBox(
+                                width:
+                                    widgetWidth(context: context, width: 60)),
+                          ],
+                        ),
+                        SizedBox(
+                            height: widgetHeight(context: context, height: 10)),
+                        Text(
+                          'Tap camera icon to capture',
+                          style: AppTextStyles.font14GreyRegular,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: widgetHeight(context: context, height: 40)),
+                  SizedBox(
+                    width: widgetWidth(context: context, width: 200),
+                    height: widgetHeight(context: context, height: 50),
+                    child: ElevatedButton(
+                      onPressed: disconnect,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.kDangerColor,
+                        foregroundColor: AppColors.kWhiteColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: Text(
+                        'Disconnect',
+                        style: AppTextStyles.font18BlackBold.copyWith(
+                          color: AppColors.kWhiteColor,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                SizedBox(
-                  width: widgetWidth(context: context, width: 150),
-                  height: widgetHeight(context: context, height: 45),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      sendCommand(speed.round().toString());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.kPrimaryColor,
-                      foregroundColor: AppColors.kWhiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      elevation: 2,
-                    ),
-                    child: Text(
-                      'Set Speed',
-                      style: AppTextStyles.font16WhiteBold,
                     ),
                   ),
-                ),
-                SizedBox(height: widgetHeight(context: context, height: 80)),
-                SizedBox(
-                  width: widgetWidth(context: context, width: 200),
-                  height: widgetHeight(context: context, height: 50),
-                  child: ElevatedButton(
-                    onPressed: disconnect,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.kDangerColor,
-                      foregroundColor: AppColors.kWhiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      elevation: 2,
-                    ),
-                    child: Text(
-                      'Disconnect',
-                      style: AppTextStyles.font18BlackBold.copyWith(
-                        color: AppColors.kWhiteColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                  SizedBox(height: widgetHeight(context: context, height: 20)),
+                ],
+              ),
             ),
           ),
         ),

@@ -7,7 +7,6 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/responsive/widget_height.dart';
 import '../../../../../core/responsive/widget_width.dart';
-import 'control_screen.dart';
 
 class ConnectionScreen extends StatefulWidget {
   const ConnectionScreen({super.key});
@@ -18,7 +17,7 @@ class ConnectionScreen extends StatefulWidget {
 
 class ConnectionScreenState extends State<ConnectionScreen> {
   final TextEditingController ipController =
-      TextEditingController(text: '192.168.4.2');
+      TextEditingController(text: '192.168.2.1');
   final TextEditingController portController =
       TextEditingController(text: '12345');
   bool isConnecting = false;
@@ -32,21 +31,24 @@ class ConnectionScreenState extends State<ConnectionScreen> {
       int port = int.parse(portController.text);
       Socket socket =
           await Socket.connect(ip, port, timeout: const Duration(seconds: 10));
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ControlScreen(socket: socket)),
-      );
+      if (mounted) {
+        GoRouter.of(context).push(AppRouter.controlScreen, extra: socket);
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to connect: $e'),
-          backgroundColor: AppColors.kDangerColor,
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to connect: $e'),
+            backgroundColor: AppColors.kDangerColor,
+          ),
+        );
+      }
     } finally {
-      setState(() {
-        isConnecting = false;
-      });
+      if (mounted) {
+        setState(() {
+          isConnecting = false;
+        });
+      }
     }
   }
 
@@ -71,7 +73,7 @@ class ConnectionScreenState extends State<ConnectionScreen> {
         leading: IconButton(
           color: AppColors.kWhiteColor,
           onPressed: () {
-            GoRouter.of(context).go(AppRouter.home);
+            GoRouter.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
