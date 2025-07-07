@@ -1,13 +1,14 @@
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/widgets/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crop_guard/core/widgets/button_decoration.dart';
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({super.key, required this.profile});
-  final ProfileModel profile;
+  const EditProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class EditProfile extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 60,
                           backgroundImage: NetworkImage(
-                            profile.profileImage,
+                            getIt<CacheHelper>().getDataString(key: ApiKeys.profileImage)!,
                           ),
                         ),
                       ),
@@ -80,19 +81,19 @@ class EditProfile extends StatelessWidget {
             ),
             TextBox1(
                 name: 'Name',
-                initialValue: '${profile.firstName} ${profile.lastName}'),
+                initialValue: getIt<CacheHelper>().getDataString(key: ApiKeys.username)!),
             const SizedBox(
               height: 15,
             ),
-            TextBox1(name: 'Email Address', initialValue: profile.email),
+            TextBox1(name: 'Email Address', initialValue: getIt<CacheHelper>().getDataString(key: ApiKeys.email)!),
             const SizedBox(
               height: 15,
             ),
-            TextBox1(name: 'Mobile Number', initialValue: profile.phone),
+            TextBox1(name: 'Mobile Number', initialValue: getIt<CacheHelper>().getDataString(key: ApiKeys.profilePhone)!),
             const SizedBox(
               height: 15,
             ),
-            TextBox1(name: 'Enter Address', initialValue: profile.address),
+            TextBox1(name: 'Enter Address', initialValue: getIt<CacheHelper>().getDataString(key: ApiKeys.address)!),
             const SizedBox(
               height: 100,
             ),

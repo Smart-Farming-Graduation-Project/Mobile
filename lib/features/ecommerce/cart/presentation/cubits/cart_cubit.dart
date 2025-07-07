@@ -4,7 +4,7 @@ import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/api/end_points.dart';
 import 'package:crop_guard/core/errors/exceptions.dart';
-import 'package:crop_guard/core/helper/add_product_to_cart.dart';
+import 'package:crop_guard/core/helper/global_variables.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/features/ecommerce/cart/data/models/cart_product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_state.dart';
@@ -13,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitialState());
   final api = getIt<DioConsumer>();
-  List<CartProductModel> cartProductsList = [];
 
   Future<void> loadCart() async {
     emit(CartLoadingState());
@@ -22,6 +21,8 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> removeFromCart(int productId) async {
     try {
+      cartProductsList.removeWhere((element) => element.productId == productId);
+      checkEmpty(cartProductsList);
       final response = await api.delete(EndPoints.removeFromCart(productId));
       log(response.toString());
       fetchCartProducts();
@@ -31,25 +32,27 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> addToCart(int productId) async {
+  Future<void> updateCart(int productId, int quantity, bool isIncrement) async {
     try {
-      emit(CartLoadingState());
-      final response = await addProductToServerCart(productId);
-      log(response.toString());
-      fetchCartProducts();
-    } on ServerException catch (e) {
-      log(e.errorModel.errorMessage);
-      emit(CartErrorState(errorMessage: e.errorModel.errorMessage));
-    }
-  }
+      cartProductsList
+          .firstWhere((element) => element.productId == productId)
+          .quantity = quantity;
 
-  Future<void> updateCart(int productId, int quantity) async {
-    try {
+      checkEmpty(cartProductsList);
       final response = await api.post(EndPoints.addToCart(productId),
           queryParameters: {ApiKeys.quantity: quantity});
       log(response.toString());
       fetchCartProducts(); // Updated from fe() to fetchCartProducts()
     } on ServerException catch (e) {
+      if (isIncrement) {
+        cartProductsList
+            .firstWhere((element) => element.productId == productId)
+            .quantity = quantity--;
+      } else {
+        cartProductsList
+            .firstWhere((element) => element.productId == productId)
+            .quantity = quantity++;
+      }
       log(e.errorModel.errorMessage);
       emit(CartErrorState(errorMessage: e.errorModel.errorMessage));
     }

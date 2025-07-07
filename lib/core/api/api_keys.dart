@@ -20,6 +20,7 @@ class ApiKeys {
   static const String role = 'role';
   static const String address = 'address';
   static const String profileImage = 'profileImage';
+  static const String profilePhone = 'phone';
   /////////////////////////Authorization  ///////////////////////////////
   static const String authorization = 'Authorization';
   static const String userId = 'userId';

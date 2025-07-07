@@ -176,6 +176,7 @@ class CartItemWidget extends StatelessWidget {
                         context.read<CartCubit>().updateCart(
                               cartItem.productId,
                               cartItem.quantity - 1,
+                              false,
                             );
                       }
                     : null,
@@ -194,6 +195,7 @@ class CartItemWidget extends StatelessWidget {
                   context.read<CartCubit>().updateCart(
                         cartItem.productId,
                         cartItem.quantity + 1,
+                        true,
                       );
                 },
               ),
