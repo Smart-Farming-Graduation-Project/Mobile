@@ -61,7 +61,7 @@ class EndPoints {
 
   static const String getPopularProducts = 'Product/paginatedList';
 
-  static const String getMyProducts = 'Product/ProductsByUserId';
+  static const String getMyProducts = 'Product/MyProducts';
   static const String addProduct = 'Product/Product/Create';
   static const String updateProduct = 'Product/Product/Update';
   static String deleteMyProduct(int productId) {

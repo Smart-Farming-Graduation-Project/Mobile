@@ -6,6 +6,7 @@ import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_cubi
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_state.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/widgets/add_address_button.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/widgets/cart_item_widget.dart';
+import 'package:crop_guard/features/ecommerce/cart/presentation/widgets/empty_cart.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +21,6 @@ class CartProductsView extends StatelessWidget {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         if (state is CartLoadedState) {
-          if (state.items.isEmpty) {
-            return _buildEmptyCartState();
-          }
-
           return Column(
             children: [
               _buildCartHeader(state.items.length),
@@ -90,7 +87,7 @@ class CartProductsView extends StatelessWidget {
           return _buildLoadingState();
         }
 
-        return _buildEmptyCartState();
+        return const EmptyCart();
       },
     );
   }
@@ -180,52 +177,7 @@ class CartProductsView extends StatelessWidget {
     );
   }
 
-  Widget _buildEmptyCartState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 120.w,
-            height: 120.h,
-            decoration: const BoxDecoration(
-              color: AppColors.kBackgroundGray,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.shopping_cart_outlined,
-              size: 60.sp,
-              color: AppColors.kGrayColor,
-            ),
-          ),
-          verticalSpace(24),
-          Text(
-            'Your cart is empty',
-            style: AppTextStyles.font20BlackBold,
-          ),
-          verticalSpace(8),
-          Text(
-            'Add some products to get started',
-            style: AppTextStyles.font15TextGrayRegular,
-            textAlign: TextAlign.center,
-          ),
-          verticalSpace(32),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-            decoration: BoxDecoration(
-              color: AppColors.kPrimaryColor,
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Text(
-              'Start Shopping',
-              style: AppTextStyles.font16WhiteSemiBold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
+ 
   Widget _buildLoadingState() {
     return Center(
       child: Column(

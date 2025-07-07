@@ -2,6 +2,7 @@ import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/pr
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/search_filter_bar.dart';
 import 'package:crop_guard/features/ecommerce/popular_products/manger/cubit/popular_products_cubit.dart';
 import 'package:crop_guard/features/ecommerce/popular_products/manger/cubit/popular_products_state.dart';
+import 'package:crop_guard/features/ecommerce/popular_products/presentation/widgets/popular_products_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,7 @@ class PopularProductsView extends StatelessWidget {
           backgroundColor: AppColors.kPrimaryColor,
           elevation: 0,
           title: const Text(
-            'Popular Products',
+            'All Products',
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
@@ -60,11 +61,7 @@ class PopularProductsView extends StatelessWidget {
                 child: BlocBuilder<PopularProductsCubit, PopularProductsState>(
                   builder: (context, state) {
                     if (state is PopularProductsLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.kPrimaryColor,
-                        ),
-                      );
+                      return const PopularProductsSkeleton();
                     } else if (state is PopularProductsError) {
                       return Center(
                         child: Column(

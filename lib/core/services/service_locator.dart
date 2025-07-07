@@ -103,8 +103,6 @@ void setupServiceLocator() {
   );
   getIt.registerFactory<MyProductsCubit>(
     () => MyProductsCubit(
-      getIt<GetMyProducts>(),
-      getIt<DeleteMyProduct>(),
       getMyProductsUseCase: getIt<GetMyProducts>(),
       deleteMyProductUseCase: getIt<DeleteMyProduct>(),
     ),

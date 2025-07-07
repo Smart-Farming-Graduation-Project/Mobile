@@ -224,7 +224,7 @@ abstract class AppRouter {
     GoRoute(
       path: myProducts,
       builder: (context, state) => BlocProvider(
-        create: (context) => getIt<MyProductsCubit>(),
+        create: (context) => getIt<MyProductsCubit>()..getMyProducts(),
         child: const MyProductsView(),
       ),
     ),

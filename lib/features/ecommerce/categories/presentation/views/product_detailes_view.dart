@@ -9,8 +9,10 @@ import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/pr
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_image_details.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_title.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/review_stars.dart';
+import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_cubit.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -121,7 +123,10 @@ class ProductDetailsView extends StatelessWidget {
                                   ),
                                 ),
                                 horizontalSpace(12),
-                                FavoriteIcon(product: product),
+                                BlocProvider(
+                                  create: (context) => FavoriteCubit(),
+                                  child: FavoriteIcon(product: product),
+                                ),
                               ],
                             ),
 
@@ -163,7 +168,7 @@ class ProductDetailsView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12.r),
                                 border: Border.all(
                                   color: AppColors.kSensorCardBorderGreen
-                                      .withValues(alpha:0.3),
+                                      .withValues(alpha: 0.3),
                                   width: 1,
                                 ),
                               ),

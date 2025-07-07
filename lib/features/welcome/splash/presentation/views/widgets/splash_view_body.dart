@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/helper/get_favorites_products.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class SplashScreenState extends State<SplashScreen>
     if (getIt<CacheHelper>().getData(key: "isOnboardingVisited") != null) {
       if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) == "Buyer") {
         GoRouter.of(context).go(AppRouter.buyerHome);
+        getFavoritesProducts();
       } else if (getIt<CacheHelper>().getDataString(key: ApiKeys.role) ==
           "Farmer") {
         GoRouter.of(context).go(AppRouter.farmerHome);

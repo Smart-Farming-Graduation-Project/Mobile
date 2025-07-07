@@ -12,14 +12,16 @@ class PopularProductsCubit extends Cubit<PopularProductsState> {
   PopularProductsCubit() : super(PopularProductsInitial());
   final ApiConsumer api = getIt<DioConsumer>();
 
-  Future<void> loadPopularProducts({int pageNumber = 1,}) async {
+  Future<void> loadPopularProducts({
+    int pageNumber = 1,
+  }) async {
     emit(PopularProductsLoading());
     try {
-      final response = await api.get(EndPoints.getPopularProducts,
-          queryParameters: {
-            'pageNumber': pageNumber,
-            'pageSize': 10,
-          });
+      final response =
+          await api.get(EndPoints.getPopularProducts, queryParameters: {
+        'pageNumber': pageNumber,
+        'pageSize': 20,
+      });
       final products = (response[ApiKeys.data] as List)
           .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
           .toList();

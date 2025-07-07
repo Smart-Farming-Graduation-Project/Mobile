@@ -1,5 +1,9 @@
-import 'package:crop_guard/core/theme/assets_data.dart';
+import 'package:crop_guard/core/helper/spacing.dart';
+import 'package:crop_guard/core/theme/app_colors.dart';
+import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class EmptyCart extends StatelessWidget {
   const EmptyCart({
@@ -8,38 +12,53 @@ class EmptyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      spacing: 20,
-      children: [
-        const Spacer(
-          flex: 3,
-        ),
-        Image.asset(
-          AssetsData.emptyCart,
-          width: double.infinity,
-          height: 300,
-          scale: 0.8,
-        ),
-        const Text(
-          "Your cart is empty",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 120.w,
+            height: 120.h,
+            decoration: const BoxDecoration(
+              color: AppColors.kBackgroundGray,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              size: 60.sp,
+              color: AppColors.kGrayColor,
+            ),
           ),
-        ),
-        const Text(
-          "Add items to cart to get started",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
+          verticalSpace(24),
+          Text(
+            'Your cart is empty',
+            style: AppTextStyles.font20BlackBold,
           ),
-        ),
-        const Spacer(
-          flex: 5,
-        ),
-      ],
+          verticalSpace(8),
+          Text(
+            'Add some products to get started',
+            style: AppTextStyles.font15TextGrayRegular,
+            textAlign: TextAlign.center,
+          ),
+          verticalSpace(32),
+          GestureDetector(
+            onTap: () {
+              GoRouter.of(context).pop();
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                color: AppColors.kPrimaryColor,
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Text(
+                'Start Shopping',
+                style: AppTextStyles.font16WhiteSemiBold,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

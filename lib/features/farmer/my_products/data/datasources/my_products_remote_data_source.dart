@@ -9,9 +9,7 @@ import '../models/my_product_model.dart';
 abstract class MyProductsRemoteDataSource {
   Future<List<MyProductModel>> getMyProducts(
       {int pageNumber = 1, int pageSize = 10});
-  Future<MyProductModel> getMyProductById(int productId);
   Future<bool> deleteMyProduct(int productId);
-  Future<MyProductModel> updateMyProduct(MyProductModel product);
 }
 
 class MyProductsRemoteDataSourceImpl implements MyProductsRemoteDataSource {
@@ -27,13 +25,7 @@ class MyProductsRemoteDataSourceImpl implements MyProductsRemoteDataSource {
       '${EndPoints.getMyProducts}?PageNumber=$pageNumber&PageSize=$pageSize',
     );
     final List<dynamic> productsJson = response[ApiKeys.data] ?? [];
-    return productsJson.map((json) => MyProductModel.fromJson(json)).toList();
-  }
-
-  @override
-  Future<MyProductModel> getMyProductById(int productId) async {
-    final response = await apiConsumer.get('/farmer/products/$productId');
-    return MyProductModel.fromJson(response[ApiKeys.data]);
+    return productsJson.map((json) => MyProductModel.fromJson(json)).toList().reversed.toList();
   }
 
   @override
@@ -46,12 +38,4 @@ class MyProductsRemoteDataSourceImpl implements MyProductsRemoteDataSource {
     return true;
   }
 
-  @override
-  Future<MyProductModel> updateMyProduct(MyProductModel product) async {
-    final response = await apiConsumer.put(
-      '/farmer/products/${product.productId}',
-      data: product.toJson(),
-    );
-    return MyProductModel.fromJson(response[ApiKeys.data]);
-  }
 }

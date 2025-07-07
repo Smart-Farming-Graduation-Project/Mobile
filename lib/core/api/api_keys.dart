@@ -34,7 +34,7 @@ class ApiKeys {
   static const String newPassword = 'newPassword';
   //////////////////////// Cart ////////////////////////
   static const String quantity = 'quantity';
-
+  static const String cartItems = 'cartItems';
   ///////////////////////// Category ////////////////////////
   static const String categoryId = 'categoryId';
   static const String categoryName = 'categoryName';
