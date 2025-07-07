@@ -63,9 +63,7 @@ void handleDioExceptions(DioException e) {
 
       throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.connectionError:
-      log(e.response!.data.toString());
-
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
+      throw ServerException(errorModel: ErrorModel(errorMessage: "Connection error", statusCode: 500, succeeded: false, data: null, meta: null));
     case DioExceptionType.unknown:
       log(e.response!.data.toString());
 

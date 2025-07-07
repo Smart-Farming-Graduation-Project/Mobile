@@ -21,7 +21,7 @@ class HomeContent extends StatelessWidget {
       child: BlocProvider(
         create: (context) {
           final cubit = HomeCubit();
-          // cubit.getCategories();
+          cubit.getFavoritesProducts();
           // cubit.getAllProducts();
           return cubit;
         },

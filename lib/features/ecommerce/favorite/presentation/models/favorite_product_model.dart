@@ -1,4 +1,3 @@
-import 'package:crop_guard/core/api/api_keys.dart';
 
 class FavoriteProductModel {
   int productId;
@@ -25,17 +24,17 @@ class FavoriteProductModel {
       required this.productImages});
   factory FavoriteProductModel.fromJson(Map<String, dynamic> json) {
     return FavoriteProductModel(
-      productId: json[ApiKeys.productId] ?? 0,
-      productName: json[ApiKeys.productName] ?? "productName",
-      categoryName: json[ApiKeys.categoryName] ?? "categoryName",
+      productId: json["productId"] ?? 0,
+      productName: json["productName"] ?? "productName",
+      categoryName: json["categoryName"] ?? "categoryName",
       productDescription:
-          json[ApiKeys.productDescription] ?? "productDescription",
-      productPrice: json[ApiKeys.productPrice] ?? 0.0,
-      productAvailability: json[ApiKeys.productAvailability] ?? "available",
-      sellerName: json[ApiKeys.sellerName] ?? "sellerName",
-      productRating: json[ApiKeys.productRating]?.toDouble(),
-      isFavorite: json[ApiKeys.isFavorite] ?? true,
-      productImages: List<String>.from(json[ApiKeys.productImages] ?? []),
+          json["productDescription"] ?? "productDescription",
+      productPrice: json["productPrice"] ?? 0.0,
+      productAvailability: json["productAvailability"] ?? "Sale",
+      sellerName: json["sellerName"] ?? "sellerName",
+      productRating: json["productRating"]?.toDouble(),
+      isFavorite: json["isFavorite"] ?? true,
+      productImages: List<String>.from(json["productImages"] ?? []),
     );
   }
 }

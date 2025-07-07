@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/helper/get_favorite_and_cart_products.dart';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/features/farmer/home/presentation/views/widgets/quick_card.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class FeaturesGrid extends StatelessWidget {
               title: 'Market',
               onTap: () {
                 GoRouter.of(context).push(AppRouter.farmerMarket);
+                getFavoritesAndCartProducts();
               }),
           QuickCard(
               icon: "bug",

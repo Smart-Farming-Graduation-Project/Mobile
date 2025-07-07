@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/models/product_model.dart';
 import 'package:crop_guard/features/ecommerce/categories/presentation/cubits/product_item_cubit.dart';
+import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_cubit.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/models/favorite_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,10 +27,29 @@ class ProductItem extends StatelessWidget {
       create: (context) => ProductItemCubit(),
       child: GestureDetector(
         onTap: () {
-          GoRouter.of(context).push(
-            AppRouter.productDetails,
-            extra: product,
-          );
+          if (product != null) {
+            GoRouter.of(context).push(
+              AppRouter.productDetails,
+              extra: product,
+            );
+          } else {
+            ProductModel product = ProductModel(
+              productId: favoriteProduct?.productId ?? 0,
+              productName: favoriteProduct?.productName ?? "",
+              productDescription: favoriteProduct?.productDescription ?? "",
+              productPrice: favoriteProduct?.productPrice ?? 0,
+              categoryName: favoriteProduct?.categoryName ?? "",
+              productImages: favoriteProduct?.productImages ?? [],
+              productAvailability:
+                  favoriteProduct?.productAvailability ?? "Sale",
+              sellerName: favoriteProduct?.sellerName ?? "",
+              isFavorite: favoriteProduct?.isFavorite ?? false,
+            );
+            GoRouter.of(context).push(
+              AppRouter.productDetails,
+              extra: product,
+            );
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -43,7 +63,11 @@ class ProductItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FavoriteIcon(product: product, favoriteProduct: favoriteProduct),
+              BlocProvider(
+                create: (context) => FavoriteCubit(),
+                child: FavoriteIcon(
+                    product: product, favoriteProduct: favoriteProduct),
+              ),
               ProductImage(
                 image: product?.productImages.isNotEmpty ??
                         favoriteProduct?.productImages.isNotEmpty ??

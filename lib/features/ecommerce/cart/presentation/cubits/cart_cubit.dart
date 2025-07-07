@@ -34,7 +34,7 @@ class CartCubit extends Cubit<CartState> {
   Future<void> addToCart(int productId) async {
     try {
       emit(CartLoadingState());
-      final response = await addProductToCart(productId);
+      final response = await addProductToServerCart(productId);
       log(response.toString());
       fetchCartProducts();
     } on ServerException catch (e) {

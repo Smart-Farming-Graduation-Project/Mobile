@@ -28,7 +28,7 @@ class _MyProductsViewState extends State<MyProductsView> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
-    context.read<MyProductsCubit>().getMyProducts();
+    getIt<MyProductsCubit>().getMyProducts();
   }
 
   @override
@@ -40,7 +40,7 @@ class _MyProductsViewState extends State<MyProductsView> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200.h) {
-      context.read<MyProductsCubit>().loadMoreProducts();
+      getIt<MyProductsCubit>().loadMoreProducts();
     }
   }
 
@@ -95,7 +95,7 @@ class _MyProductsViewState extends State<MyProductsView> {
           ),
         ],
       ),
-      body: BlocListener<MyProductsCubit, MyProductsState>(
+      body: BlocConsumer<MyProductsCubit, MyProductsState>(
         listener: (context, state) {
           if (state is DeleteProductSuccess) {
             _handleDeleteSuccess();
@@ -105,100 +105,97 @@ class _MyProductsViewState extends State<MyProductsView> {
             _handleError(state.message);
           }
         },
-        child: BlocBuilder<MyProductsCubit, MyProductsState>(
-          builder: (context, state) {
-            if (state is MyProductsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.kGreenColor,
-                ),
-              );
-            } else if (state is MyProductsLoaded) {
-              if (state.products.isEmpty) {
-                return const EmptyProductsWidget();
-              }
-              return RefreshIndicator(
-                onRefresh: () async {
-                  context.read<MyProductsCubit>().getMyProducts();
-                },
-                child: ListView.builder(
-                  controller: _scrollController,
-                  padding: EdgeInsets.all(16.w),
-                  itemCount:
-                      state.products.length + (state.hasMoreData ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index == state.products.length) {
-                      // Show loading indicator at the bottom
-                      return Padding(
-                        padding: EdgeInsets.all(16.w),
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.kGreenColor,
-                          ),
-                        ),
-                      );
-                    }
-
-                    final product = state.products[index];
+        builder: (BuildContext context, MyProductsState state) {
+          if (state is MyProductsLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.kGreenColor,
+              ),
+            );
+          } else if (state is MyProductsLoaded) {
+            if (state.products.isEmpty) {
+              return const EmptyProductsWidget();
+            }
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<MyProductsCubit>().getMyProducts();
+              },
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: EdgeInsets.all(16.w),
+                itemCount: state.products.length + (state.hasMoreData ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index == state.products.length) {
+                    // Show loading indicator at the bottom
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 16.h),
-                      child: MyProductCard(
-                        product: product,
-                        onEdit: () => _navigateToUpdateProduct(product),
-                        onDelete: () =>
-                            _showDeleteConfirmation(product.productId),
+                      padding: EdgeInsets.all(16.w),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.kGreenColor,
+                        ),
                       ),
                     );
-                  },
-                ),
-              );
-            } else if (state is MyProductsError) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 64.w,
+                  }
+
+                  final product = state.products[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 16.h),
+                    child: MyProductCard(
+                      product: product,
+                      onEdit: () => _navigateToUpdateProduct(product),
+                      onDelete: () =>
+                          _showDeleteConfirmation(context, product.productId),
+                    ),
+                  );
+                },
+              ),
+            );
+          } else if (state is MyProductsError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    size: 64.w,
+                    color: AppColors.kDangerColor,
+                  ),
+                  verticalSpace(16),
+                  Text(
+                    'Error loading products',
+                    style: TextStyle(
+                      fontSize: 18.sp,
                       color: AppColors.kDangerColor,
                     ),
-                    verticalSpace(16),
-                    Text(
-                      'Error loading products',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        color: AppColors.kDangerColor,
-                      ),
+                  ),
+                  verticalSpace(8),
+                  Text(
+                    state.message,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14.sp),
+                  ),
+                  verticalSpace(16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<MyProductsCubit>().getMyProducts();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.kGreenColor,
+                      foregroundColor: AppColors.kWhiteColor,
                     ),
-                    verticalSpace(8),
-                    Text(
-                      state.message,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14.sp),
-                    ),
-                    verticalSpace(16),
-                    ElevatedButton(
-                      onPressed: () {
-                        getIt<MyProductsCubit>().getMyProducts();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.kGreenColor,
-                        foregroundColor: AppColors.kWhiteColor,
-                      ),
-                      child: const Text('Retry'),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return const SizedBox.shrink();
-          },
-        ),
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
 
-  void _showDeleteConfirmation(int productId) {
+  void _showDeleteConfirmation(BuildContext context, int productId) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

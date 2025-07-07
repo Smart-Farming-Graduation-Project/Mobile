@@ -20,8 +20,6 @@ class MarketContent extends StatelessWidget {
       child: BlocProvider(
         create: (context) {
           final cubit = MarketCubit();
-          // cubit.getCategories();
-          // cubit.getAllProducts();
           return cubit;
         },
         child: Scaffold(
