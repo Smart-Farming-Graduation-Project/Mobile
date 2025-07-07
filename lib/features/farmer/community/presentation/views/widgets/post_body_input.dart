@@ -11,10 +11,10 @@ class PostBodyInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.green),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TextField(
+          TextField(
             maxLines: 5,
             decoration: InputDecoration(
               hintText: "Write something...",
