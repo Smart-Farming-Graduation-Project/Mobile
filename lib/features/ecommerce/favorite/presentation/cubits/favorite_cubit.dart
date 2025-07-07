@@ -15,34 +15,42 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitial());
   final api = getIt<DioConsumer>();
   void addToFavorites(ProductModel product) async {
-    favorites.add(FavoriteProductModel.fromJson(product.toJson()));
-    final response =
-        await api.post(EndPoints.addToFavorites(product.productId));
-    if (response[ApiKeys.succeeded] == false) {
-      favorites.remove(FavoriteProductModel.fromJson(product.toJson()));
-      emit(FavoriteError(response[ApiKeys.message]));
-    } else {
+    try {
+      favorites.add(FavoriteProductModel.fromJson(product.toJson()));
       emit(FavoriteSuccess(favorites));
+
+      await api.post(EndPoints.addToFavorites(product.productId));
+    } on ServerException catch (e) {
+      favorites.remove(FavoriteProductModel.fromJson(product.toJson()));
+
+      emit(FavoriteError(e.errorModel.errorMessage));
+    } catch (e) {
+      emit(FavoriteError("An unexpected error occurred."));
     }
   }
 
   void removeFromFavorites(ProductModel product) async {
-    favorites.remove(FavoriteProductModel.fromJson(product.toJson()));
-    final response =
-        await api.delete(EndPoints.removeFromFavorites(product.productId));
-    if (response[ApiKeys.succeeded] == false) {
+    try {
+      favorites.remove(
+        favorites.firstWhere(
+          (favorite) => favorite.productId == product.productId,
+        ),
+      );
+      emit(FavoriteSuccess(favorites));
+      await api.delete(EndPoints.removeFromFavorites(product.productId));
+    } on ServerException catch (e) {
       favorites.add(FavoriteProductModel.fromJson(product.toJson()));
-      emit(FavoriteError(response[ApiKeys.message]));
-    } else {
-      loadFavorites();
+      emit(FavoriteError(e.errorModel.errorMessage));
+    } catch (e) {
+      emit(FavoriteError("An unexpected error occurred."));
     }
   }
 
   Future<void> loadFavorites() async {
     try {
-      favorites.clear(); // Clear any previous data
-      emit(FavoriteLoading());
+      emit(FavoriteSuccess(favorites));
       final response = await api.get(EndPoints.getFavorites);
+      favorites.clear(); // Clear any previous data
 
       // Check if the response has data before proceeding
       if (response[ApiKeys.data] != null &&

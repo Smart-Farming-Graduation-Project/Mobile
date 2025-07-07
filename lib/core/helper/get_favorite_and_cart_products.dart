@@ -15,14 +15,14 @@ Future<void> getFavoritesAndCartProducts() async {
       final favoritesResponse = await api.get(EndPoints.getFavorites);
       final cartProductsResponse = await api.get(EndPoints.getCart);
       favorites.clear();
-      cartProducts.clear();
+      cartProductsList.clear();
       for (var element in favoritesResponse[ApiKeys.data]
           [ApiKeys.favoriteProducts]) {
         favorites.add(FavoriteProductModel.fromJson(element));
       }
       for (var product in cartProductsResponse[ApiKeys.data]
           [ApiKeys.cartItems]) {
-        cartProducts.add(cart_model.CartProductModel.fromJson(product));
+        cartProductsList.add(cart_model.CartProductModel.fromJson(product));
       }
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);

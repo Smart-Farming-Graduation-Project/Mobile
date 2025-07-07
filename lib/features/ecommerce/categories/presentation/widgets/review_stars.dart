@@ -1,7 +1,10 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/features/ecommerce/reviews/presentation/views/reviews_screen.dart';
+import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_rating_cubit/review_rating_cubit.dart';
+import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_rating_cubit/review_rating_state.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ReviewStars extends StatelessWidget {
   final int productId;
@@ -26,35 +29,40 @@ class ReviewStars extends StatelessWidget {
           children: [
             const Icon(Icons.star, color: AppColors.kYellowColor, size: 20),
             const SizedBox(width: 4),
-            Text(
-              rating.toStringAsFixed(1),
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.kBlackColor,
-              ),
+            BlocBuilder<ReviewRatingCubit, ReviewRatingState>(
+              builder: (context, state) {
+                if (state is ReviewRatingLoading) {
+                  return const Skeletonizer(
+                      child: Text(
+                    "0.0",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.kBlackColor,
+                    ),
+                  ));
+                } else if (state is ReviewRatingLoaded) {
+                  return Text(
+                    state.reviewRating.toStringAsFixed(1),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.kBlackColor,
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ],
         ),
         const SizedBox(width: 10),
-        Tooltip(
+        const Tooltip(
           message: "View Reviews",
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ReviewsScreen(
-                    productId: productId,
-                  ),
-                ),
-              );
-            },
-            child: const Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 18,
-              color: AppColors.kBlackColor,
-            ),
+          child: Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 18,
+            color: AppColors.kBlackColor,
           ),
         ),
       ],

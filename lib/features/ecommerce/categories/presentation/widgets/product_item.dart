@@ -27,10 +27,29 @@ class ProductItem extends StatelessWidget {
       create: (context) => ProductItemCubit(),
       child: GestureDetector(
         onTap: () {
-          GoRouter.of(context).push(
-            AppRouter.productDetails,
-            extra: product,
-          );
+          if (product != null) {
+            GoRouter.of(context).push(
+              AppRouter.productDetails,
+              extra: product,
+            );
+          } else {
+            ProductModel product = ProductModel(
+              productId: favoriteProduct?.productId ?? 0,
+              productName: favoriteProduct?.productName ?? "",
+              productDescription: favoriteProduct?.productDescription ?? "",
+              productPrice: favoriteProduct?.productPrice ?? 0,
+              categoryName: favoriteProduct?.categoryName ?? "",
+              productImages: favoriteProduct?.productImages ?? [],
+              productAvailability:
+                  favoriteProduct?.productAvailability ?? "Sale",
+              sellerName: favoriteProduct?.sellerName ?? "",
+              isFavorite: favoriteProduct?.isFavorite ?? false,
+            );
+            GoRouter.of(context).push(
+              AppRouter.productDetails,
+              extra: product,
+            );
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(10),

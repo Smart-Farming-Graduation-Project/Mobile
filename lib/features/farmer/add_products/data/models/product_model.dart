@@ -30,7 +30,7 @@ class ProductModel extends ProductEntity {
       'price': price,
       'quantity': quantity,
       'categoryName': category,
-      'availability': isAvailable ? 'Sale' : 'NotAvailable',
+      'availability': isAvailable ? 'Sale' : 'Lease',
     };
   }
 }

@@ -18,6 +18,7 @@ import 'package:crop_guard/features/ecommerce/popular_products/presentation/view
 import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/views/edit_profile.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/views/profile_view.dart';
+import 'package:crop_guard/features/ecommerce/reviews/presentation/views/reviews_screen.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/views/add_products_view.dart';
 import 'package:crop_guard/features/farmer/add_products/presentation/cubits/add_product_cubit.dart';
 import 'package:crop_guard/features/farmer/chat_bot/presentation/views/chat_bot_view.dart';
@@ -159,10 +160,14 @@ abstract class AppRouter {
       path: popularProducts,
       builder: (context, state) => const PopularProductsView(),
     ),
-    // GoRoute(
-    //   path: favorites,
-    //   // builder: (context, state) => const FavScreen(),
-    // ),
+    GoRoute(
+      path: review,
+      builder: (context, state) {
+        final productId = state.extra as int;
+        return ReviewsScreen(productId: productId);
+      },
+    ),
+
     GoRoute(
       path: category,
       builder: (context, state) => const CategoryView(),

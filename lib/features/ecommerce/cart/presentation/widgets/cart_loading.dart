@@ -102,7 +102,7 @@ class CartLoading extends StatelessWidget {
           // Address Button
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: AddressButton(
+            child: const AddressButton(
               isAddressSelected: false,
               subtotalPrice: 150.00,
             ),

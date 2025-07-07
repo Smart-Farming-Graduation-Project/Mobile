@@ -58,7 +58,7 @@ class ProductItemSkeletonizer extends StatelessWidget {
         color: AppColors.kCardWhite,
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
-          BoxShadow(
+          const BoxShadow(
             color: AppColors.kShadowColor,
             blurRadius: 6,
             spreadRadius: 2,
