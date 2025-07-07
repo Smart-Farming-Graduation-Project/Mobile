@@ -5,6 +5,8 @@ class PlaceholderPost extends PostModel {
       : super(
     id: 0,
     userId: 'Loading...',
+    userName: 'Loading...',
+    userImageUrl: '',
     title: 'Loading...',
     content: 'Loading...',
     voteCount: 0,
@@ -13,4 +15,3 @@ class PlaceholderPost extends PostModel {
     updatedAt: null,
   );
 }
-

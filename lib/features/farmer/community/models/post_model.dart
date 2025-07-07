@@ -1,6 +1,8 @@
 class PostModel {
   final int id;
   final String userId;
+  final String userName;
+  final String userImageUrl;
   final String title;
   final String content;
   final int voteCount;
@@ -11,6 +13,8 @@ class PostModel {
   PostModel({
     required this.id,
     required this.userId,
+    required this.userName,
+    required this.userImageUrl,
     required this.title,
     required this.content,
     required this.voteCount,
@@ -23,6 +27,8 @@ class PostModel {
     return PostModel(
       id: json['id'],
       userId: json['userId'],
+      userName: json['userName'],
+      userImageUrl: json['userImageUrl'],
       title: json['title'],
       content: json['content'],
       voteCount: json['voteCount'],
@@ -36,6 +42,8 @@ class PostModel {
     return {
       'id': id,
       'userId': userId,
+      'userName': userName,
+      'userImageUrl': userImageUrl,
       'title': title,
       'content': content,
       'voteCount': voteCount,
