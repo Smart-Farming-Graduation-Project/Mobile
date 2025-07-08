@@ -11,6 +11,7 @@ class EndPoints {
   static String deletePost(int id) => "$basePosts/DeletePost/$id";
 
 
+
   // Authentication
   static const String login = 'Authentication/SignIn';
   static const String register = 'Authentication/Register';
@@ -47,8 +48,15 @@ class EndPoints {
     return 'Cart/RemoveProduct/$id';
   }
   // Votes
-  static const String vote = '$baseUrl/api/Votes/Vote';
-  static const String deleteVote = '$baseUrl/api/Votes/DeleteVote';
+  static const String vote = '${baseUrl}Votes/Vote';
+  static const String deleteVote = '${baseUrl}Votes/DeleteVote';
+  // Comments
+  static String getCommentsByPostId(int postId) => 'Comments/GetComments/$postId';
+  static String createComment = 'Comments/CreateComment';
+  static String updateComment(int id) => 'Comments/UpdateComment/$id';
+  static String deleteComment(int id) => 'Comments/DeleteComment/$id';
+
+
 
   // Categories
   static const String getCategories = 'Category/CategoryList';

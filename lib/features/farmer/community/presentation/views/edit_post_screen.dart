@@ -78,10 +78,18 @@ class _EditPostScreenState extends State<EditPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.kWhiteColor,
       appBar: AppBar(
         title: const Text("Edit Post"),
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
+
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        leading:
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios, size: 30),
+          onPressed: () => Navigator.of(context).pop(),
+        ),      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

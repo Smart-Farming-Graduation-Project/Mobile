@@ -44,7 +44,7 @@ class CommunityHeader extends StatelessWidget {
                 const Icon(Icons.add, color: Colors.green, size: 20),
             const SizedBox(width: 10),
             Text(
-              'Share what\'\s on your mind...',
+              'Share what\'s on your mind...',
             style: TextStyle(
               color: Colors.grey[700],
               fontSize: 15,

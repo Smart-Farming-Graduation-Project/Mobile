@@ -6,6 +6,7 @@ import 'package:crop_guard/features/farmer/community/presentation/views/widgets/
 import 'package:crop_guard/features/farmer/community/presentation/views/widgets/placeholder_post.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/create_post_cubit.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/create_post_state.dart';
+import 'widgets/profile_admine.dart';
 
 class CommunityBody extends StatelessWidget {
   final int index;
@@ -56,8 +57,10 @@ class CommunityBody extends StatelessWidget {
             }
           },
         );
+
       case 1:
-        return const Center(child: Text(" Profile Page"));
+        return const MyProfileScreen();
+
       default:
         return const SizedBox();
     }
