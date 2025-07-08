@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/create_post_cubit.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/create_post_state.dart';
 import 'package:crop_guard/features/farmer/community/presentation/views/widgets/post_card_widget.dart';
 
-class UserPostsScreen extends StatelessWidget {
-  final String userId;
-  final String userName;
-  final String userImageUrl;
-
-  const UserPostsScreen({
-    super.key,
-    required this.userId,
-    required this.userName,
-    required this.userImageUrl,
-  });
+class MyProfileScreen extends StatelessWidget {
+  const MyProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userId = getIt<CacheHelper>().getData(key: "userId") ?? "";
+    final userName = getIt<CacheHelper>().getData(key: "userName") ?? "Me";
+    final userImageUrl = getIt<CacheHelper>().getData(key: "userImage") ?? "";
+
     return BlocProvider(
       create: (_) => PostCubit()..fetchPostsByUser(userId),
       child: SafeArea(
@@ -79,7 +76,7 @@ class UserPostsScreen extends StatelessWidget {
                     } else if (state is PostLoaded) {
                       if (state.posts.isEmpty) {
                         return const Center(
-                          child: Text('No posts found for this user.'),
+                          child: Text('You have not posted anything yet.'),
                         );
                       }
                       return ListView.separated(

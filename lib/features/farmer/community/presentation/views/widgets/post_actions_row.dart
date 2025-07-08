@@ -2,6 +2,7 @@ import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_cu
 import 'package:crop_guard/features/farmer/community/presentation/cubits/vote_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostActionsRow extends StatelessWidget {
@@ -47,12 +48,10 @@ class PostActionsRow extends StatelessWidget {
         const SizedBox(width: 10),
         const Icon(FontAwesomeIcons.share, color: Colors.black, size: 24),
         const SizedBox(width: 3),
-        const Text("Share",
-            style: TextStyle(color: Colors.black, fontSize: 12)),
         const Spacer(),
         Text(
           ' $timeAgo',
-          style: const TextStyle(color: Colors.black, fontSize: 12),
+          style:  TextStyle(color: Colors.black, fontSize: 12.sp),
         ),
       ],
     );

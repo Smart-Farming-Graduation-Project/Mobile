@@ -42,7 +42,9 @@ class _CommunityHomeScreenState extends State<CommunityHomeScreen> {
       value: _postCubit,
       child: Scaffold(
         backgroundColor: AppColors.kWhiteColor,
-        appBar: AppBar(
+
+        appBar: _selectedIndex == 0
+            ? AppBar(
           title: Text(
             _appBarTitle,
             style: const TextStyle(
@@ -52,8 +54,14 @@ class _CommunityHomeScreenState extends State<CommunityHomeScreen> {
           ),
           backgroundColor: Colors.white,
           elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black),
-        ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, size: 30),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        )
+            : null,
+
         body: CommunityBody(
           index: _selectedIndex,
           postCubit: _postCubit,
