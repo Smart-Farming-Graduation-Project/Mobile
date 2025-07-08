@@ -1,3 +1,4 @@
+import 'package:crop_guard/core/api/api_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crop_guard/core/services/service_locator.dart';
@@ -11,9 +12,9 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = getIt<CacheHelper>().getData(key: "userId") ?? "";
-    final userName = getIt<CacheHelper>().getData(key: "userName") ?? "Me";
-    final userImageUrl = getIt<CacheHelper>().getData(key: "userImage") ?? "";
+    final userId = getIt<CacheHelper>().getDataString(key: ApiKeys.userId) ?? "";
+    final userName = '${getIt<CacheHelper>().getDataString(key: ApiKeys.firstName) ?? ""} ${getIt<CacheHelper>().getDataString(key: ApiKeys.lastName) ?? ""}' ;
+    final userImageUrl = getIt<CacheHelper>().getDataString(key: ApiKeys.profileImage) ?? ""; 
 
     return BlocProvider(
       create: (_) => PostCubit()..fetchPostsByUser(userId),

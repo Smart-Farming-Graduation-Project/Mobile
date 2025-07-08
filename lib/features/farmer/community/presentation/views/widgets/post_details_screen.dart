@@ -5,7 +5,7 @@ import 'package:crop_guard/features/farmer/community/presentation/views/widgets/
 import 'package:crop_guard/features/farmer/community/presentation/cubits/comment_cubit.dart';
 import 'package:crop_guard/features/farmer/community/presentation/cubits/comment_state.dart';
 import 'package:crop_guard/features/farmer/community/presentation/views/widgets/comment_tile.dart';
-import 'commentInput_field.dart';
+import 'comment_input_field.dart';
 
 class PostDetailsScreen extends StatefulWidget {
   final PostModel post;

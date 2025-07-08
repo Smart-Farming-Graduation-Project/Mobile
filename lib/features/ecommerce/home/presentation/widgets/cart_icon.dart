@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:crop_guard/core/routes/app_router.dart';
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
+import 'package:crop_guard/features/ecommerce/cart/data/models/cart_product_model.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_cubit.dart';
 import 'package:crop_guard/features/ecommerce/cart/presentation/cubits/cart_state.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class CartIcon extends StatelessWidget {
                 if (state is CartLoadedState) {
                   GoRouter.of(context).push(AppRouter.cart, extra: state.items );
                 }else{
-                  GoRouter.of(context).push(AppRouter.cart, extra: []);
+                  GoRouter.of(context).push(AppRouter.cart, extra: [] as List<CartProductModel>);
                 }
               },
               child: badges.Badge(

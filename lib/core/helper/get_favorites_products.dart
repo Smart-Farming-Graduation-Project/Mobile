@@ -18,6 +18,7 @@ final api = getIt<DioConsumer>();
         favorites.add(FavoriteProductModel.fromJson(element));
       }
     } on ServerException catch (e) {
+      favorite = [];
       log(e.errorModel.errorMessage);
     }
   }
