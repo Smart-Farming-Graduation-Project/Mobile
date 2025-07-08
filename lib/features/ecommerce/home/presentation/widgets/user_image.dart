@@ -10,24 +10,10 @@ class UserImage extends StatelessWidget {
     return CircleAvatar(
       radius: radius + 2,
       backgroundColor: AppColors.kPrimaryColor,
-      child: CircleAvatar(
-        radius: radius,
-        backgroundColor: Colors.grey[300],
-        child: ClipOval(
-          child: Image.asset(
-            'assets/images/home/profile.png',
-            fit: BoxFit.cover,
-            width: radius * 2,
-            height: radius * 2,
-            errorBuilder: (context, error, stackTrace) {
-              return Icon(
-                Icons.person,
-                size: radius,
-                color: Colors.grey[700],
-              );
-            },
-          ),
-        ),
+      child: Icon(
+        Icons.person,
+        size: radius * 1.2,
+        color: AppColors.kWhiteColor,
       ),
     );
   }

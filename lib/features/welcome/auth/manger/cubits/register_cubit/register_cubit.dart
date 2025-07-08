@@ -19,7 +19,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(AccountTypestate());
+  RegisterCubit() : super(FirstSignUpState());
   final api = getIt<DioConsumer>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -38,10 +38,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(FirstSignUpState());
   }
 
-  void selectRole(String selectedRole) {
-    role = selectedRole;
-    emit(RegisterRoleSelectedState(role));
-  }
+  // void selectRole(String selectedRole) {
+  //   role = selectedRole;
+  //   emit(RegisterRoleSelectedState(role));
+  // }
 
   Future<void> checkEmailAndUsername() async {
     if (formKeyFirstPage.currentState!.validate() &&
@@ -114,27 +114,38 @@ class RegisterCubit extends Cubit<RegisterState> {
   //! signUp with Google and get needed data to send to method {signUpWithThirdParty} which deal with api
   Future<void> signUpWithGoogle(BuildContext context) async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: [
+          'email',
+          'profile',
+        ],
+      );
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
         final String accessToken = googleAuth.accessToken!;
+        final String userId = googleUser.id;
         final String firstName = googleUser.displayName?.split(' ').first ?? '';
         final String lastName = googleUser.displayName?.split(' ').last ?? '';
         log(firstName);
         log(lastName);
         log(accessToken);
-        await signUpWithThirdParty(
-            firstName: firstName,
-            lastName: lastName,
-            accessToken: accessToken,
-            provider: 'google');
         if (context.mounted) {
-          GoRouter.of(context).go(AppRouter.home);
+          await signUpWithThirdParty(
+              firstName: firstName,
+              lastName: lastName,
+              email: googleUser.email,
+              address: 'Zagazig',
+              accessToken: accessToken,
+              userId: userId,
+              provider: 'google',
+              profileImage: googleUser.photoUrl ?? '',
+              context: context);
         }
       }
     } catch (e) {
+      GoogleSignIn().signOut();
       log(e.toString());
     }
   }
@@ -149,21 +160,26 @@ class RegisterCubit extends Cubit<RegisterState> {
         final String accessToken = result.accessToken!.tokenString;
 
         final userData = await FacebookAuth.instance.getUserData();
-        final String firstName = userData['first_name'] ?? '';
-        final String lastName = userData['last_name'] ?? '';
+        final String firstName = userData['name'].split(' ').first;
+        final String lastName = userData['name'].split(' ').last;
         log(firstName);
         log(lastName);
         log(accessToken);
-        await signUpWithThirdParty(
-            firstName: firstName,
-            lastName: lastName,
-            accessToken: accessToken,
-            provider: 'facebook');
         if (context.mounted) {
-          GoRouter.of(context).go(AppRouter.home);
+          await signUpWithThirdParty(
+              firstName: firstName,
+              lastName: lastName,
+              email: userData['email'] ?? '',
+              address: 'Zagazig',
+              accessToken: accessToken,
+              userId: userData['id'] ?? '',
+              provider: 'facebook',
+              profileImage: userData['picture']?['data']?['url'] ?? '',
+              context: context);
         }
       }
     } catch (e) {
+      FacebookAuth.instance.logOut();
       log(e.toString());
     }
   }
@@ -172,8 +188,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> signUpWithThirdParty(
       {required String firstName,
       required String lastName,
+      required String email,
+      required String address,
       required String accessToken,
-      required String provider}) async {
+      required String userId,
+      required String provider,
+      required String profileImage,
+      required BuildContext context}) async {
     try {
       if (!isClosed) {
         emit(FirstSignUpLoadingState());
@@ -182,24 +203,32 @@ class RegisterCubit extends Cubit<RegisterState> {
         ApiKeys.firstName: firstName,
         ApiKeys.lastName: lastName,
         ApiKeys.accessToken: accessToken,
-        ApiKeys.provider: provider
+        ApiKeys.provider: provider,
+        ApiKeys.userId: userId,
+        ApiKeys.email: email,
+        ApiKeys.address: address,
+        ApiKeys.profileImage: profileImage,
       });
       log(response.toString());
+      if (context.mounted) {
+        GoRouter.of(context).go(AppRouter.buyerHome);
+      }
     } on ServerException catch (e) {
       log(e.errorModel.errorMessage);
       if (!isClosed) {
+        log("errorMessage: ${e.errorModel.errorMessage}");
         emit(FirstSignUpErrorState(errorMessage: e.errorModel.errorMessage));
       }
     }
   }
 
-  void chooseBuyer() {
-    selectRole('Buyer');
-  }
+  // void chooseBuyer() {
+  //   selectRole('Buyer');
+  // }
 
-  void chooseFarmer() {
-    selectRole('Farmer');
-  }
+  // void chooseFarmer() {
+  //   selectRole('Farmer');
+  // }
 
   void pickUserImage() async {
     imageFile = await pickImage();

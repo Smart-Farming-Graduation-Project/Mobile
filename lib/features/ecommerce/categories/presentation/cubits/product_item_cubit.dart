@@ -10,7 +10,7 @@ class ProductItemCubit extends Cubit<ProductItemState> {
   Future<void> addToCart(int productId) async {
     emit(ProductItemLoading());
     try {
-      final response = await addProductToCart(productId);
+      final response = await addProductToServerCart(productId);
       emit(AddingProductToCartSuccess(message: response[ApiKeys.data]));
     } on ServerException catch (e) {
       emit(AddingProductToCartFailed(message: e.errorModel.errorMessage));

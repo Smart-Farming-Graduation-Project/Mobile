@@ -18,6 +18,8 @@ class ApiKeys {
   static const String phoneNumber = 'phone';
   static const String image = 'Image ';
   static const String role = 'role';
+  static const String address = 'address';
+  static const String profileImage = 'profileImage';
   /////////////////////////Authorization  ///////////////////////////////
   static const String authorization = 'Authorization';
   static const String userId = 'userId';
@@ -32,7 +34,7 @@ class ApiKeys {
   static const String newPassword = 'newPassword';
   //////////////////////// Cart ////////////////////////
   static const String quantity = 'quantity';
-
+  static const String cartItems = 'cartItems';
   ///////////////////////// Category ////////////////////////
   static const String categoryId = 'categoryId';
   static const String categoryName = 'categoryName';
@@ -57,4 +59,15 @@ class ApiKeys {
 
   /////////////////////// Stripe ////////////////////////
   static String get stripeSecretKey => dotenv.env['STRIPE_SECRET_KEY'] ?? '';
+  static String get stripePublishableKey {
+    // Try to get from environment variable first
+    final envKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'];
+    if (envKey != null && envKey.isNotEmpty) {
+      return envKey;
+    }
+    
+    // Fallback to a default key (you should replace this with your actual key)
+    // In production, you should use build-time configuration
+    return 'pk_test_51RghLPQ8ryXlRMVNHHCafXICEe2UIdSJmeUSSew205jxC5Z0wsvKCWtlQrRky3c2elRb8gIrWifiFMNV0p0bmBww00fvJR4803';
+  }
 }

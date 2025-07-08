@@ -1,5 +1,9 @@
 import 'package:crop_guard/core/api/dio_consumer.dart';
 import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/payment/stripe_service.dart';
+import 'package:crop_guard/features/ecommerce/payment/data/repos/checkout_repo.dart';
+import 'package:crop_guard/features/ecommerce/payment/data/repos/checkout_repo_impl.dart';
+import 'package:crop_guard/features/ecommerce/payment/presentation/manger/cubits/stripe_payment_cubit/stripe_payment_cubit.dart';
 import 'package:crop_guard/features/farmer/my_products/data/datasources/my_products_remote_data_source.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/cubits/review_cubit.dart';
 import 'package:crop_guard/features/farmer/add_products/data/datasources/product_remote_data_source.dart';
@@ -99,10 +103,21 @@ void setupServiceLocator() {
   );
   getIt.registerFactory<MyProductsCubit>(
     () => MyProductsCubit(
-      getIt<GetMyProducts>(),
-      getIt<DeleteMyProduct>(),
       getMyProductsUseCase: getIt<GetMyProducts>(),
       deleteMyProductUseCase: getIt<DeleteMyProduct>(),
     ),
+  );
+  // stripe
+  getIt.registerSingleton<StripeService>(
+    StripeService(
+    ),
+  );
+  getIt.registerLazySingleton<CheckoutRepo>(
+    () => CheckoutRepoImpl(
+      stripeService: getIt<StripeService>(),
+    ),
+  );
+  getIt.registerLazySingleton<StripePaymentCubit>(
+    () => StripePaymentCubit(checkoutRepo: getIt<CheckoutRepo>()),
   );
 }

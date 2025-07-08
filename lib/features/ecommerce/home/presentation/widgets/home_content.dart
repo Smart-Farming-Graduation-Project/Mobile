@@ -1,4 +1,7 @@
-import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_screen.dart';
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
+import 'package:crop_guard/features/ecommerce/categories/presentation/views/category_section.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/cubits/home_cubit.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_title_text.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/popular_section.dart';
@@ -9,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'home_app_bar.dart';
 import 'filter_button.dart';
 import 'offer_card.dart';
-import 'text_section.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
@@ -19,7 +21,7 @@ class HomeContent extends StatelessWidget {
       child: BlocProvider(
         create: (context) {
           final cubit = HomeCubit();
-          // cubit.getCategories();
+          cubit.getFavoritesProducts();
           // cubit.getAllProducts();
           return cubit;
         },
@@ -30,12 +32,19 @@ class HomeContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 4,
               children: [
-                const HomeAppBar(
-                  userName: 'Noha Ahmed',
+                HomeAppBar(
+                  userName: getIt<CacheHelper>()
+                          .getDataString(key: ApiKeys.username) ??
+                      'unknown user',
                 ),
                 const SearchBarFilter(),
-                const TextSection(text: 'See All'),
-                SizedBox(height: 100.h, child: const CategoryScreen()),
+                const Padding(
+                  padding: EdgeInsets.only(top: 7),
+                  child: HomeTitleText(
+                    title: 'Category',
+                  ),
+                ),
+                SizedBox(height: 100.h, child: const CategorySection()),
                 const HomeTitleText(
                   title: 'Today\'s Offer',
                 ),

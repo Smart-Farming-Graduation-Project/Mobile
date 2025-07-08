@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:crop_guard/core/errors/exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:crop_guard/core/failure/failure_model.dart';
 import '../../domain/entities/my_product_entity.dart';
@@ -16,40 +19,22 @@ class MyProductsRepositoryImpl implements MyProductsRepository {
       final products = await remoteDataSource.getMyProducts(
           pageNumber: pageNumber, pageSize: pageSize);
       return Right(products);
-    } catch (e) {
+    } on ServerException catch (e) {
       return Left(FailureModel(message: e.toString()));
     }
   }
 
   @override
-  Future<Either<FailureModel, MyProductEntity>> getMyProductById(
-      int productId) async {
+  Future<Either<FailureModel, void>> deleteMyProduct(int productId) async {
     try {
-      final product = await remoteDataSource.getMyProductById(productId);
-      return Right(product);
-    } catch (e) {
-      return Left(FailureModel(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<FailureModel, bool>> deleteMyProduct(int productId) async {
-    try {
-      final result = await remoteDataSource.deleteMyProduct(productId);
-      return Right(result);
-    } catch (e) {
-      return Left(FailureModel(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<FailureModel, MyProductEntity>> updateMyProduct(
-      MyProductEntity product) async {
-    try {
-      final updatedProduct =
-          await remoteDataSource.updateMyProduct(product as dynamic);
-      return Right(updatedProduct);
-    } catch (e) {
+      await remoteDataSource.deleteMyProduct(productId);
+      await getMyProducts(pageNumber: 1, pageSize: 10);
+      return const Right(null);
+    } on ServerException catch (e) {
+      log(e.errorModel.statusCode.toString());
+      if (e.errorModel.statusCode == 500) {
+        deleteMyProduct(productId);
+      }
       return Left(FailureModel(message: e.toString()));
     }
   }

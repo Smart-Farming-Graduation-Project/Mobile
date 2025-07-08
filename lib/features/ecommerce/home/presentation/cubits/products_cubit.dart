@@ -17,7 +17,11 @@ class ProductsCubit extends Cubit<ProductsState> {
     log('getAllProducts');
     emit(ProductsLoading());
     try {
-      final response = await api.get(EndPoints.getProducts);
+      final response =
+          await api.get(EndPoints.getPopularProducts, queryParameters: {
+        'pageNumber': 1,
+        'pageSize': 10,
+      });
       List<ProductModel> products = [];
 
       if (response[ApiKeys.data] != null) {

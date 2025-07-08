@@ -1,14 +1,13 @@
-import 'dart:developer';
-
 import 'package:crop_guard/core/theme/app_colors.dart';
-import 'package:crop_guard/features/ecommerce/categories/presentation/widgets/product_item.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_cubit.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/cubits/favorite_state.dart';
 import 'package:crop_guard/features/ecommerce/favorite/presentation/widgets/empty_favorite.dart';
+import 'package:crop_guard/features/ecommerce/favorite/presentation/widgets/favorite_product_item.dart';
 import 'package:crop_guard/features/ecommerce/home/presentation/widgets/search_filter_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class FavScreen extends StatelessWidget {
@@ -31,12 +30,23 @@ class FavScreen extends StatelessWidget {
               ),
             ),
             centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                GoRouter.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColors.kWhiteColor,
+              ),
+            ),
           ),
           BlocBuilder<FavoriteCubit, FavoriteState>(
             builder: (context, state) {
               if (state is FavoriteLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               } else if (state is FavoriteError) {
                 return Center(
@@ -79,10 +89,9 @@ class FavScreen extends StatelessWidget {
                               childAspectRatio: 0.7,
                             ),
                             itemBuilder: (context, index) {
-                              log(state.favoriteProducts[index].productImages
-                                  .toString());
-                              return ProductItem(
-                                  product: state.favoriteProducts[index]);
+                              return FavoriteProductItem(
+                                favoriteProduct: state.favoriteProducts[index],
+                              );
                             },
                           ),
                         ),

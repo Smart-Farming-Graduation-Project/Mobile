@@ -1,0 +1,166 @@
+Welcome Feature Documentation
+
+1. Executive Summary
+
+The Welcome feature in the CropGuard mobile application encompasses the initial user experience, including the Splash screen and Onboarding flow. This feature serves as the first point of contact with users, providing a smooth introduction to the app's capabilities, setting user expectations, and guiding new users through the platform's key features before they begin using the application.
+
+2. User Experience and Flow
+
+- **Splash Screen Flow:**
+  - When the app launches, users see a splash screen with the CropGuard logo and branding.
+  - The splash screen displays for a brief period (2-3 seconds) while the app initializes.
+  - During this time, the app checks for existing user sessions and loads necessary resources.
+  - After initialization, users are directed to either the onboarding flow (for new users) or the main app (for returning users).
+
+- **Onboarding Flow:**
+  - New users are presented with a series of onboarding screens that introduce key features.
+  - Each screen highlights a specific aspect of the app (e.g., product management, pest detection, marketplace).
+  - Users can swipe through screens or use navigation dots to move between them.
+  - The final screen includes a "Get Started" button that leads to the authentication flow.
+  - Users can skip the onboarding process if desired.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Splash screen with logo, onboarding carousel with feature highlights, and navigation controls.
+- State Management: Provider/Bloc/Riverpod for managing splash and onboarding state.
+- API Integration: Service class (e.g., ApiConsumer) for checking user session status during splash.
+
+Backend:
+- RESTful API endpoint for checking user authentication status during app initialization.
+- Database queries to verify existing user sessions and preferences.
+- Responds with JSON data indicating user login status and onboarding completion.
+
+Architecture Flow:
+
+User (App Launch)
+   ↓
+Splash Screen (Initialization)
+   ↓
+API Service (HTTP GET - Check Session)
+   ↓
+Backend API (Validate User Session)
+   ↓
+Database
+   ↓
+API Response (User Status)
+   ↓
+App Navigation (Onboarding/Auth/Main App)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Splash Screen Logic (splash_view.dart)
+-----------------------------------------
+@override
+void initState() {
+  super.initState();
+  _initializeApp();
+}
+
+Future<void> _initializeApp() async {
+  await Future.delayed(Duration(seconds: 3));
+  final isLoggedIn = await authService.isUserLoggedIn();
+  final hasCompletedOnboarding = await preferences.getBool('onboarding_completed') ?? false;
+  
+  if (isLoggedIn) {
+    context.go('/home');
+  } else if (hasCompletedOnboarding) {
+    context.go('/auth');
+  } else {
+    context.go('/onboarding');
+  }
+}
+
+B. Onboarding Controller (onboarding_controller.dart)
+----------------------------------------------------
+class OnboardingController extends ChangeNotifier {
+  final PageController pageController = PageController();
+  int currentPage = 0;
+  
+  final List<OnboardingPage> pages = [
+    OnboardingPage(
+      title: 'Welcome to CropGuard',
+      description: 'Your digital marketplace for fresh agricultural products',
+      image: 'assets/images/onboarding/page1.png',
+    ),
+    OnboardingPage(
+      title: 'Smart Pest Detection',
+      description: 'Use AI to identify crop pests and get instant recommendations',
+      image: 'assets/images/onboarding/page2.png',
+    ),
+    OnboardingPage(
+      title: 'Connect with Farmers',
+      description: 'Buy directly from local farmers and support sustainable agriculture',
+      image: 'assets/images/onboarding/page3.png',
+    ),
+  ];
+  
+  void nextPage() {
+    if (currentPage < pages.length - 1) {
+      currentPage++;
+      pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      notifyListeners();
+    }
+  }
+  
+  void completeOnboarding() async {
+    await preferences.setBool('onboarding_completed', true);
+    context.go('/auth');
+  }
+}
+
+C. Onboarding View (onboarding_view.dart)
+-----------------------------------------
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Column(
+      children: [
+        Expanded(
+          child: PageView.builder(
+            controller: controller.pageController,
+            onPageChanged: (index) {
+              controller.currentPage = index;
+            },
+            itemCount: controller.pages.length,
+            itemBuilder: (context, index) {
+              final page = controller.pages[index];
+              return OnboardingPageWidget(page: page);
+            },
+          ),
+        ),
+        OnboardingNavigation(
+          currentPage: controller.currentPage,
+          totalPages: controller.pages.length,
+          onNext: controller.nextPage,
+          onComplete: controller.completeOnboarding,
+        ),
+      ],
+    ),
+  );
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["App launches"] --> B["Show splash screen"]
+    B --> C["Initialize app resources"]
+    C --> D["Check user session status"]
+    D --> E{"User logged in?"}
+    E -- "Yes" --> F["Navigate to main app"]
+    E -- "No" --> G{"Onboarding completed?"}
+    G -- "Yes" --> H["Navigate to authentication"]
+    G -- "No" --> I["Show onboarding screens"]
+    I --> J["User swipes through features"]
+    J --> K["User taps 'Get Started'"]
+    K --> L["Mark onboarding as completed"]
+    L --> H
+```
+
+6. Summary
+
+The Welcome feature provides a smooth and engaging introduction to the CropGuard platform. In our code, the flow is: App launch → splash initialization → session check → onboarding/authentication navigation, ensuring users have a positive first experience and understand the app's value proposition before diving into the main functionality. 

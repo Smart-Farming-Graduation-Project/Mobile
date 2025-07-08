@@ -1,6 +1,16 @@
 class EndPoints {
   static const String baseUrl = 'https://crop-pilot-api.azurewebsites.net/api/';
 
+  static const String basePosts = "https://crop-pilot-api.azurewebsites.net/api/Posts";
+
+  static const String getAllPosts = "$basePosts/GetPosts";
+  static String getPostById(int id) => "$basePosts/GetPost/$id";
+  static String getPostsByUser(String userId) => "$basePosts/GetPostsByUser/$userId";
+  static const String createPost = "$basePosts/CreatePost";
+  static String updatePost(int id) => "$basePosts/UpdatePost/$id";
+  static String deletePost(int id) => "$basePosts/DeletePost/$id";
+
+
   // Authentication
   static const String login = 'Authentication/SignIn';
   static const String register = 'Authentication/Register';
@@ -36,6 +46,9 @@ class EndPoints {
   static String removeFromCart(int id) {
     return 'Cart/RemoveProduct/$id';
   }
+  // Votes
+  static const String vote = '$baseUrl/api/Votes/Vote';
+  static const String deleteVote = '$baseUrl/api/Votes/DeleteVote';
 
   // Categories
   static const String getCategories = 'Category/CategoryList';
@@ -59,7 +72,9 @@ class EndPoints {
     return 'Product/product/$id';
   }
 
-  static const String getMyProducts = 'Product/ProductsByUserId';
+  static const String getPopularProducts = 'Product/paginatedList';
+
+  static const String getMyProducts = 'Product/MyProducts';
   static const String addProduct = 'Product/Product/Create';
   static const String updateProduct = 'Product/Product/Update';
   static String deleteMyProduct(int productId) {
@@ -86,4 +101,10 @@ class EndPoints {
   // Soil Info
   static const String soilChartData = 'IoT/latest-reading';
   static const String soilAnalysisData = 'IoT/Get-Last-Reading';
+
+  // Profile
+  static String getProfile(String id) {
+    return 'User/GetById/$id';
+  }
 }
+

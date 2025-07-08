@@ -1,0 +1,165 @@
+Rover Control Feature Documentation
+
+1. Executive Summary
+
+The Rover Control feature in the CropGuard mobile application enables farmers to remotely control agricultural robots or drones for field monitoring, crop inspection, and automated farming tasks. This feature provides an intuitive interface for managing autonomous farming equipment, allowing farmers to monitor their fields, collect data, and perform precision agriculture operations from their mobile devices.
+
+2. User Experience and Flow
+
+- Farmers access the Rover Control screen from their dashboard or specialized equipment menu.
+- The Rover Control interface displays:
+  - Real-time video feed from the rover's cameras.
+  - Control buttons for movement (forward, backward, left, right, stop).
+  - Status indicators showing battery level, signal strength, and current location.
+  - Mission planning and waypoint setting capabilities.
+  - Data collection and field mapping options.
+- Users can:
+  - Control rover movement using on-screen buttons or joystick interface.
+  - Set autonomous missions with predefined waypoints.
+  - Monitor field conditions through live video feed.
+  - Collect soil samples, images, or sensor data.
+  - View historical data and field maps.
+  - Emergency stop functionality for safety.
+
+3. Architecture Overview
+
+Frontend (Flutter):
+- UI: Control interface, video feed display, status indicators, and mission planning tools.
+- State Management: Provider/Bloc/Riverpod for managing rover state and control commands.
+- API Integration: Service class (e.g., ApiConsumer) for sending control commands and receiving rover data.
+
+Backend:
+- RESTful API endpoints for rover control commands, status monitoring, and data collection.
+- WebSocket connections for real-time communication with rover hardware.
+- Database storage for mission data, field maps, and collected sensor information.
+- Responds with JSON data for rover status and control confirmations.
+
+Architecture Flow:
+
+User (Farmer App)
+   ↓
+Rover Control Screen (Interface)
+   ↓
+API Service (HTTP POST/WebSocket)
+   ↓
+Backend API (Rover Control & Monitoring)
+   ↓
+Rover Hardware & Sensors
+   ↓
+API Response (Status & Data)
+   ↓
+App Feedback (UI Update)
+
+4. Important Code Snippets (From Our Codebase)
+
+A. Rover Control Commands (rover_control_cubit.dart)
+---------------------------------------------------
+Future<void> sendMovementCommand(RoverMovement movement) async {
+  emit(RoverControlLoading());
+  try {
+    await roverControlRepository.sendCommand(movement);
+    emit(RoverControlSuccess('Movement command sent'));
+  } catch (e) {
+    emit(RoverControlError(e.toString()));
+  }
+}
+
+Future<void> startMission(List<Waypoint> waypoints) async {
+  emit(RoverControlLoading());
+  try {
+    await roverControlRepository.startMission(waypoints);
+    emit(RoverControlSuccess('Mission started'));
+  } catch (e) {
+    emit(RoverControlError(e.toString()));
+  }
+}
+
+B. Rover Status Monitoring (rover_control_cubit.dart)
+----------------------------------------------------
+Future<void> getRoverStatus() async {
+  emit(RoverControlLoading());
+  try {
+    final status = await roverControlRepository.getStatus();
+    emit(RoverStatusLoaded(status));
+  } catch (e) {
+    emit(RoverControlError(e.toString()));
+  }
+}
+
+C. Rover Control Interface (rover_control_view.dart)
+---------------------------------------------------
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<RoverControlCubit, RoverControlState>(
+    builder: (context, state) {
+      return Scaffold(
+        body: Column(
+          children: [
+            // Video feed area
+            Expanded(
+              flex: 2,
+              child: VideoFeedWidget(
+                streamUrl: state is RoverStatusLoaded ? state.status.videoStream : null,
+              ),
+            ),
+            // Control interface
+            Expanded(
+              flex: 1,
+              child: RoverControlPanel(
+                onMovementCommand: (movement) => 
+                  context.read<RoverControlCubit>().sendMovementCommand(movement),
+                onEmergencyStop: () => 
+                  context.read<RoverControlCubit>().emergencyStop(),
+              ),
+            ),
+            // Status indicators
+            RoverStatusBar(
+              batteryLevel: state is RoverStatusLoaded ? state.status.batteryLevel : 0,
+              signalStrength: state is RoverStatusLoaded ? state.status.signalStrength : 0,
+              location: state is RoverStatusLoaded ? state.status.currentLocation : null,
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _showMissionPlanning(),
+          child: Icon(Icons.route),
+        ),
+      );
+    },
+  );
+}
+
+D. Mission Planning (mission_planning_view.dart)
+------------------------------------------------
+Future<void> _createMission() async {
+  final waypoints = await _getWaypointsFromMap();
+  if (waypoints.isNotEmpty) {
+    await context.read<RoverControlCubit>().startMission(waypoints);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Mission created and started')),
+    );
+  }
+}
+
+5. Flow Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+    A["Farmer opens Rover Control"] --> B["Connect to rover hardware"]
+    B --> C["Display video feed and status"]
+    C --> D{"User action?"}
+    D -- "Manual control" --> E["Send movement commands"]
+    D -- "Mission planning" --> F["Set waypoints and start mission"]
+    D -- "Emergency stop" --> G["Stop all rover operations"]
+    E --> H["Rover executes movement"]
+    F --> I["Rover follows autonomous path"]
+    G --> J["Rover stops immediately"]
+    H --> K["Update status and position"]
+    I --> K
+    J --> K
+    K --> C
+```
+
+6. Summary
+
+The Rover Control feature empowers farmers with remote agricultural automation capabilities. In our code, the flow is: UI control interface → API commands → backend processing → rover hardware execution → status feedback, enabling precision agriculture and efficient field management through mobile technology. 

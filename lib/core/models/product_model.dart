@@ -25,17 +25,30 @@ class ProductModel {
       required this.productImages});
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      productId: json[ApiKeys.productId] ?? 0,
-      productName: json[ApiKeys.productName] ?? "productName",
-      categoryName: json[ApiKeys.categoryName] ?? "categoryName",
+      productId: json["productId"] ?? 0,
+      productName: json["productName"] ?? "productName",
+      categoryName: json["categoryName"] ?? "categoryName",
       productDescription:
-          json[ApiKeys.productDescription] ?? "productDescription",
-      productPrice: json[ApiKeys.productPrice] ?? 0.0,
-      productAvailability: json[ApiKeys.productAvailability] ?? "available",
-      sellerName: json[ApiKeys.sellerName] ?? "sellerName",
-      productRating: json[ApiKeys.productRating]?.toDouble(),
-      isFavorite: json[ApiKeys.isFavorite] ?? false,
-      productImages: List<String>.from(json[ApiKeys.productImages] ?? []),
+          json["description"] ?? "productDescription",
+      productPrice: json["price"] ?? 0.0,
+      productAvailability: json["availability"] ?? "Sale",
+      sellerName: json["productOwner"] ?? "sellerName",
+      productRating: json["averageRating"]?.toDouble(),
+      isFavorite: json["isFavorite"] ?? false,
+      productImages: List<String>.from(json["images"] ?? []),
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      ApiKeys.productId: productId,
+      ApiKeys.productName: productName,
+      ApiKeys.categoryName: categoryName,
+      ApiKeys.productDescription: productDescription,
+      ApiKeys.productPrice: productPrice,
+      ApiKeys.productAvailability: productAvailability,
+      ApiKeys.sellerName: sellerName,
+      ApiKeys.productRating: productRating,
+      ApiKeys.productImages: productImages,
+    };
   }
 }

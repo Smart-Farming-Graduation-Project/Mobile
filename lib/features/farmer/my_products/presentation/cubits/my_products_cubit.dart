@@ -9,24 +9,28 @@ part 'my_products_state.dart';
 class MyProductsCubit extends Cubit<MyProductsState> {
   final GetMyProducts getMyProductsUseCase;
   final DeleteMyProduct deleteMyProductUseCase;
+  List<MyProductEntity> products = [];
+  int currentPage = 1;
 
   MyProductsCubit(
-    GetMyProducts getMyProducts,
-    DeleteMyProduct deleteMyProduct, {
+    {
     required this.getMyProductsUseCase,
     required this.deleteMyProductUseCase,
   }) : super(MyProductsInitial());
 
   Future<void> getMyProducts({int pageNumber = 1, int pageSize = 10}) async {
     emit(MyProductsLoading());
-
     final params =
         GetMyProductsParams(pageNumber: pageNumber, pageSize: pageSize);
     final result = await getMyProductsUseCase(params);
     result.fold(
       (failure) => emit(MyProductsError(failure.message)),
-      (products) => emit(MyProductsLoaded(products,
-          currentPage: pageNumber, hasMoreData: products.length >= pageSize)),
+      (products) {
+        currentPage = pageNumber;
+        this.products = products;
+        emit(MyProductsLoaded(products,
+            currentPage: pageNumber, hasMoreData: products.length >= pageSize));
+      },
     );
   }
 
@@ -64,9 +68,7 @@ class MyProductsCubit extends Cubit<MyProductsState> {
     final result = await deleteMyProductUseCase(productId);
     result.fold(
       (failure) => emit(DeleteProductError(failure.message)),
-      (success) {
-        getMyProducts(pageNumber: 1, pageSize: 10);
-      },
+      (success) => emit(const DeleteProductSuccess()),
     );
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'toolbar.dart';
 
 class PostBodyInput extends StatelessWidget {
   const PostBodyInput({super.key});
@@ -15,8 +14,6 @@ class PostBodyInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const PostToolbar(),
-          Divider(color: Colors.grey[300]),
           const TextField(
             maxLines: 5,
             decoration: InputDecoration(

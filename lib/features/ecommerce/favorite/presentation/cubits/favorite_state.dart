@@ -1,4 +1,5 @@
-import 'package:crop_guard/core/models/product_model.dart';
+
+import 'package:crop_guard/features/ecommerce/favorite/presentation/models/favorite_product_model.dart';
 
 class FavoriteState {}
 
@@ -7,7 +8,7 @@ class FavoriteInitial extends FavoriteState {}
 class FavoriteLoading extends FavoriteState {}
 
 class FavoriteSuccess extends FavoriteState {
-  final List<ProductModel> favoriteProducts;
+  final List<FavoriteProductModel> favoriteProducts;
   FavoriteSuccess(this.favoriteProducts);
 }
 

@@ -1,5 +1,6 @@
 import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailExpansion extends StatelessWidget {
   const ProductDetailExpansion({super.key, required this.description});
@@ -7,7 +8,7 @@ class ProductDetailExpansion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      tilePadding: const EdgeInsets.symmetric(vertical: 8),
+      tilePadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
       iconColor: AppColors.kPrimaryColor,
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       textColor: AppColors.kPrimaryColor,
