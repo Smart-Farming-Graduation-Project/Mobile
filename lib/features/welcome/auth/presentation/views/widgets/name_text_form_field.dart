@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NameTextFormField extends StatelessWidget {
   const NameTextFormField(
-      {super.key, required this.controller, required this.labelText});
+      {super.key, required this.controller, required this.labelText,});
   final TextEditingController controller;
   final String labelText;
 

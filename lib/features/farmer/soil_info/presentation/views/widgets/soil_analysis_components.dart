@@ -12,28 +12,28 @@ class SoilAnalysisComponents extends StatelessWidget {
       children: [
         SensorDataCard(
           title: 'Moisture',
-          value: soilAnalysisEntity.moistureValue.toString(),
+          value: soilAnalysisEntity.moistureValue.toStringAsFixed(2),
           unit: '%',
           isOk: soilAnalysisEntity.moistureStatus,
           safeRange: '30-60',
         ),
         SensorDataCard(
           title: 'Humidity',
-          value: soilAnalysisEntity.humidityValue.toString(),
+          value: soilAnalysisEntity.humidityValue.toStringAsFixed(2),
           unit: '%',
           safeRange: '40-70',
           isOk: soilAnalysisEntity.humidityStatus,
         ),
         SensorDataCard(
           title: 'Temperature',
-          value: soilAnalysisEntity.temperatureValue.toString(),
+          value: soilAnalysisEntity.temperatureValue.toStringAsFixed(2),
           unit: '°C',
           safeRange: '20-30',
           isOk: soilAnalysisEntity.temperatureStatus,
         ),
         SensorDataCard(
           title: 'Light Intensity',
-          value: soilAnalysisEntity.lightIntensityValue.toString(),
+          value: soilAnalysisEntity.lightIntensityValue.toStringAsFixed(2),
           unit: 'lux',
           safeRange: '50-200',
           isOk: soilAnalysisEntity.lightIntensityStatus,

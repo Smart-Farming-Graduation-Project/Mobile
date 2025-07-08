@@ -33,7 +33,7 @@ class InformationWidget extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Text('${getIt<CacheHelper>().getDataString(key: ApiKeys.username)}',
+                    Text('${getIt<CacheHelper>().getDataString(key: ApiKeys.firstName)} ${getIt<CacheHelper>().getDataString(key: ApiKeys.lastName)}',
                         style: AppTextStyles.font24.copyWith(
                           fontWeight: FontWeight.bold,
                         )),

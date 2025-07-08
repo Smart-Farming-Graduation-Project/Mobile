@@ -20,7 +20,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       final response = await api.get(EndPoints.getProfile(userId!));
       final profile = ProfileModel.fromJson(response[ApiKeys.data]);
       getIt<CacheHelper>().saveData(
-          key: ApiKeys.username, value: "${profile.firstName} ${profile.lastName}");
+          key: ApiKeys.firstName, value: profile.firstName);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.lastName, value: profile.lastName);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.username, value: profile.username);
       getIt<CacheHelper>().saveData(
           key: ApiKeys.email, value: profile.email);
       getIt<CacheHelper>().saveData(

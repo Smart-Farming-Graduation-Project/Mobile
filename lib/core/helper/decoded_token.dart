@@ -11,13 +11,22 @@ class DecodedToken {
     final tokenData = JwtDecoder.decode(token);
     log(tokenData.toString());
     getIt<CacheHelper>().saveData(key: ApiKeys.userId, value: tokenData["sub"]);
-    getIt<CacheHelper>().saveData(key: ApiKeys.email, value: tokenData["email"]);
-    getIt<CacheHelper>().saveData(key: ApiKeys.username, value: tokenData["given_name"]);
-    final rolesList = tokenData["Role"] as List<dynamic>;
-    if (rolesList.contains("Buyer")) {
-      getIt<CacheHelper>().saveData(key: ApiKeys.role, value: "Buyer");
-    } else if (rolesList.contains("Farmer")) {
+    getIt<CacheHelper>()
+        .saveData(key: ApiKeys.email, value: tokenData["email"]);
+    getIt<CacheHelper>()
+        .saveData(key: ApiKeys.username, value: tokenData["given_name"]);
+    final roleData = tokenData["Role"];
+    List<dynamic> rolesList = [];
+    if (roleData is List<dynamic>) {
+      rolesList = roleData;
+    } else {
+      rolesList.add(roleData);
+    }
+    if (rolesList.contains("Farmer")) {
       getIt<CacheHelper>().saveData(key: ApiKeys.role, value: "Farmer");
+    }
+    else if (rolesList.contains("Buyer") || rolesList.contains("User")) {
+      getIt<CacheHelper>().saveData(key: ApiKeys.role, value: "Buyer");
     }
   }
 }

@@ -8,16 +8,16 @@ class ProfileModel {
   final String address;
   final String profileImage;
 
-  ProfileModel(
-      {required this.id,
-      required this.firstName,
-      required this.lastName,
-      required this.username,
-      required this.email,
-      required this.phone,
-      required this.address,
-      required this.profileImage,
-      });
+  ProfileModel({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.username,
+    required this.email,
+    required this.phone,
+    required this.address,
+    required this.profileImage,
+  });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
@@ -27,7 +27,7 @@ class ProfileModel {
       username: json['userName'],
       email: json['email'],
       phone: json['phone'],
-      address: json['address'],
+      address: json['address'] ?? "Cairo",
       profileImage: json['imageUrl'],
     );
   }
