@@ -15,7 +15,7 @@ import 'package:crop_guard/features/ecommerce/home/presentation/widgets/home_con
 import 'package:crop_guard/features/ecommerce/notification/presentation/views/notification_view.dart';
 import 'package:crop_guard/features/ecommerce/payment/presentation/views/payment_view.dart';
 import 'package:crop_guard/features/ecommerce/popular_products/presentation/views/popular_products_view.dart';
-import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
+import 'package:crop_guard/features/ecommerce/profile/presentation/manger/cubits/cubit/edit_profile_cubit_dart_cubit.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/views/edit_profile.dart';
 import 'package:crop_guard/features/ecommerce/profile/presentation/views/profile_view.dart';
 import 'package:crop_guard/features/ecommerce/reviews/presentation/views/reviews_screen.dart';
@@ -89,23 +89,22 @@ abstract class AppRouter {
   static const String connectionScreen = '/connectionScreen';
   static const String controlScreen = '/controlScreen';
 
-
   static final router =
       GoRouter(navigatorKey: getIt<GlobalKey<NavigatorState>>(), routes: [
     GoRoute(
       path: community,
       builder: (context, state) => const CommunityHomeScreen(),
     ),
-        // في app_router.dart
-        // في app_router.dart
-        GoRoute(
-          path: createpost,
-          builder: (context, state) => BlocProvider(
-            create: (context) => PostCubit(),
-            child: const CreatePost(),
-          ),
-        ),
-        // welcome routes
+    // في app_router.dart
+    // في app_router.dart
+    GoRoute(
+      path: createpost,
+      builder: (context, state) => BlocProvider(
+        create: (context) => PostCubit(),
+        child: const CreatePost(),
+      ),
+    ),
+    // welcome routes
     GoRoute(
       path: splash,
       builder: (context, state) => const SplashScreen(),
@@ -256,10 +255,10 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: editProfile,
-      builder: (context, state) {
-        final profile = state.extra as ProfileModel;
-        return EditProfile(profile: profile);
-      },
+      builder: (context, state) => BlocProvider(
+        create: (context) => EditProfileCubit()..initializeControllers(),
+        child: const EditProfile(),
+      ),
     ),
     GoRoute(
       path: connectionScreen,

@@ -42,7 +42,7 @@ class PaymentViewBody extends StatelessWidget {
               "Farmer") {
             GoRouter.of(context).go(AppRouter.farmerHome);
           }
-          showSuccessMessage(context);
+          showSuccessMessage(context, 'Order Placed Successfully!');
         } else if (state is StripePaymentFailure) {
           showErrorMessage(context, state.message);
         } else if (state is StripePaymentLoading) {

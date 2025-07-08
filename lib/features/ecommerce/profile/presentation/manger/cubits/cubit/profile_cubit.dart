@@ -19,9 +19,25 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       final response = await api.get(EndPoints.getProfile(userId!));
       final profile = ProfileModel.fromJson(response[ApiKeys.data]);
-      emit(ProfileSuccessState(profile: profile));
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.firstName, value: profile.firstName);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.lastName, value: profile.lastName);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.username, value: profile.username);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.email, value: profile.email);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.profilePhone, value: profile.phone);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.address, value: profile.address);
+      getIt<CacheHelper>().saveData(
+          key: ApiKeys.profileImage, value: profile.profileImage);
+      if (!isClosed) emit(ProfileSuccessState(profile: profile));
     } on ServerException catch (e) {
-      emit(ProfileErrorState(errorMessage: e.errorModel.errorMessage));
+      if (!isClosed) {
+        emit(ProfileErrorState(errorMessage: e.errorModel.errorMessage));
+      }
     }
   }
 }

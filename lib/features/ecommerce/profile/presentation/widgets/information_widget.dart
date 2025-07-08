@@ -1,10 +1,11 @@
+import 'package:crop_guard/core/api/api_keys.dart';
+import 'package:crop_guard/core/database/cache/cache_helper.dart';
+import 'package:crop_guard/core/services/service_locator.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
-import 'package:crop_guard/features/ecommerce/profile/presentation/manger/models/profile_model.dart';
 import 'package:flutter/material.dart';
 
 class InformationWidget extends StatelessWidget {
-  const InformationWidget({super.key, required this.profile});
-  final ProfileModel profile;
+  const InformationWidget({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class InformationWidget extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(
-                      profile.profileImage,
+                      getIt<CacheHelper>().getDataString(key: ApiKeys.profileImage)!,
                     ),
                   ),
                 ),
@@ -32,12 +33,12 @@ class InformationWidget extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Text('${profile.firstName} ${profile.lastName}',
+                    Text('${getIt<CacheHelper>().getDataString(key: ApiKeys.firstName)} ${getIt<CacheHelper>().getDataString(key: ApiKeys.lastName)}',
                         style: AppTextStyles.font24.copyWith(
                           fontWeight: FontWeight.bold,
                         )),
                     Text(
-                      profile.email,
+                      getIt<CacheHelper>().getDataString(key: ApiKeys.email)!,
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                     )
                   ],

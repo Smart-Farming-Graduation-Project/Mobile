@@ -1,0 +1,989 @@
+# Community Feature Documentation
+
+## Executive Summary
+
+The Community feature in CropGuard is a comprehensive social platform designed specifically for farmers to share knowledge, experiences, and insights. This feature enables farmers to create, share, and interact with posts through a Reddit-style voting system, fostering a collaborative agricultural community. The feature provides a modern, intuitive interface for farmers to connect, learn from each other, and build a supportive network within the agricultural ecosystem.
+
+### Key Features:
+- **Post Creation & Management**: Farmers can create, edit, and delete posts with titles and content
+- **Voting System**: Upvote/downvote functionality to promote quality content
+- **User Profiles**: Display user information with profile pictures
+- **Real-time Updates**: Dynamic content loading with skeleton loading states
+- **Responsive Design**: Modern UI with smooth animations and intuitive navigation
+- **Content Moderation**: Users can manage their own posts with edit/delete capabilities
+
+### Technical Highlights:
+- **State Management**: BLoC pattern implementation for robust state handling
+- **API Integration**: RESTful API communication with Azure backend
+- **Caching**: Local data persistence for improved performance
+- **Error Handling**: Comprehensive error management with user-friendly messages
+- **Responsive UI**: Material Design components with custom styling
+
+## User Experience Flow
+
+### 1. Community Home Screen
+- **Entry Point**: Users access the community through the main navigation
+- **Layout**: Clean, card-based design with header and post feed
+- **Navigation**: Bottom navigation bar for switching between Community and Profile views
+- **Loading States**: Skeleton loading animations for better perceived performance
+
+### 2. Post Creation Flow
+- **Access**: Users tap the "Share what's on your mind..." input field in the header
+- **Form**: Dedicated create post screen with title and content fields
+- **Validation**: Real-time validation ensuring both title and content are provided
+- **Submission**: Async post creation with loading indicators and success/error feedback
+
+### 3. Post Interaction Flow
+- **Voting**: Tap upvote/downvote arrows to rate content
+- **Visual Feedback**: Color-coded voting states (green for upvote, red for downvote)
+- **Post Management**: Three-dot menu for edit/delete options (owner only)
+- **Content Display**: Expandable post content with proper formatting
+
+### 4. Content Management Flow
+- **Edit Posts**: In-place editing with pre-populated form fields
+- **Delete Posts**: Confirmation-free deletion with immediate UI updates
+- **Real-time Updates**: Automatic refresh after content modifications
+
+## Architecture Overview
+
+### Directory Structure
+```
+lib/features/farmer/community/
+├── models/
+│   ├── post_model.dart          # Post data model
+│   └── post.dart               # Post entity
+├── presentation/
+│   ├── cubits/
+│   │   ├── create_post_cubit.dart    # Post CRUD operations
+│   │   ├── create_post_state.dart    # Post state management
+│   │   ├── vote_cubit.dart           # Voting logic
+│   │   └── vote_state.dart           # Vote state management
+│   └── views/
+│       ├── community_home_screen.dart    # Main community screen
+│       ├── community_body.dart          # Community content body
+│       ├── create_post.dart             # Post creation screen
+│       ├── edit_post_screen.dart        # Post editing screen
+│       ├── user_posts_screen.dart       # User's posts view
+│       └── widgets/
+│           ├── comunnity_header.dart    # Community header with create post
+│           ├── post_card_widget.dart    # Individual post display
+│           ├── post_header.dart         # Post user info header
+│           ├── post_body.dart           # Post content display
+│           ├── post_actions_row.dart    # Voting and action buttons
+│           ├── navigation_bar.dart      # Bottom navigation
+│           ├── placeholder_post.dart    # Loading placeholder
+│           ├── post_body_input.dart     # Post input components
+│           └── text_input.dart          # Reusable text input
+```
+
+### State Management Architecture
+- **PostCubit**: Manages post CRUD operations and list state
+- **VoteCubit**: Handles individual post voting state
+- **BLoC Pattern**: Ensures separation of business logic from UI
+- **State Classes**: Immutable state objects for predictable state changes
+
+### Data Flow
+1. **API Layer**: RESTful endpoints for post operations
+2. **Cubit Layer**: Business logic and state management
+3. **UI Layer**: Reactive widgets that respond to state changes
+4. **Model Layer**: Data models for type safety and serialization
+
+## Real Code Implementation
+
+### 1. Community Home Screen
+```dart
+class CommunityHomeScreen extends StatefulWidget {
+  const CommunityHomeScreen({super.key});
+
+  @override
+  State<CommunityHomeScreen> createState() => _CommunityHomeScreenState();
+}
+
+class _CommunityHomeScreenState extends State<CommunityHomeScreen> {
+  int _selectedIndex = 0;
+  final PostCubit _postCubit = PostCubit();
+
+  @override
+  void initState() {
+    super.initState();
+    _postCubit.fetchAllPosts();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() => _selectedIndex = index);
+    if (index == 0) _postCubit.fetchAllPosts();
+  }
+
+  String get _appBarTitle => ['Community', 'Profile'][_selectedIndex];
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: _postCubit,
+      child: Scaffold(
+        backgroundColor: AppColors.kWhiteColor,
+        appBar: AppBar(
+          title: Text(
+            _appBarTitle,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Colors.black),
+        ),
+        body: CommunityBody(
+          index: _selectedIndex,
+          postCubit: _postCubit,
+        ),
+        bottomNavigationBar: CommunityBottomNavBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ),
+      ),
+    );
+  }
+}
+```
+
+### 2. Post Model
+```dart
+class PostModel {
+  final int id;
+  final String userId;
+  final String userName;
+  final String userImageUrl;
+  final String title;
+  final String content;
+  final int voteCount;
+  final DateTime createdAt;
+  final DateTime? updatedAt;
+  final int userVoteStatus;
+
+  PostModel({
+    required this.id,
+    required this.userId,
+    required this.userName,
+    required this.userImageUrl,
+    required this.title,
+    required this.content,
+    required this.voteCount,
+    required this.createdAt,
+    this.updatedAt,
+    required this.userVoteStatus,
+  });
+
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: json['id'],
+      userId: json['userId'],
+      userName: json['userName'],
+      userImageUrl: json['userImageUrl'],
+      title: json['title'],
+      content: json['content'],
+      voteCount: json['voteCount'],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+      userVoteStatus: json['userVoteStatus'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userId': userId,
+      'userName': userName,
+      'userImageUrl': userImageUrl,
+      'title': title,
+      'content': content,
+      'voteCount': voteCount,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'userVoteStatus': userVoteStatus,
+    };
+  }
+}
+```
+
+### 3. Post Cubit (State Management)
+```dart
+class PostCubit extends Cubit<PostState> {
+  PostCubit() : super(PostInitial());
+
+  final api = getIt<DioConsumer>();
+  final List<PostModel> posts = [];
+
+  Future<void> fetchAllPosts() async {
+    emit(PostLoading());
+    try {
+      final response = await api.get(EndPoints.getAllPosts);
+      final postsData = response[ApiKeys.data] as List;
+
+      final fetchedPosts = postsData
+          .map((json) => PostModel.fromJson(json))
+          .toList()
+          .reversed
+          .toList();
+
+      posts.clear();
+      posts.addAll(fetchedPosts);
+
+      emit(PostLoaded(posts));
+    } on ServerException catch (e) {
+      emit(PostError(e.errorModel.errorMessage));
+    }
+  }
+
+  Future<void> createPost({
+    required String title,
+    required String content,
+    required int sharedPostId,
+  }) async {
+    try {
+      await api.post(
+        EndPoints.createPost,
+        data: {
+          "title": title,
+          "content": content,
+          "sharedPostId": sharedPostId,
+        },
+      );
+      log("Post created successfully");
+    } on ServerException catch (e) {
+      throw Exception("Create Post failed: ${e.errorModel.errorMessage}");
+    } catch (e) {
+      throw Exception("Create Post failed: ${e.toString()}");
+    }
+  }
+
+  Future<void> updatePost({
+    required int id,
+    required String title,
+    required String content,
+    int sharedPostId = 0,
+  }) async {
+    emit(PostLoading());
+    try {
+      await api.put(
+        EndPoints.updatePost(id),
+        data: {
+          "id": id,
+          "title": title,
+          "content": content,
+          "sharedPostId": sharedPostId,
+        },
+      );
+      await fetchAllPosts();
+    } on ServerException catch (e) {
+      emit(PostError(e.errorModel.errorMessage));
+    }
+  }
+
+  Future<void> deletePost(int id) async {
+    emit(PostLoading());
+    try {
+      await api.delete(EndPoints.deletePost(id));
+      await fetchAllPosts();
+    } on ServerException catch (e) {
+      emit(PostError(e.errorModel.errorMessage));
+    }
+  }
+}
+```
+
+### 4. Vote Cubit (Voting Logic)
+```dart
+class VoteCubit extends Cubit<VoteState> {
+  final DioConsumer api;
+  final int postId;
+
+  VoteCubit({
+    required int initialVotes,
+    required this.postId,
+  })  : api = getIt<DioConsumer>(),
+        super(VoteState(votes: initialVotes, voteStatus: VoteStatus.neutral));
+
+  Future<void> upvote() async {
+    try {
+      if (state.voteStatus == VoteStatus.upvoted) {
+        await _deleteVote();
+        emit(state.copyWith(
+          votes: state.votes - 1,
+          voteStatus: VoteStatus.neutral,
+        ));
+      } else {
+        await _sendVote(1);
+        int newVotes = state.votes + (state.voteStatus == VoteStatus.downvoted ? 2 : 1);
+        emit(state.copyWith(
+          votes: newVotes,
+          voteStatus: VoteStatus.upvoted,
+        ));
+      }
+    } catch (e) {
+      // handle error here if needed
+    }
+  }
+
+  Future<void> downvote() async {
+    try {
+      if (state.voteStatus == VoteStatus.downvoted) {
+        await _deleteVote();
+        emit(state.copyWith(
+          votes: state.votes + 1,
+          voteStatus: VoteStatus.neutral,
+        ));
+      } else {
+        await _sendVote(-1);
+        int newVotes = state.votes - (state.voteStatus == VoteStatus.upvoted ? 2 : 1);
+        emit(state.copyWith(
+          votes: newVotes,
+          voteStatus: VoteStatus.downvoted,
+        ));
+      }
+    } catch (e) {
+      // handle error here if needed
+    }
+  }
+
+  Future<void> _sendVote(int voteType) async {
+    try {
+      await api.post(
+        EndPoints.vote,
+        data: {
+          "targetId": postId,
+          "targetType": "post",
+          "voteType": voteType,
+        },
+      );
+    } on ServerException catch (e) {
+      throw Exception("Vote failed: ${e.errorModel.errorMessage}");
+    }
+  }
+
+  Future<void> _deleteVote() async {
+    try {
+      await api.delete(
+        EndPoints.deleteVote,
+        data: {
+          "targetId": postId,
+          "targetType": "post",
+        },
+      );
+    } on ServerException catch (e) {
+      throw Exception("Delete vote failed: ${e.errorModel.errorMessage}");
+    }
+  }
+}
+```
+
+### 5. Post Card Widget
+```dart
+class PostCardWidget extends StatelessWidget {
+  final PostModel post;
+
+  const PostCardWidget({super.key, required this.post});
+
+  @override
+  Widget build(BuildContext context) {
+    final String currentUserId =
+        getIt<CacheHelper>().getData(key: "userId") ?? "";
+
+    final bool isMyPost = post.userId == currentUserId;
+
+    return BlocProvider(
+      create: (_) => VoteCubit(
+        initialVotes: post.voteCount,
+        postId: post.id,
+      ),
+      child: BlocBuilder<VoteCubit, VoteState>(
+        builder: (context, state) {
+          return Card(
+            color: Colors.white,
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(color: Colors.grey.shade200),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header row (user info + actions)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: PostHeader(
+                          userName: post.userName,
+                          userImageUrl: post.userImageUrl,
+                        ),
+                      ),
+                      if (isMyPost)
+                        IconButton(
+                          icon: const Icon(Icons.more_vert),
+                          onPressed: () {
+                            final postCubit = context.read<PostCubit>();
+
+                            showModalBottomSheet(
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                ),
+                              ),
+                              builder: (context) {
+                                return SafeArea(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListTile(
+                                        leading: const Icon(Icons.edit),
+                                        title: const Text('Edit'),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => BlocProvider.value(
+                                                value: postCubit,
+                                                child: EditPostScreen(post: post),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: const Icon(Icons.delete),
+                                        title: const Text('Delete'),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          postCubit.deletePost(post.id);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  // Post title and content
+                  PostBody(
+                    title: post.title,
+                    body: post.content,
+                    maxLines: 5,
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  // Post actions row (votes, time, etc.)
+                  PostActionsRow(
+                    commentsCount: 0,
+                    state: state,
+                    timeAgo: post.updatedAt != null
+                        ? 'Edited on ${DateFormat('dd/MM/yyyy').format(post.updatedAt!)}'
+                        : 'Posted on ${DateFormat('dd/MM/yyyy').format(post.createdAt)}',
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+### 6. Create Post Screen
+```dart
+class CreatePost extends StatefulWidget {
+  const CreatePost({super.key});
+
+  @override
+  State<CreatePost> createState() => _CreatePostState();
+}
+
+class _CreatePostState extends State<CreatePost> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
+  bool _isPosting = false;
+
+  void _submitPost() async {
+    final title = _titleController.text.trim();
+    final content = _contentController.text.trim();
+
+    if (title.isEmpty || content.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please fill all fields.")),
+      );
+      return;
+    }
+
+    setState(() => _isPosting = true);
+
+    try {
+      final postCubit = context.read<PostCubit>();
+      await postCubit.createPost(
+        title: title,
+        content: content,
+        sharedPostId: 0,
+      );
+
+      if (mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Post created successfully!"),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Failed to create post: $e"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isPosting = false);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FAF9),
+      appBar: AppBar(
+        title: const Text(
+          'Create Post',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            _buildInputField("Title", _titleController),
+            const SizedBox(height: 16),
+            _buildInputField("Write something...", _contentController, height: 160),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: _isPosting ? null : _submitPost,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.kGreenColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 3,
+                ),
+                child: _isPosting
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
+                        'Post',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInputField(String hint, TextEditingController controller, {double? height}) {
+    return Container(
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.green.shade200),
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.08),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: TextField(
+        controller: controller,
+        maxLines: height != null ? null : 1,
+        expands: height != null,
+        decoration: InputDecoration(
+          hintText: hint,
+          border: InputBorder.none,
+          hintStyle: const TextStyle(color: Colors.grey),
+          counterText: '',
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Mermaid Flow Diagrams
+
+### 1. Community Feature Architecture
+```mermaid
+graph TB
+    A[Community Home Screen] --> B[Community Body]
+    B --> C[Post List]
+    B --> D[Community Header]
+    
+    C --> E[Post Card Widget]
+    E --> F[Post Header]
+    E --> G[Post Body]
+    E --> H[Post Actions Row]
+    
+    D --> I[Create Post Button]
+    I --> J[Create Post Screen]
+    
+    E --> K[Vote Cubit]
+    E --> L[Post Cubit]
+    
+    K --> M[Vote State]
+    L --> N[Post State]
+    
+    L --> O[API Layer]
+    K --> O
+    
+    O --> P[Azure Backend]
+    
+    style A fill:#e1f5fe
+    style J fill:#f3e5f5
+    style E fill:#e8f5e8
+    style O fill:#fff3e0
+```
+
+### 2. Post Creation Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant UI as Create Post UI
+    participant C as Post Cubit
+    participant API as API Layer
+    participant B as Backend
+    
+    U->>UI: Tap Create Post
+    UI->>UI: Show Create Post Form
+    U->>UI: Enter Title & Content
+    U->>UI: Tap Post Button
+    UI->>UI: Validate Input
+    UI->>C: createPost(title, content)
+    C->>API: POST /CreatePost
+    API->>B: Create Post Request
+    B->>API: Success Response
+    API->>C: Post Created
+    C->>UI: Success State
+    UI->>UI: Show Success Message
+    UI->>UI: Navigate Back
+    UI->>C: fetchAllPosts()
+    C->>API: GET /GetPosts
+    API->>B: Fetch Posts Request
+    B->>API: Posts Data
+    API->>C: Posts List
+    C->>UI: Update Post List
+```
+
+### 3. Voting System Flow
+```mermaid
+stateDiagram-v2
+    [*] --> Neutral
+    Neutral --> Upvoted: Upvote
+    Neutral --> Downvoted: Downvote
+    Upvoted --> Neutral: Upvote Again
+    Upvoted --> Downvoted: Downvote
+    Downvoted --> Neutral: Downvote Again
+    Downvoted --> Upvoted: Upvote
+    
+    state Upvoted {
+        [*] --> VoteCount +1
+        VoteCount +1 --> [*]
+    }
+    
+    state Downvoted {
+        [*] --> VoteCount -1
+        VoteCount -1 --> [*]
+    }
+    
+    state Neutral {
+        [*] --> VoteCount +0
+        VoteCount +0 --> [*]
+    }
+```
+
+### 4. Data Flow Architecture
+```mermaid
+graph LR
+    A[UI Layer] --> B[BLoC Layer]
+    B --> C[Repository Layer]
+    C --> D[API Layer]
+    D --> E[Backend API]
+    
+    A --> F[State Management]
+    B --> F
+    C --> G[Data Models]
+    D --> G
+    
+    H[Cache Layer] --> C
+    C --> H
+    
+    style A fill:#e3f2fd
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+```
+
+## API Endpoints
+
+### Post Management Endpoints
+```dart
+// Base URL for posts
+static const String basePosts = "https://crop-pilot-api.azurewebsites.net/api/Posts";
+
+// Get all posts
+static const String getAllPosts = "$basePosts/GetPosts";
+
+// Get post by ID
+static String getPostById(int id) => "$basePosts/GetPost/$id";
+
+// Get posts by user
+static String getPostsByUser(String userId) => "$basePosts/GetPostsByUser/$userId";
+
+// Create new post
+static const String createPost = "$basePosts/CreatePost";
+
+// Update existing post
+static String updatePost(int id) => "$basePosts/UpdatePost/$id";
+
+// Delete post
+static String deletePost(int id) => "$basePosts/DeletePost/$id";
+```
+
+### Voting Endpoints
+```dart
+// Vote on a post
+static const String vote = '$baseUrl/api/Votes/Vote';
+
+// Delete vote
+static const String deleteVote = '$baseUrl/api/Votes/DeleteVote';
+```
+
+## State Management
+
+### Post States
+```dart
+abstract class PostState {}
+
+class PostInitial extends PostState {}
+
+class PostLoading extends PostState {}
+
+class PostLoaded extends PostState {
+  final List<PostModel> posts;
+  PostLoaded(this.posts);
+}
+
+class PostError extends PostState {
+  final String message;
+  PostError(this.message);
+}
+```
+
+### Vote States
+```dart
+enum VoteStatus { neutral, upvoted, downvoted }
+
+class VoteState {
+  final int votes;
+  final VoteStatus voteStatus;
+
+  VoteState({
+    required this.votes,
+    required this.voteStatus,
+  });
+
+  VoteState copyWith({
+    int? votes,
+    VoteStatus? voteStatus,
+  }) {
+    return VoteState(
+      votes: votes ?? this.votes,
+      voteStatus: voteStatus ?? this.voteStatus,
+    );
+  }
+}
+```
+
+## UI Components
+
+### Community Header
+- **Purpose**: Provides quick access to post creation
+- **Features**: User profile picture, create post input field
+- **Navigation**: Routes to create post screen
+
+### Post Card Widget
+- **Purpose**: Displays individual posts in a card format
+- **Features**: User info, post content, voting buttons, action menu
+- **Interactions**: Upvote/downvote, edit/delete (owner only)
+
+### Post Actions Row
+- **Purpose**: Provides interaction options for posts
+- **Features**: Voting buttons, comment count, share button, timestamp
+- **State Management**: Real-time vote count updates
+
+### Navigation Bar
+- **Purpose**: Bottom navigation for community and profile views
+- **Features**: Tab switching with visual indicators
+- **State**: Maintains selected tab state
+
+## Error Handling
+
+### API Error Handling
+```dart
+try {
+  final response = await api.get(EndPoints.getAllPosts);
+  // Process response
+} on ServerException catch (e) {
+  emit(PostError(e.errorModel.errorMessage));
+}
+```
+
+### User Input Validation
+```dart
+if (title.isEmpty || content.isEmpty) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text("Please fill all fields.")),
+  );
+  return;
+}
+```
+
+### Network Error Handling
+```dart
+catch (e) {
+  if (mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Failed to create post: $e"),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+}
+```
+
+## Performance Optimizations
+
+### 1. Skeleton Loading
+- **Implementation**: Uses `skeletonizer` package for loading states
+- **Benefit**: Improves perceived performance during data fetching
+- **Usage**: Applied to post list during initial load
+
+### 2. Efficient State Management
+- **BLoC Pattern**: Ensures minimal widget rebuilds
+- **Immutable States**: Prevents unnecessary state mutations
+- **Local State**: Vote state managed per post for better performance
+
+### 3. Optimized API Calls
+- **Batch Operations**: Fetch all posts in single API call
+- **Caching**: Local data persistence for offline access
+- **Error Recovery**: Automatic retry mechanisms
+
+## Security Considerations
+
+### 1. User Authentication
+- **Token-based**: JWT tokens for API authentication
+- **User Validation**: Server-side user verification for post operations
+
+### 2. Content Moderation
+- **Owner-only Actions**: Edit/delete restricted to post owners
+- **Input Validation**: Client and server-side validation
+- **XSS Prevention**: Proper content sanitization
+
+### 3. API Security
+- **HTTPS**: All API communications over secure protocol
+- **Rate Limiting**: Backend protection against abuse
+- **Input Sanitization**: Server-side validation of all inputs
+
+## Testing Strategy
+
+### 1. Unit Tests
+- **Cubit Testing**: Test state transitions and business logic
+- **Model Testing**: Validate data serialization/deserialization
+- **API Testing**: Mock API responses for testing
+
+### 2. Widget Tests
+- **UI Components**: Test individual widget behavior
+- **User Interactions**: Test voting, posting, and navigation
+- **State Updates**: Verify UI updates with state changes
+
+### 3. Integration Tests
+- **End-to-End**: Test complete user workflows
+- **API Integration**: Test real API communication
+- **Error Scenarios**: Test error handling and recovery
+
+## Future Enhancements
+
+### 1. Advanced Features
+- **Comments System**: Allow users to comment on posts
+- **Post Categories**: Organize posts by topics
+- **Search Functionality**: Find posts by keywords
+- **Post Sharing**: Share posts to external platforms
+
+### 2. Performance Improvements
+- **Pagination**: Load posts in chunks for better performance
+- **Image Support**: Allow image attachments to posts
+- **Real-time Updates**: WebSocket integration for live updates
+- **Offline Support**: Enhanced offline functionality
+
+### 3. User Experience
+- **Rich Text Editor**: Enhanced post creation with formatting
+- **Post Templates**: Pre-defined post templates for common topics
+- **Notification System**: Notify users of interactions
+- **User Profiles**: Enhanced user profile pages
+
+## Summary
+
+The Community feature in CropGuard represents a comprehensive social platform designed specifically for the agricultural community. With its modern architecture, robust state management, and intuitive user interface, it provides farmers with a powerful tool for knowledge sharing and community building.
+
+### Key Achievements:
+- **Scalable Architecture**: BLoC pattern ensures maintainable and testable code
+- **Real-time Interactions**: Dynamic voting system with immediate feedback
+- **User-friendly Design**: Intuitive interface with smooth animations
+- **Robust Error Handling**: Comprehensive error management and user feedback
+- **Performance Optimized**: Efficient data loading and state management
+
+### Technical Excellence:
+- **Clean Code**: Well-structured, readable, and maintainable codebase
+- **Type Safety**: Strong typing with Dart for reliable development
+- **API Integration**: Seamless communication with Azure backend
+- **State Management**: Predictable state changes with BLoC pattern
+- **UI/UX**: Modern Material Design with custom styling
+
+The Community feature successfully bridges the gap between traditional farming practices and modern digital communication, enabling farmers to connect, share knowledge, and build a supportive network within the agricultural ecosystem. This feature serves as a foundation for future enhancements and demonstrates the potential for technology to strengthen agricultural communities. 

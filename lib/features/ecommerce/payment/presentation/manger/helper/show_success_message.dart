@@ -3,7 +3,7 @@ import 'package:crop_guard/core/theme/app_colors.dart';
 import 'package:crop_guard/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
-void showSuccessMessage(BuildContext context) {
+void showSuccessMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
@@ -14,7 +14,7 @@ void showSuccessMessage(BuildContext context) {
             ),
             horizontalSpace(8),
             Text(
-              'Payment Successful!',
+              message,
               style: AppTextStyles.font16WhiteRegular,
             ),
           ],

@@ -114,5 +114,8 @@ class EndPoints {
   static String getProfile(String id) {
     return 'User/GetById/$id';
   }
+  static String updateUserData = 'User/Edit';
+  static String changeProfileImage = 'User/ChangeImage';
+  
 }
 

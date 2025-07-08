@@ -28,6 +28,8 @@ class CommunityBody extends StatelessWidget {
             if (state is PostLoading) {
               return Skeletonizer(
                 child: ListView.separated(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   itemCount: 8,
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
@@ -40,7 +42,8 @@ class CommunityBody extends StatelessWidget {
             } else if (state is PostLoaded) {
               final posts = state.posts;
               return ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 itemCount: posts.length + 2,
                 separatorBuilder: (_, __) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
