@@ -41,4 +41,4 @@ jobs:
               "${{ github.event.repository.name }}"
 
         env:
-          GOOGLE_SHEETS_CREDENTIALS: ${ secrets.GOOGLE_SHEETS_CREDENTIALS }
+          GOOGLE_SHEETS_CREDENTIALS: ${ secrets.GOOGLE_SHEET_CREDENTIALS }
