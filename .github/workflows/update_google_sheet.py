@@ -7,7 +7,7 @@ from googleapiclient.discovery import build
 
 # Set up Google Sheets API credentials
 def get_sheets_service():
-    creds_env = os.getenv('GOOGLE_SHEET_CREDENTIALS')
+    creds_env = os.getenv('GOOGLE_SHEETS_CREDENTIALS')
     if not creds_env:
         raise EnvironmentError("GOOGLE_SHEET_CREDENTIALS is not set or is empty.")
 
