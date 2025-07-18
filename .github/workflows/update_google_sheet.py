@@ -9,12 +9,12 @@ from googleapiclient.discovery import build
 def get_sheets_service():
     creds_env = os.getenv('GOOGLE_SHEET_CREDENTIALS')
     if not creds_env:
-        raise EnvironmentError("GOOGLE_SHEETS_CREDENTIALS is not set or is empty.")
+        raise EnvironmentError("GOOGLE_SHEET_CREDENTIALS is not set or is empty.")
 
     try:
         creds_dict = json.loads(creds_env)
     except json.JSONDecodeError as e:
-        raise ValueError(f"GOOGLE_SHEETS_CREDENTIALS is not valid JSON: {e}")
+        raise ValueError(f"GOOGLE_SHEET_CREDENTIALS is not valid JSON: {e}")
 
     creds = Credentials.from_service_account_info(creds_dict, scopes=["https://www.googleapis.com/auth/spreadsheets"])
     return build('sheets', 'v4', credentials=creds)
